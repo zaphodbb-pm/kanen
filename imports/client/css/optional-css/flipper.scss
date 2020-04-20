@@ -1,0 +1,107 @@
+/** widget flipper **/
+.flipper-cog {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.flipper-cog.dark-cog {
+    color: #777;
+    opacity: 0.8;
+}
+
+.flipper-cog.mid-cog {
+    color: #BBB;
+}
+
+.flipper-cog.light-cog {
+    color: #FFF;
+}
+
+.flipper-container {
+    perspective: 1000px;
+}
+
+/** flip the pane when hovered */
+.flipper-container.hover .flipper-box {
+    transform: rotateY(180deg);
+}
+
+/** flip speed goes here */
+.flipper-box {
+    width: 100%;
+    height: 100%;
+
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+
+/** front pane, placed above back */
+.flipper-box-front {
+    width: 100%;
+    height: 100%;
+    min-height: 35rem;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: rotateY(0deg);
+}
+
+/** back, initially hidden pane */
+.flipper-box-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: rotateY(180deg);
+
+    overflow: hidden;
+}
+
+
+/** controls for info displayed on back page */
+.flipper-box-back-simple {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+}
+
+.flipper-box-back-info {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+
+    font-size: 0.9em;
+    background-color: #EEE;
+    color: #333;
+
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+}
+
+.flipper-box-back-info ul {
+    padding-left: 5px;
+}
+
+.flipper-box-back-info li {
+    list-style: none;
+}
+
+.flipper-box-back-info .flipper-payload {
+    padding-top: 10px;
+}

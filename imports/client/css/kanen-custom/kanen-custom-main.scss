@@ -1,0 +1,31 @@
+/* kanen custom theme over-ride and add-ons*/
+
+$sc_purple: hsl(262, 100%, 52%);
+$sc_secondary: hsl(184, 100%, 51%);
+$sc_overlay: hsl(205, 100%, 50%);
+
+$sc-purple-invert: findColorInvert($sc-purple);
+$sc_secondary-invert: findColorInvert($sc_secondary);
+$sc_overlay-invert: findColorInvert($sc_overlay);
+
+$primary: $sc_purple;
+$primary-invert: $sc-purple-invert;
+
+$info: $sc_secondary;
+$info-invert: $sc_secondary-invert;
+
+$link: $sc_overlay;
+$link-invert: $sc_overlay-invert;
+
+
+// Typography over-ride
+$family-sans-serif: "Roboto", "Helvetica", BlinkMacSystemFont, -apple-system, "Helvetica Neue", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Arial", sans-serif !default;
+$family-monospace: monospace !default;
+$family-serif: "Trebuchet MS", "Palatino", "Georgia", "Times New Roman", "Garamond", "Times-Roman", "Bookman", serif !default;
+$render-mode: optimizeLegibility !default;
+$family-secondary: $family-serif;
+
+
+.is-family-secondary {
+  font-family: $family-secondary;
+}

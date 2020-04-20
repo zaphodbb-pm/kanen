@@ -1,0 +1,54 @@
+/* additional decorations */
+.has-border-none {
+  border: none;
+  box-shadow: none;
+}
+
+.has-border {
+  border: 1px solid $grey-light;
+  box-shadow: none;
+}
+
+.has-border-top {
+  border-top: 1px solid $grey-light;
+  box-shadow: none;
+}
+
+.has-border-bottom {
+  border-bottom: 1px solid $grey-light;
+  box-shadow: none;
+}
+
+.has-border-left {
+  border-left: 1px solid $grey-light;
+  box-shadow: none;
+}
+
+.has-border-right {
+  border-right: 1px solid $grey-light;
+  box-shadow: none;
+}
+
+.has-border-primary {
+  border-color: $primary;
+}
+
+.has-border-info {
+  border-color: $info;
+}
+
+.has-border-success {
+  border-color: $success;
+}
+
+.has-border-warning {
+  border-color: $warning;
+}
+
+.has-border-danger {
+  border-color: $danger;
+}
+
+.has-border-grey {
+  border-color: $grey;
+}
