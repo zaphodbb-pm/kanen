@@ -1,0 +1,54 @@
+/* kanen custom theme over-ride and add-ons*/
+
+// additional theme colours
+$cyan-light: hsla(204, 86%, 49%, 0.15) !default;
+$green-light: hsla(141, 71%, 44%, 0.5) !default;
+
+
+/* adjust default values */
+$box-radius: $radius;
+$box-shadow: 0 2px 3px rgba($black, 0.1), 0 0 0 1px rgba($black, 0.1) !default;
+
+$navbar-breakpoint: $tablet;
+$navbar-height: 4rem;
+
+$modal-background-background-color: rgba($black, 0.45);
+$modal-card-head-radius: $radius;
+
+/** fix top nav bar controls */
+.main-navbar {
+  z-index: 1000;
+  height: $navbar-height;
+}
+
+.main-navbar .navbar-brand {
+  min-height: 2rem;
+  margin-right: 1rem;
+}
+
+
+/** page layout **/
+.page-master-layout {
+  position: relative;
+  margin: $navbar-height 0 0 0;
+  padding: 32px;
+  width: 100%;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.column {
+  min-width: 0;
+}
+
+
+/** widget highlight controls **/
+
+.highlight.comment {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background-color: $warning-light;
+}

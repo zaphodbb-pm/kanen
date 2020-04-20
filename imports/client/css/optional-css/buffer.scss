@@ -1,0 +1,45 @@
+/** simple box around content to provide spacing */
+.buffer {
+  display: block;
+  padding: 1rem;
+}
+
+.buffer-small {
+  display: block;
+  padding: 0.5rem;
+}
+
+.buffer-large {
+  display: block;
+  padding: 1.5rem;
+}
+
+.buffer-x {
+  display: block;
+  padding: 0 1rem;
+}
+
+.buffer-x-small {
+  display: block;
+  padding: 0 0.5rem;
+}
+
+.buffer-x-large {
+  display: block;
+  padding: 0 1.5rem;
+}
+
+.buffer-y {
+  display: block;
+  padding: 1rem 0;
+}
+
+.buffer-y-small {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+.buffer-y-large {
+  display: block;
+  padding: 1.5rem 0;
+}

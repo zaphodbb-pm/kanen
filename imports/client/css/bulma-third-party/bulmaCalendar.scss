@@ -1,0 +1,57 @@
+/* bulma-theme. */
+.vuecal--bulma-theme {
+
+  .vuecal__menu, .vuecal__cell-events-count {
+    background-color: $info;
+  }
+
+  .vuecal__menu button {
+    color: white;
+  }
+
+  .vuecal__menu button.active {
+    color: black;
+    background-color: hsla(0, 0%, 100%, .7);
+  }
+
+  .vuecal__menu li {
+    border-bottom-color: #fff;
+    color: #fff;
+  }
+
+  .vuecal__menu li.active {
+    background-color: hsla(0, 0%, 100%, .15);
+  }
+
+  .vuecal__title {
+    background-color: $cyan-light;
+    color: $text
+  }
+
+  .vuecal__cell.today, .vuecal__cell.current {
+    background-color: rgba(240, 240, 255, 0.4);
+  }
+
+  .vuecal:not(.vuecal--day-view) .vuecal__cell.selected {
+    background-color: rgba(235, 255, 245, 0.4);
+  }
+
+  .vuecal__cell.selected:before {
+    border-color: $green-light
+  }
+
+
+  .vuecal__event.health {
+    background-color: pink;
+  }
+
+  .vuecal__event.blue-event {
+    background-color: lightblue;
+  }
+
+  .vuecal__event.sport {
+    background-color: darkorange;
+    color: white
+  }
+
+}
