@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.3",
+    "feather-icons": "^4.28.0",
     "meteor-node-stubs": "^1.0.0",
     "svelte": "^3.16.4",
     "svelte-router-spa": "^5.5.0",
