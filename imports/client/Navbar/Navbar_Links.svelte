@@ -1,6 +1,6 @@
 <nav class="navbar-start" style="height: 100%">
 
-    <a class="navbar-item navbar-hover d-flex" style="height: 100%; align-items: center" href="/pageOne">
+    <a class="navbar-item navbar-hover d-flex" style="height: 100%; align-items: center" href="/page-one">
         <div>
             <div class="text-1dot5rem has-text-centered" title="Link 1">
                 <i class="item.icon">icon</i>
@@ -9,7 +9,7 @@
         </div>
     </a>
 
-    <a class="navbar-item navbar-hover d-flex" style="height: 100%; align-items: center" href="/pageTwo">
+    <a class="navbar-item navbar-hover d-flex" style="height: 100%; align-items: center" href="/page-two">
         <div>
             <div class="text-1dot5rem has-text-centered" title="Link 2">
                 <i class="item.icon">icon</i>
@@ -18,7 +18,7 @@
         </div>
     </a>
 
-    <a class="navbar-item navbar-hover d-flex" style="height: 100%; align-items: center" href="/pageThree">
+    <a class="navbar-item navbar-hover d-flex" style="height: 100%; align-items: center" href="/page-three">
         <div>
             <div class="text-1dot5rem has-text-centered" title="Link 3">
                 <i class="item.icon">icon</i>

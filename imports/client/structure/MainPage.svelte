@@ -3,6 +3,9 @@
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import {routes} from './routes'
 
+
+    //<link rel="stylesheet" href="path/to/line-awesome/css/line-awesome-font-awesome.min.css">
+
 </script>
 
 <div class="page-master-layout has-background-white">

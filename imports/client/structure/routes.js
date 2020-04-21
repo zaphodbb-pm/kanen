@@ -6,17 +6,17 @@ import PageThree from '/imports/both/Pages/pageThree.svelte'
 const routes = [
 
     {
-        name: "/pageOne",
+        name: "/page-one",
         component: PageOne,
     },
 
     {
-        name: "/pageTwo",
+        name: "/page-two",
         component: PageTwo,
     },
 
     {
-        name: "/pageThree",
+        name: "/page-three",
         component: PageThree,
     }
 

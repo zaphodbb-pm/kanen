@@ -9,15 +9,15 @@
  * @locus Client*
  *
  * @notes
+ *      1. Meteor_extensions.js and themeFiles.scss are eagerly loaded at startup.
  *
  */
 
 
-//** get our common support modules
-import {Meteor} from 'meteor/meteor'
+//* get our common support modules
 
 //* get main namespace for this system and constants
-//import '/imports/both/main_globals'
+import '/imports/both/main_globals'
 
 // get all collections
 //import '/imports/both/collections'
@@ -27,25 +27,11 @@ import {Meteor} from 'meteor/meteor'
 //import '/imports/client/startup/main_comm_channels'
 //import '/imports/client/startup/main_imports'
 
-// load the page router after required resources are available
-//import '/imports/both/routes'
-//import {methodReturn} from "../imports/client/functions/func-methodReturn";
 
-import Navbar from '../imports/client/Navbar/Navbar.svelte'
-import MainPage from '../imports/client/structure/MainPage.svelte'
+//* load svelte framework
+import App from '../imports/client/structure/App.svelte'
 
 
-
-const navbar = new Navbar({
-    target: document.getElementById("navbar"),
-    data: {
-    }
-});
-
-
-const app = new MainPage({
-    target: document.getElementById("main-page"),
-    data: {
-        name: "Svelte"
-    }
+const app = new App({
+    target: document.getElementById("svelte-app-top"),
 });
