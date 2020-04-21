@@ -18,3 +18,5 @@ ecmascript@0.14.2              # Enable ECMAScript2015+ syntax in app code
 typescript@3.7.5              # Enable TypeScript syntax in .ts and .tsx modules
 shell-server@0.5.0            # Server-side component of the `meteor shell` command
 svelte:compiler
+http
+fourseven:scss

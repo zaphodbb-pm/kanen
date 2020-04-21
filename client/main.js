@@ -23,7 +23,7 @@ import {Meteor} from 'meteor/meteor'
 //import '/imports/both/collections'
 
 // get top level structural parts
-import './main.html'
+//import './main.html'
 //import '/imports/client/startup/main_comm_channels'
 //import '/imports/client/startup/main_imports'
 
@@ -31,13 +31,20 @@ import './main.html'
 //import '/imports/both/routes'
 //import {methodReturn} from "../imports/client/functions/func-methodReturn";
 
-// get top level structural parts
-import './main.html'
-import App from '../imports/client/startup/App.svelte'
+import Navbar from '../imports/client/Navbar/Navbar.svelte'
+import MainPage from '../imports/client/structure/MainPage.svelte'
 
 
-const app = new App({
-    target: document.getElementById("root"),
+
+const navbar = new Navbar({
+    target: document.getElementById("navbar"),
+    data: {
+    }
+});
+
+
+const app = new MainPage({
+    target: document.getElementById("main-page"),
     data: {
         name: "Svelte"
     }
