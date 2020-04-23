@@ -1,26 +1,16 @@
-import PageOne from '/imports/both/Pages/pageOne.svelte'
-import PageTwo from '/imports/both/Pages/pageTwo.svelte'
-import PageThree from '/imports/both/Pages/pageThree.svelte'
+/**
+ * Finds a user's language preference
+ *
+ * @memberof Structure:Client
+ * @function getLang
+ * @locus Client
+ *
+ * @returns {String} - two letter language code
+ *
+ */
 
 
-const routes = [
-
-    {
-        name: "/page-one",
-        component: PageOne,
-    },
-
-    {
-        name: "/page-two",
-        component: PageTwo,
-    },
-
-    {
-        name: "/page-three",
-        component: PageThree,
-    }
-
-
-];
-
-export {routes}
+export function getLang(choice){
+    let lang = navigator.languages ? navigator.languages[0] : navigator.language;
+    return lang ? lang.substr(0, 2) : (choice ? choice : "en");
+}

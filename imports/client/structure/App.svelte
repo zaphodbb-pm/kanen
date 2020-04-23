@@ -24,6 +24,14 @@
         setContext(key, icons[key]);
     }
 
+    /*
+    //* set language preference
+    import {writable} from 'svelte/store'
+    import {getLang} from './func-getLang'
+    let lang = writable( getLang("en") );
+
+     */
+
     //* load main page components
     import Navbar from '../Navbar/Navbar.svelte'
     import MainPage from './MainPage.svelte'
