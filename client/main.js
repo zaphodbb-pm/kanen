@@ -31,7 +31,6 @@ import '/imports/both/main_globals'
 //* load svelte framework
 import App from '../imports/client/structure/App.svelte'
 
-
 const app = new App({
     target: document.getElementById("svelte-app-top"),
 });

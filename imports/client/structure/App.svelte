@@ -1,12 +1,35 @@
 <script>
 
+    /**
+     * Main / top Svelte component for this application
+     *
+     * @memberof Structure:Client
+     * @function App
+     * @isTemplate true
+     * @locus Client
+     *
+     * @returns {Object} out - holds the icon svg info
+     *
+     * @notes
+     *      1. Imports svg file from library and insert into returned object
+     *
+     */
+
+    //* setup system wide icons as a context
+    import { setContext } from 'svelte';
+    import icons from '/imports/client/setup/systemIcons'
+
+    const keys =  Object.keys(icons);
+    for( const key of keys){
+        setContext(key, icons[key]);
+    }
+
+    //* load main page components
     import Navbar from '../Navbar/Navbar.svelte'
     import MainPage from './MainPage.svelte'
 
 
-
 </script>
-
 
 
 <Navbar> </Navbar>
@@ -17,5 +40,3 @@
 <style>
 
 </style>
-
-

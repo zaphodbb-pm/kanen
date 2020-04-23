@@ -2,7 +2,7 @@
     /**
      * @summary Navbar insert.
      *
-     * @memberof Navbar-Section
+     * @memberof Navbar
      * @function Navbar
      * @locus Client
      * @isTemplate true
@@ -23,7 +23,7 @@
      role="navigation" aria-label="main navigation">
 
     <div id="navbarBrand-insert" class="navbar-brand">
-        <Navbar_Brand></Navbar_Brand>
+        <Navbar_Brand> </Navbar_Brand>
 
         <a role="button"
            class="navbar-burger navbar-widgets-burger is-block-touch is-block-desktop-only"
@@ -40,7 +40,7 @@
     <div class="navbar-menu">
 
         <div class="navbar-start">
-            <Navbar_Links></Navbar_Links>
+            <Navbar_Links> </Navbar_Links>
         </div>
 
         <div class="navbar-end">

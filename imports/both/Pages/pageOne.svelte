@@ -1,39 +1,56 @@
-<div class="page-master-layout has-background-white">
-    <div class="columns">
 
-        <div class="column">
-            <section class="page-layout">
+<div class="columns">
 
-                <div class="d-flex align-items-center" style="font-size: 3rem;">
-                    <img src="{icon}" style="height: 1em;" alt=""/>
-                    <span>Page One</span>
-                </div>
+    <div class="column">
+        <section class="page-layout">
 
 
-                <div class="d-flex align-items-center" style="font-size: 3rem;">
-                    <S_icon {icon}> </S_icon>
-                    <span>component</span>
-                </div>
+            <div class="d-flex align-items-center" style="font-size: 3rem;">
 
-            </section>
+                <Icon data={out} scale="3"/>
+
+                <span>svelte-icons</span>
+            </div>
 
 
-        </div>
+            <div class="d-flex align-items-center has-text-blue-dark">
+
+                <Icon data={getContext("iconBeer")} class="icon"/>
+
+                <span>Svelte-Icons</span>
+            </div>
+
+        </section>
+
 
     </div>
+
 </div>
 
 
+
 <style>
+    .sv-icons {
+        height: 1em;
+        width: 1em;
+    }
 
 </style>
 
 <script>
+    import Route from 'svelte-router-spa/src/components/route.svelte'
 
-    import S_icon from '/imports/client/components/primitives/S_icon.svelte'
+    export let currentRoute;
+
+    import Icon from 'svelte-awesome';
+    import { getContext } from 'svelte';
+
+    let out = getContext("iconMark");
 
 
-    let icon = kanen.icons.NOTIFICATION;
+    console.log("currentRoute", currentRoute);
+
+
 
 
 </script>
