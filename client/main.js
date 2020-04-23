@@ -17,7 +17,7 @@
 //* get our common support modules
 
 //* get main namespace for this system and constants
-import '/imports/both/main_globals'
+//import '/imports/both/main_globals'
 
 // get all collections
 //import '/imports/both/collections'

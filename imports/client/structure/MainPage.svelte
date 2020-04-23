@@ -17,6 +17,8 @@
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import {routes} from './func-routes'
 
+
+
 </script>
 
 <div class="page-master-layout has-background-white">
