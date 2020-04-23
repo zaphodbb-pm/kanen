@@ -16,7 +16,7 @@
  *      lists: {},          // collection of control objects for lists
  *      forms: {},          // collection of control objects for forms
  *      links: {},          // collection of control objects for navigation links
- *      routes: {},         // configuration info for router
+ *      funcRoutes: {},         // configuration info for router
  *      queries: {},        // server side use only; holds defined collection queries for Grapher
  *      simpleSchemas: [],  // schema subset for use by Simple Schema for setting data into collection
  *      widgets: {},        // collection of widget object
