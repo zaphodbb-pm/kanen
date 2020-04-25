@@ -11,11 +11,21 @@
      *
      */
 
-
-    import Navigate from 'svelte-router-spa/src/components/navigate.svelte'
-
-    import Icon from 'svelte-awesome';
+    //* get system wide icon definition
+    import Icon from 'svelte-awesome/components/Icon.svelte';
     import { getContext } from 'svelte';
+
+    //* get route information and config
+    import { routes } from '/imports/client/structure/func-routes'
+    import { navigateTo } from 'svelte-router-spa/src/spa_router'
+
+    function navigate(event, path) {
+        event.preventDefault()
+        event.stopPropagation()
+        navigateTo(path);
+    }
+
+    export let currentRoute;
 
 </script>
 
@@ -23,43 +33,21 @@
 
 <nav class="navbar-start" style="height: 100%;">
 
-    <a class="navbar-item navbar-hover" style="height: 100%; align-items: center" href="/page-one">
-        <div  class="has-text-centered">
-            <Icon data={getContext("iconHome")} scale="1.5" label="home"/>
-            <div class="text-0dot9rem has-text-centered is-hidden-touch" style="line-height: 1.2;">Link 1</div>
-        </div>
-    </a>
+    {#each routes as link }
 
-    <a class="navbar-item navbar-hover" style="height: 100%; align-items: center" href="/page-two">
-        <div class="has-text-centered">
-            <Icon data={getContext("iconPost")} scale="1.5" label="home"/>
-            <div class="text-0dot9rem has-text-centered is-hidden-touch" style="line-height: 1.2;">Link 2</div>
-        </div>
-    </a>
+        <a class="navbar-item navbar-hover"
+           class:is-nav-active={currentRoute.name === link.name}
+           style="height: 100%; align-items: flex-end"
+           on:click={event => navigate(event, link.name)}
+           href={link.name}>
 
-    <a class="navbar-item navbar-hover" style="height: 100%; align-items: center" href="/page-three">
-        <div class="has-text-centered">
-            <Icon data={getContext("iconLearn")} scale="1.5" label="home"/>
-            <div class="text-0dot9rem has-text-centered is-hidden-touch" style="line-height: 1.2;">Link 3</div>
-        </div>
-    </a>
-
-
-
-    <!--
-    <div class="navbar-item navbar-hover" style="height: 100%; align-items: center">
-        <Navigate to="/page-one" >
             <div class="has-text-centered">
-                <Icon data={getContext("iconLearn")} scale="1.5" label="home"/>
-                <div class="text-0dot9rem has-text-centered is-hidden-touch" style="line-height: 1.2;">Link 3</div>
+                <Icon data={getContext(link.icon)} scale="1.5" label={link.icon}/>
+                <div class="text-0dot9rem has-text-centered is-hidden-touch" style="line-height: 1.2;">{link.label}</div>
             </div>
-        </Navigate>
-    </div>
-    -->
+        </a>
 
-
-
-
+    {/each}
 
 </nav>
 

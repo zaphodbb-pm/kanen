@@ -17,12 +17,7 @@
 <a class="navbar-brand-insert d-flex pl-4">
     <img class="navbar-brand-image" src="/logo.svg" alt="logo">
 
-    <div style="width: 100px; align-self: center">
-        <img class="navbar-external-logo"
-             src="/sweatcrew-logo.png"
-             alt="logo">
-    </div>
-
+    <img class="navbar-external-logo" src="/sweatcrew-logo.png" alt="logo">
 </a>
 
 
@@ -40,6 +35,9 @@
     img.navbar-external-logo {
         height: 2.5rem;
         max-height: 2.5rem;
+        align-self: center;
+        padding-right: 0.5rem;
+        margin-right: 0.5rem;
     }
 
 </style>

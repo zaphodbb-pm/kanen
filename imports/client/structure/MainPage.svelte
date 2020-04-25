@@ -14,25 +14,29 @@
      *
      */
 
-    import Pages from 'svelte-router-spa/src/components/router.svelte'
-    import {routes} from './func-routes'
+    import Navbar from '../Navbar/Navbar.svelte'
+    import Route from 'svelte-router-spa/src/components/route.svelte'
 
-
+    export let currentRoute;
+    export let params = {};
 
 </script>
+
+
+
+<Navbar {currentRoute}> </Navbar>
 
 <div class="page-master-layout has-background-white">
     <div class="columns">
 
         <div class="column is-narrow is-hidden-touch is-hidden-desktop-only">
-            side nav
+            <div class="title is-4">side nav</div>
+            <div style="max-width: 10rem; word-wrap: break-word">{JSON.stringify(currentRoute)}</div>
         </div>
 
         <div class="column">
             <section id="page-layout">
-                <Pages {routes} />
-
-                <div></div>
+                <Route {currentRoute}  {params} />
             </section>
 
             <footer class="mt-5 has-border-top">footer</footer>

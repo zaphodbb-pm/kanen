@@ -1,3 +1,10 @@
+<script>
+
+    export let currentRoute;
+    export let params;
+
+
+</script>
 
 <div class="columns">
 
@@ -16,6 +23,4 @@
 
 </style>
 
-<script>
 
-</script>

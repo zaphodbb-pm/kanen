@@ -33,5 +33,4 @@ export default {
             title: {en: "Title"}
         }
     }
-
 };
