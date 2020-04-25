@@ -32,19 +32,11 @@
 
      */
 
-    //* load main page components
-    import Navbar from '../Navbar/Navbar.svelte'
-    import MainPage from './MainPage.svelte'
+    //* load router -> will render main page components based on nav-link selection
+    import Pages from 'svelte-router-spa/src/components/router.svelte'
+    import {routes} from './func-routes'
 
 
 </script>
 
-
-<Navbar> </Navbar>
-
-<MainPage> </MainPage>
-
-
-<style>
-
-</style>
+<Pages {routes} />

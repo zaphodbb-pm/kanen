@@ -9,16 +9,9 @@
  *
  */
 
+import {writable} from 'svelte/store'
+//import {readable} from 'svelte/store'
 
 //* set language preference
-
-/*
-import {writable} from 'svelte/store'
-import {getLang} from './func-getLang'
+import {getLang} from '../../functions/func-getLang'
 export let lang = writable( getLang("en") );
-
- */
-import {readable} from 'svelte/store'
-import {getLang} from './func-getLang'
-
-export const lang = readable( getLang("en") );

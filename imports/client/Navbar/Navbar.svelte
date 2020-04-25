@@ -12,6 +12,8 @@
     import Navbar_Brand from './Navbar_Brand.svelte'
     import Navbar_Links from './Navbar_Links.svelte'
 
+    export let currentRoute;
+
 </script>
 
 
@@ -40,7 +42,7 @@
     <div class="navbar-menu">
 
         <div class="navbar-start">
-            <Navbar_Links> </Navbar_Links>
+            <Navbar_Links {currentRoute}> </Navbar_Links>
         </div>
 
         <div class="navbar-end">
