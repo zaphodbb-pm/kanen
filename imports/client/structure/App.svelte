@@ -34,7 +34,7 @@
 
     //* load router -> will render main page components based on nav-link selection
     import Pages from 'svelte-router-spa/src/components/router.svelte'
-    import {routes} from './func-routes'
+    import {routes} from './routes'
 
 
 </script>

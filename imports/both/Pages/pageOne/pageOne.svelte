@@ -17,12 +17,8 @@
         //** app services
         import { setContext } from 'svelte';
 
-        //** get page control information
-        import pageConfig from './pageOne_config'
-        import pageText   from './pageOne_text'
-
-        //** set page contexts for children components
-        setContext("pageConfig", pageConfig);
+        //** get page text information and set contexts for children components
+        import pageText from './pageOne_text'
         setContext("pageText", pageText);
 
         //** get the page header common component and

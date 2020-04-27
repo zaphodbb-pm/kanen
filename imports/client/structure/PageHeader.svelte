@@ -12,7 +12,6 @@
 
     import { getContext } from 'svelte';
     let hdrtext = getContext("pageText").header;
-    let hdrshow = getContext("pageConfig").hdrShow;
 
     import {i18n} from '/imports/functions/func-i18n'
     export let lang;
@@ -21,12 +20,20 @@
 
 
 
-{#if hdrshow}
+{#if hdrtext}
 
     <header class="content-header mb-4">
-        <h2 class="title is-3">{ i18n(hdrtext, "title", lang) }</h2>
-        <p class="subtitle lead">{ i18n(hdrtext, "lead", lang) }</p>
-        <div class="content is-family-secondary">{@html i18n(hdrtext, "body", lang) }</div>
+        {#if hdrtext.title}
+            <h2 class="title is-3">{ i18n(hdrtext, "title", lang) }</h2>
+        {/if}
+
+        {#if hdrtext.lead}
+            <p class="subtitle lead">{ i18n(hdrtext, "lead", lang) }</p>
+        {/if}
+
+        {#if hdrtext.body}
+            <div class="content is-family-secondary">{@html i18n(hdrtext, "body", lang) }</div>
+        {/if}
     </header>
 
 {/if}

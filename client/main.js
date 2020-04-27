@@ -22,10 +22,6 @@
 // get all collections
 //import '/imports/both/collections'
 
-// get top level structural parts
-//import './main.html'
-//import '/imports/client/startup/main_comm_channels'
-//import '/imports/client/startup/main_imports'
 
 
 //* load svelte framework

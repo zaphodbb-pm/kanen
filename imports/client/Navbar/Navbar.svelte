@@ -24,7 +24,7 @@
      style="border-bottom: 2px solid #dbdbdb"
      role="navigation" aria-label="main navigation">
 
-    <div id="navbarBrand-insert" class="navbar-brand">
+    <div id="navbarBrand-insert" class="navbar-brand mr-5">
         <Navbar_Brand> </Navbar_Brand>
 
         <a role="button"

@@ -12,6 +12,7 @@
 export default {
     navLabel: {en: "Page One"},
 
+    //** page header; set to null to not display header or a specific item
     header:   {
         title:  {en: "Manage Users"},
         lead:   {en: "Use this page to access and manage the registered users"},
