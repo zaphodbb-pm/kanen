@@ -1,11 +1,11 @@
 <script>
     /**
-     * @summary Insert Layout for Page One.
+     * @summary Insert Layout for Page Three.
      *
-     * @memberof Pages:PageOne
-     * @function pageOne_insert
+     * @memberof Pages:PageThree
+     * @function pageThree_insert
      * @locus Client
-     * @augments pageOne
+     * @augments pageThree
      *
      */
 
@@ -21,7 +21,6 @@
         //** get language preference
         export let lang = "en";
 
-
 </script>
 
 
@@ -29,20 +28,9 @@
 
     <div>lang: {lang}</div>
 
-    <div class="d-flex align-items-center" style="font-size: 3rem;">
-
-        <Icon data={out} scale="3"/>
-
-        <span>svelte-icons</span>
-    </div>
+    page three insert
 
 
-    <div class="d-flex align-items-center has-text-blue-dark">
-
-        <Icon data={getContext("iconNotify")} class="icon"/>
-
-        <span>Svelte-Icons</span>
-    </div>
 
 </article>
 

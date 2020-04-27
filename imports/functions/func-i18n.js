@@ -14,16 +14,14 @@
  */
 
 export function i18n(allText, field, lang) {
-
-    console.log("i18n", allText, field, lang);
-
-
     let out = "";
 
-    if (allText && typeof allText === 'object') {
-        if(field && typeof field === 'string'){
-            out = lang && lang.length === 2 ? allText[field][lang] : "";
-            out = out ? out : "";
+    if(lang && typeof lang === "string" && lang.length === 2){
+        if (allText && typeof allText === 'object') {
+            if(field && typeof field === 'string'){
+                out = allText[field] && allText[field][lang] ? allText[field][lang] : "";
+                out = out ? out : "";
+            }
         }
     }
 

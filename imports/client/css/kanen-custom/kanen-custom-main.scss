@@ -1,21 +1,21 @@
 /* kanen custom theme over-ride and add-ons*/
 
-$sc_purple: hsl(262, 100%, 52%);
-$sc_secondary: hsl(184, 100%, 51%);
-$sc_overlay: hsl(205, 100%, 50%);
+$sc_primary: hsl(117, 100%, 33%);
+$sc_secondary: hsl(325, 100%, 32%);
+$sc_link: hsl(27, 100%, 40%);
 
-$sc-purple-invert: findColorInvert($sc-purple);
+$sc-primary-invert: findColorInvert($sc_primary);
 $sc_secondary-invert: findColorInvert($sc_secondary);
-$sc_overlay-invert: findColorInvert($sc_overlay);
+$sc_link-invert: findColorInvert($sc_link);
 
-$primary: $sc_purple;
-$primary-invert: $sc-purple-invert;
+$primary: $sc_primary;
+$primary-invert: $sc-primary-invert;
 
 $info: $sc_secondary;
 $info-invert: $sc_secondary-invert;
 
-$link: $sc_overlay;
-$link-invert: $sc_overlay-invert;
+$link: $sc_link;
+$link-invert: $sc_link-invert;
 
 
 // Typography over-ride
