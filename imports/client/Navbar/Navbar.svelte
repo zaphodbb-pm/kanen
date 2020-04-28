@@ -11,7 +11,10 @@
 
     import Navbar_Brand from './Navbar_Brand.svelte'
     import Navbar_Links from './Navbar_Links.svelte'
-    import NavShortcuts from './NavTopMenu.svelte'
+    import NavShortcuts from './NavCondensedMenu.svelte'
+
+    import {createEventDispatcher} from 'svelte'
+    const dispatch = createEventDispatcher();
 
     export let currentRoute;
 
@@ -31,6 +34,7 @@
         <a role="button"
            class="navbar-burger navbar-widgets-burger is-block-touch is-block-desktop-only"
            aria-label="menu"
+           on:click={ () => dispatch("hamburger")}
            aria-expanded="false">
 
             <span aria-hidden="true"></span>
@@ -46,7 +50,7 @@
             <Navbar_Links {currentRoute}> </Navbar_Links>
         </div>
 
-        <div class="navbar-end w-100 justify-content-center is-hidden-touch">
+        <div class="navbar-end w-100 justify-content-center is-hidden-mobile">
             <NavShortcuts {currentRoute}> </NavShortcuts>
         </div>
 
@@ -58,9 +62,15 @@
 
 </nav>
 
-
+<div class="navbar w-100 justify-content-center is-fixed-bottom is-light is-navMobile is-hidden-tablet">
+    <NavShortcuts {currentRoute} bottom> </NavShortcuts>
+</div>
 
 
 <style>
+
+    .is-navMobile {
+        min-height: 2rem;
+    }
 
 </style>

@@ -15,8 +15,12 @@
      *
      */
 
-    //* setup system wide icons as a context
+    //* setup system wide version info
     import { setContext } from 'svelte';
+    import version from './version'
+    setContext("Version", version);
+
+    //* setup system wide icons as a context
     import icons from '/imports/client/setup/systemIcons'
 
     const keys =  Object.keys(icons);

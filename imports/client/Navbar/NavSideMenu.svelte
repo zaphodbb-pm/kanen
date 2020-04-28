@@ -33,7 +33,7 @@
 {#each groups as group }
 
     <div class="mb-5">
-        {#each group[1] as links}
+        {#each group as links}
 
             <a class="navbar-item navbar-hover "
                class:is-nav-active={currentRoute.name === links.name}
@@ -53,29 +53,6 @@
 
         {/each}
     </div>
-
-
-
-
-
-
-    <!--
-
-    <a class="navbar-item navbar-hover d-flex"
-       class:is-nav-active={currentRoute.name === link.name}
-       style="height: 100%; align-items: flex-end"
-       on:click={event => navigate(event, link.name)}
-       href={link.name}>
-
-        <div class="has-text-centered is-hidden-touch is-hidden-desktop-only">
-            <Icon data={getContext(link.icon)} scale="1.5" label={link.icon}/>
-
-            <div class="text-0dot8rem nav-page-text has-text-centered is-hidden-touch is-hidden-desktop-only" style="line-height: 1.2;">
-                {link.label}
-            </div>
-        </div>
-    </a>
-    -->
 
 {/each}
 
