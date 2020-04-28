@@ -11,6 +11,7 @@
 
     import Navbar_Brand from './Navbar_Brand.svelte'
     import Navbar_Links from './Navbar_Links.svelte'
+    import NavShortcuts from './NavTopMenu.svelte'
 
     export let currentRoute;
 
@@ -45,8 +46,8 @@
             <Navbar_Links {currentRoute}> </Navbar_Links>
         </div>
 
-        <div class="navbar-end">
-            end
+        <div class="navbar-end w-100 justify-content-center is-hidden-touch">
+            <NavShortcuts {currentRoute}> </NavShortcuts>
         </div>
 
     </div>

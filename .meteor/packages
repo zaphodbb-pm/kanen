@@ -21,3 +21,4 @@ svelte:compiler
 http@1.4.2
 fourseven:scss
 dynamic-import@0.5.2
+underscore

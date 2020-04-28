@@ -10,7 +10,7 @@
  */
 
 export default {
-    navLabel: {en: "Page One"},
+    navLabel: {en: "One"},
 
     //** page header; set to null to not display header or a specific item
     header:   {

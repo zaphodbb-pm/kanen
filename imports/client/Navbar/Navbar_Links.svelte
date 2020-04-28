@@ -3,7 +3,7 @@
     /**
      * @summary Navbar brand insert.
      *
-     * @memberof Navbar-Section
+     * @memberof Navbar
      * @function Navbar_Brand
      * @locus Client
      * @isTemplate true
@@ -56,10 +56,6 @@
     .is-nav-active,
     .navbar-hover:hover {
         background-color: #eee !important;
-    }
-
-    .is-subnav-active {
-        background-color: #e0f8f4
     }
 
 </style>
