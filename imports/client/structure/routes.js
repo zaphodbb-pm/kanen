@@ -23,9 +23,8 @@
  *          label =         {String} navbar text to show, ie. i18n(PageText, "navLabel", lang)
  *
  *          roles =         {Array} roles that can see this link in navbar and be routed to, ie. ["all"]
- *          isParent =      {Boolean} for grouped links, this is the parent that holds the dropdown / subnav list
- *          subLnk =        {Boolean} flag to indicate that this link will be added to dropdown / subnav  list
- *          parent =        {String} if subLnk is true, provide the name of the parent nav item
+ *
+ *          group =         {Number} for side navigation; group routes into a block
  *          isNavMobile =   {Boolean} (optional) show link in mobile nav block at bottom or top
  *
  */
@@ -43,16 +42,23 @@ const routes = [
 
 export {routes}
 
-
+//** build short cut links for top or bottom nav
 let shortcuts = routes.filter( (route) => route.isNavMobile );
 export {shortcuts}
 
 
-let groups = _.groupBy(routes, "group");
+//** build grouped side bar links
+let groups = [];
 
-groups = Object.entries(groups);
-
-console.log("groups", groups);
-
+routes.forEach( (route) => {
+    if( typeof route.group === "number"){
+        if( groups[ route.group] ){
+            groups[ route.group].push(route);
+        }else{
+            groups[ route.group] = [];
+            groups[ route.group].push(route);
+        }
+    }
+});
 
 export {groups}

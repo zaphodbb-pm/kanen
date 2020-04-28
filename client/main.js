@@ -23,6 +23,26 @@
 //import '/imports/both/collections'
 
 
+//* build system wide information
+if (Meteor.user()) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        let out = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+
+            accuracy: position.coords.accuracy,
+            altitude: position.coords.altitude,
+            altitudeAccuracy: position.coords.altitudeAccuracy,
+            heading: position.coords.heading,
+            speed: position.coords.speed,
+        };
+
+        Session.set("userPosition", out);
+    });
+}else{
+    Session.set("userPosition", {});
+}
+
 
 //* load svelte framework
 import App from '../imports/client/structure/App.svelte'

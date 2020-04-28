@@ -1,6 +1,6 @@
 <script>
     /**
-     * Navbar top menu shortcuts.
+     * Navbar condensed menu for shortcuts.
      *
      * @memberof Navbar
      * @function NavTopMenu
@@ -8,7 +8,7 @@
      * @augments Navbar
      *
      * @param {Object} currentRoute - current active path name (link)
-     *
+     * @param {Boolean} bottom - flag to shape menu for use at bottom
      */
 
     //* get system wide icon definition
@@ -26,24 +26,29 @@
     }
 
     export let currentRoute;
+    export let bottom;
+
 
 </script>
 
 
 {#each shortcuts as link }
 
-    <a class="navbar-item navbar-hover d-flex"
+    <a class="navbar-item navbar-hover"
        class:is-nav-active={currentRoute.name === link.name}
        style="height: 100%; align-items: flex-end"
        on:click={event => navigate(event, link.name)}
-       href={link.name}>
+       href={link.name}
+       title={link.label}>
 
-        <div class="has-text-centered is-hidden-touch is-hidden-desktop-only">
+        <div class="has-text-centered">
             <Icon data={getContext(link.icon)} scale="1.5" label={link.icon}/>
 
-            <div class="text-0dot8rem nav-page-text has-text-centered is-hidden-touch is-hidden-desktop-only" style="line-height: 1.2;">
-                {link.label}
-            </div>
+            {#if !bottom}
+                <div class="text-0dot8rem nav-page-text has-text-centered" style="line-height: 1.2;">
+                    {link.label}
+                </div>
+            {/if}
         </div>
     </a>
 
