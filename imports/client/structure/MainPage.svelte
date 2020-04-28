@@ -15,6 +15,7 @@
      */
 
     import Navbar from '../Navbar/Navbar.svelte'
+    import SideNav from '../Navbar/NavSideMenu.svelte'
     import Route from 'svelte-router-spa/src/components/route.svelte'
 
     export let currentRoute;
@@ -31,7 +32,11 @@
 
         <div class="column is-narrow is-hidden-touch is-hidden-desktop-only">
             <div class="title is-4">side nav</div>
-            <div style="max-width: 10rem; word-wrap: break-word">{JSON.stringify(currentRoute)}</div>
+
+            <SideNav {currentRoute} />
+
+
+            <!--<div style="max-width: 10rem; word-wrap: break-word">{JSON.stringify(currentRoute)}</div>-->
         </div>
 
         <div class="column">

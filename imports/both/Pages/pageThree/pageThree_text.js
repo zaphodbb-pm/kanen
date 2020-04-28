@@ -10,7 +10,7 @@
  */
 
 export default {
-    navLabel: {en: "Page Three"},
+    navLabel: {en: "Three"},
 
     header:   {
         title:  {en: "Page Three"},

@@ -3,7 +3,7 @@
     /**
      * @summary Navbar brand insert.
      *
-     * @memberof Navbar-Section
+     * @memberof Navbar
      * @function Navbar_Brand
      * @locus Client
      * @isTemplate true

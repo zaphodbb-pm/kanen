@@ -10,7 +10,7 @@
  */
 
 export default {
-    navLabel: {en: "Page Two"},
+    navLabel: {en: "Two"},
 
     header: null,
 

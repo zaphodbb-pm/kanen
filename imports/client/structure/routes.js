@@ -42,3 +42,17 @@ const routes = [
 ];
 
 export {routes}
+
+
+let shortcuts = routes.filter( (route) => route.isNavMobile );
+export {shortcuts}
+
+
+let groups = _.groupBy(routes, "group");
+
+groups = Object.entries(groups);
+
+console.log("groups", groups);
+
+
+export {groups}
