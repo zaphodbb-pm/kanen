@@ -28,14 +28,6 @@
         setContext(key, icons[key]);
     }
 
-    /*
-    //* set language preference
-    import {writable} from 'svelte/store'
-    import {getLang} from './func-getLang'
-    let lang = writable( getLang("en") );
-
-     */
-
     //* load router -> will render main page components based on nav-link selection
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import {routes} from './routes'
