@@ -19,6 +19,11 @@
     import { groups } from '/imports/client/structure/routes'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
+    //** get event dispatcher
+    import {createEventDispatcher} from 'svelte'
+    const dispatch = createEventDispatcher();
+
+    //** respond to a link click
     function navigate(event, path) {
         event.preventDefault()
         event.stopPropagation()
@@ -26,6 +31,7 @@
     }
 
     export let currentRoute;
+    export let theme = "light";
 
 </script>
 
@@ -37,6 +43,7 @@
 
             <a class="navbar-item navbar-hover "
                class:is-nav-active={currentRoute.name === links.name}
+               class:dark={theme === "dark"}
                on:click={event => navigate(event, links.name)}
                href={links.name}>
 
@@ -60,10 +67,20 @@
 
 <style>
 
+    .dark {
+        color: whitesmoke;
+    }
+
     .is-nav-active,
     .navbar-hover:hover{
         color: #CC5C00 !important;
-        background-color: #eee !important;
+        background-color: #EEE !important;
+    }
+
+    .is-nav-active.dark,
+    .navbar-hover.dark:hover{
+        color: #FF7F00 !important;
+        background-color: #222 !important;
     }
 
 </style>

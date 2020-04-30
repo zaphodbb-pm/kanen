@@ -12,11 +12,19 @@
     import Navbar_Brand from './Navbar_Brand.svelte'
     import Navbar_Links from './Navbar_Links.svelte'
     import NavShortcuts from './NavCondensedMenu.svelte'
+    import SideNav from './NavSideMenu.svelte'
+    import AsideNav from './asideNavWrapper.svelte'
 
     import {createEventDispatcher} from 'svelte'
     const dispatch = createEventDispatcher();
 
     export let currentRoute;
+
+    //** simple nav configuration options
+    let theme = "light";        // "light" or "dark" background
+    let side = "left";          // "left" or "right" entry
+
+    let open = false;           // hamburger state true = "open"; false = "closed"
 
 </script>
 
@@ -34,7 +42,7 @@
         <a role="button"
            class="navbar-burger navbar-widgets-burger is-block-touch is-block-desktop-only"
            aria-label="menu"
-           on:click={ () => dispatch("hamburger")}
+           on:click={ () => open = !open}
            aria-expanded="false">
 
             <span aria-hidden="true"></span>
@@ -65,6 +73,11 @@
 <div class="navbar w-100 justify-content-center is-fixed-bottom is-light is-navMobile is-hidden-tablet">
     <NavShortcuts {currentRoute} bottom> </NavShortcuts>
 </div>
+
+
+<AsideNav bind:open {theme} {side}>
+    <SideNav {currentRoute} {theme}/>
+</AsideNav>
 
 
 <style>

@@ -19,10 +19,13 @@
 
 let out = {};
 
-import logo from '/imports/client/setup/icons/logo.js';
+import logo from './icons/logo.js';
 out.iconLogo = logo;
 
-import bell from '/imports/client/setup/icons/bell';
+import cancel from './icons/times-circle'
+out.iconCancel = cancel;
+
+import bell from './icons/bell';
 out.iconNotify = bell;
 
 import beer from 'svelte-awesome/icons/beer';
@@ -31,7 +34,7 @@ out.iconBeer = beer;
 import bookmark from 'svelte-awesome/icons/bookmark-o';
 out.iconMark = bookmark;
 
-import post from '/imports/client/setup/icons/clipboard-list';
+import post from './icons/clipboard-list';
 out.iconPost = post;
 
 import home from 'svelte-awesome/icons/home';
