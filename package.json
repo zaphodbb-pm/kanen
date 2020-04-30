@@ -11,6 +11,7 @@
     "meteor-node-stubs": "^1.0.0",
     "svelte": "^3.21.0",
     "svelte-awesome": "^2.3.0",
+    "svelte-loadable": "^1.4.0",
     "svelte-router-spa": "^5.5.0"
   }
 }
