@@ -52,12 +52,8 @@ let groups = [];
 
 routes.forEach( (route) => {
     if( typeof route.group === "number"){
-        if( groups[ route.group] ){
-            groups[ route.group].push(route);
-        }else{
-            groups[ route.group] = [];
-            groups[ route.group].push(route);
-        }
+        groups[route.group] = groups[route.group] ? groups[route.group] : [];
+        groups[route.group].push(route);
     }
 });
 

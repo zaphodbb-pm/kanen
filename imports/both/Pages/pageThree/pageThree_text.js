@@ -10,10 +10,10 @@
  */
 
 export default {
-    navLabel: {en: "Three"},
+    navLabel: {en: "Widgets"},
 
     header:   {
-        title:  {en: "Page Three"},
+        title:  {en: "Widgets"},
         lead:   {en: "Use this page to access and manage page three"},
         body:   null //{en: "Supporting text for header"},
     },
