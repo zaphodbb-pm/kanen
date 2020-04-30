@@ -26,7 +26,7 @@ export default {
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconLearn",                      // navbar icon to show
+    icon: "iconWidget",                      // navbar icon to show
     label: i18n(PageText, "navLabel", lang),    // navbar text to show
 
     roles: ["all"],                         // roles that can see this link in navbar and be routed to

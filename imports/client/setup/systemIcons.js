@@ -22,14 +22,17 @@ let out = {};
 import logo from './icons/logo.js';
 out.iconLogo = logo;
 
+import logo2 from './icons/logo2.js';
+out.iconLogo2 = logo2;
+
+import home from './icons/home';
+out.iconHome = home;
+
 import cancel from './icons/times-circle'
 out.iconCancel = cancel;
 
 import bell from './icons/bell';
 out.iconNotify = bell;
-
-import beer from 'svelte-awesome/icons/beer';
-out.iconBeer = beer;
 
 import bookmark from 'svelte-awesome/icons/bookmark-o';
 out.iconMark = bookmark;
@@ -37,8 +40,25 @@ out.iconMark = bookmark;
 import post from './icons/clipboard-list';
 out.iconPost = post;
 
+import widget from './icons/puzzle-piece';
+out.iconWidget = widget;
+
+
+import beer from 'svelte-awesome/icons/beer';
+out.iconBeer = beer;
+
+
+
+/*
 import home from 'svelte-awesome/icons/home';
 out.iconHome = home;
+ */
+
+
+
+
+
+
 
 import learn from 'svelte-awesome/icons/graduation-cap';
 out.iconLearn = learn;
