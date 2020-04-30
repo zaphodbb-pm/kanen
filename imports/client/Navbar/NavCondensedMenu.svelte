@@ -26,7 +26,7 @@
     }
 
     export let currentRoute;
-    export let bottom;
+    export let bottom = false;
 
 
 </script>
