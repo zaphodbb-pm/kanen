@@ -10,10 +10,9 @@
      *
      */
 
-    import { getContext } from 'svelte';
-    let hdrtext = getContext("pageText").header;
-
     import {i18n} from '/imports/functions/func-i18n'
+
+    export let hdrtext = null;
     export let lang;
 
 </script>

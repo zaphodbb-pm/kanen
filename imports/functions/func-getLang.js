@@ -1,7 +1,7 @@
 /**
  * Finds a user's language preference
  *
- * @memberof Structure:Client
+ * @memberof Functions
  * @function getLang
  * @locus Client
  *
