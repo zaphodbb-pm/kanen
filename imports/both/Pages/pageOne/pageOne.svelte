@@ -8,34 +8,49 @@
      *
      */
 
-    //* common page setup information
+    //* setup props to receive route data
+    export let currentRoute;
+    export let params;
 
-        //** get the user language preference from store
-        import {lang} from '/imports/client/structure/systemStores'
-        let lng = $lang;
+    //* get the user language preference from store
+    import {lang} from '/imports/client/structure/systemStores'
+    let lng = $lang;
 
-        //** app services
-        import { setContext } from 'svelte';
+    //* app services
+    import { setContext } from 'svelte';
+    import { getContext } from 'svelte';
 
-        //** get page text information and set contexts for children components
-        import pageText from './pageOne_text'
-        setContext("pageText", pageText);
+    //* get page text information and set contexts for children components
+    import pageText from './pageOne_text'
+    setContext("pageText", pageText);
 
-        //** get the page header common component and
-        //** page specific insert component (does all of the real work for the page)
-        import Hdr from '/imports/client/structure/PageHeader.svelte'
-        import PageInsert from './pageOne_insert.svelte'
+    //* get the page header common component and
+    import Hdr from '/imports/client/structure/PageHeader.svelte'
 
-        //** setup props to receive route data
-        export let currentRoute;
-        export let params;
+    //* page body support **************************
+    import Icon from 'svelte-awesome/components/Icon.svelte';
+    let out = getContext("iconMark");
+
+
 
 </script>
 
 
 
-    <Hdr lang={lng} />
+<Hdr lang={lng} />
 
-    <section class="page-insert-layout">
-        <PageInsert lang={lng} />
-    </section>
+
+<section class="page-body">
+    <div>lang: {lng}</div>
+
+    <div class="d-flex align-items-center" style="font-size: 3rem;">
+        <Icon data={out} scale="3"/>
+        <span>svelte-icons</span>
+    </div>
+
+    <div class="d-flex align-items-center has-text-blue-dark">
+        <Icon data={getContext("iconNotify")} class="icon"/>
+        <span>Svelte-Icons</span>
+    </div>
+
+</section>
