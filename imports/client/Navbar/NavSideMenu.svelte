@@ -38,7 +38,7 @@
 
 {#each groups as group }
 
-    <div class="mb-5">
+    <div class="mb-4">
         {#each group as links}
 
             <a class="navbar-item navbar-hover "
@@ -49,13 +49,8 @@
 
                 <div class="d-flex align-items-center">
                     <Icon data={getContext(links.icon)} scale="1.5" label={links.icon}/>
-
-                    <div class="nav-page-text ml-2">
-                        {links.label}
-                    </div>
-
+                    <div class="nav-page-text ml-2">{links.label}</div>
                 </div>
-
             </a>
 
         {/each}

@@ -15,7 +15,6 @@
 
 
 export function setBackground(conf, msg, progVal) {
-
     let out = "#EEEEEE";
 
     if (conf) {

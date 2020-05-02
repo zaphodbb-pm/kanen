@@ -200,45 +200,6 @@
 
 
 
-
-
-/** side bar support **/
-.side-navbar-container {
-  display: block;
-  position: fixed !important;
-
-  z-index: 30;
-  padding: 0 1rem 0 0;
-  margin: 2px 0 0 0.5rem;
-  /*width: 20%;*/
-  /*margin-left: -1.5rem;*/
-}
-
-.side-navbar-wrapper {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  overflow: auto;
-}
-
-.side-navbar-content {
-  display: inline-block;
-  vertical-align: top;
-  padding: 1rem 0 1rem 1rem;
-  height: calc(100vh - 70px);
-  width: 100%;
-  overflow: auto;
-}
-
-.side-navbar-content-mobile {
-  display: inline-block;
-  vertical-align: top;
-  padding: 1rem 0 0 0;
-  height: calc(100vh - 70px);
-  width: 100%;
-  overflow: auto;
-}
-
 /** overlay controls **/
 .add-cursor {
   cursor: pointer;
@@ -280,7 +241,7 @@
   }
 }
 
-/** column flex orders **/
+/** column flex order items **/
 @media screen and (max-width: $tablet) {
   .is-ordered-mobile {
     display: flex;

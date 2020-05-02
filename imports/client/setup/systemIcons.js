@@ -43,19 +43,23 @@ out.iconPost = post;
 import widget from './icons/puzzle-piece';
 out.iconWidget = widget;
 
+import boxOpen from './icons/box-open';
+out.iconPayload = boxOpen;
+
+import cog from './icons/cog';
+out.iconConfig = cog;
 
 import beer from 'svelte-awesome/icons/beer';
 out.iconBeer = beer;
 
 
+import more from 'svelte-awesome/icons/caret-right';
+out.iconMore = more;
 
 /*
 import home from 'svelte-awesome/icons/home';
 out.iconHome = home;
  */
-
-
-
 
 
 
