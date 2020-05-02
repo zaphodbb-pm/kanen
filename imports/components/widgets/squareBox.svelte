@@ -16,16 +16,20 @@
      * @example
      * config: Object: used to set up the widget at the start
      *         {
-     *            //* static widget text
-     *            title: "Square with 3 config regions",            // main title for widget
-     *
-     *            //* widget css related decoration
-     *            height: 8,                     // widget height in "rem"
-     *
-     *            //* colour controls at selected trigger points
-     *            //* background colors for reactive response to values; if String, colour is fixed
-     *            bgColours: "#8bc34a",
+     *            height: 8,                    // widget height in "rem"
+     *            bgColours: "#8bc34a",         // fixed background colour
      *          }
+     *
+     * text: static widget text object
+     *      {
+     *          title: "Square Box",            // main title for widget
+     *          suffix: "%",                    // suffix added to incoming value for display
+     *      }
+     *
+     * payload:
+     *      {                                   // Object: incoming or outgoing flow-message format from subscribe reactive variable
+     *          values: [75],                   // array of values to show
+     *      },
      */
 
     //* support functions
@@ -37,7 +41,6 @@
     export let text = {};
     export let config = {};
     export let payload = null;
-
 
     function styleBoxFront() {
         let  height = config && config.height ? config.height : 6;
@@ -65,32 +68,21 @@
 
 
 
-<div class="squarebox">
-    <div class="style-box-front" style="{styleBoxFront()}">
+<div class="squarebox style-box-front" style="{styleBoxFront()}">
 
-        <div style="width: 100%">
-            <div class="square-triangle"></div>
-        </div>
-
-        <div class="square-card-inner">
-            <div class="styleInfo">
-                <span><b>{payload.values[0]}</b></span>
-
-                {#if text.suffix2}
-                    <span class="styleInfoMid">{text.suffix}</span>
-                {/if}
-
-                <span><b>{text.suffix}</b></span>
-            </div>
-            <div class="styleTitle">{text.description}</div>
-        </div>
-
+    <div style="width: 100%">
+        <div class="square-triangle"></div>
     </div>
+
+    <div class="square-card-inner">
+        <div class="styleInfo">
+            <div><b>{payload.values[0]}</b></div>
+            <div><b>{text.suffix}</b></div>
+        </div>
+        <div class="styleTitle">{text.title}</div>
+    </div>
+
 </div>
-
-
-
-
 
 
 <style>
@@ -126,11 +118,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    .styleInfoMid {
-        font-size: 0.9em;
-        padding: 0 0.75rem;
     }
 
     .styleTitle {
