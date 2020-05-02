@@ -9,6 +9,9 @@
  * @returns {Object}
  */
 
+
+import {colorArrays} from '/imports/client/setup/systemGlobals'
+
 export default {
 
     components: {},
@@ -16,30 +19,42 @@ export default {
     widgets: {
 
         infobox: {
-             title: "Big Box 2",            // main title for widget
-             description: "Big Box",        // more detail
-             prefix: "$",                   // prefix added to incoming value for display
-             suffix: "Em",                  // suffix added to incoming value for display
-             progress: "prog text",                  // if string has length, then show progress bar, else hide
-             decimals: 1,                   // set number of decimal points to show
+            decimals: 1,                    // set number of decimal points to show
+            icon: "iconPost",               // widget's icon if needed
+            height: 6,                      // widget height in "rem"
+            bgColours: colorArrays.widget,  // background colors for reactive response to values; if String, colour is fixed
+            bgNormal: [0, .66],             // percent range of values for normal operation
+            bgWarning: [.66, .80],          // percent range of values for warning operation
+        },
 
-             //  widget css related decoration
-             icon: "iconPost",              // widget's icon if needed
-             height: 6,                     // widget height in "rem"
+        progressBars: {
+            //* widget css related decoration
+            suffix: "%",                    // suffix added to incoming value for display
+            orient: "horz",                 // "horz" shows bars horizontally; "vert" shows vertically
+            barSize: "1rem",               // progress bar height ot width
+            bgColours: colorArrays.widget,  // background colors for reactive response to values; if String, colour is fixed
+            bgNormal: [],                   // percent range of values for normal operation
+            bgWarning: [],                  // percent range of values for warning operation
+        },
 
-             //  colour controls at selected trigger points
-             //  background colors for reactive response to values; if String, colour is fixed
-             bgColours: [
-                 "#21C058",
-                 "#FFD52E",
-                 "#E6002E",
+        gauge1: {
+            //* widget css related decoration
+            suffix: "%",                    // suffix added to incoming value for display
+            style: "pie",                   // "ring" or "pie"
+            height: 8,                     // widget height in "rem"
+            bgColours: colorArrays.widgetReverse,  // background colors for reactive response to values; if String, colour is fixed
+            bgNormal: [0, .25],             // percent range of values for normal operation
+            bgWarning: [.25, .60],          // percent range of values for warning operation
+        },
 
-                    //kanen.constants.BG_HUM,
-                    //kanen.constants.BG_WARN,
-                    //kanen.constants.BG_DANGER
-                ],
-             bgNormal: [0, .66],             // percent range of values for normal operation
-             bgWarning: [.66, .80],          // percent range of values for warning operation
+        gauge2: {
+            //* widget css related decoration
+            suffix: "%",                    // suffix added to incoming value for display
+            style: "ring",                  // "ring" or "pie"
+            height: 8,                     // widget height in "rem"
+            bgColours: colorArrays.widgetReverse,  // background colors for reactive response to values; if String, colour is fixed
+            bgNormal: [0, .25],             // percent range of values for normal operation
+            bgWarning: [.25, .60],          // percent range of values for warning operation
         }
     }
 };

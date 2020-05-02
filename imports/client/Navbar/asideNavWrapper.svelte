@@ -28,7 +28,7 @@
 </script>
 
 
-<aside class="asideNavWrapper"
+<aside class="asideNavWrapper has-opacity"
        class:wrapper-dark={theme === "dark"}
        class:wrapper-light={theme === "light"}
        class:wrap-right={side === "right"}
@@ -41,7 +41,9 @@
         <Icon data={getContext("iconCancel")} scale="2"/>
     </div>
 
-    <slot> </slot>
+    <div class="sidebar-scrollable">
+        <slot> </slot>
+    </div>
 
 </aside>
 
@@ -49,13 +51,19 @@
 <style>
     /* misc parts */
     .asideNavWrapper {
-        position: absolute;
+        position: fixed;
         padding-top: 3rem;
         width: 12rem;
-        min-height: 15rem;
         top: 4.125rem;
         z-index: 1000;
-        opacity: 95%;
+    }
+
+    .sidebar-scrollable {
+        display: inline-block;
+        vertical-align: top;
+        height: calc(100vh - 115px);
+        width: 100%;
+        overflow: auto;
     }
 
     .wrap-left {
