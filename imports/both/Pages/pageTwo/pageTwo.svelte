@@ -61,7 +61,7 @@
 
     <article class="column is-6">
 
-        <Card text={compText.cardOne} lang={lang} id="cardOne">
+        <Card text={compText.cardOne} lang={lng} id="cardOne">
             <div class="d-flex align-items-center has-text-green-dark title is-3">
                 <Icon data={getContext("iconMark")} scale="2"/>
                 <span class="ml-3">Hello World</span>
@@ -72,7 +72,7 @@
 
     <article class="column is-6">
 
-        <Card text={compText.cardTwo} lang={lang} id="cardTwo" on:footEvent={cardEvent}>
+        <Card text={compText.cardTwo} lang={lng} id="cardTwo" on:footEvent={cardEvent}>
             <div class="d-flex align-items-center has-text-green-dark title is-3">
                 <Icon data={getContext("iconPost")} scale="4"/>
                 <span class="ml-3">Another View</span>

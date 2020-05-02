@@ -85,7 +85,7 @@ export default {
         squarebox: {
             en: {
                 suffix: "%",                    // value suffix
-                description: "Normal People",   // slug line
+                title: "Dog Walkers",           // slug line
             }
         },
 
