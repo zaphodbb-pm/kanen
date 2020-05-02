@@ -7,8 +7,9 @@
      * @function progressBars
      * @locus Client
      *
-     * @param {Object}  config - infobox setup information
-     * @param {Object}  payload - values to display
+     * @param {Object}  text - widget text strings
+     * @param {Object}  config - widget setup information
+     * @param {Object}  payload - widget values to display
      *
      *
      * @return nothing
@@ -20,7 +21,7 @@
      *            suffix: "%",                    // suffix added to incoming value for display
      *
      *            //* widget css related decoration
-     *            height: 12,                     // widget height in "rem"
+     *            height: 12,                     // widget height in "rem" for vertical bars
      *            orient: "horz",                 // show bars horizontally
      *            barSize:  "1rem",               // progress bar height ot width
      *
@@ -55,7 +56,7 @@
         let suffix = config.suffix ? config.suffix : "";
         let bgBar = config.bgColours ? config.bgColours : [bg];
         let size = config.barSize ? config.barSize : "0.5rem";
-        let height = config.height ? config.height : "8rem";
+        let height = config.height ? config.height : 8;
 
         if (payload && payload.values) {
             let values = payload.values;
@@ -70,7 +71,7 @@
 
                 if (vert) {
                     return {
-                        height: height,
+                        height: height + "rem",
                         label: item,
                         value: bar,
                         bar: `height: ${bar}%; width: ${size}; background-color: ${background}`,
@@ -102,7 +103,7 @@
     {#each bars as bar, idx}
 
         {#if vert}
-            <div class="bar-display">
+            <div class="bar-display" style="height: {bar.height}">
                 <div style={bar.barLabel}>{bar.label}</div>
                 <div class="bar-meter" style={bar.bar}></div>
                 <div class="bar-meter" style={bar.barRest}></div>

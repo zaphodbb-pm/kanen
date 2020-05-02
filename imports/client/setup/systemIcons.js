@@ -49,6 +49,9 @@ out.iconPayload = boxOpen;
 import cog from './icons/cog';
 out.iconConfig = cog;
 
+import arrowCircleRight from './icons/arrow-circle-right';
+out.iconMoreCircle = arrowCircleRight;
+
 import beer from 'svelte-awesome/icons/beer';
 out.iconBeer = beer;
 
