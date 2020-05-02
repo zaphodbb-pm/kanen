@@ -21,6 +21,7 @@
     import { setContext } from 'svelte';
     import { getContext } from 'svelte';
 
+
     //* get page text information and set contexts for children components
     import pageText from './pageThree_text'
     setContext("pageText", pageText);
@@ -41,6 +42,7 @@
 
     import Infobox from '/imports/components/widgets/infobox.svelte'
     let infoboxText =  i18n(pageText.components, "infobox", lng);
+    let infoboxText2 =  i18n(pageText.components, "infobox2", lng);
 
     let payload = {
         values: [47.56],
@@ -69,6 +71,14 @@
         maxValues: [120],
     };
 
+    import SquareBox from '/imports/components/widgets/squareBox.svelte'
+    let sbText =  i18n(pageText.components, "squarebox", lng);
+    let sb = {values: [95]};
+
+    import BigBox from '/imports/components/widgets/bigInfobox.svelte'
+    let bigText =  i18n(pageText.components, "bigInfobox", lng);
+    let bigPayload = {values: [55], maxValues: [120],};
+
 </script>
 
 
@@ -78,75 +88,192 @@
 
 <section class="page-body">
 
-    <div class="columns">
+    <div class="columns mt-5">
 
         <div class="column buffer-large">
             <div class="title is-4">{i18n(pageText.page, "col1", lng)}</div>
 
-            <div style="height: 210px;">
-                <Infobox text={infoboxText} config={pageConfig.widgets.infobox} {payload} />
-            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="set-height">
+                        <Infobox text={infoboxText} config={pageConfig.widgets.infobox} {payload} />
+                    </div>
 
-            <div class="mt-3">
-                <Expander text={expander1Text} tabSettings="has-border-maroon">
-                    <pre>{JSON.stringify(payload, null, 4)}</pre>
-                </Expander>
-            </div>
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(payload, null, 4)}</pre>
+                        </Expander>
+                    </div>
 
-            <div class="mt-2">
-                <Expander text={expander2Text} tabSettings="has-border-teal">
-                    <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox, null, 4)}</pre>
-                </Expander>
-            </div>
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox, null, 4)}</pre>
+                        </Expander>
+                    </div>
+                </div>
 
+                <div class="column">
+                    <div class="set-height">
+                        <Infobox text={infoboxText2} config={pageConfig.widgets.infobox2} {payload} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(payload, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox2, null, 4)}</pre>
+                        </Expander>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="column  buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "col2", lng)}</div>
+            <div class="title is-4">{i18n(pageText.page, "col4", lng)}</div>
 
-            <div style="height: 210px;">
-                <ProgBars text={progbarText} config={pageConfig.widgets.progressBars} payload={plBars} />
+            <div class="columns">
+                <div class="column">
+                    <div class="set-height">
+                        <SquareBox text={sbText} config={pageConfig.widgets.squarebox} payload={sb} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(sb, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.squarebox, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                </div>
+
+                <div class="column">
+                    <div class="set-height">
+                        <BigBox text={bigText} config={pageConfig.widgets.biginfo} payload={bigPayload} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(bigPayload, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.biginfo, null, 4)}</pre>
+                        </Expander>
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-3">
-                <Expander text={expander1Text} tabSettings="has-border-maroon">
-                    <pre>{JSON.stringify(plBars, null, 4)}</pre>
-                </Expander>
-            </div>
-
-            <div class="mt-2">
-                <Expander text={expander2Text} tabSettings="has-border-teal">
-                    <pre class="mt-3">{JSON.stringify(pageConfig.widgets.progressBars, null, 4)}</pre>
-                </Expander>
-            </div>
         </div>
 
+    </div>
+
+
+    <div class="columns mt-5">
         <div class="column  buffer-large">
             <div class="title is-4">{i18n(pageText.page, "col3", lng)}</div>
 
-            <div class="columns" style="height: 210px;">
+            <div class="columns">
                 <div class="column">
-                    <Gauge text={guage1Text} config={pageConfig.widgets.gauge1} payload={g1} />
+                    <div class="set-height">
+                        <Gauge text={guage1Text} config={pageConfig.widgets.gauge1} payload={g1} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(g1, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.gauge1, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
                 </div>
 
                 <div class="column">
-                    <Gauge text={guage2Text} config={pageConfig.widgets.gauge2} payload={g2} />
+                    <div class="set-height">
+                        <Gauge text={guage2Text} config={pageConfig.widgets.gauge2} payload={g2} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(g2, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.gauge2, null, 4)}</pre>
+                        </Expander>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="mt-4">
-                <Expander text={expander1Text} tabSettings="has-border-maroon">
-                    <pre>{JSON.stringify(g1, null, 4)}</pre>
-                </Expander>
-            </div>
+        <div class="column buffer-large">
+            <div class="title is-4">{i18n(pageText.page, "col2", lng)}</div>
 
-            <div class="mt-2">
-                <Expander text={expander2Text} tabSettings="has-border-teal">
-                    <pre class="mt-3">{JSON.stringify(pageConfig.widgets.gauge1, null, 4)}</pre>
-                </Expander>
+            <div class="columns">
+                <div class="column">
+                    <div class="set-height">
+                        <ProgBars text={progbarText} config={pageConfig.widgets.progressBars} payload={plBars} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(plBars, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.progressBars, null, 4)}</pre>
+                        </Expander>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="set-height">
+                        <ProgBars text={progbarText} config={pageConfig.widgets.progressBars2} payload={plBars} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(plBars, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.progressBars2, null, 4)}</pre>
+                        </Expander>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
 </section>
+
+
+<style>
+
+    .set-height {
+        height: 12rem;
+    }
+
+</style>

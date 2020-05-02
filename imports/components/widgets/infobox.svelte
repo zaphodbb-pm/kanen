@@ -7,8 +7,9 @@
      * @function infobox
      * @locus Client
      *
-     * @param {Object}  config - infobox setup information
-     * @param {Object}  payload - values to display
+     * @param {Object}  text - widget text strings
+     * @param {Object}  config - widget setup information
+     * @param {Object}  payload - widget values to display
      *
      * @return nothing
      *

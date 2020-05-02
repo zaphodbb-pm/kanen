@@ -21,16 +21,26 @@ export default {
     page: {
         col1:{en: "Infobox"},
         col2:{en: "Progress Bars"},
-        col3:{en: "Gauges"}
+        col3:{en: "Gauges"},
+        col4:{en: "SquareBox & BigBox"}
     },
 
     components: {
         infobox: {
             en: {
                 title: "Box Title",
-                barText: "Progress Bar Text",
+                barText: "Progress",
                 prefix: "$",
-                suffix: "-suffix"
+                suffix: "-sfx"
+            }
+        },
+
+        infobox2: {
+            en: {
+                title: "Box Simple",
+                barText: "",
+                prefix: "",
+                suffix: ""
             }
         },
 
@@ -39,7 +49,7 @@ export default {
                 icon: "iconPayload",
                 logo: "",
                 title: "Payload",
-                subTitle: "JSON object format"
+                subTitle: ""
             }
         },
 
@@ -69,6 +79,23 @@ export default {
             en: {
                 title: "Gauge2",                // main title for widget
                 description: "Circular Pie",    // more detail
+            }
+        },
+
+        squarebox: {
+            en: {
+                suffix: "%",                    // value suffix
+                description: "Normal People",   // slug line
+            }
+        },
+
+        bigInfobox: {
+            en: {
+                prefix: "$",
+                title: "Economics",             // slug line
+                suffix: "%",                    // value suffix
+                link: "http://www.apple.com",   // info link only (optional)
+                linkText: "More Info",          // info link text only (optional)
             }
         },
 
