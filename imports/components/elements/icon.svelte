@@ -9,6 +9,7 @@
      *
      * @return nothing
      *
+     * @see {https://icons8.com/line-awesome}
      * @see {https://github.com/alphapeter/fa-svelte}
      *
      * @notes
@@ -45,5 +46,6 @@
         height: 1em;
         overflow: visible;
         display: inline-block;
+        line-height: 0;
     }
 </style>

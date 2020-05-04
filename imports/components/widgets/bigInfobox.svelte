@@ -81,7 +81,10 @@
 
     <div class="style-content-box">
         <div class="info-content">
-            <div class="style-number"><b>{text.prefix}{progessValue()}{text.suffix}</b></div>
+            <div class="style-number">
+                <b>{text.prefix}{progessValue()}<span class="suffix">{text.suffix}</span></b>
+            </div>
+
             <p class="style-text">{text.title}</p>
         </div>
 
@@ -141,6 +144,11 @@
 
     .style-number {
         font-size: 1em;
+    }
+
+    .style-number  .suffix {
+        font-size: 0.75em;
+        vertical-align: top;
     }
 
     .style-text {

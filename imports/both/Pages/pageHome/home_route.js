@@ -17,7 +17,6 @@ import Page from './home.svelte'
 import PageText from './home_text'
 
 let lang = getLang("en");
-let base = "/home";                         // convenience variable
 
 export default {
     name: "/home",                             // link that router will use

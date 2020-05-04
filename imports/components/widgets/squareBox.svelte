@@ -77,7 +77,7 @@
     <div class="square-card-inner">
         <div class="styleInfo">
             <div><b>{payload.values[0]}</b></div>
-            <div><b>{text.suffix}</b></div>
+            <div><b class="suffix">{text.suffix}</b></div>
         </div>
         <div class="styleTitle">{text.title}</div>
     </div>
@@ -123,5 +123,10 @@
     .styleTitle {
         font-size: 1rem;
         text-align: center;
+    }
+
+    .styleInfo  .suffix {
+        font-size: 0.75em;
+        vertical-align: text-bottom;
     }
 </style>

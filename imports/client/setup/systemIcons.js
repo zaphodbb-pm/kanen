@@ -1,19 +1,15 @@
 /**
- * Gets svg icons ready for insertion into top level app context
+ * @summary Gets svg icons ready for insertion into top level app context
  *
  * @memberof Setup:Client
  * @function systemIcons
  * @locus Client
  *
- * @returns {Object} out - holds the icon svg info
+ * @returns {Object} out - holds the icon svg info in json format
  *
  * @notes
- *      1. Import svg file from library and insert into returned object
+ *      1. Icon information is compatible with Font Awesome 5 format {prefix, iconName, icon: [path]}
  *
- * @example
- *      iconNotify = bell
- *      iconBeer = beer
- *      iconMark = bookmark
  */
 
 let out = {};
@@ -38,6 +34,8 @@ out.iconContent = content;
 import addressCard from '/public/svg_to_js/address-card.json';
 out.iconCard = addressCard;
 
+import icons from '/public/svg_to_js/icons-solid.json';
+out.iconIcons = icons;
 
 
 //* navbar icons
@@ -85,7 +83,6 @@ out.iconMore = more;
 
 
 //* other icons
-
 import beer from '/public/svg_to_js/beer-solid.json';
 out.iconBeer = beer;
 
@@ -93,91 +90,3 @@ out.iconBeer = beer;
 
 
 export const mainIcons = out;
-
-/*
-//* project logo
-import logo from './icons/logo.js';
-out.iconLogo = logo;
-
-import logo2 from './icons/logo2.js';
-out.iconLogo2 = logo2;
-
-import logo3 from './icons/logo3.js';
-out.iconLogo3 = logo3;
-
-//* page icons
-import home from './icons/home';
-out.iconHome = home;
-
-import widget from './icons/puzzle-piece';
-out.iconWidget = widget;
-
-import learn from 'svelte-awesome/icons/graduation-cap';
-out.iconLearn = learn;
-
-import content from './icons/folder-open';
-out.iconContent = content;
-
-import addressCard from './icons/address-card';
-out.iconCard = addressCard;
-
-
-
-//* navbar icons
-import bell from './icons/bell';
-out.iconNotify = bell;
-
-import bookmark from 'svelte-awesome/icons/bookmark-o';
-out.iconMark = bookmark;
-
-import post from './icons/clipboard-list';
-out.iconPost = post;
-
-
-
-//* component icons
-import music from './icons/music'
-out.iconMusic = music;
-
-import film from './icons/film'
-out.iconFilm = film;
-
-import image from './icons/image'
-out.iconImage = image;
-
-import fileAlt from './icons/file-alt'
-out.iconDoc = fileAlt;
-
-
-
-
-import cancel from './icons/times-circle'
-out.iconCancel = cancel;
-
-import boxOpen from './icons/box-open';
-out.iconPayload = boxOpen;
-
-import cog from './icons/cog';
-out.iconConfig = cog;
-
-import arrowCircleRight from './icons/arrow-circle-right';
-out.iconMoreCircle = arrowCircleRight;
-
-import more from 'svelte-awesome/icons/caret-right';
-out.iconMore = more;
-
-
-//* other icons
-
-import beer from 'svelte-awesome/icons/beer';
-out.iconBeer = beer;
-
- */
-
-//export const mainIcons = out;
-
-
-/*
-import home from 'svelte-awesome/icons/home';
-out.iconHome = home;
- */
