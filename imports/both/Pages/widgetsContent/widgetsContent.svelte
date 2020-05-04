@@ -37,6 +37,7 @@
     //* page body support **************************
     import {i18n} from '/imports/functions/func-i18n'
     import TabContent from '/imports/components/widgets/tabbedContent.svelte'
+    import Accordian from '/imports/components/widgets/accordian.svelte'
 
     let tabText = i18n(pageText.components, "tabbed", lng);
 
@@ -54,9 +55,7 @@
     </article>
 
     <article class="column is-6">
-
-        article two
-
+        <Accordian tabSettings="is-warning is-light" content={tabText} />
     </article>
 
 </section>

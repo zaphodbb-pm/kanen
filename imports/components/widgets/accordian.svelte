@@ -28,28 +28,20 @@
 
     //* get accessory components
     //import {methodReturn} from "../../functions/func-methodReturn";
-    import {i18n} from '/imports/functions/func-i18n'
     import { getContext } from 'svelte';
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
 
     //* props
     export let tabSettings = "";
     export let content = [];
-    export let eventMain;
-    export let eventSub;
 
     let  currTab = content && content.length > 0 ? content[0].label : "";
 
-
     function changetab(tab) {
         currTab = tab;
-        let event = eventMain;
-        //this.$emit(event, tab);
     }
 
     function setContent(sub) {
-        let event = eventSub;
-        //this.$emit(event, sub);
     }
 
     function body() {
@@ -85,38 +77,54 @@
 
 
 <div class="accordions">
-
     <div class="accordion">
 
-        {#each body as item, idx}
+        {#each body() as item, idx}
+
             <a class="button accordion-header {tabSettings}" on:click|stopPropagation={ () => changetab(item.label) }>
+
+                {#if item.icon}
+                    <span class="icon">
+                        <Icon icon={getContext(item.icon)} class="text-1dot2rem"/>
+                    </span>
+                {/if}
 
                 {#if item.list}
                     <span class="badge is-badge-warning is-badge-small" data-badge={item.list.length}>
-                    <b class="pr-3">{item.label}</b>
-                </span>
-
-                {:else}}
+                        <b class="pr-3">{item.label}</b>
+                    </span>
+                {:else}
                     <b>{item.label}</b>
                 {/if}
 
             </a>
 
-            <div class="accordion-body">
-                <div v-if="item.list" v-bind:class="item.label === currTab ? 'open-body' : 'close-body'">
-                    <div v-for="(sublabel, idb) in item.list" v-bind:key="idb" v-on:click="setContent(sublabel.name)">
-                        <span class="accordion-list">{sublabel.name}</span>
-                    </div>
-                </div>
 
-                <div v-else v-bind:class="item.label === currTab ? 'open-body' : 'close-body'">
-                    <div class="accordion-content" v-html="item.text"></div>
-                </div>
+            <div class="accordion-body">
+
+                {#if item.list}
+
+                    <div  class="{item.label === currTab ? 'open-body' : 'close-body'}">
+                        {#each item.list as sublabel, idx}
+                            <div on:click={ () => setContent(sublabel.name) }>
+                                <span class="accordion-list">{sublabel.name}</span>
+                            </div>
+                        {/each}}
+                    </div>
+
+                {:else}
+
+                    <div class="{item.label === currTab ? 'open-body' : 'close-body'}">
+                        <div class="accordion-content">{@html item.text}</div>
+                    </div>
+
+                {/if}
+
             </div>
-        </div>
 
         {/each}
 
+    </div>
 </div>
 
 
@@ -132,6 +140,8 @@
     }
 
     .accordion-header {
+        text-align: left !important;
+        justify-content: left !important;
     }
 
     .accordion-body {

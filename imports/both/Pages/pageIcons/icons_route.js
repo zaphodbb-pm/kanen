@@ -1,8 +1,8 @@
 /**
- * @summary Route config information for PageOne.
+ * @summary Route config information for Icons page.
  *
- * @memberof Pages:PageOne
- * @function pageOne_route
+ * @memberof Pages:Icons
+ * @function icons_route
  * @locus Client
  * @augments icons
  *

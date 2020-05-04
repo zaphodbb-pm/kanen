@@ -1,11 +1,11 @@
 <script>
     /**
-     * Side Navbar menu.
+     * Side navbar menu.
      *
-     * @memberof Navbar
+     * @memberof navbar
      * @function NavSideMenu
      * @locus Client
-     * @augments Navbar
+     * @augments navbar
      *
      * @param {Object} currentRoute - current active path name (link)
      *

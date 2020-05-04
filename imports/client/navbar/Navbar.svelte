@@ -1,12 +1,14 @@
 <script>
     /**
-     * @summary Navbar insert.
+     * @summary navbar insert.
      *
-     * @memberof Navbar
-     * @function Navbar
+     * @memberof navbar
+     * @function navbar
      * @locus Client
      *
      */
+
+    import {layout} from '/imports/client/setup/systemGlobals'
 
     import Navbar_Brand from './Navbar_Brand.svelte'
     import Navbar_Links from './Navbar_Links.svelte'
@@ -54,11 +56,15 @@
     <div class="navbar-menu">
 
         <div class="navbar-start">
-            <Navbar_Links {currentRoute}> </Navbar_Links>
+            {#if layout.TOP_NAV}
+                <Navbar_Links {currentRoute}> </Navbar_Links>
+            {/if}
         </div>
 
         <div class="navbar-end w-100 justify-content-center is-hidden-mobile">
-            <NavShortcuts {currentRoute}> </NavShortcuts>
+            {#if layout.SHORTCUTS}
+                <NavShortcuts {currentRoute}> </NavShortcuts>
+            {/if}
         </div>
 
     </div>
@@ -69,8 +75,10 @@
 
 </nav>
 
-<div class="navbar w-100 justify-content-center is-fixed-bottom is-light is-navMobile is-hidden-tablet">
-    <NavShortcuts {currentRoute} bottom> </NavShortcuts>
+<div class="navbar w-100 justify-content-center is-fixed-bottom is-light is-navMobile is-hidden-tablet"
+     style="display: inline-flex">
+
+    <NavShortcuts {currentRoute} bottom />
 </div>
 
 

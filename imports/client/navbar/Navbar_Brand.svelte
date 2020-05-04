@@ -1,14 +1,16 @@
 <script>
 
     /**
-     * @summary Navbar brand insert.
+     * @summary navbar brand insert.
      *
-     * @memberof Navbar
+     * @memberof navbar
      * @function Navbar_Brand
      * @locus Client
-     * @augments Navbar
+     * @augments navbar
      *
      */
+
+    import {layout} from '/imports/client/setup/systemGlobals'
 
     import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
@@ -22,8 +24,9 @@
         <Icon icon={logo} />
     </div>
 
-
-    <img class="navbar-external-logo" src="/sweatcrew-logo.png" alt="logo">
+    {#if layout.SECONDARY_LOGO}
+        <img class="navbar-external-logo" src="/sweatcrew-logo.png" alt="logo">
+    {/if}
 </a>
 
 
@@ -32,7 +35,6 @@
         font-size: 3rem;
         line-height: 0;
     }
-
 
     img.navbar-external-logo {
         height: 2.5rem;

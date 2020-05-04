@@ -37,6 +37,9 @@ out.iconCard = addressCard;
 import icons from '/public/svg_to_js/icons-solid.json';
 out.iconIcons = icons;
 
+import palette from '/public/svg_to_js/palette-solid.json';
+out.iconColours = palette;
+
 
 //* navbar icons
 import bell from '/public/svg_to_js/bell.json';

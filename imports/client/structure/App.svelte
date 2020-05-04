@@ -22,7 +22,7 @@
     import { onMount, setContext, getContext } from 'svelte';
 
     //* setup system wide version info
-    import version from './version'
+    import version from '../setup/version'
     setContext("Version", version);
 
     //* setup system wide icons as a context

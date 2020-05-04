@@ -11,6 +11,7 @@
      * @param {String} content:icon - tab label icon positioned at left of tab
      * @param {String} content:label - tab label
      * @param {String} content:text - optional content to display in body of tab
+     * @param {String} content:list - optional sub content to display in a a tab
      * @param {Object} content:dbContent - dbContent: {coll: "", name: ""} optional content from database to display in body of tab
      *
      * @return nothing
@@ -23,7 +24,6 @@
 
     //* get accessory components
     //import {methodReturn} from "../../functions/func-methodReturn";
-    import {i18n} from '/imports/functions/func-i18n'
     import { getContext } from 'svelte';
     import Icon from '/imports/components/elements/icon.svelte'
 
