@@ -34,11 +34,13 @@ import Home from '/imports/both/Pages/pageHome/home_route'
 import Cards from '/imports/both/Pages/pageCards/cards_route'
 import Widgets from '/imports/both/Pages/pageWidgets/widgets_route'
 import Content from '/imports/both/Pages/widgetsContent/widgetsContent_route'
+import Icons from '/imports/both/Pages/pageIcons/icons_route'
 
 
 const routes = [
     Home,
     Cards,
+    Icons,
     Widgets,
     Content,
 

@@ -1,9 +1,9 @@
 <script>
     /**
-     * @summary Layout for Home page.
+     * @summary Layout for Icons page.
      *
-     * @memberof Pages:Home
-     * @function pageHome
+     * @memberof Pages:Icons
+     * @function icons
      * @locus Client
      *
      */
@@ -21,19 +21,17 @@
     import { getContext } from 'svelte';
 
     //* get page text information and set contexts for children components
-    import pageText from './home_text'
+    import pageText from './icons_text'
     setContext("pageText", pageText);
 
     //* get the page header common component and
     import Hdr from '/imports/client/structure/PageHeader.svelte'
 
     //* page body support **************************
+    import {mainIcons} from '/imports/client/setup/systemIcons'
     import Icon from '/imports/components/elements/icon.svelte'
-    let out = getContext("iconMark");
 
-    import fiver from '/public/svg_to_js/biking-solid.json'
-    let newIcon = fiver;
-
+    let allIcons = Object.entries(mainIcons);
 
 </script>
 
@@ -43,24 +41,21 @@
 
 
 <section class="page-body">
-    <div>lang: {lng}</div>
 
-    <div class="d-flex align-items-center" style="font-size: 3rem;">
-        <Icon icon={out}/>
-        <span>svelte-icons</span>
-    </div>
+    <div class="columns is-multiline">
+        {#each allIcons as icon}
 
-    <div class="d-flex align-items-center has-text-blue-dark">
-        <Icon icon={getContext("iconNotify")} class="icon"/>
-        <span>Svelte-Icons</span>
-    </div>
+            <div class="column is-6">
+                <div class="d-flex align-items-center mb-3">
+                    <span><b>{icon[0]}</b> is {icon[1].iconName}: </span>
 
-    <div class="d-flex align-items-center has-text-blue-dark">
-        <span class="icon">
-            <Icon icon={newIcon}/>
-        </span>
+                    <Icon icon={icon[1]} class="ml-2 is-size-6" />
+                    <Icon icon={icon[1]} class="ml-2 is-size-4 has-text-link" />
+                    <Icon icon={icon[1]} class="ml-2 is-size-2 has-text-primary" />
+                </div>
+            </div>
 
-        <span>Gotten svg</span>
+        {/each}
     </div>
 
 </section>

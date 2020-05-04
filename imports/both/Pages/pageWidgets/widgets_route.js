@@ -17,10 +17,9 @@ import Page from './widgets.svelte'
 import PageText from './widgets_text'
 
 let lang = getLang("en");
-let base = "/widgets";                   // convenience variable
 
 export default {
-    name: base,                             // link that router will use
+    name: "/widgets",                       // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',

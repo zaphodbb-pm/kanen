@@ -1,10 +1,10 @@
 /**
- * @summary Route config information for Cards.
+ * @summary Route config information for PageOne.
  *
- * @memberof Pages:Cards
- * @function cards_route
+ * @memberof Pages:PageOne
+ * @function pageOne_route
  * @locus Client
- * @augments cards
+ * @augments icons
  *
  * @returns {Object}
  */
@@ -13,23 +13,23 @@
 import {getLang} from '/imports/functions/func-getLang'
 import {i18n} from '/imports/functions/func-i18n'
 import MainPage from '/imports/client/structure/MainPage.svelte'
-import Page from './cards.svelte'
-import PageText from './cards_text'
+import Page from './icons.svelte'
+import PageText from './icons_text'
 
 let lang = getLang("en");
 
 export default {
-    name: "/cards",                         // link that router will use
+    name: "/icons",                             // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconCard",                       // navbar icon to show
+    icon: "iconIcons",                       // navbar icon to show
     label: i18n(PageText, "navLabel", lang),    // navbar text to show
 
     roles: ["all"],                         // roles that can see this link in navbar and be routed to
 
-    group: 0,                               // for side navigation; group routes into a block
-    isNavMobile: true,                      // (optional) show link in mobile nav block at bottom or top
+    group: 1,                               // for side navigation; group routes into a block
+    isNavMobile: true,                     // (optional) show link in mobile nav block at bottom or top
 };

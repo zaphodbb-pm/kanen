@@ -96,24 +96,6 @@
             <div class="columns">
                 <div class="column">
                     <div class="set-height">
-                        <Infobox text={infoboxText} config={pageConfig.widgets.infobox} {payload} />
-                    </div>
-
-                    <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
-                            <pre>{JSON.stringify(payload, null, 4)}</pre>
-                        </Expander>
-                    </div>
-
-                    <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
-                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox, null, 4)}</pre>
-                        </Expander>
-                    </div>
-                </div>
-
-                <div class="column">
-                    <div class="set-height">
                         <Infobox text={infoboxText2} config={pageConfig.widgets.infobox2} {payload} />
                     </div>
 
@@ -126,6 +108,24 @@
                     <div class="mt-2">
                         <Expander text={expander2Text} tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox2, null, 4)}</pre>
+                        </Expander>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="set-height">
+                        <Infobox text={infoboxText} config={pageConfig.widgets.infobox} {payload} />
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                            <pre>{JSON.stringify(payload, null, 4)}</pre>
+                        </Expander>
+                    </div>
+
+                    <div class="mt-2">
+                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                            <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox, null, 4)}</pre>
                         </Expander>
                     </div>
                 </div>

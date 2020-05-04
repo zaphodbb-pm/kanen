@@ -28,7 +28,7 @@ export default {
     components: {
         infobox: {
             en: {
-                title: "Box Title",
+                title: "Complex Box",
                 barText: "Progress",
                 prefix: "$",
                 suffix: "-sfx"
@@ -37,7 +37,7 @@ export default {
 
         infobox2: {
             en: {
-                title: "Box Simple",
+                title: "Simple Box",
                 barText: "",
                 prefix: "",
                 suffix: ""
