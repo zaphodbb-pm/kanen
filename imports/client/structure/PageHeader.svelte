@@ -6,14 +6,13 @@
      * @memberof Structure
      * @function PageHeader
      * @locus Client
-     * @isTemplate true
      *
      */
 
-    import {i18n} from '/imports/functions/func-i18n'
-
-    export let hdrtext = null;
     export let lang;
+    export let hdrtext;
+
+    import {i18n} from '/imports/functions/func-i18n'
 
 </script>
 

@@ -30,17 +30,28 @@
  */
 
 
-import P1 from '/imports/both/Pages/pageOne/pageOne_route'
-import P2 from '/imports/both/Pages/pageTwo/pageTwo_route'
-import P3 from '/imports/both/Pages/pageThree/pageThree_route'
+import Home from '/imports/both/Pages/pageHome/home_route'
+import Cards from '/imports/both/Pages/pageCards/cards_route'
+import Widgets from '/imports/both/Pages/pageWidgets/widgets_route'
+import Content from '/imports/both/Pages/widgetsContent/widgetsContent_route'
+
 
 const routes = [
-    P1,
-    P3,
-    P2
+    Home,
+    Cards,
+    Widgets,
+    Content,
+
+    //* not found or 404 page is redirected to home page
+    {
+        name: '404',
+        path: '404',
+        redirectTo: '/home',
+    }
 ];
 
 export {routes}
+
 
 //** build short cut links for top or bottom nav
 let shortcuts = routes.filter( (route) => route.isNavMobile );

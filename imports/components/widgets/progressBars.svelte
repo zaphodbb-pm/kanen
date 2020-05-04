@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Progress bar block vertical or horizontal.
+     * @summary Progress bar block vertical or horizontal.
      *
      * @memberof Components:Widgets
      * @function progressBars

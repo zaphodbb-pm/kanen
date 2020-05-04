@@ -5,7 +5,6 @@
      *
      * @memberof Structure:Client
      * @function App
-     * @isTemplate true
      * @locus Client
      *
      * @notes
@@ -20,23 +19,22 @@
      *
      */
 
-    import { setContext } from 'svelte';
+    import { onMount, setContext, getContext } from 'svelte';
 
     //* setup system wide version info
     import version from './version'
     setContext("Version", version);
 
     //* setup system wide icons as a context
-    import icons from '/imports/client/setup/systemIcons'
+    import {mainIcons} from '/imports/client/setup/systemIcons'
 
-    const keys =  Object.keys(icons);
+    const keys =  Object.keys(mainIcons);
     for( const key of keys){
-        setContext(key, icons[key]);
+        setContext(key, mainIcons[key]);
     }
 
     //* get system wide constants
     //import {documents, colors, colorArrays, components, theme } from '/imports/client/setup/systemGlobals'
-
 
     //* load router -> will render main page & components based on nav-link selection
     import Pages from 'svelte-router-spa/src/components/router.svelte'

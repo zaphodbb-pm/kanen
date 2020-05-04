@@ -1,6 +1,6 @@
 <script>
     /**
-     * Expander box with slot for html content.
+     * @summary Expander box with slot for html content.
      *
      * @memberof Components:Widgets
      * @function expanderSlot
@@ -20,7 +20,7 @@
     export let tabSettings = "";
 
     import { getContext } from 'svelte';
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
 
     let toggle = false;
     let rotate = "close-box";
@@ -44,7 +44,7 @@
         <div class="expander-label">
             {#if text.icon}
                 <div class="label-icon">
-                    <Icon data={getContext(text.icon)} scale="1.5"/>
+                    <Icon icon={getContext(text.icon)} class="text-1dot5rem"/>
                 </div>
             {/if}
 
@@ -63,7 +63,7 @@
         </div>
 
         <div class="{rotate}">
-           <Icon data={getContext("iconMore")} scale="1"/>
+           <Icon icon={getContext("iconMore")} />
         </div>
 
     </div>

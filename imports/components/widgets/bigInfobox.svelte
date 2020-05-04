@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Big info box widget.
+     * @summary Big info box widget.
      *
      * @memberof Components:Widgets
      * @function bigInfobox
@@ -36,7 +36,7 @@
 
     //* get accessory components
     import { getContext } from 'svelte';
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
 
     //* support functions
     import {toDecimals} from '/imports/functions/func-formatNumbers'
@@ -85,8 +85,8 @@
             <p class="style-text">{text.title}</p>
         </div>
 
-        <div class="style-box-icon">
-            <Icon data={getContext(config.icon)} scale="{height /2 }"/>
+        <div class="style-box-icon" style="{styleIcon()}">
+            <Icon icon={getContext(config.icon)} />
         </div>
     </div>
 
@@ -95,7 +95,7 @@
             <div>{text.linkText}</div>
 
             <div class="footer-icon">
-                <Icon data={getContext("iconMoreCircle")} scale="1.2"/>
+                <Icon icon={getContext("iconMoreCircle")} class="text-1dot2rem"/>
             </div>
         </a>
     {/if}

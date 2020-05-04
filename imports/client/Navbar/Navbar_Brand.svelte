@@ -6,26 +6,33 @@
      * @memberof Navbar
      * @function Navbar_Brand
      * @locus Client
-     * @isTemplate true
      * @augments Navbar
      *
      */
 
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
-    let logo2 = getContext("iconLogo2");
+    let logo = getContext("iconLogo");
 
 </script>
 
 
-<a href="/page-one" class="navbar-brand-insert d-flex pl-4 has-text-primary">
-    <Icon data={logo2} scale="3" style="align-self: center;"/>
+<a href="/home" class="navbar-brand-insert d-flex align-items-center pl-4 has-text-primary">
+    <div class="main-logo">
+        <Icon icon={logo} />
+    </div>
+
 
     <img class="navbar-external-logo" src="/sweatcrew-logo.png" alt="logo">
 </a>
 
 
 <style>
+    .main-logo {
+        font-size: 3rem;
+        line-height: 0;
+    }
+
 
     img.navbar-external-logo {
         height: 2.5rem;

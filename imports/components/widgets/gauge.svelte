@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Circular gauge widget.
+     * @summary Circular gauge widget.
      *
      * @memberof Components:Widgets
      * @function gauge

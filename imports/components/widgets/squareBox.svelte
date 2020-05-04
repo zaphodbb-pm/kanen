@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Square message block.
+     * @summary Square message block.
      *
      * @memberof Components:Widgets
      * @function squareBox

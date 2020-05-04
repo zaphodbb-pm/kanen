@@ -5,7 +5,6 @@
      * @memberof Navbar
      * @function Navbar
      * @locus Client
-     * @isTemplate true
      *
      */
 

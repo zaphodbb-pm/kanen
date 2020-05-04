@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Svelte info block.
+     * @summary Svelte info block.
      *
      * @memberof Components:Widgets
      * @function infobox
@@ -47,7 +47,7 @@
 
     //* get accessory components
     import { getContext } from 'svelte';
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
 
     //* support functions
     import {toDecimals} from '/imports/functions/func-formatNumbers'
@@ -71,7 +71,7 @@
     }
 
     function styleIcon() {
-        return `height: ${height}rem; width: ${height}rem; background-color: ${!!text.barText ? "" : setBG()};`
+        return `font-size: ${height * 0.75}rem; height: ${height}rem; width: ${height}rem; background-color: ${!!text.barText ? "" : setBG()};`
     }
 
     function setBG() {
@@ -113,7 +113,7 @@
 <div class="infobox d-flex" style="{styleBox()}">
 
     <div class="style-box-icon" style="{styleIcon()}">
-        <Icon data={getContext(config.icon)} scale="{height * 0.75}"/>
+        <Icon icon={getContext(config.icon)} />
     </div>
 
     <div class="info-content">

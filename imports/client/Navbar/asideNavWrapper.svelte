@@ -6,7 +6,6 @@
      * @memberof Navbar
      * @function asideNavWrapper
      * @locus Client
-     * @isTemplate true
      *
      */
 
@@ -14,7 +13,7 @@
     import { getContext } from 'svelte';
 
     //** get any other components
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
 
     //** event handlers
     import {createEventDispatcher} from 'svelte';
@@ -38,7 +37,7 @@
 
 
     <div on:click={ () => open = false} class="close-aside">
-        <Icon data={getContext("iconCancel")} scale="2"/>
+        <Icon icon={getContext("iconCancel")} class="text-1dot6rem"/>
     </div>
 
     <div class="sidebar-scrollable">

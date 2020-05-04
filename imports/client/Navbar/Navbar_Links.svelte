@@ -6,13 +6,12 @@
      * @memberof Navbar
      * @function Navbar_Brand
      * @locus Client
-     * @isTemplate true
      * @augments Navbar
      *
      */
 
     //* get system wide icon definition
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
 
     //* get route information and config
@@ -27,13 +26,15 @@
 
     export let currentRoute;
 
+    let showLinks = routes.filter( (route) => !!route.component );
+
 </script>
 
 
 
 <nav class="navbar-start" style="height: 100%;">
 
-    {#each routes as link }
+    {#each showLinks as link }
 
         <a class="navbar-item navbar-hover"
            class:is-nav-active={currentRoute.name === link.name}
@@ -41,8 +42,8 @@
            on:click={event => navigate(event, link.name)}
            href={link.name}>
 
-            <div class="has-text-centered">
-                <Icon data={getContext(link.icon)} scale="1.5" label={link.icon}/>
+            <div class="has-text-centered" title={link.label}>
+                <Icon icon={getContext(link.icon)} class="text-1dot5rem"/>
                 <div class="text-0dot9rem has-text-centered is-hidden-touch" style="line-height: 1.2;">{link.label}</div>
             </div>
         </a>
