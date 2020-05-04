@@ -20,7 +20,7 @@
 
 {#if hdrtext}
 
-    <header class="content-header mb-4">
+    <header class="content-header mb-5">
         {#if hdrtext.title}
             <h2 class="title is-3">{ i18n(hdrtext, "title", lang) }</h2>
         {/if}

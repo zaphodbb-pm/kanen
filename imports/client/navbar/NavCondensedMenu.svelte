@@ -1,11 +1,11 @@
 <script>
     /**
-     * Navbar condensed menu for shortcuts.
+     * navbar condensed menu for shortcuts.
      *
-     * @memberof Navbar
+     * @memberof navbar
      * @function NavTopMenu
      * @locus Client
-     * @augments Navbar
+     * @augments navbar
      *
      * @param {Object} currentRoute - current active path name (link)
      * @param {Boolean} bottom - flag to shape menu for use at bottom

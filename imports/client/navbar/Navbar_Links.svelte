@@ -1,12 +1,12 @@
 <script>
 
     /**
-     * @summary Navbar brand insert.
+     * @summary navbar brand insert.
      *
-     * @memberof Navbar
+     * @memberof navbar
      * @function Navbar_Brand
      * @locus Client
-     * @augments Navbar
+     * @augments navbar
      *
      */
 
