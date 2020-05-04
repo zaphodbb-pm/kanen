@@ -12,7 +12,7 @@
      */
 
     //* get system wide icon definition
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
 
     //* get route information and config
@@ -42,7 +42,7 @@
        title={link.label}>
 
         <div class="has-text-centered">
-            <Icon data={getContext(link.icon)} scale="1.5" label={link.icon}/>
+            <Icon icon={getContext(link.icon)} class="text-1dot5rem"/>
 
             {#if !bottom}
                 <div class="text-0dot8rem nav-page-text has-text-centered" style="line-height: 1.2;">

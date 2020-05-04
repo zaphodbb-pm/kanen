@@ -12,7 +12,7 @@
      */
 
     //* get system wide icon definition
-    import Icon from 'svelte-awesome/components/Icon.svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
 
     //* get route information and config
@@ -47,8 +47,8 @@
                on:click={event => navigate(event, links.name)}
                href={links.name}>
 
-                <div class="d-flex align-items-center">
-                    <Icon data={getContext(links.icon)} scale="1.5" label={links.icon}/>
+                <div class="d-flex align-items-center" title={links.label}>
+                    <Icon icon={getContext(links.icon)} class="text-1dot5rem"/>
                     <div class="nav-page-text ml-2">{links.label}</div>
                 </div>
             </a>
