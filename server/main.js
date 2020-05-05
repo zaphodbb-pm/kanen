@@ -150,7 +150,8 @@ if (Meteor.isServer) {
     //resetDb();
 
 
-    Meteor.call("buildLineAwesomeIcons", "private/svg", "public/svg_to_js");
+    //* for dev work only
+    //Meteor.call("buildLineAwesomeIcons", "private/svg", "public/svg_to_js");
 }
 
 
