@@ -51,13 +51,13 @@
 @import "../imports/client/css/bulma-scss-master/components/modal";
 @import "../imports/client/css/bulma-scss-master/components/navbar";
 @import "../imports/client/css/bulma-scss-master/components/pagination";
-@import "../imports/client/css/bulma-scss-master/components/panel";
+//@import "../imports/client/css/bulma-scss-master/components/panel";
 @import "../imports/client/css/bulma-scss-master/components/tabs";
 /* load main grid files */
 @import "../imports/client/css/bulma-scss-master/grid/columns";
-@import "../imports/client/css/bulma-scss-master/grid/tiles";
+//@import "../imports/client/css/bulma-scss-master/grid/tiles";
 /* load main layout files */
-@import "../imports/client/css/bulma-scss-master/layout/hero";
+//@import "../imports/client/css/bulma-scss-master/layout/hero";
 @import "../imports/client/css/bulma-scss-master/layout/section";
 @import "../imports/client/css/bulma-scss-master/layout/footer";
 /* kanen custom add-ons */
@@ -70,19 +70,19 @@
 @import "../imports/client/css/optional-css/buffer";
 @import "../imports/client/css/optional-css/shadow-depth";
 @import "../imports/client/css/optional-css/materialize-effects";
-@import "../imports/client/css/optional-css/flipper";
+//@import "../imports/client/css/optional-css/flipper";
 @import "../imports/client/css/optional-css/shadow-depth";
 @import "../imports/client/css/optional-css/bootstrap-add-ons";
-@import "../imports/client/css/optional-css/addtohomescreen";
+//@import "../imports/client/css/optional-css/addtohomescreen";
 
 
 /* load additional extension */
 @import "../imports/client/css/bulma-third-party/bulmaBadge";
 @import "../imports/client/css/bulma-third-party/bulmaDivider";
-@import "../imports/client/css/bulma-third-party/pricingTable";
+//@import "../imports/client/css/bulma-third-party/pricingTable";
 @import "../imports/client/css/bulma-third-party/bulmaStepper";
-@import "../imports/client/css/bulma-third-party/bulmaCalendar";
-@import "../imports/client/css/bulma-third-party/bulmaTimeline";
+//@import "../imports/client/css/bulma-third-party/bulmaCalendar";
+//@import "../imports/client/css/bulma-third-party/bulmaTimeline";
 @import "../imports/client/css/bulma-third-party/bulmaRibbon";
 @import "../imports/client/css/bulma-third-party/bulmaCheckRadio";
 @import "../imports/client/css/bulma-third-party/bulmaSwitch";

@@ -1,0 +1,5 @@
+{
+  "require_documentation": "true",
+  "multi_tenancy": "true",
+  "mongodb": "4.2.1"
+}
