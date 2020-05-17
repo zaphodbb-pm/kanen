@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * @summary Accordion content widget.
+     * Accordion content widget.
      *
      * @memberof Components:Widgets
      * @function accordion
@@ -26,14 +26,24 @@
      */
 
 
+    //* external props
+    export let text = "";
+    export let tabSettings = "";
+
+    //* get the user language preference from store and text from context
+    import { getContext } from 'svelte';
+    import {lang} from '/imports/both/systemStores'
+    import {i18n} from '/imports/functions/func-i18n'
+
     //* get accessory components
     //import {methodReturn} from "../../functions/func-methodReturn";
-    import { getContext } from 'svelte';
     import Icon from '/imports/components/elements/icon.svelte'
 
-    //* props
-    export let tabSettings = "";
-    export let content = [];
+
+    //* component "tabbedContent" control
+    let content = getContext("pageText").components;
+    content = i18n(content, text, $lang);
+
 
     let  currTab = content && content.length > 0 ? content[0].label : "";
 

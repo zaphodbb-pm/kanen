@@ -14,13 +14,11 @@
 
     //* get the user language preference from store
     import {i18n} from '/imports/functions/func-i18n'
-    import {lang} from '/imports/both/pageStructure/systemStores'
+    import {lang} from '/imports/both/systemStores'
     let lng = $lang;
 
     //* app services
     import { setContext } from 'svelte';
-    import { getContext } from 'svelte';
-
 
     //* get page text information and set contexts for children components
     import pageText from './widgets_text'
@@ -83,7 +81,7 @@
 
 
 
-<Hdr hdrtext={pageText.header} lang={lng} />
+<Hdr />
 
 
 <section class="page-body">
@@ -100,13 +98,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(payload, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox2, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -118,13 +116,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(payload, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.infobox, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -142,13 +140,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(sb, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.squarebox, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -161,13 +159,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(bigPayload, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.biginfo, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -190,13 +188,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(g1, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.gauge1, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -209,13 +207,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(g2, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.gauge2, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -233,13 +231,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(plBars, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.progressBars, null, 4)}</pre>
                         </Expander>
                     </div>
@@ -251,13 +249,13 @@
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander1Text} tabSettings="has-border-maroon">
+                        <Expander text="expander1" tabSettings="has-border-maroon">
                             <pre>{JSON.stringify(plBars, null, 4)}</pre>
                         </Expander>
                     </div>
 
                     <div class="mt-2">
-                        <Expander text={expander2Text} tabSettings="has-border-teal">
+                        <Expander text="expander2" tabSettings="has-border-teal">
                             <pre class="mt-3">{JSON.stringify(pageConfig.widgets.progressBars2, null, 4)}</pre>
                         </Expander>
                     </div>

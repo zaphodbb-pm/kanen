@@ -15,7 +15,7 @@
     let version = getContext("Version");
 
     //** get the user language preference from store
-    import {lang} from '/imports/both/pageStructure/systemStores'
+    import {lang} from '/imports/both/systemStores'
     let lng = $lang;
 
     //** get component text strings

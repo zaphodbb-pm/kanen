@@ -8,15 +8,15 @@
  * @returns {Array} - array of route objects
  *
  * @notes
- *  1. route objects are located within the associated page directory under /imports/both/pages
+ *  1. route objects are located within the associated page directory under /imports/both/pages<pageName>
  *  2. the order of the page route objects in the returned array determines the page order
  *
  *  @example
  *      Typical route object
- *          name =          {String} link that router will use
- *          layout =        {Object} - MainPage layout
- *          component =     {Object} Page specific component
- *          redirectTo =    {String} (optional) link to redirect page rerquest to
+ *          name =          {String} link that router will use, ie "/home"
+ *          layout =        {Object} MainPage layout Svelte object
+ *          component =     {Object} Page Svelte specific component
+ *          redirectTo =    {String} (optional) link to redirect page request to
  *          onlyIf =        {Object} (optional) { guard: userIsAdmin, redirect: '/login' }; block access if guard is false
  *
  *          icon =          {String} navbar icon to show from global context (app page), ie. "iconLearn"
@@ -30,16 +30,20 @@
  */
 
 
+//* get page configuration information
 import Home from '/imports/both/Pages/pageHome/home_route'
+import Template from '/imports/both/Pages/pageTemplate/template_route'
 import Cards from '/imports/both/Pages/pageCards/cards_route'
 import Widgets from '/imports/both/Pages/pageWidgets/widgets_route'
 import Content from '/imports/both/Pages/widgetsContent/widgetsContent_route'
 import Icons from '/imports/both/Pages/pageIcons/icons_route'
 import Colours from '/imports/both/Pages/pageColours/colours_route'
 
-
+//* Load page route configurations into array for processing.
+//* Note that array order determines the displayed nav link order.
 const routes = [
     Home,
+    Template,
     Cards,
     Icons,
     Colours,

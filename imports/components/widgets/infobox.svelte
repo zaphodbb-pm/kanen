@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * @summary Svelte info block.
+     * Svelte info block.
      *
      * @memberof Components:Widgets
      * @function infobox
