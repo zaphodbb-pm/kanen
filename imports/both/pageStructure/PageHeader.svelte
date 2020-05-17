@@ -9,10 +9,10 @@
      *
      */
 
+    import {i18n} from '/imports/functions/func-i18n'
+
     export let lang;
     export let hdrtext;
-
-    import {i18n} from '/imports/functions/func-i18n'
 
 </script>
 

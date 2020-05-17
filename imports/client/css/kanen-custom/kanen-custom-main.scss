@@ -1,15 +1,15 @@
 /* kanen custom theme over-ride and add-ons*/
 
-$custom_primary: hsl(117, 100%, 33%);
-$custom_secondary: hsl(325, 100%, 32%);
-$custom_link: hsl(27, 100%, 40%);
+$custom_primary: hsl(127, 87%, 31%);
+$custom_secondary: hsl(279, 53%, 50%);
+$custom_link: hsl(17, 75%, 51%);
 
-$sc-primary-invert: findColorInvert($custom_primary);
+$custom-primary-invert: findColorInvert($custom_primary);
 $custom_secondary-invert: findColorInvert($custom_secondary);
 $custom_link-invert: findColorInvert($custom_link);
 
 $primary: $custom_primary;
-$primary-invert: $sc-primary-invert;
+$primary-invert: $custom-primary-invert;
 
 $info: $custom_secondary;
 $info-invert: $custom_secondary-invert;

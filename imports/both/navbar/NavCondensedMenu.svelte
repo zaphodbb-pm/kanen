@@ -16,7 +16,7 @@
     import { getContext } from 'svelte';
 
     //* get route information and config
-    import { shortcuts } from '/imports/client/structure/routes'
+    import { shortcuts } from '/imports/both/pageStructure/routes'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
     function navigate(event, path) {
