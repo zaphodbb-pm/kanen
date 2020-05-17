@@ -12,7 +12,7 @@
 
 import {getLang} from '/imports/functions/func-getLang'
 import {i18n} from '/imports/functions/func-i18n'
-import MainPage from '/imports/client/structure/MainPage.svelte'
+import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 import Page from './colours.svelte'
 import PageText from './colours_text'
 

@@ -14,7 +14,7 @@
  */
 
 export default{
-    APP_NAME: "Zamen",                         // application name
+    APP_NAME: "Kanen",                         // application name
     VERSION: "1.0.0",                          // current version number
     LAST_UPDATE:  "May 1 / 2020",              // the most recent update date
     COPYRIGHT: "2020",                         // adjustable copyright notice

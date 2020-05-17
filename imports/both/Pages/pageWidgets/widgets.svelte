@@ -14,7 +14,7 @@
 
     //* get the user language preference from store
     import {i18n} from '/imports/functions/func-i18n'
-    import {lang} from '/imports/client/structure/systemStores'
+    import {lang} from '/imports/both/pageStructure/systemStores'
     let lng = $lang;
 
     //* app services
@@ -31,7 +31,7 @@
     setContext("pageConfig", pageConfig);
 
     //* get the page header common component and
-    import Hdr from '/imports/client/structure/PageHeader.svelte'
+    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
 
 
 
