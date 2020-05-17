@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * @summary Big info box widget.
+     * Big info box widget.
      *
      * @memberof Components:Widgets
      * @function bigInfobox

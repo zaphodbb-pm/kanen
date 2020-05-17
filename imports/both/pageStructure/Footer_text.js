@@ -3,9 +3,9 @@
  *
  *
  * @memberof Components
- * @function comp_footer_text
+ * @function Footer_text
  * @locus Client
- * @augments comp_footer
+ * @augments Footer
  *
  * @returns {Object} kanen.i18n.comp_footer
  */
@@ -14,5 +14,5 @@ export default {
         title: {en: "Footer Title"},
         notice: {en: "notice text"},
         copyright: {en: " by "},
-        company: {en: "Kanen Inc."}
+        company: {en: "Eigentum Enterprises Inc."}
 };

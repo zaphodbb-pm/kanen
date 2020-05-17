@@ -8,22 +8,25 @@
      *
      */
 
+
+
     //* setup props to receive route data
     export let currentRoute;
     export let params;
-
-    //* get the user language preference from store
-    import {i18n} from '/imports/functions/func-i18n'
-    import {lang} from '/imports/both/pageStructure/systemStores'
-    let lng = $lang;
 
     //* app services
     import { setContext } from 'svelte';
     import { getContext } from 'svelte';
 
+    //* get the user language preference from store
+    import {i18n} from '/imports/functions/func-i18n'
+    import {lang} from '/imports/both/systemStores'
+
     //* get page text information and set contexts for children components
     import pageText from './colours_text'
     setContext("pageText", pageText);
+
+
 
     //* get the page header common component and
     import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
@@ -39,14 +42,14 @@
 
 
 
-<Hdr hdrtext={pageText.header} lang={lng} />
+<Hdr />
 
 
 <section class="page-body">
     <div class="columns">
 
         <div class="column buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "swatches", lng)}</div>
+            <div class="title is-4">{i18n(pageText.page, "swatches", $lang)}</div>
 
             {#each swatches as swatch}
                 <div class="tags has-addons">
@@ -61,7 +64,7 @@
         </div>
 
         <div class="column buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "boxes", lng)}</div>
+            <div class="title is-4">{i18n(pageText.page, "boxes", $lang)}</div>
 
             {#each boxes as box}
                 <div class="box {box[1]}">
@@ -71,7 +74,7 @@
         </div>
 
         <div class="column buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "themes", lng)}</div>
+            <div class="title is-4">{i18n(pageText.page, "themes", $lang)}</div>
 
             {#each themes as theme}
                 <div class="mb-3">

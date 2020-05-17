@@ -1,6 +1,6 @@
 <script>
     /**
-     * @summary Expander box with slot for html content.
+     * Expander box with slot for html content.
      *
      * @memberof Components:Widgets
      * @function expanderSlot
@@ -16,11 +16,23 @@
      * @return nothing
      */
 
-    export let text = {};
+
+    //* external props
+    export let text = "";
     export let tabSettings = "";
 
+    //* get the user language preference from store and text from context
     import { getContext } from 'svelte';
+    import {lang} from '/imports/both/systemStores'
+    import {i18n} from '/imports/functions/func-i18n'
+
+    //* get accessory components
     import Icon from '/imports/components/elements/icon.svelte'
+
+
+    //* component controls
+    let content = getContext("pageText").components;
+    content = i18n(content, text, $lang);
 
     let toggle = false;
     let rotate = "close-box";
@@ -38,34 +50,31 @@
 
 <div class="expander-with-slot">
 
-    <div class="expander-header {tabSettings}"
-         on:click|stopPropagation={ () => changeToggle()}>
-
+    <div class="expander-header {tabSettings}">
         <div class="expander-label">
-            {#if text.icon}
+            {#if content.icon}
                 <div class="label-icon">
-                    <Icon icon={getContext(text.icon)} class="text-1dot5rem"/>
+                    <Icon icon={getContext(content.icon)} class="text-1dot5rem"/>
                 </div>
             {/if}
 
-            {#if text.logo}
+            {#if content.logo}
                 <div class="label-icon">
-                    <img src="{text.logo}" alt="logo">
+                    <img src="{content.logo}" alt="logo">
                 </div>
             {/if}
 
             <div>
-                <b>{text.title}</b>
-                {#if text.subTitle}
-                    <div class="text-0dot9rem">{text.subTitle}</div>
+                <b>{content.title}</b>
+                {#if content.subTitle}
+                    <div class="text-0dot9rem">{content.subTitle}</div>
                 {/if}
             </div>
         </div>
 
-        <div class="{rotate}">
+        <div class="add-cursor {rotate}" on:click|stopPropagation={ () => changeToggle()}>
            <Icon icon={getContext("iconMore")} />
         </div>
-
     </div>
 
     <div class="expander-body"

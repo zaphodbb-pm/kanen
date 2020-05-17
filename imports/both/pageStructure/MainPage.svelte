@@ -16,8 +16,8 @@
     import Navbar from '../navbar/Navbar.svelte'
     import SideNav from '../navbar/NavSideMenu.svelte'
     import Footer from './Footer.svelte'
-
     import Route from 'svelte-router-spa/src/components/route.svelte'
+
     export let currentRoute;
     export let params = {};
 
@@ -25,7 +25,7 @@
 
 
 
-<Navbar {currentRoute}> </Navbar>
+<Navbar {currentRoute} />
 
 
 <div class="page-master-layout has-background-white">

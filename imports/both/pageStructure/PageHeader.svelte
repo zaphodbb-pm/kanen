@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * @summary Common page header for visible pages.
+     * Common page header for visible pages.
      *
      * @memberof Structure
      * @function PageHeader
@@ -9,10 +9,12 @@
      *
      */
 
+    //* get the user language preference from store and text from parent page context
+    import {lang} from '/imports/both/systemStores'
+    import { getContext } from 'svelte';
     import {i18n} from '/imports/functions/func-i18n'
 
-    export let lang;
-    export let hdrtext;
+    let hdrtext = getContext("pageText").header;
 
 </script>
 
@@ -22,15 +24,15 @@
 
     <header class="content-header mb-5">
         {#if hdrtext.title}
-            <h2 class="title is-3">{ i18n(hdrtext, "title", lang) }</h2>
+            <h2 class="title is-3">{ i18n(hdrtext, "title", $lang) }</h2>
         {/if}
 
         {#if hdrtext.lead}
-            <p class="subtitle lead">{ i18n(hdrtext, "lead", lang) }</p>
+            <p class="lead">{ i18n(hdrtext, "lead", $lang) }</p>
         {/if}
 
         {#if hdrtext.body}
-            <div class="content is-family-secondary">{@html i18n(hdrtext, "body", lang) }</div>
+            <div class="content is-family-secondary">{@html i18n(hdrtext, "body", $lang) }</div>
         {/if}
     </header>
 

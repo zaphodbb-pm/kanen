@@ -16,7 +16,7 @@
     import { getContext } from 'svelte';
 
     //* get route information and config
-    import { groups } from '/imports/both/pageStructure/routes'
+    import { groups } from '/imports/both/routes'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
     //** get event dispatcher

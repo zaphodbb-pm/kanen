@@ -1,6 +1,6 @@
 <script>
     /**
-     * @summary Tabbed content widget.
+     * Tabbed content widget.
      *
      * @memberof Components:Widgets
      * @function tabbedContent
@@ -16,21 +16,32 @@
      *
      * @return nothing
      *
+     * @see bulma.io documentation for {https://bulma.io/documentation/components/tabs/|tabs}
+     *
      * @notes
      * 1. Standalone component that gets a configuration object from its parent
      * 2. The content area can include html tags
      * 3. Content can only be create and controlled by administrators.
      */
 
+
+    //* external props
+    export let text = "";
+    export let tabSettings = "";
+
+    //* get the user language preference from store and text from context
+    import { getContext } from 'svelte';
+    import {lang} from '/imports/both/systemStores'
+    import {i18n} from '/imports/functions/func-i18n'
+
     //* get accessory components
     //import {methodReturn} from "../../functions/func-methodReturn";
-    import { getContext } from 'svelte';
     import Icon from '/imports/components/elements/icon.svelte'
 
 
-    //* props
-    export let tabSettings = "";
-    export let content = [];
+    //* component controls
+    let content = getContext("pageText").components;
+    content = i18n(content, text, $lang);
 
     let  currTab = content && content.length > 0 ? content[0].label : "";
 

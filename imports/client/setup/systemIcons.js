@@ -40,6 +40,8 @@ out.iconIcons = icons;
 import palette from '/public/svg_to_js/palette-solid.json';
 out.iconColours = palette;
 
+import hammer from '/public/svg_to_js/hammer-solid.json';
+out.iconTemplate = hammer;
 
 //* navbar icons
 import bell from '/public/svg_to_js/bell.json';

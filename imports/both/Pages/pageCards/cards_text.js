@@ -20,7 +20,6 @@ export default {
         lead:   {en: "Use this page to access and manage items two"},
         body:   {en: "Supporting text for header"},
     },
-
      */
 
     page: {},

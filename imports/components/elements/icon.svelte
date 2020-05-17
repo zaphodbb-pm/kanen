@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * @summary Simple icon display component for Fontawesome5 formatted json objects.
+     * Simple icon display component for Fontawesome5 formatted json objects.
      *
      * @memberof Components:Elements
      * @function icon

@@ -13,12 +13,11 @@
     export let params;
 
     //* get the user language preference from store
-    import {lang} from '/imports/both/pageStructure/systemStores'
+    import {lang} from '/imports/both/systemStores'
     let lng = $lang;
 
     //* app services
     import { setContext } from 'svelte';
-    import { getContext } from 'svelte';
 
     //* get page text information and set contexts for children components
     import pageText from './icons_text'
@@ -31,13 +30,15 @@
     import {mainIcons} from '/imports/client/setup/systemIcons'
     import Icon from '/imports/components/elements/icon.svelte'
 
+    //** get list of icons and sort list ascending
     let allIcons = Object.entries(mainIcons);
+    allIcons = allIcons.sort( (a,b) => a[0] > b[0] ? 1 : (a[0] < b[0] ? -1 : 0) );
 
 </script>
 
 
 
-<Hdr hdrtext={pageText.header} lang={lng} />
+<Hdr />
 
 
 <section class="page-body">
