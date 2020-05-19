@@ -2,7 +2,7 @@
      * @summary Layout for Template page.
      *
      * @memberof Pages:Template
-     * @function pageTemplate
+     * @function template
      * @locus Client
      *
      */

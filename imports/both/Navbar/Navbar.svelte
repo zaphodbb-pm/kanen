@@ -1,9 +1,9 @@
 <script>
     /**
-     * @summary navbar insert.
+     * @summary Navbar insert.
      *
-     * @memberof navbar
-     * @function navbar
+     * @memberof Navbar
+     * @function Navbar
      * @locus Client
      *
      */

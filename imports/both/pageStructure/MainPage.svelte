@@ -13,8 +13,8 @@
      *
      */
 
-    import Navbar from '../navbar/Navbar.svelte'
-    import SideNav from '../navbar/NavSideMenu.svelte'
+    import Navbar from '../Navbar/Navbar.svelte'
+    import SideNav from '../Navbar/NavSideMenu.svelte'
     import Footer from './Footer.svelte'
     import Route from 'svelte-router-spa/src/components/route.svelte'
 

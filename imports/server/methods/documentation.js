@@ -1,6 +1,5 @@
 import {Meteor} from "meteor/meteor";
 
-
 Meteor.methods({
 
     /**
@@ -34,6 +33,8 @@ Meteor.methods({
                 fs.writeFileSync(sv.replace("svelte", "jsdoc"), test);
             }
         })
+
+        console.log("buildDSvelteJsdoc finished");
     },
 
     /**
@@ -95,6 +96,9 @@ Meteor.methods({
         let documentation = [];
 
         if (Meteor.settings.require_documentation) {
+            let docCheck = false;
+
+            /*
             //** check if the raw documentation has been processed
             let docCheck = null;
 
@@ -103,6 +107,8 @@ Meteor.methods({
             } catch (err) {
                 console.log("err", err);
             }
+
+             */
 
             //** if raw doc not processed, then read raw doc and prepare for display
             if (!docCheck) {
@@ -141,9 +147,13 @@ Meteor.methods({
             } else {
                 documentation = formatDocumentation(docCheck);
             }
+
+            console.log("fetchDocumentation finished");
         }
 
-        return documentation;
+        //return documentation;
+
+        return reformatDoc(documentation);
     }
 });
 
@@ -292,4 +302,37 @@ function formatDocumentation(documentationFile) {
     });
 
     return out;
+}
+
+
+//* re-package documentation for display as paged content
+function reformatDoc(res){
+    let content = [];
+
+    if (res && res.length > 0) {
+        let list = _.pairs(_.groupBy(res, "memberof"));
+
+        //** prepare documentation for insertion into an accordion component
+        list = list.map(function (li) {
+            return {
+                icon: null,
+                label: li && li[0] ? li[0] : "n/a",
+                text: null,
+                dbContent: null,
+                list: li && li[1] ? li[1] : []
+            }
+        });
+
+        //** sort topic and the body of a topic
+        list = _.sortBy(list, "label");
+
+        list = list.map((topic) => {
+            topic.list = _.sortBy(topic.list, "name");
+            return topic;
+        });
+
+        content = list;
+    }
+
+    return content;
 }
