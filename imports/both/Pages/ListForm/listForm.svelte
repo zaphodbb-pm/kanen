@@ -3,7 +3,7 @@
      * @summary Layout for ListForm page.
      *
      * @memberof Pages:ListForm
-     * @function pageListForm
+     * @function ListForm
      * @locus Client
      *
      */
