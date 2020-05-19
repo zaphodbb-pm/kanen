@@ -1,0 +1,24 @@
+/**
+     * Tabbed content widget.
+     *
+     * @memberof Components:Widgets
+     * @function tabbedContent
+     * @locus Client
+     *
+     * @param {String} tabSettings - tab label icon positioned at left of tab
+     * @param {Object} content - input array of objects from parent
+     * @param {String} content:icon - tab label icon positioned at left of tab
+     * @param {String} content:label - tab label
+     * @param {String} content:text - optional content to display in body of tab
+     * @param {String} content:list - optional sub content to display in a a tab
+     * @param {Object} content:dbContent - dbContent: {coll: "", name: ""} optional content from database to display in body of tab
+     *
+     * @return nothing
+     *
+     * @see bulma.io documentation for {https://bulma.io/documentation/components/tabs/|tabs}
+     *
+     * @notes
+     * 1. Standalone component that gets a configuration object from its parent
+     * 2. The content area can include html tags
+     * 3. Content can only be create and controlled by administrators.
+     */

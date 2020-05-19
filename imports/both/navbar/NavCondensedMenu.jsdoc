@@ -1,0 +1,11 @@
+/**
+     * navbar condensed menu for shortcuts.
+     *
+     * @memberof navbar
+     * @function NavTopMenu
+     * @locus Client
+     * @augments navbar
+     *
+     * @param {Object} currentRoute - current active path name (link)
+     * @param {Boolean} bottom - flag to shape menu for use at bottom
+     */

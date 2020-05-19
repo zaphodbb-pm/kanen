@@ -1,0 +1,16 @@
+/**
+     * Expander box with slot for html content.
+     *
+     * @memberof Components:Widgets
+     * @function expanderSlot
+     * @locus Client
+     *
+     * @param {String} tabSettings - controls button settings
+     * @param {Object} text - input object from parent
+     * @param {String} text:icon - tab label icon positioned at left of tab
+     * @param {String} text:logo - alternative logo data uri
+     * @param {String} text:title - tab label
+     * @param {String} text:subTitle - tab by-line
+     *
+     * @return nothing
+     */

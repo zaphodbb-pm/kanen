@@ -1,0 +1,8 @@
+/**
+     * Common page header for visible pages.
+     *
+     * @memberof Structure
+     * @function PageHeader
+     * @locus Client
+     *
+     */

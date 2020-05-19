@@ -1,0 +1,31 @@
+/**
+     * Square message block.
+     *
+     * @memberof Components:Widgets
+     * @function squareBox
+     * @locus Client
+     *
+     * @param {Object}  text - widget text strings
+     * @param {Object}  config - widget setup information
+     * @param {Object}  payload - widget values to display
+     *
+     * @return nothing
+     *
+     * @example
+     * config: Object: used to set up the widget at the start
+     *         {
+     *            height: 8,                    // widget height in "rem"
+     *            bgColours: "#8bc34a",         // fixed background colour
+     *          }
+     *
+     * text: static widget text object
+     *      {
+     *          title: "Square Box",            // main title for widget
+     *          suffix: "%",                    // suffix added to incoming value for display
+     *      }
+     *
+     * payload:
+     *      {                                   // Object: incoming or outgoing flow-message format from subscribe reactive variable
+     *          values: [75],                   // array of values to show
+     *      },
+     */

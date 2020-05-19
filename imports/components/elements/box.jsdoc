@@ -1,0 +1,11 @@
+/**
+     * Simple box container with slot for any type of content.
+     * Use as a template for building components
+     *
+     * @memberof Components:Elements
+     * @function box
+     * @locus Client
+     *
+     * @return nothing
+     *
+     */
