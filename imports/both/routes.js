@@ -33,22 +33,26 @@
 //* get page configuration information
 import Home from '/imports/both/Pages/pageHome/home_route'
 import Template from '/imports/both/Pages/pageTemplate/template_route'
+import ListForm from '/imports/both/Pages/pageListForm/listForm_route'
 import Cards from '/imports/both/Pages/pageCards/cards_route'
 import Widgets from '/imports/both/Pages/pageWidgets/widgets_route'
 import Content from '/imports/both/Pages/widgetsContent/widgetsContent_route'
 import Icons from '/imports/both/Pages/pageIcons/icons_route'
 import Colours from '/imports/both/Pages/pageColours/colours_route'
+import Documentation from '/imports/both/Pages/pageDocumentation/documentation_route'
 
 //* Load page route configurations into array for processing.
 //* Note that array order determines the displayed nav link order.
 const routes = [
     Home,
     Template,
+    ListForm,
     Cards,
     Icons,
     Colours,
     Widgets,
     Content,
+    Documentation,
 
     //* not found or 404 page is redirected to home page
     {

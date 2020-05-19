@@ -43,6 +43,9 @@ out.iconColours = palette;
 import hammer from '/public/svg_to_js/hammer-solid.json';
 out.iconTemplate = hammer;
 
+import database from '/public/svg_to_js/database-solid.json';
+out.iconListForm = database;
+
 //* navbar icons
 import bell from '/public/svg_to_js/bell.json';
 out.iconNotify = bell;
@@ -52,6 +55,11 @@ out.iconMark = bookmark;
 
 import post from '/public/svg_to_js/clipboard-list-solid.json';
 out.iconPost = post;
+
+import documentation from '/public/svg_to_js/laptop-code-solid.json';
+out.iconDocumentation = documentation;
+
+
 
 
 

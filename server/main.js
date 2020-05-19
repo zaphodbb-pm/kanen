@@ -21,6 +21,8 @@ import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
 //** load method modules
 import '/imports/server/methods/system';
 
+import '/imports/server/methods/documentation'
+
 
 /*
 //** isomorphic routines
@@ -68,6 +70,9 @@ import '/imports/server/reports/companyReports'
 import '/imports/both/addOns/slack/slack_server'
 
  */
+
+
+
 
 Meteor.startup(() => {
     console.log("main server starting ...");
@@ -146,6 +151,10 @@ if (Meteor.isServer) {
     //** Debug tool: allow server side console to send logs to client
     ConsoleMe.enabled = true;
     console.log("cm", ConsoleMe);
+
+    //Meteor.call("buildDSvelteJsdoc");
+    //Meteor.call("fetchDocumentation");
+
 
     //resetDb();
 

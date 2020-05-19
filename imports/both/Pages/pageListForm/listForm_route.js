@@ -1,10 +1,10 @@
 /**
- * @summary Route config information for Template page.
+ * @summary Route config information for ListForm page.
  *
- * @memberof Pages:Template
- * @function template_route
+ * @memberof Pages:ListForm
+ * @function listForm_route
  * @locus Client
- * @augments template
+ * @augments listForm
  *
  * @returns {Object}
  *
@@ -16,19 +16,19 @@
 import {getLang} from '/imports/functions/func-getLang'
 import {i18n} from '/imports/functions/func-i18n'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
-import Page from './template.svelte'
-import PageText from './template_text'
+import Page from './listForm.svelte'
+import PageText from './listForm_text'
 
 let lang = getLang("en");
 
 export default {
-    name: "/template",                      // link that router will use
+    name: "/listForm",                      // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconTemplate",                   // navbar icon to show
+    icon: "iconListForm",                   // navbar icon to show
     label: i18n(PageText, "navLabel", lang),    // navbar text to show
 
     roles: ["all"],                         // roles that can see this link in navbar and be routed to

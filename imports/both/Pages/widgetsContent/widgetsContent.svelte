@@ -53,7 +53,7 @@
     </article>
 
     <article class="column is-6">
-        <Accordian text="tabbed" tabSettings="is-warning is-light"  />
+        <Accordian content="{tabText}" tabSettings="is-warning is-light"  />
     </article>
 
 </section>
