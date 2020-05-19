@@ -3,7 +3,7 @@
     /**
      * @summary Aside slide wrapper for side navigation.
      *
-     * @memberof navbar
+     * @memberof Navbar
      * @function asideNavWrapper
      * @locus Client
      *

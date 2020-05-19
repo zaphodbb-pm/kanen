@@ -1,8 +1,8 @@
 /**
- * @summary Route config information for PageOne.
+ * @summary Route config information for Colours Page.
  *
- * @memberof Pages:PageOne
- * @function pageOne_route
+ * @memberof Pages:Colours
+ * @function colours_route
  * @locus Client
  * @augments colours
  *
@@ -25,10 +25,10 @@ export default {
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconColours",                       // navbar icon to show
-    label: i18n(PageText, "navLabel", lang),    // navbar text to show
+    icon: "iconColours",                       // Navbar icon to show
+    label: i18n(PageText, "navLabel", lang),    // Navbar text to show
 
-    roles: ["all"],                         // roles that can see this link in navbar and be routed to
+    roles: ["all"],                         // roles that can see this link in Navbar and be routed to
 
     group: 1,                               // for side navigation; group routes into a block
     isNavMobile: true,                     // (optional) show link in mobile nav block at bottom or top

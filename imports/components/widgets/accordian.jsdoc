@@ -7,7 +7,8 @@
      *
      * @param {String} tabSettings - controls button settings
      * @param {Object} eventMain - event name for clicked label of main list
-     * @param {Object} eventSub - event name for clicked sublabel of list
+     * @param {Object} eventSub - event name for clicked sublabel of  list
+     *
      * @param {Object} content - input array of objects from parent
      * @param {String} content:icon - tab label icon positioned at left of tab
      * @param {String} content:label - tab label

@@ -19,10 +19,10 @@
  *          redirectTo =    {String} (optional) link to redirect page request to
  *          onlyIf =        {Object} (optional) { guard: userIsAdmin, redirect: '/login' }; block access if guard is false
  *
- *          icon =          {String} navbar icon to show from global context (app page), ie. "iconLearn"
- *          label =         {String} navbar text to show, ie. i18n(PageText, "navLabel", lang)
+ *          icon =          {String} Navbar icon to show from global context (app page), ie. "iconLearn"
+ *          label =         {String} Navbar text to show, ie. i18n(PageText, "navLabel", lang)
  *
- *          roles =         {Array} roles that can see this link in navbar and be routed to, ie. ["all"]
+ *          roles =         {Array} roles that can see this link in Navbar and be routed to, ie. ["all"]
  *
  *          group =         {Number} for side navigation; group routes into a block
  *          isNavMobile =   {Boolean} (optional) show link in mobile nav block at bottom or top

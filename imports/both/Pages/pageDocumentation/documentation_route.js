@@ -28,10 +28,10 @@ export default {
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconDocumentation",              // navbar icon to show
-    label: i18n(PageText, "navLabel", lang),    // navbar text to show
+    icon: "iconDocumentation",              // Navbar icon to show
+    label: i18n(PageText, "navLabel", lang),    // Navbar text to show
 
-    roles: ["all"],                         // roles that can see this link in navbar and be routed to
+    roles: ["all"],                         // roles that can see this link in Navbar and be routed to
 
     group: 1,                               // for side navigation; group routes into a block
     isNavMobile: false,                     // (optional) show link in mobile nav block at bottom or top

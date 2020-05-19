@@ -1,7 +1,7 @@
 /**
- * @summary Labels for pageIcons.
+ * @summary Labels for Icons page.
  *
- * @memberof Pages:pageIcons
+ * @memberof Pages:Icons
  * @function icons_text
  * @locus Client
  * @augments icons

@@ -1,7 +1,7 @@
 /**
- * @summary Labels for pageTemplate.
+ * @summary Labels for Template page.
  *
- * @memberof Pages:pageTemplate
+ * @memberof Pages:Template
  * @function template_text
  * @locus Client
  * @augments template

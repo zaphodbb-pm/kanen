@@ -1,7 +1,7 @@
 /**
- * @summary Labels for pageListForm.
+ * @summary Labels for ListForm page.
  *
- * @memberof Pages:pageListForm
+ * @memberof Pages:ListForm
  * @function listForm_text
  * @locus Client
  * @augments listForm

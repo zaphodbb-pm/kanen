@@ -51,17 +51,18 @@
     let newTopic = "";
 
     //* set up initial introductory information
-    let start = ["Getting_Started",         // preamble to add to jsdoc found items
-        [
-            {name: "Set-Up", info: i18n(pageText.components, "documentation", $lang).setup},
-            {name: "Considerations", info: i18n(pageText.components, "documentation", $lang).consider},
-        ]
-    ];
-
-    let notSupported = ["Getting_Started",
-        [{name: "Not_Supported", info: i18n(pageText.components, "documentation").notSupported}]
-    ];
-
+    let preamble = [
+        {
+            icon: null,
+            label: "Getting_Started",
+            text: null,
+            dbContent: null,
+            list: [
+                {name: "Set-Up", info: i18n(pageText.components, "documentation", $lang).setup},
+                {name: "Considerations", info: i18n(pageText.components, "documentation", $lang).consider},
+            ]
+        }
+    ]
 
     //* switch categories and topics
     function changeBody(msg) {
@@ -75,14 +76,30 @@
         }
     }
 
+    function getSvelte(){
+        console.log("getSvelte")
+
+        Meteor.call("buildDSvelteJsdoc");
+    }
+
+    function buildDocumentation(){
+        console.log("buildDocumentation")
+
+        Meteor.call("fetchDocumentation");
+    }
+
 
     onMount( async () => {
         let result = await Meteor.callPromise("fetchDocumentation");
-        content = formatDocumentation(result, start, notSupported);
+        result =   preamble.concat(result);
+        content = result;
     });
 
 
     //* re-package documentation for display as paged content
+
+
+    /*
     function formatDocumentation(res, start, notSupported){
         let content = "not ready";
 
@@ -121,6 +138,8 @@
         return content;
     }
 
+     */
+
 </script>
 
 
@@ -130,6 +149,26 @@
 
 
 <section class="page-body">
+
+    <div class="columns">
+
+        <div class="column is-offset-3">
+            <div class="mb-3">
+                {@html i18n(pageText.page, "howToUse", $lang)}
+            </div>
+
+            <div class="level">
+                <button class="button is-primary is-outlined" on:click={getSvelte}>
+                    {i18n(pageText.components, "btnJsdoc", $lang)}
+                </button>
+
+                <button class="button is-primary is-outlined" on:click={buildDocumentation}>
+                    {i18n(pageText.components, "btnGetDocs", $lang)}
+                </button>
+            </div>
+
+        </div>
+    </div>
 
     <div id="documentation-list">
         <div class="columns">

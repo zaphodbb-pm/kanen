@@ -1,7 +1,7 @@
 /**
  * @summary Text for Documentation Page.
  *
- * @memberof Pages:pageDocumentation
+ * @memberof Pages:Documentation
  * @function documentation_text
  * @locus Client
  * @augments documentation
@@ -19,9 +19,24 @@ export default {
         body:   null //{en: ""},
     },
 
-    page: {},
+    page: {
+        howToUse: {
+            en: '"Build Jsdoc" button scans /imports and /client directories for .svelte files and extracts the Jsdoc portion ' +
+                'and builds the &lt;filename&gt;.jsdoc file that can be picked up by Jsdoc. <br /><br /> ' +
+                'Second step is to run jsdoc to build all of the appropriate files.<br /><br />' +
+                '"Get Documentation" forces the server to find the raw Jsdoc file and format for display.'
+        }
+    },
 
     components: {
+
+        btnJsdoc: {
+            en: "Build Jsdoc"
+        },
+
+        btnGetDocs: {
+            en: "Get Documentation"
+        },
 
         documentation: {
             en: {
