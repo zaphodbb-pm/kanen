@@ -3,7 +3,7 @@
      * @summary Layout for Home page.
      *
      * @memberof Pages:Home
-     * @function pageHome
+     * @function Home
      * @locus Client
      *
      */
