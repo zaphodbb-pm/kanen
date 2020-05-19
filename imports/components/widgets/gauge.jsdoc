@@ -1,0 +1,40 @@
+/**
+     * Circular gauge widget.
+     *
+     * @memberof Components:Widgets
+     * @function gauge
+     * @locus Client
+     *
+     * @param {Object}  text - widget text
+     * @param {Object}  config - widget setup information
+     * @param {Number}  payload - value to display
+     *
+     * @return nothing
+     *
+     * @example
+     * config: Object: used to set up the widget at the start
+     *      {
+     *          suffix: "%",                    // suffix added to incoming value for display
+     *
+     *          //* widget css related decoration
+     *          height: 16,                     // widget height in "rem"
+     *          style: "pie",                   // "ring" or "pie"
+     *
+     *          //* colour controls at selected trigger points
+     *          //* if array, background colors for reactive response to values; if String, colour is fixed
+     *          bgColours: [NORMAL, WARN, DANGER],
+     *          bgNormal: [0, .66],             // percent range of values for normal operation
+     *          bgWarning: [.66, .80],          // percent range of values for warning operation
+     *      }
+     *
+     * text: static widget text object
+     *      {
+     *            title: "Gauge",                 // main title for widget
+     *            description: "Circular gauge",  // more detail
+     *      }
+     *
+     *  payload: {                                      // Object: incoming or outgoing flow-message format from subscribe reactive variable
+     *          values: [75],                           // array of values to show
+     *          maxValues: [120],                       // array of max values allows for conversion to % progress
+     *      },
+     */

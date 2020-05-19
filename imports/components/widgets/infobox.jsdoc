@@ -1,0 +1,43 @@
+/**
+     * Svelte info block.
+     *
+     * @memberof Components:Widgets
+     * @function infobox
+     * @locus Client
+     *
+     * @param {Object}  text - widget text strings
+     * @param {Object}  config - widget setup information
+     * @param {Object}  payload - widget values to display
+     *
+     * @return nothing
+     *
+     * @example
+     * config: Object: used to set up the widget at the start
+     *      {
+     *          decimals: 1                     // set number of decimal points to show
+     *
+     *          //* widget css related decoration
+     *          icon: "iconPost,                // widget's icon if needed
+     *          height: 12,                     // widget height in "rem"
+     *
+     *          //* colour controls at selected trigger points
+     *          //* if array, background colors for reactive response to values; if String, colour is fixed
+     *          bgColours: [NORMAL, WARN, DANGER],
+     *          bgNormal: [0, .66],             // percent range of values for normal operation
+     *          bgWarning: [.66, .80],          // percent range of values for warning operation
+     *      }
+     *
+     * text: static widget text object
+     *      {
+     *          title: "Big Box 2",             // main title for widget
+     *          barText: "",                    // if string has length, then show progress bar, else hide
+     *          prefix: "$"                     // prefix added to incoming value for display
+     *          suffix: "Em",                   // suffix added to incoming value for display
+     *      }
+     *
+     * payload:
+     *      {                                   // Object: incoming or outgoing flow-message format from subscribe reactive variable
+     *          values: [75],                   // array of values to show
+     *          maxValues: [120],               // array of max values allows for conversion to % progress
+     *      },
+     */

@@ -1,0 +1,33 @@
+/**
+     * Big info box widget.
+     *
+     * @memberof Components:Widgets
+     * @function bigInfobox
+     * @locus Client
+     *
+     * @param {Object}  text - widget text strings
+     * @param {Object}  config - widget setup information
+     * @param {Object}  payload - widget values to display
+     *
+     * @return nothing
+     *
+     * @example
+     * config: Object: used to set up the widget at the start
+     *      {
+     *          icon: icons.SETTINGS,             // widget's icon if needed
+     *          //* colour controls at selected trigger points
+     *          //* if array, background colors for reactive response to values; if String, colour is fixed
+     *          bgColours: [NORMAL, WARN, DANGER],
+     *          bgNormal: [0, .66],             // percent range of values for normal operation
+     *          bgWarning: [.66, .80],          // percent range of values for warning operation
+     *      }
+     *
+     * text: static widget text object
+     *      {
+     *          prefix: "$",                    // prefix added to incoming value for display
+     *          title: "Economics",             // main title for widget
+     *          suffix: "%",                    // suffix added to incoming value for display
+     *          link: "http://www.apple.com",   // info link only (optional)
+     *          linkText: "More Info",          // info link text only (optional)
+     *      }
+     */
