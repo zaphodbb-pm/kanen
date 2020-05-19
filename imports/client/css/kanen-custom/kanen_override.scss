@@ -42,12 +42,3 @@ input[type="number"] {
   color: #fff;
   font-weight: bold;
 }
-
-
-/** badge over-ride */
-.has-badge-noborder[data-badge]::after {
-  box-shadow: none !important;
-  font-weight: 700 !important;
-  padding: 0.2rem !important;
-}
-

@@ -1,0 +1,12 @@
+/**
+     * Layout for Cards Page.
+     * Builds two sample cards with different configurations
+     *
+     * @memberof Pages:Cards
+     * @function cards
+     * @locus Client
+     *
+     * @param {Object} currentRoute
+     * @param {Object} params - url parameters
+     *
+     */

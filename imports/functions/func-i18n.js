@@ -15,13 +15,12 @@
 
 export function i18n(allText, field, lang) {
     let out = "";
+    let language = lang && typeof lang === "string" && lang.length === 2 ? lang : "en";
 
-    if(lang && typeof lang === "string" && lang.length === 2){
-        if (allText && typeof allText === 'object') {
-            if(field && typeof field === 'string'){
-                out = allText[field] && allText[field][lang] ? allText[field][lang] : "";
-                out = out ? out : "";
-            }
+    if (allText && typeof allText === 'object') {
+        if(field && typeof field === 'string'){
+            out = allText[field] && allText[field][language] ? allText[field][language] : "";
+            out = out ? out : "";
         }
     }
 

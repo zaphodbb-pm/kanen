@@ -9,7 +9,8 @@
      *
      * @param {String} tabSettings - controls button settings
      * @param {Object} eventMain - event name for clicked label of main list
-     * @param {Object} eventSub - event name for clicked sublabel of list
+     * @param {Object} eventSub - event name for clicked sublabel of  list
+     *
      * @param {Object} content - input array of objects from parent
      * @param {String} content:icon - tab label icon positioned at left of tab
      * @param {String} content:label - tab label
@@ -27,8 +28,14 @@
 
 
     //* external props
-    export let text = "";
+    export let content = "";
     export let tabSettings = "";
+    export let eventMain = "";
+    export let eventSub = "";
+
+    //** event handlers
+    import {createEventDispatcher} from 'svelte';
+    const dispatch = createEventDispatcher();
 
     //* get the user language preference from store and text from context
     import { getContext } from 'svelte';
@@ -39,22 +46,22 @@
     //import {methodReturn} from "../../functions/func-methodReturn";
     import Icon from '/imports/components/elements/icon.svelte'
 
-
-    //* component "tabbedContent" control
-    let content = getContext("pageText").components;
-    content = i18n(content, text, $lang);
-
-
     let  currTab = content && content.length > 0 ? content[0].label : "";
+    let topics = [];
+
+    $: topics = body(content);
 
     function changetab(tab) {
         currTab = tab;
+        dispatch(eventMain, tab);
     }
 
     function setContent(sub) {
+        dispatch(eventSub, sub);
     }
 
-    function body() {
+
+    function body(content) {
         if (content) {
             (content).forEach(function (ct) {
                 if (!ct.text && ct.dbContent) {
@@ -87,12 +94,10 @@
 
 
 <div class="accordions">
-    <div class="accordion">
-
-        {#each body() as item, idx}
+    {#each topics as item, idx}
+        <div class="accordion">
 
             <a class="button accordion-header {tabSettings}" on:click|stopPropagation={ () => changetab(item.label) }>
-
                 {#if item.icon}
                     <span class="icon">
                         <Icon icon={getContext(item.icon)} class="text-1dot2rem"/>
@@ -100,18 +105,16 @@
                 {/if}
 
                 {#if item.list}
-                    <span class="badge is-badge-warning is-badge-small" data-badge={item.list.length}>
-                        <b class="pr-3">{item.label}</b>
-                    </span>
+                    <div class="accordian-list">
+                        <span class="badge is-primary">{item.list.length}</span>
+                            <b class="pr-3">{item.label}</b>
+                    </div>
                 {:else}
                     <b>{item.label}</b>
                 {/if}
-
             </a>
 
-
             <div class="accordion-body">
-
                 {#if item.list}
 
                     <div  class="{item.label === currTab ? 'open-body' : 'close-body'}">
@@ -119,7 +122,7 @@
                             <div on:click={ () => setContent(sublabel.name) }>
                                 <span class="accordion-list">{sublabel.name}</span>
                             </div>
-                        {/each}}
+                        {/each}
                     </div>
 
                 {:else}
@@ -129,12 +132,10 @@
                     </div>
 
                 {/if}
-
             </div>
 
-        {/each}
-
-    </div>
+        </div>
+    {/each}
 </div>
 
 
@@ -152,6 +153,12 @@
     .accordion-header {
         text-align: left !important;
         justify-content: left !important;
+    }
+
+    .accordian-list {
+        position: relative;
+        margin-top: 0.75rem;
+        margin-bottom: 0.25rem;
     }
 
     .accordion-body {

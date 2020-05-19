@@ -1,9 +1,9 @@
 <script>
     /**
-     * @summary Layout for Template page.
+     * @summary Layout for ListForm page.
      *
-     * @memberof Pages:Template
-     * @function template
+     * @memberof Pages:ListForm
+     * @function pageListForm
      * @locus Client
      *
      */
@@ -23,11 +23,11 @@
     import {lang} from '/imports/both/systemStores'
 
     // get page text information and set contexts for children components
-    import pageText from './template_text'
+    import pageText from './listForm_text'
     setContext("pageText", pageText);
 
     // get component configuration information and set contexts for children components
-    import pageConfig from './template_config'
+    import pageConfig from './listForm_config'
     setContext("pageConfig", pageConfig);
 
     // get the page header common component; component get gets its own translated text from "pageText" context
@@ -45,11 +45,11 @@
     let message = "";
 
     onMount( () => {
-        message = "<b>template page</b> mounted";
+        message = "<b>listForm page</b> mounted";
     });
 
     onDestroy( () => {
-        console.log("template page destroyed");
+        console.log("listForm page destroyed");
     });
 
 </script>

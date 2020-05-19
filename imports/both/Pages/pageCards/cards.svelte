@@ -1,10 +1,14 @@
 <script>
     /**
      * Layout for Cards Page.
+     * Builds two sample cards with different configurations
      *
      * @memberof Pages:Cards
      * @function cards
      * @locus Client
+     *
+     * @param {Object} currentRoute
+     * @param {Object} params - url parameters
      *
      */
 
@@ -36,7 +40,8 @@
     import Icon from '/imports/components/elements/icon.svelte'
     import Card from '/imports/components/blocks/card.svelte';
 
-    //** respond to component events
+
+    //* respond to component events
     function cardsEvent(event){
         console.log("cardsEvent", event.detail);
     }

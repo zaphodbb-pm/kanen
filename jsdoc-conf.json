@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "markdown": {
+    "parser": "gfm"
+  },
+  "source": {
+    "exclude": [
+      ".cache",
+      ".deploy",
+      ".meteor",
+      ".git",
+      ".gitignore",
+      "node_modules",
+      "out"
+    ],
+    "includePattern": "\\.(js|jsdoc)$"
+  }
+}
