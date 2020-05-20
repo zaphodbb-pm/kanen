@@ -77,7 +77,11 @@ import fileAlt from '/public/svg_to_js/file-alt.json';
 out.iconDoc = fileAlt;
 
 
+import helpInfo from '/public/svg_to_js/info-circle-solid.json';
+out.iconHelp = helpInfo;
 
+import filters from '/public/svg_to_js/filter-solid.json';
+out.iconFilters = filters;
 
 import cancel from '/public/svg_to_js/times-circle.json';
 out.iconCancel = cancel;
