@@ -39,13 +39,32 @@
 
     //* page-body support **************************
     import {onMount, onDestroy} from 'svelte'
-    import {i18n} from '/imports/functions/func-i18n'
-    import TabContent from '/imports/components/widgets/tabbedContent.svelte'
 
-    let message = "";
+    import config from './listForm_config'
+    import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
+    import schemaArray from './listForm_schema'
+
+    import List_Holder from '/imports/components/listCollections/listHolder.svelte'
+    import listArray from './listForm_list'
+
+    import {i18n} from '/imports/functions/func-i18n'
+    let formText = i18n(pageText, "form", $lang);
+    let listText = i18n(pageText, "list", $lang);
+
+    let conf = config;
+    let schema = schemaArray;
+    let role = "";
+    let editdoc = {};
+    let coll = "";
+    let directdoc = {};
+
+    let sort = listArray.sort;
+    let fields = listArray.fields;
+    let submitted = false;
+
 
     onMount( () => {
-        message = "<b>listForm page</b> mounted";
+
     });
 
     onDestroy( () => {
@@ -62,22 +81,31 @@
 
 <section class="page-body">
 
-    <article class="mb-5">
-        <div>{message}</div>
-        <div>{@html message}</div>
-    </article>
-
     <div class="columns">
         <article class="column is-6">
-            <div class="box">
-                {@html i18n(pageText.components, "box", $lang)}
-            </div>
+            <List_Holder
+                    config="{conf.list}"
+                    {listText}
+                    {fields}
+                    {sort}
+                    {submitted}
+                    {coll}
+            />
+
         </article>
 
         <article class="column is-6">
-            <TabContent text="example1" tabSettings="is-boxed is-fullwidth" />
-        </article>
+            <Form_Holder
+                    config="{conf.form}"
+                    {formText}
+                    {schema}
+                    {role}
+                    {editdoc}
+                    {coll}
+                    {directdoc}
+            />
 
+        </article>
     </div>
 
 </section>
