@@ -11,14 +11,15 @@
      *
      */
 
-
     //* props
+    export let id;
     export let value;
     export let attributes;
-    export let cmpLabel;
+    export let params;
+    export let selects;
 
     //* support functions
-    import {onMount, onDestroy, setContext, getContext} from 'svelte'
+    import {onMount} from 'svelte'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
@@ -26,10 +27,7 @@
     let inValue = "";
 
     onMount( () => {
-
-        inValue = value;
         inValue = formatField(inValue, attributes);
-
     });
 
 
@@ -66,13 +64,9 @@
 </script>
 
 
-<div>
-    <input
-            class="input"
-            {...attributes}
-            placeholder="{cmpLabel}"
-            bind:value={inValue}
-            on:keyup="{checkInput}">
-
-    <label class="has-float-label">{cmpLabel}</label>
-</div>
+<label {id}>
+    <input class="input"
+           {...attributes}
+           bind:value={inValue}
+           on:keyup="{checkInput}">
+</label>

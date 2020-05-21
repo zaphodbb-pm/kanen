@@ -5,7 +5,6 @@
      * @memberof Components:Form
      * @function formHolder
      * @locus Client
-     * @isTemplate true
      *
      * @param {Object} config - see example
      * @param {Object} formText - all form and children text (language adjusted) from parent
@@ -53,9 +52,9 @@
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
+
     //* make form text available to all children components
     setContext("formText", formText);
-    console.log("formText", formText);
 
     //* get application specific support libraries
     import {elements} from '/imports/client/setup/systemGlobals'
@@ -65,43 +64,41 @@
 
     //* get children components
     import Form_Submit from './formSubmit.svelte'
-    import Tab_Fields from './formTabFields.svelte'
+    import Form_Tabs from './formTabFields.svelte'
 
 
     //* local reactive variables
     let tabLen = formText.formTabs && Array.isArray(formText.formTabs) ? formText.formTabs.length : 0;
     let hasTabs = tabLen > 0 && (!!config.hasTabs || !!config.hasStepper);
 
-    let info = {
-        mainFields: {
-            tabLabels: formText.formTabs,
+    let mainFields = {
+        tabLabels: formText.formTabs,
 
-            fields: [],
-            defaults: [],
+        fields: [],
+        defaults: [],
 
-            hasTabs: config.hasTabs,
-            hasGroups: config.hasGroups,
-            hasStepper: config.hasStepper,
+        hasTabs: config.hasTabs,
+        hasGroups: config.hasGroups,
+        hasStepper: config.hasStepper,
 
-            finishBtn: config.finishBtn,
-            finishBody: config.finishBody
+        //finishBtn: config.finishBtn,
+        //finishBody: config.finishBody
+    };
+
+    let submit = {
+        btnEdit: formText.labels.editBtn,
+        btnCreate: formText.labels.createBtn,
+        btnBack: formText.labels.backBtn,
+        btnBackShow: false,
+
+        btnState: false,
+        btnInvalid: false,
+        btnInvText: {
+            prefix: "Can't submit: ",
+            suffix1: " item needs entered value.",
+            suffixn: " items need entered values."
         },
-
-        submit: {
-            btnEdit: formText.labels.editBtn,
-            btnCreate: formText.labels.createBtn,
-            btnBack: formText.labels.backBtn,
-            btnBackShow: false,
-
-            btnState: false,
-            btnInvalid: false,
-            btnInvText: {
-                prefix: "Can't submit: ",
-                suffix1: " item needs entered value.",
-                suffixn: " items need entered values."
-            },
-            btnCount: 0
-        }
+        btnCount: 0
     };
 
     //** this component's working variables
@@ -136,8 +133,8 @@
         //** note that there is a lot of "reactivity entanglement" to manage
         adjFields = orgFields(organize, schema, defaults, role);
         initFields = Object.assign({}, adjFields);
-        info.mainFields.fields = adjFields;
-        info.mainFields.defaults = adjFields;
+        mainFields.fields = adjFields;
+        mainFields.defaults = adjFields;
     });
 
 
@@ -150,7 +147,7 @@
         let newValues = {};
 
         //** flag as a newly created doc
-        if (!info.submit.btnState) {
+        if (!submit.btnState) {
             let defFields = Object.assign({}, defaults);
             newValues = Object.assign(defFields, fieldValues);
             delete newValues._id;
@@ -186,8 +183,8 @@
 
         //** display error message or submit document
         if (valid > 0) {
-            info.submit.btnInvalid = true;
-            info.submit.btnCount = valid;
+            submit.btnInvalid = true;
+            submit.btnCount = valid;
         } else {
             if (this.config.preSubmit) {
                 newValues = await config.preSubmit(newValues);
@@ -196,20 +193,20 @@
             //** reset schema to default state
             fieldValues = {};
             showClone = false;
-            info.submit.btnState = false;
+            submit.btnState = false;
 
-            info.submit.btnInvalid = false;
-            info.submit.btnCount = 0;
+            submit.btnInvalid = false;
+            submit.btnCount = 0;
 
             //** Note that Vue reactivity tries to be efficient with variable updates.
             //** This causes a problem when doing a new doc creation and so we need to
             //** "encourage" Vue to update in this case.
-            info.mainFields.fields = this.adjFields;
+            mainFields.fields = this.adjFields;
 
             Meteor.setTimeout(function () {
                 //** send completed doc to server insert / update methods
                 submitForm(newValues, self.coll, false, false, self);
-                info.mainFields.fields = info.mainFields.defaults;
+                mainFields.fields = mainFields.defaults;
 
                 dispatch("current-editted-doc", newValues);
             }, 50);
@@ -229,8 +226,8 @@
     }
 
     function newValue(msg) {
-        fieldValues[msg.field] = msg.value;
-        fieldValid[msg.field] = msg.valid;
+        fieldValues[msg.field] = msg.detail.value;
+        fieldValid[msg.field] = msg.detail.valid;
     }
 
 
@@ -244,7 +241,7 @@
         Meteor.setTimeout(function () {
             //** send completed doc to server insert / update methods
             submitForm(newValues, coll, true, false, self);
-            info.mainFields.fields = info.mainFields.defaults;
+            mainFields.fields = mainFields.defaults;
 
             dispatch("current-editted-doc", newValues);
         }, 50);
@@ -257,24 +254,24 @@
         currDoc = {};
         fieldValues = {};
         showClone = false;
-        info.submit.btnBackShow = false;
+        submit.btnBackShow = false;
 
         switch (true) {
             case coll && coll === "myProfile":
                 currDoc = editdoc.data;
-                info.mainFields.fields = orgFields(organize, schema, currDoc, role);
+                mainFields.fields = orgFields(organize, schema, currDoc, role);
                 break;
 
             case editdoc.type && editdoc.type === "edit":
                 currDoc = await getDocs(coll, "oneAllFields", {_id: editdoc.id}, {}, null);
                 showClone = config.clone;
-                info.submit.btnBackShow = !!config.hasOverlay;
+                submit.btnBackShow = !!config.hasOverlay;
                 break;
 
             case editdoc.type && editdoc.type === "create":
                 currDoc = Object.assign({}, editdoc.data ? editdoc.data : {});
                 showClone = false;
-                info.submit.btnBackShow = !!config.hasOverlay;
+                submit.btnBackShow = !!config.hasOverlay;
                 break;
 
             default:
@@ -284,14 +281,14 @@
         let isEmpty = !currDoc || Object.keys(currDoc).length === 0;
         if (isEmpty) {
             //*** reset schema to default state
-            info.submit.btnState = false;
+            submit.btnState = false;
 
             showClone = false;
-            info.mainFields.fields = orgFields(organize, schema, initFields, role);
+            mainFields.fields = orgFields(organize, schema, initFields, role);
         } else {
             showClone = config.clone;
-            info.submit.btnState = true;
-            info.mainFields.fields = orgFields(organize, schema, currDoc, role);
+            submit.btnState = true;
+            mainFields.fields = orgFields(organize, schema, currDoc, role);
         }
     }
 
@@ -317,10 +314,9 @@
     {/if}
 
     <div class="card-content">
-
         <div id="tabbed-inputs">
-            <Tab_Fields
-                    {... info.mainFields}
+            <Form_Tabs
+                    {... mainFields}
                     on:trigger-from-tab-field="{ () => dispatch('trigger-from-form-holder', event.detail)}"
                     on:tabfc="{newValue}"
             />
@@ -329,11 +325,11 @@
                 <div class="level">
 
                     <div class="level-left">
-                        <Form_Submit {...info.submit} on:submit-btn="{submitDoc}" on:back-btn="{backToCaller}" />
+                        <Form_Submit {...submit} on:submit-btn="{submitDoc}" on:back-btn="{backToCaller}" />
                     </div>
 
                     <div class="level-right">
-                        {#if config.hasPreview && info.submit.btnState}
+                        {#if config.hasPreview && submit.btnState}
                             <button class="button is-info" on:click="{showPreview}">
                                 {formText.labels.previewBtn}
                             </button>
@@ -344,6 +340,6 @@
             </div>
 
         </div>
-
     </div>
+
 </div>

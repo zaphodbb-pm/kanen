@@ -41,6 +41,15 @@ export default [
         defaultValue: "",
     },
 
+
+
+/*
+class: ""
+value: ""
+    */
+
+
+
     {
         field: "contentWeight",
         fieldType: "input",

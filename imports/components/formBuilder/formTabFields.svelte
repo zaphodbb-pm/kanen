@@ -16,13 +16,13 @@
      */
 
     //* props from Form Holder
-    export let tabLabels;
-    export let fields;
-    export let defaults;
+    export let tabLabels = [];
+    export let fields = [];
+    export let defaults = [];
 
-    export let hasTabs;
-    export let hasGroups;
-    export let hasStepper;
+    export let hasTabs = false;
+    export let hasGroups = false;
+    export let hasStepper = false;
 
     //* support functions
     import {onMount, onDestroy, setContext, getContext} from 'svelte'
@@ -31,13 +31,7 @@
 
 
     //* children components
-
     import Form_Fields from './formFields.svelte'
-
-
-    //import VueFormFields from './vue-formFields.vue'
-
-
 
 
     //* local reactive variables
@@ -81,15 +75,13 @@
     }
 
     function tabfc(msg) {
-        dispatch('tabfc', msg);
-        this.watchFields = msg;
+        dispatch('tabfc', msg.detail);
+        watchFields = msg.detail;
     }
 
     function flatten(arr) {
         let flat1 = [].concat.apply([], arr);
-        let flat2 = [].concat.apply([], flat1);
-
-        return flat2;
+        return [].concat.apply([], flat1);
     }
 
 </script>
@@ -203,7 +195,8 @@
                 <Form_Fields
                         {...field}
                         on:trigger-by-form-field="{ () => dispatch('trigger-from-tab-field', event.detail)}"
-                        on:field-changed="{tabfc}"/>
+                        on:field-changed="{tabfc}"
+                />
             </div>
         {/each}
     {/if}

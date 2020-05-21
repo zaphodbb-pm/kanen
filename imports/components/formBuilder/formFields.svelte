@@ -41,24 +41,30 @@
      */
 
     //* props
-    export let field;
+    export let field = "";
     export let fieldType;
-    export let tab;
-    export let listen;
-    export let watchFields;
-    export let rawFields;
 
-    export let attributes;
-    export let params;
-    export let optional;
-    export let defaultValue;
+    export let listen = {};
+    export let watchFields = [];
+    export let rawFields = {};
 
-    export let label;
-    export let helpText;
-    export let fieldText;
+    export let attributes = {};
+    export let params = {};
+    export let optional = true;
+    export let defaultValue = "";
 
-    export let selects;
-    export let value;
+    //* items to be ignored; used by parent
+    export let tab = "";
+    export let group = null;
+
+    //export let label = "";
+    //export let helpText = "";
+    //export let fieldText = "";
+
+    export let selects = [];
+    export let value = "";
+
+
 
     //* support functions
     import {onMount, onDestroy, setContext, getContext} from 'svelte'
@@ -79,9 +85,9 @@
 
 
     //* local reactive variables
-    let config = {};
-    let helpIcon = ""; //kanen.icons.HELP;
-    let formTab = tab;
+    //let config = {};
+    //let helpIcon = ""; //kanen.icons.HELP;
+    //let formTab = tab;
 
     let fieldOpt = optional ? "" : "field-error";
     let fieldValue = defaultValue;
@@ -100,17 +106,13 @@
         this.fieldValue = testVal;
         this.fieldOpt = testValid(this.fieldValue);
 
-        console.log("defaultValue", field, defaultValue.newVal)
-
-
         let checkVal = typeof value.val !== "undefined" ? value.val : defaultValue;
         fieldOpt = testValid(checkVal);
         fieldValue = checkVal;
 
         //* for initial state, check for watched default
         if (listen && listen.src) {
-            let raw = rawFields;
-            fieldHide = checkDefault(raw, listen);
+            fieldHide = checkDefault(rawFields, listen);
         }
 
 
@@ -124,8 +126,8 @@
 
 
 
-    function fieldUpdate(msg) {
-        const self = this;
+    function fieldUpdate(inMsg) {
+        let msg = inMsg.detail;
         let outValue = null;
 
         switch (true) {
@@ -162,11 +164,11 @@
         setTimeout(function () {
 
             dispatch('field-changed', {
-                field: self.field,
-                fieldType: self.fieldType,
+                field: field,
+                fieldType: fieldType,
                 value: outValue,
-                defaultValue: self.defaultValue,
-                valid: self.fieldOpt !== "field-error",
+                defaultValue: defaultValue,
+                valid: fieldOpt !== "field-error",
             });
 
         }, 10);
@@ -266,11 +268,14 @@
 {#if !fieldHide}
     <div class="field {fieldOpt}" style="position: relative;">
         <div class="control">
+            <label class="has-float-label">{formText[field].label}</label>
+
             <svelte:component
-                    this="{components[fieldType]}"
                     id="{field}"
+                    this="{components[fieldType]}"
                     {attributes}
-                    cmpLabel="{formText[field].label}"
+                    {selects}
+                    {params}
                     bind:value="{fieldValue}"
                     on:on-inputentry="{fieldUpdate}"
             />
@@ -278,7 +283,7 @@
 
         {#if formText[field].helpText}
             <span class="field-info has-text-primary add-cursor" on:click|stopPropagation="{toggleHelp}">
-                <Icon icon={getContext("iconHelp")} class="icon has-text-info"/>
+                <Icon icon={getContext("iconHelp")} class="has-text-info"/>
             </span>
 
             <div class="{fieldHelpShow ? 'open-body': 'close-body'}">
