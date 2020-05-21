@@ -42,7 +42,7 @@
 
     import config from './listForm_config'
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
-    import schemaArray from './listForm_schema'
+    import schema from './listForm_schema'
 
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
     import listArray from './listForm_list'
@@ -52,7 +52,6 @@
     let listText = i18n(pageText, "list", $lang);
 
     let conf = config;
-    let schema = schemaArray;
     let role = "";
     let editdoc = {};
     let coll = "";
@@ -61,6 +60,9 @@
     let sort = listArray.sort;
     let fields = listArray.fields;
     let submitted = false;
+
+
+
 
 
     onMount( () => {

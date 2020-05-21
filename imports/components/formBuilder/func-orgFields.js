@@ -1,12 +1,10 @@
 /**
  * @summary Prepares the form fields object for tabbed / grouped display.
  *
- * @memberof Components_Form
+ * @memberof Components:Form
  * @function orgFields
  * @locus Client
- * @augments vue-formHolder
- *
- * @requires {findGroupedFields}_from_'./func-findGroupedFields'
+ * @augments formHolder
  *
  * @param {Object} org - {hasTabs, tabLen, hasGroups}
  * @param {Array} fields - array of form fields object
@@ -31,7 +29,6 @@ export function orgFields(org, fields, val, role) {
         if (showField) {
             let fld = f;
             fld.value = val && typeof val[fld.field] !== "undefined" ? val[fld.field] : fld.defaultValue;
-            fld.class = "";
 
             adjFields.push(fld);
         }
