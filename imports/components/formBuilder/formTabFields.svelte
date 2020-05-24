@@ -12,7 +12,7 @@
      * @param {Boolean} hasTabs - signals the need to construct a tab header
      * @param {Boolean} hasGroups - signals the need to construct grouped fields
      *
-     * @return nothing - emits: tabfc
+     * @emits field-changed
      */
 
     //* props from Form Holder
@@ -25,13 +25,12 @@
     export let hasStepper = false;
 
     //* support functions
-    import {onMount, onDestroy, setContext, getContext} from 'svelte'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
 
     //* children components
-    import Form_Fields from './formFields.svelte'
+    import Field_Wrapper from './fieldWrapper.svelte'
 
 
     //* local reactive variables
@@ -40,45 +39,44 @@
     let steps = tabLabels && tabLabels.length > 0 ? tabLabels.length : 1;
     let watchFields = {}
     let rawFields = flatten(defaults);
-
     let finishBtn = "fin";
 
 
+    //* event handlers
+    function fieldChanged(msg){
+        dispatch('field-changed', msg.detail);
+        watchFields = msg.detail;
+    }
 
-    function fieldInfo(field) {
+
+    //* functions that mutate local variables
+    function fieldInfo(field){
         return Object.assign(field, {watchFields: watchFields, rawFields: rawFields});
     }
 
-    function changetab(tab) {
-        currTab = tab;
-    }
+    function changetab(tab){ currTab = tab; }
 
-    function prev() {
+    function finished(){ currTabStep = steps; }
+
+    function prev(){
         let current = currTabStep - 1;
         currTabStep = current >= 0 ? current : 0;
         currTab = tabLabels[current];
     }
 
-    function next() {
+    function next(){
         let current = currTabStep + 1;
         currTabStep = current > steps ? steps : current;
         currTab = tabLabels[current];
     }
 
-    function changeStepTab(step){
+    function changeStepTab(step) {
         currTabStep = step - 1;
         currTab = tabLabels[step - 1];
     }
 
-    function finished() {
-        currTabStep = steps;
-    }
 
-    function tabfc(msg) {
-        dispatch('tabfc', msg.detail);
-        watchFields = msg.detail;
-    }
-
+    //* pure functions
     function flatten(arr) {
         let flat1 = [].concat.apply([], arr);
         return [].concat.apply([], flat1);
@@ -125,19 +123,10 @@
         {#each fields as tab, index}
 
             start of hasTabs && !hasGroups: {JSON.stringify(tab)}
-            <div>
+            <div style="margin-top: 1rem;">
                 {#if tabLabels[index] === currTab}
                     {#each tab as field}
-                        hasTabs && !hasGroups: {JSON.stringify(field)}
-
-                        <!--
-                        <vue-form-fields
-                                style="margin-top: 1rem;"
-                                v-bind="fieldInfo(field)"
-                                v-on:trigger-by-form-field="$emit('trigger-from-tab-field', $event)"
-                                v-on:field-changed="tabfc">
-                        </vue-form-fields>
-                        -->
+                        <Field_Wrapper field="{fieldInfo(field)}"  on:field-changed="{fieldChanged}"/>
                     {/each}}
                 {/if}
             </div>
@@ -149,14 +138,7 @@
             <div class="columns">
                 {#each groups as field, idf}
                     <div class="column {field.group && field.group.class ? field.group.class : '' }">
-                        !hasTabs && hasGroups: {JSON.stringify(field)}
-                    <!--
-                    <vue-form-fields
-                            v-bind="fieldInfo(field)"
-                            v-on:trigger-by-form-field="$emit('trigger-from-tab-field', $event)"
-                            v-on:field-changed="tabfc">
-                    </vue-form-fields>
-                    -->
+                        <Field_Wrapper field="{fieldInfo(field)}"  on:field-changed="{fieldChanged}"/>
                     </div>
                 {/each}
             </div>
@@ -165,22 +147,13 @@
 
     {#if hasTabs && hasGroups}
         {#each fields as tab, index}
-            hasTabs && hasGroups: {JSON.stringify(tab)}
 
             {#if tabLabels[index] === currTab}
                 {#each tab as groups, grp}
                     <div class="columns">
                         {#each groups as group, idg}
-                            <div class="column {group.group && group.group.class ? group.group.class : '' }">
-                                hasTabs && hasGroups: {JSON.stringify(group)}
-                                <!--
-                                <vue-form-fields
-                                        v-bind="fieldInfo(group)"
-                                        v-on:trigger-by-form-field="$emit('trigger-from-tab-field', $event)"
-                                        v-on:field-changed="tabfc"
-                                        style="margin-top: 1rem;">
-                                </vue-form-fields>
-                                -->
+                            <div class="column {group.group && group.group.class ? group.group.class : '' }" style="margin-top: 1rem;">
+                                <Field_Wrapper field="{fieldInfo(group)}" on:field-changed="{fieldChanged}"/>
                             </div>
                         {/each}
                     </div>
@@ -192,11 +165,7 @@
     {#if !hasTabs && !hasGroups}
         {#each fields as field, idf}
             <div class="mb-3">
-                <Form_Fields
-                        {...field}
-                        on:trigger-by-form-field="{ () => dispatch('trigger-from-tab-field', event.detail)}"
-                        on:field-changed="{tabfc}"
-                />
+                <Field_Wrapper field="{fieldInfo(field)}" on:field-changed="{fieldChanged}"/>
             </div>
         {/each}
     {/if}

@@ -47,14 +47,13 @@
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
     import listArray from './listForm_list'
 
-    import {i18n} from '/imports/functions/func-i18n'
+    import {i18n} from '/imports/functions/i18n'
     let formText = i18n(pageText, "form", $lang);
     let listText = i18n(pageText, "list", $lang);
 
     let conf = config;
     let role = "";
     let editdoc = {};
-    let coll = "";
     let directdoc = {};
 
     let sort = listArray.sort;
@@ -62,6 +61,10 @@
     let submitted = false;
 
 
+    let currentDoc = {};
+    let showList = false;
+    let showForm = false;
+    let releaseEdit = false;
 
 
 
@@ -72,6 +75,32 @@
     onDestroy( () => {
         console.log("listForm page destroyed");
     });
+
+
+    function checkOverlay() {
+        showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
+        showForm = !conf.form.hasOverlay;
+        releaseEdit = true;
+    }
+
+    function docToEdit(msg) {
+        currentDoc = msg;
+        showList = !conf.list.hasOverlay;
+        showForm = !conf.list.hasOverlay || !!conf.form.hasOverlay;
+        releaseEdit = false;
+    }
+
+    function docSent(){
+        showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
+        showForm = !conf.form.hasOverlay;
+        releaseEdit = true;
+        currentDoc = {};
+
+        console.log("docSent");
+    }
+
+
+
 
 </script>
 
@@ -91,7 +120,6 @@
                     {fields}
                     {sort}
                     {submitted}
-                    {coll}
             />
 
         </article>
@@ -103,8 +131,10 @@
                     {schema}
                     {role}
                     {editdoc}
-                    {coll}
                     {directdoc}
+
+                    on:back-to-list="{checkOverlay}"
+                    on:doc-submitted="{docSent}"
             />
 
         </article>

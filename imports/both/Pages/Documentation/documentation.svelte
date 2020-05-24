@@ -39,7 +39,7 @@
 
     //* page-body support **************************
     import {onMount, onDestroy} from 'svelte'
-    import {i18n} from '/imports/functions/func-i18n'
+    import {i18n} from '/imports/functions/i18n'
     import Accordian from '/imports/components/widgets/accordian.svelte'
     import Paged from '/imports/components/widgets/pagedContent.svelte'
 

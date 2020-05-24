@@ -53,73 +53,156 @@ export default {
                 createBtn:  "Create New Doc",
                 editBtn:    "Save Content Edit",
                 backBtn:    "Back to List",
-                previewBtn: "Preview"
+                previewBtn: "Preview",
+
+                invalidInput:  {
+                    prefix: "Can't submit: ",
+                    suffix1: " item needs entered value.",
+                    suffixn: " items need entered values."
+                }
             },
 
-            formTabs: ["One", "Two"],
-            //formTabs: [],
+            formTabs: ["Basic", "Complex", "Advanced", "Combi", "Modules"],
 
-            //** Parameters ********************************************
+            //** Form field text ********************************************
             name: {
-                label:      "Doc Name",
-                helpText:   "Enter name",
+                label: "Text (Name)",
+                helpText: "String input type",
             },
 
-            crewCategory: {
-                label:      "Crew Category",
-                helpText:   "Choose a crew that this content enhances.",
-                selects:    ["One", "Two", "Three"],
+            startNumber: {
+                label: "Number Input",
+                helpText: "Float with min / max and step size. ",
             },
 
-            contentLang: {
-                label:      "Language",
-                helpText:   "Set the language tag for this content so that it can be found when a user sets their language preference.",
-                selects:    ["English", "French"]
+            startInteger: {
+                label: "Integer Input",
+                helpText: "Integer defined by step size = 1. ",
             },
 
-            parentPage: {
-                label:      "Parent Page",
-                helpText:   "The parent to which this page is a sub-page.  Sets the content tree hierarchy.",
+            startSwitch: {
+                label: "Boolean Switch",
+                helpText: "Fancy check box for single item on or off.",
             },
 
-            contentWeight: {
-                label:      "Weight",
-                helpText:   "The weight factor provides a way to sort the content pages at the same level.  " +
-                    "The lighter the content, the higher up on the list it will be (ascending sorting).  " +
-                    "Content at the same weight will be sorted alphabetically.",
+            startTextArea: {
+                label: "Text Area",
+                helpText: "Expandable text area.",
             },
 
-            contentLead: {
-                label:      "Content Lead",
-                helpText:   "Content lead text to support title (optional).",
+            startCheckbox: {
+                label: "Checkbox",
+                helpText: "Check box for single item on or off.",
+                selects: ["one", "two"]
             },
 
-            contentSummary: {
-                label:      "Content Summary",
-                helpText:   "Provide a synopsis of the content body (optional).",
+            startRadios: {
+                label: "Radios",
+                selects: ["Bicycle", "Scooter", "Automobile", "Truck"]
             },
 
-            contentPage: {
-                label:      "Content",
-                helpText:   "Uses the wysiwyg editor to create a rich content page.",
+            startColours: {
+                label: "Colours",
+            },
+
+            startDateTime: {
+                label: "Date / Time",
+                helpText: "Can select date or time inout type",
+            },
+
+            startStaticSelect: {
+                label: "Static Select",
+                helpText: "Select from a fixed list",
+                selects: [
+                    {_id: "sun", name: "Sunday", colour: "#000000"},
+                    {_id: "mon", name: "Monday", colour: "#6666ff"},
+                    {_id: "tue", name: "Tuesday", colour: "#bb22bb"},
+                    {_id: "wed", name: "Wednesday", colour: "#33aa33"},
+                    {_id: "thu", name: "Thursday", colour: "#ff8822"},
+                    {_id: "fri", name: "Friday", colour: "#aaaaaa"},
+                    {_id: "sat", name: "Saturday", colour: "#ff0000"},
+                ]
+            },
+
+            startDynamicSelect: {
+                label: "Dynamic Select",
+                helpText: "Uses a collection name to find a list of selection options.",
+            },
+
+            startStaticTypeahead: {
+                label: "Static Typeahead",
+                helpText: "Uses a static list to search through for characters typed into input box.",
+                selects: [
+                    {_id: "sun", name: "Sunday"},
+                    {_id: "mon", name: "Monday"},
+                    {_id: "tue", name: "Tuesday"},
+                    {_id: "wed", name: "Wednesday"},
+                    {_id: "thu", name: "Thursday"},
+                    {_id: "fri", name: "Friday"},
+                    {_id: "sat", name: "Saturday"},
+                ]
+            },
+
+            startDynamicTypeahead: {
+                label: "Dynamic Typeahead",
+                helpText: "Uses a collection to get a list of values that can then be searched through for " +
+                        "characters typed into input box.",
+            },
+
+            startEditor: {
+                label: "Editor",
+                helpText: "Classic text editor on textarea",
+            },
+
+            hr1: {
+                label: "Form Spacer"
+            },
+
+            startApiKey: {
+                label: "API Key",
+                helpText: "Generate api key to allow user programs to access select collections via REST.",
+                fieldText: "Generate new api key"
+            },
+
+            startFile: {
+                label: "Get File",
+                helpText: "Standard file browser that loads a string representation of the file data.  " +
+                        "The file size is limited to 250KB.",
+            },
+
+            startImage: {
+                label: "Get Image",
+                helpText: "Standard file browser that loads a string representation of the file data.  " +
+                        "The file size is limited to 250KB.",
+            },
+
+            startRows: {
+                label: "Row of Inputs",
+                helpText: "This is a combination box that contains rows of columns of input fields and returns an " +
+                        "array of arrays of objects",
+            },
+
+            startList: {
+                label: "List of Items",
+                helpText: "This is a combination box that contains rows of columns of input fields and returns an " +
+                        "array of arrays of objects",
+            },
+
+            startFieldset: {
+                label: "Fieldset of Inputs",
+                helpText: "This is a fieldset that contains a variety of input fields and returns an object of values",
+            },
+
+            startKanban: {
+                label: "Kanban Plan",
+                helpText: "",
+                selects: [
+                    {_id: "todo", name: "To Do"},
+                    {_id: "doing", name: "Doing"},
+                    {_id: "done", name: "Done"},
+                    {_id: "waiting", name: "Waiting"},
+                ]
             }
-        }
-    },
-
-    components: {
-
-        list: {
-            title: {en: "List"}
-        },
-
-
-
-
-
-
-
-        widget: {
-            title: {en: "Widget"}
         }
     }
 };

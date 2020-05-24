@@ -17,8 +17,8 @@
  */
 
 
-import {getLang} from '/imports/functions/func-getLang'
-import {i18n} from '/imports/functions/func-i18n'
+import {getLang} from '/imports/functions/getLang'
+import {i18n} from '/imports/functions/i18n'
 import listText from './listForm_text'
 
 let text = i18n(listText, "list", getLang());

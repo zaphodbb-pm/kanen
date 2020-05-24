@@ -5,68 +5,80 @@
      * @memberof Components:Form
      * @function inputs
      * @locus Client
-     * @augments formFields
+     * @augments fieldWrapper
      *
      * @return nothing - emits: onInputs with text, number or other types
      *
      */
 
-    //* props
-    export let id;
-    export let value;
-    export let attributes;
-    export let params;
-    export let selects;
+    //* common props from parent
+    export let field = {};
+    export let value = undefined;
 
     //* support functions
-    import {onMount} from 'svelte'
-    import {createEventDispatcher} from 'svelte';
+    import {validateEmail} from '/imports/functions/validateEmail'
+    import {onMount, createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
     //* local reactive variable
     let inValue = "";
+    let checkValue = "";
 
     onMount( () => {
-        inValue = formatField(inValue, attributes);
-    });
+        inValue = field.value;
+    })
 
 
-    function formatField(val, attr) {
-        let value = val;
+    //* functions that mutate local variables
+    function checkInput(){
+        let test = formatField(inValue, field.attributes);
 
-        if (attr && attr.type && (attr.type === "number")) {
-            if (value || value === 0) {
-                value = parseFloat(value);
-
-                if (attr.step && Number.isInteger(attr.step)) {
-                    value = Math.round(value);
-                }
-
-                //** check if user input is within range bounds; note that a value of zero is consider as false
-                value = attr.min && value < attr.min ? attr.min : value;
-                value = attr.max && value >= attr.max ? attr.max : value;
-            } else {
-                value = "";
-            }
+        if(test){
+            checkValue = test.error ? "field-input-error" : "";
+            dispatch('on-inputentry', test );
         }
-
-        if (attr && attr.type && (attr.type === "phone")) {
-            value = ('' + value).replace(/\D/g, '');                // Filter only numbers from the input
-        }
-
-        return value;
     }
 
-    function checkInput() {
-        dispatch('on-inputentry', inValue);
+    //* pure functions
+    function formatField(val, attr){
+        let value = val;
+        let errorVal = false;
+
+        switch (true) {
+            case (attr && attr.type === "email"):
+                errorVal = value.length > 0 && !validateEmail(value);
+                break;
+
+            case attr && attr.type && (attr.type === "number"):
+                if (value || value === 0) {
+                    value = parseFloat(value);
+
+                    if (attr.step && Number.isInteger(attr.step)) {
+                        value = Math.round(value);
+                    }
+
+                    //** check if user input is within range bounds; note that a value of zero is consider as false
+                    value = attr.min && value < attr.min ? attr.min : value;
+                    value = attr.max && value >= attr.max ? attr.max : value;
+                } else {
+                    value = "";
+                }
+                break;
+
+            case attr && attr.type && (attr.type === "phone"):
+                value = ('' + value).replace(/\D/g, '');                // Filter only numbers from the input
+                break;
+        }
+
+        return {value: value, error: errorVal};
     }
 
 </script>
 
 
-<label {id}>
-    <input class="input"
-           {...attributes}
+<label id="{field.field}">
+    <input class="input {checkValue}"
+           {...field.attributes}
            bind:value={inValue}
            on:keyup="{checkInput}">
 </label>

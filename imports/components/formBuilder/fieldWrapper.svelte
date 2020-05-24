@@ -3,7 +3,7 @@
      * Form wrapper around individual input fields.
      *
      * @memberof Components:Form
-     * @function formFields
+     * @function fieldWrapper
      * @locus Client
      * @augments formTabFields
      *
@@ -11,17 +11,16 @@
      * @param {String}  fieldType - type of input field
      * @param {Number}  tab - if tabbed fields are set, defines which tab to show this field
      *
-     * @paran {Object}  attributes - optional additional html attribute settings for field type
-     * @paran {Object}  params - optional additional configuration information for field type
+     * @param {Object}  attributes - optional additional html attribute settings for field type
+     * @param {Object}  params - optional additional configuration information for field type
      * @param {Boolean} optional - flags a field that must have user input to be valid
      * @param {String}  defaultValue - initial input value
      *
-     * @param {String}  label - field label; automatically loaded from associated text file
      * @param {String}  helpText - optional help text to explain the input field meaning; ditto
      * @param {String}  fieldText - optional field text label (ie apiKey); ditto
      * @param {String}  selectsText - optional selects array for 'select', 'checkbox' and 'radio'; ditto
      *
-     * @return nothing - emits: field-changed
+     * @emits field-changed
      *
      * @notes
      * 1. Supports common inputs 'text', 'number', 'email', 'password', 'tel'
@@ -30,52 +29,16 @@
      *
      */
 
-    /*
-     *  This form component is fully data driven by using an array of objects.  Each object defines an
-     *  input component, its attributes and any associated parameters to configure it.
-     *  We debated using more Vue components versus less boilerplate code.  By using more components,
-     *  one would need to replicate Vue boilerplate for each component.  By using one set of boilerplate code,
-     *  one ends up with a single large component.  Our decision was to reduce errors and ease maintenance by
-     *  having one set of code and consequently living with a more complex template.
-     *
-     */
-
     //* props
-    export let field = "";
-    export let fieldType;
-
-    export let listen = {};
-    export let watchFields = [];
-    export let rawFields = {};
-
-    export let attributes = {};
-    export let params = {};
-    export let optional = true;
-    export let defaultValue = "";
-
-    //* items to be ignored; used by parent
-    export let tab = "";
-    export let group = null;
-
-    //export let label = "";
-    //export let helpText = "";
-    //export let fieldText = "";
-
-    export let selects = [];
-    export let value = "";
-
-
+    export let field = {};
 
     //* support functions
-    import {onMount, onDestroy, setContext, getContext} from 'svelte'
-    import {createEventDispatcher} from 'svelte';
     import Icon from '/imports/components/elements/icon.svelte'
-    import {validateEmail} from '/imports/functions/validateEmail'
-
+    import {onMount, getContext} from 'svelte'
+    import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-
-    //* load input fields
+    //* load component fields
     import Inputs from './fields/inputs.svelte'
 
     let components = {
@@ -83,102 +46,57 @@
     }
 
 
-
     //* local reactive variables
-    //let config = {};
-    //let helpIcon = ""; //kanen.icons.HELP;
-    //let formTab = tab;
-
-    let fieldOpt = optional ? "" : "field-error";
-    let fieldValue = defaultValue;
-    let fieldParms = params;
-    let fieldSelects = selects;
-    let fieldDebounce = defaultValue;
+    let fieldOpt = field.optional ? "" : "field-error";
+    let fieldValue = field.defaultValue;
     let fieldHelpShow = false;
     let fieldHide = false;
-
     let formText = getContext("formText");
 
+
     onMount(() => {
-
-        let testVal = defaultValue.newVal !== "true" ? defaultValue.newVal : true;
-        testVal = defaultValue.newVal !== "false" ? defaultValue.newVal : false;
-        this.fieldValue = testVal;
-        this.fieldOpt = testValid(this.fieldValue);
-
-        let checkVal = typeof value.val !== "undefined" ? value.val : defaultValue;
-        fieldOpt = testValid(checkVal);
+        let checkVal = typeof field.value !== "undefined" ? field.value : field.defaultValue;
+        fieldOpt = testValid(checkVal, field.optional);
         fieldValue = checkVal;
 
         //* for initial state, check for watched default
-        if (listen && listen.src) {
-            fieldHide = checkDefault(rawFields, listen);
+        if (field.listen && field.listen.src) {
+            fieldHide = checkDefault(field.rawFields, field.listen);
         }
-
-
 
         //* check to make sure that we should watch another field and hide if default value
-        if (watchFields && listen && listen.src && (listen.src === watchFields.field)) {
-            fieldHide = checkWatched(watchFields, listen);
+        if (field.watchFields && field.listen && field.listen.src && (field.listen.src === field.watchFields.field)) {
+            fieldHide = checkWatched(field.watchFields, field.listen);
         }
-
     } );
 
 
-
-    function fieldUpdate(inMsg) {
-        let msg = inMsg.detail;
-        let outValue = null;
-
-        switch (true) {
-            case (attributes && attributes.type === "email"):
-                outValue = msg;
-                fieldOpt = msg.length < 1 || validateEmail(msg) ? "" : "field-error";
-                break;
-
-            case fieldType === "editor":
-                outValue = fieldValue;
-                fieldOpt = testValid(outValue);
-                break;
-
-            case fieldType === "date":
-                outValue = msg;
-                if (Array.isArray(msg)) {
-                    outValue = outValue[0];
-                }
-
-                if (outValue) {
-                    let test = new Date(outValue);
-                    outValue = test.toISOString();
-                }
-
-                fieldOpt = testValid(outValue);
-                break;
-
-            default:
-                outValue = msg;
-                fieldOpt = testValid(outValue);
-        }
-
-        //*** some inputs (ie. date) require time to update input element
-        setTimeout(function () {
-
-            dispatch('field-changed', {
-                field: field,
-                fieldType: fieldType,
-                value: outValue,
-                defaultValue: defaultValue,
-                valid: fieldOpt !== "field-error",
-            });
-
-        }, 10);
-    }
-
+    //* functions that mutate local variables
     function toggleHelp() {
         fieldHelpShow = !fieldHelpShow;
     }
 
-    function testValid(val) {
+    function fieldInfo(field) {
+        return Object.assign(field, {watchFields: this.watchFields, rawFields: this.rawFields});
+    }
+
+    const fieldUpdate = (inMsg) => {
+        fieldOpt = testValid(inMsg.detail.value, field.optional);
+
+        //*** flow input fields changes up to holder
+        dispatch('field-changed', {
+            field: field.field,
+            fieldType: field.fieldType,
+            value: inMsg.detail.value,
+            defaultValue: field.defaultValue,
+            valid: !fieldOpt,
+        });
+    }
+
+
+
+    //* pure functions
+    const testValid = (val, optional) => {
         //** test for valid values in field
         let test = false;
 
@@ -195,7 +113,7 @@
         return optional || test ? "" : "field-error";
     }
 
-    function checkWatched(watched, listen) {
+    const checkWatched = (watched, listen) => {
         let hide = false;
         let key = listen.key;
         let val = listen.value;
@@ -229,7 +147,7 @@
         return hide;
     }
 
-    function checkDefault(arr, listen) {
+    const checkDefault = (arr, listen) => {
         //* for initial state, check for watched default and select value to track
         let out = false;
 
@@ -257,41 +175,37 @@
         return out;
     }
 
-    function triggerByField(info){
-        dispatch("trigger-by-form-field", info);
-    }
-
 </script>
 
 
 
 {#if !fieldHide}
-    <div class="field {fieldOpt}" style="position: relative;">
-        <div class="control">
-            <label class="has-float-label">{formText[field].label}</label>
+    <div class="field" style="position: relative;">
+        <div class="control {fieldOpt}">
+            <label class="has-float-label">{formText[field.field].label}</label>
 
             <svelte:component
-                    id="{field}"
-                    this="{components[fieldType]}"
-                    {attributes}
-                    {selects}
-                    {params}
-                    bind:value="{fieldValue}"
+                    this="{components[field.fieldType]}"
+                    {field}
+                    bind:value="{field.fieldValue}"
                     on:on-inputentry="{fieldUpdate}"
             />
+
         </div>
 
-        {#if formText[field].helpText}
+        {#if formText[field.field].helpText}
             <span class="field-info has-text-primary add-cursor" on:click|stopPropagation="{toggleHelp}">
                 <Icon icon={getContext("iconHelp")} class="has-text-info"/>
             </span>
 
             <div class="{fieldHelpShow ? 'open-body': 'close-body'}">
-                <p class="mt-2 is-family-secondary">{@html formText[field].helpText}</p>
+                <p class="mt-2 mb-3 is-family-secondary">{@html formText[field.field].helpText}</p>
             </div>
         {/if}
     </div>
 {/if}
+
+
 
 <style>
 

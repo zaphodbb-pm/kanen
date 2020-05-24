@@ -20,17 +20,15 @@ import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
 
 //** load method modules
 import '/imports/server/methods/system';
-
+import '/imports/server/methods/storeDoc';
 import '/imports/server/methods/documentation'
 
 
-/*
+
 //** isomorphic routines
-import '/imports/both/configVersion'
-import '/imports/both/main_globals'
 import '/imports/both/collections'
 
-
+/*
 //** main configuration set up
 import {writeLog} from '/imports/server/functions/func-writeLog'
 import '/imports/server/startup/config'
@@ -147,7 +145,7 @@ Meteor.startup(() => {
 
 //* set up server side debug console
 import 'meteor/aldeed:console-me';
-if (Meteor.isServer) {
+//if (Meteor.isServer) {
     //** Debug tool: allow server side console to send logs to client
     ConsoleMe.enabled = true;
     console.log("cm", ConsoleMe);
@@ -161,7 +159,7 @@ if (Meteor.isServer) {
 
     //* for dev work only
     //Meteor.call("buildLineAwesomeIcons", "private/svg", "public/svg_to_js");
-}
+//}
 
 
 
