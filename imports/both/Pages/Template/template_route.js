@@ -13,8 +13,8 @@
  */
 
 
-import {getLang} from '/imports/functions/func-getLang'
-import {i18n} from '/imports/functions/func-i18n'
+import {getLang} from '/imports/functions/getLang'
+import {i18n} from '/imports/functions/i18n'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 import Page from './template.svelte'
 import PageText from './template_text'

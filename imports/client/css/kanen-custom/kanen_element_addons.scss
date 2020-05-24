@@ -216,6 +216,10 @@
   padding: 0.25px;
 }
 
+.field-input-error {
+  background-color: $danger-light;
+}
+
 /** alert box wrapper */
 .alert-box-wrapper {
   position: fixed;

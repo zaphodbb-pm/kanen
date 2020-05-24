@@ -33,7 +33,7 @@
 
 
     //* page body support **************************
-    import {i18n} from '/imports/functions/func-i18n'
+    import {i18n} from '/imports/functions/i18n'
     import TabContent from '/imports/components/widgets/tabbedContent.svelte'
     import Accordian from '/imports/components/widgets/accordian.svelte'
 

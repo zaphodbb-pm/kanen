@@ -17,7 +17,7 @@
     //* get the user language preference from store and text from context
     import { getContext } from 'svelte';
     import {lang} from '/imports/both/systemStores'
-    import {i18n} from '/imports/functions/func-i18n'
+    import {i18n} from '/imports/functions/i18n'
 
     let cardText = getContext("pageText").components[text];
 

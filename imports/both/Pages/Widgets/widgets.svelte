@@ -13,7 +13,7 @@
     export let params;
 
     //* get the user language preference from store
-    import {i18n} from '/imports/functions/func-i18n'
+    import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/both/systemStores'
     let lng = $lang;
 

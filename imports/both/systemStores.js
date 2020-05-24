@@ -13,7 +13,7 @@ import {writable} from 'svelte/store'
 //import {readable} from 'svelte/store'
 
 //* set language preference
-import {getLang} from '../functions/func-getLang'
+import {getLang} from '../functions/getLang'
 export let lang = writable( getLang("en") );
 
 //* set user position

@@ -39,7 +39,7 @@
 
     //* page-body support **************************
     import {onMount, onDestroy} from 'svelte'
-    import {i18n} from '/imports/functions/func-i18n'
+    import {i18n} from '/imports/functions/i18n'
     import TabContent from '/imports/components/widgets/tabbedContent.svelte'
 
     let message = "";

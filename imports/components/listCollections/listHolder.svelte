@@ -59,10 +59,10 @@
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-    import {methodReturn} from '/imports/functions/func-methodReturn'
+    import {methodReturn} from '/imports/functions/methodReturn'
     import {buildFilter} from './func-buildFilter'
     import {buildQuery} from './func-buildQuery'
-    import {getDocs} from '/imports/functions/func-getDocs'
+    import {getDocs} from '/imports/functions/getDocs'
 
     //* components
     import ListGrid from './listGrid'

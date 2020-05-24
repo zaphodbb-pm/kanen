@@ -14,8 +14,6 @@
      * @param {Object} directdoc - full doc object with values; bypasses collection fetch cycle by "editdoc"
      * @param {String} coll - valid collection name
      *
-     * @return nothing
-     *
      * @emits {Boolean} back-to-list - for overlayed list / form pairs
      * @emits {Object} show-form-preview - current document object with newly entered values
      * @emits {Boolean} doc-submitted - end of submit cycle; sent by function "submitForm"
@@ -44,7 +42,6 @@
     export let schema;
     export let role;
     export let editdoc;
-    export let coll;
     export let directdoc;
 
     //** svelte handlers
@@ -58,7 +55,7 @@
 
     //* get application specific support libraries
     import {elements} from '/imports/client/setup/systemGlobals'
-    import {getDocs} from '/imports/functions/func-getDocs'
+    import {getDocs} from '/imports/functions/getDocs'
     import {submitForm} from './func-submitForm'
     import {orgFields} from "./func-orgFields";
 
@@ -68,12 +65,12 @@
 
 
     //* local reactive variables
+    let coll = config.coll;
     let tabLen = formText.formTabs && Array.isArray(formText.formTabs) ? formText.formTabs.length : 0;
     let hasTabs = tabLen > 0 && (!!config.hasTabs || !!config.hasStepper);
 
     let mainFields = {
         tabLabels: formText.formTabs,
-
         fields: [],
         defaults: [],
 
@@ -93,11 +90,7 @@
 
         btnState: false,
         btnInvalid: false,
-        btnInvText: {
-            prefix: "Can't submit: ",
-            suffix1: " item needs entered value.",
-            suffixn: " items need entered values."
-        },
+        btnInvText: formText.labels.invalidInput,
         btnCount: 0
     };
 
@@ -120,8 +113,6 @@
         hasGroups: config.hasGroups,
     }
 
-    //info.mainFields.fields = orgFields(organize, schema, directdoc, role);
-
     $: loadEditdoc(editdoc);
 
 
@@ -138,84 +129,7 @@
     });
 
 
-
-
-
-
-    async function submitDoc() {
-        const self = this;
-        let newValues = {};
-
-        //** flag as a newly created doc
-        if (!submit.btnState) {
-            let defFields = Object.assign({}, defaults);
-            newValues = Object.assign(defFields, fieldValues);
-            delete newValues._id;
-            created = true;
-        } else {
-            newValues = Object.assign(currDoc, fieldValues);
-            this.created = false;
-        }
-
-
-        //** check for invalid / data not entered fields; create an independent object first
-        let invalids = schema.map((fld) => fld);
-
-        let valid = invalids.reduce(function (tot, check) {
-            const checkVal = newValues[check.field];
-            const checkValid = self.fieldValid[check.field];
-            let isOptional = check.optional;
-
-            let test = !!checkVal;                           // test = true is valid value else false
-
-            if (checkVal && typeof checkVal === "object") {
-                test = Array.isArray(checkVal) ? checkVal.length > 0 : checkVal._id && !!checkVal._id;
-            }
-
-            //** over-rides other checks; typically looks for valid email
-            if (typeof checkValid === "boolean") {
-                test = checkValid;
-                isOptional = false;
-            }
-
-            return tot + (!isOptional && !test ? 1 : 0);
-        }, 0);
-
-        //** display error message or submit document
-        if (valid > 0) {
-            submit.btnInvalid = true;
-            submit.btnCount = valid;
-        } else {
-            if (this.config.preSubmit) {
-                newValues = await config.preSubmit(newValues);
-            }
-
-            //** reset schema to default state
-            fieldValues = {};
-            showClone = false;
-            submit.btnState = false;
-
-            submit.btnInvalid = false;
-            submit.btnCount = 0;
-
-            //** Note that Vue reactivity tries to be efficient with variable updates.
-            //** This causes a problem when doing a new doc creation and so we need to
-            //** "encourage" Vue to update in this case.
-            mainFields.fields = this.adjFields;
-
-            Meteor.setTimeout(function () {
-                //** send completed doc to server insert / update methods
-                submitForm(newValues, self.coll, false, false, self);
-                mainFields.fields = mainFields.defaults;
-
-                dispatch("current-editted-doc", newValues);
-            }, 50);
-        }
-    }
-
-
-
-
+    //* event handlers
     function backToCaller(msg) {
         dispatch("back-to-list", msg);
     }
@@ -225,32 +139,27 @@
         dispatch("show-schema-preview", newValues);
     }
 
-    function newValue(msg) {
-        fieldValues[msg.field] = msg.detail.value;
-        fieldValid[msg.field] = msg.detail.valid;
+    function fieldChanged(inMsg) {
+        let msg = inMsg.detail;
+
+        fieldValues[msg.field] = msg.value;
+        fieldValid[msg.field] = msg.valid;
     }
-
-
 
     function cloneItem(){
         const self = this;
         let newValues = Object.assign({}, currDoc, fieldValues);
         delete newValues._id;
 
-
-        Meteor.setTimeout(function () {
-            //** send completed doc to server insert / update methods
-            submitForm(newValues, coll, true, false, self);
-            mainFields.fields = mainFields.defaults;
-
-            dispatch("current-editted-doc", newValues);
-        }, 50);
+        //** send completed doc to server insert / update methods
+        submitForm(newValues, coll, true, false, self);
+        mainFields.fields = mainFields.defaults;
+        dispatch("current-editted-doc", newValues);
     }
 
 
+    //* functions that mutate local variables
     async function loadEditdoc(editdoc) {
-        const self = this;
-
         currDoc = {};
         fieldValues = {};
         showClone = false;
@@ -292,6 +201,69 @@
         }
     }
 
+    async function submitDoc() {
+        let newValues = {};
+
+        //** flag as a newly created doc
+        if (!submit.btnState) {
+            let defFields = Object.assign({}, defaults);
+            newValues = Object.assign(defFields, fieldValues);
+            delete newValues._id;
+            created = true;
+        } else {
+            newValues = Object.assign(currDoc, fieldValues);
+            created = false;
+        }
+
+        //** check for invalid / data not entered fields; create an independent object first
+        let invalids = schema.map((fld) => fld);
+
+        let valid = invalids.reduce(function (tot, check) {
+            const checkVal = newValues[check.field];
+            const checkValid = fieldValid[check.field];
+            let isOptional = check.optional;
+            let test = !!checkVal;
+
+            if (checkVal && typeof checkVal === "object") {
+                test = Array.isArray(checkVal) ? checkVal.length > 0 : checkVal._id && !!checkVal._id;
+            }
+
+            //** over-rides other checks; typically looks for valid email
+            if (typeof checkValid === "boolean") {
+                test = checkValid;
+                isOptional = false;
+            }
+
+            return tot + (!isOptional && !test ? 1 : 0);
+        }, 0);
+
+        //** display error message or submit document
+        if (valid > 0) {
+            submit.btnInvalid = true;
+            submit.btnCount = valid;
+        } else {
+            if (config.preSubmit) {
+                newValues = await config.preSubmit(newValues);
+            }
+
+            //** reset schema to default state
+            fieldValues = {};
+            showClone = false;
+            submit.btnState = false;
+
+            submit.btnInvalid = false;
+            submit.btnCount = 0;
+
+            //** send completed doc to server insert / update methods
+            mainFields.fields = adjFields;
+
+            submitForm(newValues, coll, false, false, dispatch);
+
+            mainFields.fields = mainFields.defaults;
+            dispatch("current-editted-doc", newValues);
+        }
+    }
+
 </script>
 
 
@@ -315,11 +287,7 @@
 
     <div class="card-content">
         <div id="tabbed-inputs">
-            <Form_Tabs
-                    {... mainFields}
-                    on:trigger-from-tab-field="{ () => dispatch('trigger-from-form-holder', event.detail)}"
-                    on:tabfc="{newValue}"
-            />
+            <Form_Tabs {... mainFields} on:field-changed="{fieldChanged}" />
 
             <div class="buffer-y-large mt-4">
                 <div class="level">

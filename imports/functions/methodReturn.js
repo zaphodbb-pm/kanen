@@ -12,7 +12,7 @@
  *
  */
 
-import {debugConsole} from './func-debugConsole'
+import {debugConsole} from './debugConsole'
 
 
 //** deals with return values from a server method call

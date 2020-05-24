@@ -22,7 +22,7 @@
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-    import {dotNotation} from '/imports/functions/func-dotNotation'
+    import {dotNotation} from '/imports/functions/dotNotation'
     import {timeAgo} from '/imports/functions/timeAgo'
 
 

@@ -17,6 +17,9 @@ $info-invert: $custom_secondary-invert;
 $link: $custom_link;
 $link-invert: $custom_link-invert;
 
+$input-focus-border-color: rgba($info, 0.50);
+$input-focus-box-shadow-color: rgba($info, 0.25);
+
 
 // Typography over-ride
 $family-sans-serif: "Roboto", "Helvetica", BlinkMacSystemFont, -apple-system, "Helvetica Neue", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Arial", sans-serif !default;
