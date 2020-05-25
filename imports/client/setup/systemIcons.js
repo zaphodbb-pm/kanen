@@ -1,5 +1,5 @@
 /**
- * @summary Gets svg icons ready for insertion into top level app context
+ * @summary Gets svg Icons ready for insertion into top level app context
  *
  * @memberof Setup:Client
  * @function systemIcons
@@ -18,7 +18,7 @@ let out = {};
 import logo from '/public/svg_to_js/seedling-solid.json';
 out.iconLogo = logo;
 
-//* page icons
+//* page Icons
 import home from '/public/svg_to_js/home-solid.json';
 out.iconHome = home;
 
@@ -46,7 +46,7 @@ out.iconTemplate = hammer;
 import database from '/public/svg_to_js/database-solid.json';
 out.iconListForm = database;
 
-//* Navbar icons
+//* Navbar Icons
 import bell from '/public/svg_to_js/bell.json';
 out.iconNotify = bell;
 
@@ -56,6 +56,9 @@ out.iconMark = bookmark;
 import post from '/public/svg_to_js/clipboard-list-solid.json';
 out.iconPost = post;
 
+import rows from '/public/svg_to_js/list-ul-solid.json';
+out.iconRows = rows;
+
 import documentation from '/public/svg_to_js/laptop-code-solid.json';
 out.iconDocumentation = documentation;
 
@@ -63,7 +66,7 @@ out.iconDocumentation = documentation;
 
 
 
-//* component icons
+//* component Icons
 import music from '/public/svg_to_js/music-solid.json';
 out.iconMusic = music;
 
@@ -99,7 +102,7 @@ import more from '/public/svg_to_js/caret-right-solid.json';
 out.iconMore = more;
 
 
-//* other icons
+//* other Icons
 import beer from '/public/svg_to_js/beer-solid.json';
 out.iconBeer = beer;
 

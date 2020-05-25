@@ -148,7 +148,7 @@
      *              isShowFilters: true,        // show filters at page load; user can then toggle off
      *              display: "grid",            // show results as a "list" (default) or asd a "grid" of cards
      *              displayGrid: '/imports/both/pages/Pages/vue-listGrid',         // dynamically loaded grid card display component
-     *              iconFilters: kanen.icons.FILTERS,
+     *              iconFilters: kanen.Icons.FILTERS,
      *
      *              showHdr: false,              // show card header and title if true
      *              bgTitle: kanen.constants.BG_CARD,   // sets card title background and text color

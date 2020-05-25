@@ -35,8 +35,8 @@
 
     //* local reactive variables
 
-    //let DELETE = icons.DELETE;                           // standard trash can delete icon
-    //let VIEW = icons.VIEW;                               // icon holds link to another page
+    //let DELETE = Icons.DELETE;                           // standard trash can delete icon
+    //let VIEW = Icons.VIEW;                               // icon holds link to another page
     let EDIT_COLOR = "#fcf8e3";                          // set color when item is in edit mode
 
     let TAGS = {                                         // sets background label colour for "tag" cell

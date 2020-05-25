@@ -14,18 +14,17 @@ export default {
 
     //** page header; set to null to not display header or a specific item
     header:   {
-        title:  {en: "ListForm Page"},
+        title:  {en: "Starter List & Form Page"},
         lead:   {en: "List and Form Components to Enter Data into Database"},
         body:   {en: ""},
     },
-
-    page: {},
 
     list: {
         en: {
 
             labels: {
-                hdr: "Page Content",
+                hdr: "Content List",
+                addNew: "Add New"
             },
 
             name: {
@@ -46,7 +45,7 @@ export default {
         en: {
 
             labels: {
-                hdr:        "Page Content",
+                hdr:        "Content Form",
                 txt:        "",
                 clone:      true,
                 cloneBtn:   "Clone Item",
