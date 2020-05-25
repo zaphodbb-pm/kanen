@@ -32,14 +32,10 @@
      *              isShowFilters: true,        // show filters at page load; user can then toggle off
      *              display: "grid",            // show results as a "list" (default) or asd a "grid" of cards
      *              displayGrid: '/imports/both/pages/Pages/vue-listGrid',         // dynamically loaded grid card display component
-     *              iconFilters: kanen.icons.FILTERS,
      *
      *              showHdr: false,              // show card header and title if true
      *              bgTitle: kanen.constants.BG_CARD,   // sets card title background and text color
      *              header: "",                 // label for card header
-     *
-     *              group: false,               // activate the ability to create groups of file names
-     *              target: null,               // send grouped list to this collection
      *
      *      field object keys:
      *              field: "name",              // field name
@@ -53,6 +49,12 @@
      *
      */
 
+    //* props
+    export let config = {};
+    export let listText = {};
+    export let fields = [];
+    export let sort = {};
+    export let submitted = false;
 
     //* support functions
     import {onMount, onDestroy, setContext, getContext} from 'svelte'
@@ -64,18 +66,18 @@
     import {buildQuery} from './func-buildQuery'
     import {getDocs} from '/imports/functions/getDocs'
 
+    //* make form text available to all children components
+    setContext("listText", listText);
+
+    console.log("list text:", listText, getContext("listText") );
+
     //* components
+    import Row_Size from './rowSize.svelte'
+    import Page_Count from './pageCount.svelte'
     import ListGrid from './listGrid'
 
-    //* props
-    export let config = {};
-    export let listText = {};
-    export let fields = [];
-    export let sort = {};
-    export let submitted = false;
-    export let coll = "";
-
     //* local reactive variables
+    let coll = config.coll;
     let pageRows = 10;
     let pageActive = 0;
     let totalDocs = 0;
@@ -83,9 +85,15 @@
 
     let collFields = {};
     let addFilters = {};
-    let filterState = config.isShowFilters ? "is-primary" : "is-light";
-    let showFilters = config.isShowFilters;
+    let filterState = config.hasFilters ? "is-primary" : "is-light";
+    let showFilters = config.hasFilters;
     let addConditions = {};
+
+    let pageCounts = 1;
+    let pageCountLabel = "0 - 0 / 0 (0)";
+    let labels = fields;
+    let documents = [];
+
 
     let info = {
         config: config,
@@ -95,17 +103,14 @@
 
         labels: this.fields,
         documents: [],
-        collection: coll,
         submitted: submitted
     };
 
 
-    setContext("listText", listText);
-    console.log("list text:", listText, getContext("listText") );
-
-
     if (config && config.displayGrid) {
-        addGridLayout();
+        console.log("hasGrid", config.displayGrid);
+
+        //addGridLayout();
     }
 
 
@@ -116,62 +121,35 @@
 
     onMount(async () => {
         //* on first load, show a list of unfiltered documents for this user; "combo" type gets a different count
-        totalDocs = await getPageCounts(coll, {});
+        //totalDocs = await getPageCounts(coll, {});
 
-        addConditions = getConditions(fields);
+        //addConditions = getConditions(fields);
 
-        totalDocs = await getPageCounts(coll, {});
+        //totalDocs = await getPageCounts(coll, {});
 
-        getCurrentDocs();
+        //getCurrentDocs();
 
         $: {
             info.submitted = submitted;
             totalDocs = await getPageCounts(coll, {});
-            getCurrentDocs();
+            //getCurrentDocs();
         }
     } );
 
 
 
+    //* event handlers
 
+
+
+
+    //* functions that mutate local variables
     function addGridLayout() {
         if (config && config.displayGrid) {
             return () => import(config.displayGrid);
         } else {
             return ListGrid;
         }
-    }
-
-    function buildFilters() {
-        let filters = [];
-
-        //* find all list fields that have a "filter" key set
-        fields.forEach((fld) => {
-            if (fld.filter && fld.filter.length > 0) {
-                filters.push(
-                        {field: fld.field, filter: fld.filter, type: fld.type}
-                )
-            }
-        });
-
-        //* build and return a list of filters to apply to search
-        return filters;
-    }
-
-
-
-
-    function getConditions(fields) {
-        let conditions = {};
-
-        //* find all list fields that have a "condition" key set and apply as a general search criteria
-        fields.forEach((con) => {
-            if (con.condition && typeof con.condition === "object") {
-                conditions[con.field] = con.condition;
-            }
-        });
-
-        return conditions;
     }
 
     function setFilter() {
@@ -188,9 +166,11 @@
 
     function newRow(msg) {
         //* when a user changes the rows length, get a the new longer list of documents
-        pageRows = parseInt(msg.row);
+        pageRows = parseInt(msg.detail.row);
         info.pagesRow = pageRows;
         getCurrentDocs();
+
+        console.log("newRow", msg.detail, info.pagesRow);
     }
 
     function newPage(msg) {
@@ -273,6 +253,37 @@
         dispatch("list-docs-ready", info.documents);
     }
 
+
+    //* pure functions
+    function buildFilters(fields) {
+        let filters = [];
+
+        //* find all list fields that have a "filter" key set
+        fields.forEach((fld) => {
+            if (fld.filter && fld.filter.length > 0) {
+                filters.push(
+                        {field: fld.field, filter: fld.filter, type: fld.type}
+                )
+            }
+        });
+
+        //* build and return a list of filters to apply to search
+        return filters;
+    }
+
+    function getConditions(fields) {
+        let conditions = {};
+
+        //* find all list fields that have a "condition" key set and apply as a general search criteria
+        fields.forEach((con) => {
+            if (con.condition && typeof con.condition === "object") {
+                conditions[con.field] = con.condition;
+            }
+        });
+
+        return conditions;
+    }
+
     async function getPageCounts(coll, query) {
         let res = 0;
 
@@ -286,25 +297,14 @@
         return res;
     }
 
-    function docDelete(msg) {
+    function docDelete(coll, msg, emit) {
         switch (true) {
-            case self.coll === "users":
+            case coll === "users":
                 Meteor.call('userMgmtRemove', msg.id, function (err, res) {
                     methodReturn(err, res, "listHolder userMgmtRemove");
 
                     if (res) {
-                        dispatch("delete-doc", msg);
-                        getCurrentDocs();
-                    }
-                });
-                break;
-
-            case self.coll === "employees":
-                Meteor.call('employeeRemove', msg.id, function (err, res) {
-                    methodReturn(err, res, "listHolder employeeRemove");
-
-                    if (res) {
-                        dispatch("delete-doc", msg);
+                        emit("delete-doc", msg);
                         getCurrentDocs();
                     }
                 });
@@ -315,18 +315,18 @@
                     methodReturn(err, res, "listHolder inputterRemove");
 
                     if (res) {
-                        dispatch("delete-doc", msg);
+                        emit("delete-doc", msg);
                         getCurrentDocs();
                     }
                 });
         }
     }
 
-    function docEdit(msg) {
+    function docEdit(coll, msg, emit) {
         let message = {
             id: "",
             type: "create",
-            coll: this.coll,
+            coll: coll,
         };
 
         //** if editing a doc send doc id else clear edit form
@@ -335,9 +335,11 @@
             message.type = "edit";
         }
 
-        dispatch("send-doc", message);
+        emit("send-doc", message);
     }
 
+
+    /*
     function docModal(msg) {
         dispatch("modal-doc", msg);
     }
@@ -345,6 +347,8 @@
     function docModalUser(msg) {
         dispatch("modal-doc-user", msg);
     }
+
+     */
 
 
 </script>
@@ -354,37 +358,29 @@
     {#if config.showHdr}
         <div class="card-header {config.bgTitle}">
             <div class="card-header-title" style="color: inherit; font-size: inherit; font-weight: inherit;">
-                {config.header}
+                {listText.labels.hdr}
             </div>
         </div>
     {/if}
 
 
     <div class="card-content">
-
-        content
-
-
         <div id="comp_listCollections">
-            {#if config.hasOverlay && config.addNew}
+            {#if config.hasOverlay && listText.addNew}
                 <div class="w-100 d-flex justify-content-between mb-3">
                     <div></div>
 
                     <button class="button is-primary is-outlined"
                             on:click="{ () => docEdit({}) }">
-                        {config.addNew}
+                        {listText.addNew}
                     </button>
                 </div>
             {/if}
 
             {#if config.hasRows}
                 <div id="comp_rowSize" class="is-flex align-items-center">
-                    <div>row size</div>
-                    <div>count</div>
-                    <!--
-                    <vue-row-size v-bind=info v-on:row-changed="newRow"></vue-row-size>
-                    <vue-page-count v-bind="info" class="mb-3 ml-4"></vue-page-count>
-                    -->
+                    <Row_Size on:row-changed="{newRow}" />
+                    <Page_Count {pageCountLabel }/>
                 </div>
             {/if}
 

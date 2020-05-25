@@ -3,7 +3,7 @@
      * @summary Layout for Icons page.
      *
      * @memberof Pages:Icons
-     * @function icons
+     * @function Icons
      * @locus Client
      *
      */
@@ -30,7 +30,7 @@
     import {mainIcons} from '/imports/client/setup/systemIcons'
     import Icon from '/imports/components/elements/icon.svelte'
 
-    //** get list of icons and sort list ascending
+    //** get list of Icons and sort list ascending
     let allIcons = Object.entries(mainIcons);
     allIcons = allIcons.sort( (a,b) => a[0] > b[0] ? 1 : (a[0] < b[0] ? -1 : 0) );
 

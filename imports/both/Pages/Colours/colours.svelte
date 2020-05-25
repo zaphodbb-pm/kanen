@@ -3,7 +3,7 @@
      * @summary Layout for Icons page.
      *
      * @memberof Pages:Colours
-     * @function icons
+     * @function Icons
      * @locus Client
      *
      */

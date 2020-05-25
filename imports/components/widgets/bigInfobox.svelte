@@ -16,7 +16,7 @@
      * @example
      * config: Object: used to set up the widget at the start
      *      {
-     *          icon: icons.SETTINGS,             // widget's icon if needed
+     *          icon: Icons.SETTINGS,             // widget's icon if needed
      *          //* colour controls at selected trigger points
      *          //* if array, background colors for reactive response to values; if String, colour is fixed
      *          bgColours: [NORMAL, WARN, DANGER],

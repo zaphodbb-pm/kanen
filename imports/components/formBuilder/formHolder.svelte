@@ -23,17 +23,15 @@
      *      configuration object to set up form
      *
      *          coll: base                          // collection to submit field values to
+     *          showHdr: false,                     // show card header and title if true
+     *          bgTitle: elements.BG_CARD,          // background colour for header
      *
      *          hasOverlay: false,                  // support for form overlaying the list during edit operation
      *          hasGroups: false,                   // allows fields to be grouped onto the same row
      *          hasStepper: false,                  // user a stepper layour to tab through set sof fields
      *          hasTabs: false,                     // uses tabs instead of stepper; note this should be opposite of 'hasStepper' or false
      *          hasPreview: true,                   // form can show a preview of select data fields
-     *
      *          clone: true,                        // show clone button on form
-     *          showHdr: false,                     // show card header and title if true
-     *          bgTitle: elements.BG_CARD,          // background colour for header
-     *
      */
 
     //* incoming props from page

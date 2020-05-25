@@ -19,7 +19,7 @@ Meteor.methods({
      * @notes
      *  1. "from" folder contains .svg files  (typically line awesome files)
      *  2. "to" folder receives .svg files converted into javascript array
-     *      compatible with Fontawesome 5 icons.
+     *      compatible with Fontawesome 5 Icons.
      *
      */
 

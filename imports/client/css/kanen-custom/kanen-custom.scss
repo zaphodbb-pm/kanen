@@ -6,14 +6,16 @@ $green-light: hsla(141, 71%, 44%, 0.5) !default;
 
 
 /* adjust default values */
-$box-radius: $radius;
-$box-shadow: 0 2px 3px rgba($black, 0.1), 0 0 0 1px rgba($black, 0.1) !default;
-
 $navbar-breakpoint: $tablet;
 $navbar-height: 4rem;
 
+$box-radius: $radius;
+$box-shadow: 0 2px 3px rgba($black, 0.1), 0 0 0 1px rgba($black, 0.1) !default;
+
 $modal-background-background-color: rgba($black, 0.45);
 $modal-card-head-radius: $radius;
+
+$input-arrow: $primary;
 
 /** fix top nav bar controls */
 .main-navbar {
