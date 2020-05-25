@@ -9,21 +9,26 @@
      *
      * @notes
      *      1. context: "Version" - app version info
-     *      2. context: "icon<Name>" - imports svg file from library and insert into returned object
+     *      2. context: "commonText" - system wide text strings
+     *      3. context: "icon<Name>" - imports svg file from library and insert into returned object
      *
-     *      3. systemGlobals: "documents" - mongodb doc options / limits
-     *      4. systemGlobals: "colors" - hex colour values
-     *      5. systemGlobals: "colorArrays" - array of hex colour values for threshold colour change
-     *      6. systemGlobals: "components" - css strings for components
-     *      7. systemGlobals: "theme" - css strings for theming items
+     *      4. systemGlobals: "documents" - mongodb doc options / limits
+     *      5. systemGlobals: "colors" - hex colour values
+     *      6. systemGlobals: "colorArrays" - array of hex colour values for threshold colour change
+     *      7. systemGlobals: "components" - css strings for components
+     *      8. systemGlobals: "theme" - css strings for theming items
      *
      */
 
     import { onMount, setContext, getContext } from 'svelte';
 
     //* setup system wide version info
-    import version from '../../client/setup/version'
+    import version from '/imports/client/setup/version'
     setContext("Version", version);
+
+    //* setup system wide text strings (all languages)
+    import commonText from '/imports/client/setup/commonText'
+    setContext("commonText", commonText);
 
     //* setup system wide Icons as a context
     import {mainIcons} from '/imports/client/setup/systemIcons'

@@ -18,6 +18,8 @@ let out = {};
 import logo from '/public/svg_to_js/seedling-solid.json';
 out.iconLogo = logo;
 
+
+
 //* page Icons
 import home from '/public/svg_to_js/home-solid.json';
 out.iconHome = home;
@@ -80,11 +82,19 @@ import fileAlt from '/public/svg_to_js/file-alt.json';
 out.iconDoc = fileAlt;
 
 
+
+//* widget icons
+import search from '/public/svg_to_js/search-solid.json';
+out.iconSearch = search;
+
 import helpInfo from '/public/svg_to_js/info-circle-solid.json';
 out.iconHelp = helpInfo;
 
 import filters from '/public/svg_to_js/filter-solid.json';
 out.iconFilters = filters;
+
+import del_icon from '/public/svg_to_js/trash-alt-solid.json';
+out.iconDelete = del_icon;
 
 import cancel from '/public/svg_to_js/times-circle.json';
 out.iconCancel = cancel;
@@ -100,6 +110,13 @@ out.iconMoreCircle = arrowCircleRight;
 
 import more from '/public/svg_to_js/caret-right-solid.json';
 out.iconMore = more;
+
+import view from '/public/svg_to_js/eye.json';
+out.iconView = view;
+
+import status from '/public/svg_to_js/dot-circle-solid.json';
+out.iconStatus = status;
+
 
 
 //* other Icons

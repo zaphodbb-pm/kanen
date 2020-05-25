@@ -21,6 +21,7 @@ import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
 //** load method modules
 import '/imports/server/methods/system';
 import '/imports/server/methods/storeDoc';
+import '/imports/server/methods/readDocs';
 import '/imports/server/methods/documentation'
 
 

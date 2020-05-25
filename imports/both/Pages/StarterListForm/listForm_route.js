@@ -1,7 +1,7 @@
 /**
- * @summary Route config information for ListForm page.
+ * @summary Route config information for StarterListForm page.
  *
- * @memberof Pages:ListForm
+ * @memberof Pages:StarterListForm
  * @function listForm_route
  * @locus Client
  * @augments listForm

@@ -58,6 +58,7 @@
 
     //* support functions
     import {onMount, onDestroy, setContext, getContext} from 'svelte'
+    import Icon from '/imports/components/elements/icon.svelte'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
@@ -69,11 +70,17 @@
     //* make form text available to all children components
     setContext("listText", listText);
 
-    console.log("list text:", listText, getContext("listText") );
+    fields = loadText( fields, listText);   // insert text into fields object
+
+    console.log("listHolder", config, listText, fields );
 
     //* components
     import Row_Size from './rowSize.svelte'
     import Page_Count from './pageCount.svelte'
+    import Search from './searchbox.svelte'
+    import Pagination from './pagination.svelte'
+    import List_Filters from './listFilters.svelte'
+    import List_Table from './listTable.svelte'
     import ListGrid from './listGrid'
 
     //* local reactive variables
@@ -85,11 +92,13 @@
 
     let collFields = {};
     let addFilters = {};
-    let filterState = config.hasFilters ? "is-primary" : "is-light";
-    let showFilters = config.hasFilters;
+    //let filterState = config.hasFilters ? "is-primary" : "is-light";
+
+    let filterState =  "is-light";
+    let showFilters = false;
     let addConditions = {};
 
-    let pageCounts = 1;
+    let pageCounts = 500;
     let pageCountLabel = "0 - 0 / 0 (0)";
     let labels = fields;
     let documents = [];
@@ -101,7 +110,7 @@
         pageCountLabel: "",
         pageActive: this.pageActive,
 
-        labels: this.fields,
+        labels: fields,
         documents: [],
         submitted: submitted
     };
@@ -132,14 +141,62 @@
         $: {
             info.submitted = submitted;
             totalDocs = await getPageCounts(coll, {});
-            //getCurrentDocs();
+            getCurrentDocs();
         }
     } );
 
 
 
     //* event handlers
+    function docModal(msg) {
+        dispatch("modal-doc", msg.detail);
+    }
 
+    function docModalUser(msg) {
+        dispatch("modal-doc-user", msg.detail);
+    }
+
+    function docDelete(msg) {
+        //let emit = dispatch;
+        switch (true) {
+            case coll === "users":
+                Meteor.call('userMgmtRemove', msg.detail.id, function (err, res) {
+                    methodReturn(err, res, "listHolder userMgmtRemove");
+
+                    if (res) {
+                        dispatch("delete-doc", msg.detail);
+                        getCurrentDocs();
+                    }
+                });
+                break;
+
+            default:
+                Meteor.call('removeDoc', coll, msg.detail.id, function (err, res) {
+                    methodReturn(err, res, "listHolder removeDoc");
+
+                    if (res) {
+                        dispatch("delete-doc", msg.detail);
+                        getCurrentDocs();
+                    }
+                });
+        }
+    }
+
+    function docEdit(msg) {
+        let message = {
+            id: "",
+            type: "create",
+            coll: coll,
+        };
+
+        //** if editing a doc send doc id else clear edit form
+        if (msg.detail.edit) {
+            message.id = msg.detail.id;
+            message.type = "edit";
+        }
+
+        dispatch("send-doc", message);
+    }
 
 
 
@@ -230,42 +287,51 @@
         let setQ = collQuery ? collQuery : {};
         let combineSearch = Object.assign({}, setQ, addFilters, addConditions);
 
-        info.pageCounts = await getPageCounts(coll, setQ);
+        pageCounts = await getPageCounts(coll, setQ);
 
         let f = buildFilter(
                 pageRows ? pageRows : 10,
                 pageActive ? pageActive : 1,
-                info.pageCounts,
+                pageCounts,
                 sort ? sort : {}
         );
 
         //* support for combination collection searches
-        let comboColls = ["marketplaceProducts", "marketplaceActivities", "marketplaceEvents", "marketplaceMerchants"];
+        documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
 
-        if (comboColls.includes(coll)) {
-            info.documents = await getDocs(coll, "combo", combineSearch, f.filterSearch, null);
-            info.pageCountLabel = info.documents.length;
-        } else {
-            info.documents = await getDocs(coll, "list", combineSearch, f.filterSearch, null);
-            info.pageCountLabel = `${f.start} - ${f.end} / ${info.pageCounts} (${totalDocs})`;
-        }
+        pageCountLabel = `${f.start} - ${f.end} / ${pageCounts} (${totalDocs})`;
+        info.pageCountLabel = pageCountLabel;
 
-        dispatch("list-docs-ready", info.documents);
+        console.log("getDocs", documents,  pageCountLabel)
+
+        dispatch("list-docs-ready", documents);
     }
 
 
     //* pure functions
+    function loadText(fields, text){
+        let out = JSON.parse( JSON.stringify(fields) );
+        out = out.map( (fld) => {
+            fld.label = text[fld.key].label;
+            return fld;
+        })
+
+        return out;
+    }
+
     function buildFilters(fields) {
         let filters = [];
 
         //* find all list fields that have a "filter" key set
-        fields.forEach((fld) => {
-            if (fld.filter && fld.filter.length > 0) {
-                filters.push(
-                        {field: fld.field, filter: fld.filter, type: fld.type}
-                )
-            }
-        });
+        if(fields && fields.length > 0){
+            fields.forEach((fld) => {
+                if (fld.filter && fld.filter.length > 0) {
+                    filters.push(
+                            {field: fld.field, filter: fld.filter, type: fld.type}
+                    )
+                }
+            });
+        }
 
         //* build and return a list of filters to apply to search
         return filters;
@@ -288,68 +354,14 @@
         let res = 0;
 
         try {
-            //res = await Meteor.callPromise("pagerCount", coll, query);
-            res = 77;
+            res = await Meteor.callPromise("pagerCount", coll, query);
+            //res = 77;
         } catch (error) {
             console.warn("pagerCount", error);
         }
 
         return res;
     }
-
-    function docDelete(coll, msg, emit) {
-        switch (true) {
-            case coll === "users":
-                Meteor.call('userMgmtRemove', msg.id, function (err, res) {
-                    methodReturn(err, res, "listHolder userMgmtRemove");
-
-                    if (res) {
-                        emit("delete-doc", msg);
-                        getCurrentDocs();
-                    }
-                });
-                break;
-
-            default:
-                Meteor.call('inputterRemove', coll, msg.id, function (err, res) {
-                    methodReturn(err, res, "listHolder inputterRemove");
-
-                    if (res) {
-                        emit("delete-doc", msg);
-                        getCurrentDocs();
-                    }
-                });
-        }
-    }
-
-    function docEdit(coll, msg, emit) {
-        let message = {
-            id: "",
-            type: "create",
-            coll: coll,
-        };
-
-        //** if editing a doc send doc id else clear edit form
-        if (msg.edit) {
-            message.id = msg.id;
-            message.type = "edit";
-        }
-
-        emit("send-doc", message);
-    }
-
-
-    /*
-    function docModal(msg) {
-        dispatch("modal-doc", msg);
-    }
-
-    function docModalUser(msg) {
-        dispatch("modal-doc-user", msg);
-    }
-
-     */
-
 
 </script>
 
@@ -385,22 +397,16 @@
             {/if}
 
 
-            {#if !!config.hasFilters && !!config.isShowFilters}
-                list filters
-                <!--
-                <vue-list-filters
-                        v-show="showFilters"
-                        v-bind:filters="buildFilters"
-                        v-on:filters-changed="filterList">
-                </vue-list-filters>
-                -->
+            {#if !!config.hasFilters && !!config.showFilters}
+                top list filters
+
+                <List_Filters filters="{buildFilters()}" on:filters-changed="{filterList}" />
             {/if}
 
             <div class="columns">
                 <div class="column">
                     {#if config.hasSearch}
-                        searchbox
-                        <!--<vue-searchbox v-on:search-changed="newSearch"></vue-searchbox>-->
+                        <Search on:search-changed="{newSearch}" />
                     {/if}
                 </div>
 
@@ -408,35 +414,23 @@
                     <div class="column is-2">
                         <div style="display: flex; flex-direction: row-reverse;">
                             <div class="button {filterState}" on:click="{setFilter}">
-                                <i class="{config.iconFilters}"></i>
+                                <Icon icon='{getContext("iconFilters")}' class="text-1dot5rem"/>
                             </div>
                         </div>
                     </div>
                 {/if}
             </div>
 
-
             {#if config.hasFilters && !config.isShowFilters}
-                list filters
-                <!--
-                <vue-list-filters
-                        v-show="showFilters"
-                        v-bind:filters="buildFilters"
-                        v-on:filters-changed="filterList">
-                </vue-list-filters>
-                -->
+                {#if showFilters}
+                        bottom list filters
+                    <List_Filters filters="{buildFilters()}" on:filters-changed="{filterList}" />
+                {/if}
             {/if}
 
             {#if config.hasPager}
                 <div id="comp_pagination">
-                    pagination
-                    <!--
-                    <vue-pagination
-                            v-bind:rows="pageRows"
-                            v-bind:totalDocs="info.pageCounts"
-                            v-on:page-changed="newPage">
-                    </vue-pagination>
-                    -->
+                    <Pagination rows="{pageRows}" totalDocs="{pageCounts}" />
                 </div>
             {/if}
 
@@ -452,17 +446,19 @@
                 </component>
                 -->
             {:else}
-                list-table
-                <!--
-                <vue-list-table
-                        v-bind="info"
-                        v-on:item-delete="docDelete"
-                        v-on:item-edit="docEdit"
-                        v-on:item-modal="docModal"
-                        v-on:item-modal-user="docModalUser">
 
-                </vue-list-table>
-                -->
+                <List_Table
+                    {config}
+                    labels="{fields}"
+                    {documents}
+                    collection="{coll}"
+                    {submitted}
+
+                    on:item-delete="{docDelete}"
+                    on:item-edit="{docEdit}"
+                    on:item-modal="{docModal}"
+                    on:item-modal-user="{docModalUser}"/>
+
             {/if}
 
         </div>

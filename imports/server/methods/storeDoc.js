@@ -9,7 +9,7 @@ import {myDocuments} from '/imports/server/functions/myDocuments'
 
 Meteor.methods({
     /**
-     * @summary For list search bar, gets count of total number of user documents.
+     * For list search bar, gets count of total number of user documents.
      *
      * @memberof Methods
      * @function pagerCount

@@ -7,7 +7,7 @@
  *
  * @param {Object} allText - imported text object
  * @param {String} field - field in the main imported text object
- * @param {String} lang - two letter language code
+ * @param {Writable<String>} lang - two letter language code
  *
  * @returns {String} - language translated text
  *

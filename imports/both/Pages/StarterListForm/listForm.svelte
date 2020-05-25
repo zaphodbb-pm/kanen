@@ -1,9 +1,9 @@
 <script>
     /**
-     * @summary Layout for ListForm page.
+     * @summary Layout for StarterListForm page.
      *
-     * @memberof Pages:ListForm
-     * @function ListForm
+     * @memberof Pages:StarterListForm
+     * @function StarterListForm
      * @locus Client
      *
      */
