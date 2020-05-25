@@ -1,7 +1,7 @@
 /**
- * @summary Labels for ListForm page.
+ * @summary Labels for StarterListForm page.
  *
- * @memberof Pages:ListForm
+ * @memberof Pages:StarterListForm
  * @function listForm_text
  * @locus Client
  * @augments listForm
@@ -10,7 +10,7 @@
  */
 
 export default {
-    navLabel: {en: "ListForm"},
+    navLabel: {en: "StarterListForm"},
 
     //** page header; set to null to not display header or a specific item
     header:   {
@@ -23,7 +23,7 @@ export default {
         en: {
 
             labels: {
-                hdr: "Content List",
+                hdr: "Document List",
                 addNew: "Add New"
             },
 
@@ -35,7 +35,7 @@ export default {
                 label: "Updated At",
             },
 
-            del: {
+            _id: {
                 label: "Del",
             }
         }
@@ -45,7 +45,7 @@ export default {
         en: {
 
             labels: {
-                hdr:        "Content Form",
+                hdr:        "Edit Document Form",
                 txt:        "",
                 clone:      true,
                 cloneBtn:   "Clone Item",

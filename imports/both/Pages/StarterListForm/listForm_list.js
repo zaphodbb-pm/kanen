@@ -1,7 +1,7 @@
 /**
- * Configuration list block for ListForm listing table page.
+ * Configuration list block for StarterListForm listing table page.
  *
- * @memberof Pages:ListForm
+ * @memberof Pages:StarterListForm
  * @function listForm_list
  * @locus Client
  * @augments listForm
@@ -31,7 +31,8 @@ export default {
             field:  "name",
             key:    "name",
             type:   "edit",
-            label: text.name.label,
+            //label:  text.name.label,
+            label:  "tbd",
             sort:   1,
             search: true,
         },
@@ -40,7 +41,8 @@ export default {
             field:  "updatedAt",
             key:    "updatedAt",
             type:   "text",
-            label:  text.updatedAt.label,
+            label:  "tbd",
+            //label:  text.updatedAt.label,
             sort:   1,
             search: true,
         },
@@ -49,7 +51,8 @@ export default {
             field:  "_id",
             key:    "_id",
             type:   "del",
-            label:  text.del.label,
+            label:  "tbd",
+            //label:  text._id.label,
             sort:   false,
             search: false,
         },

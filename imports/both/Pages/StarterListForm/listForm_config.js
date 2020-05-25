@@ -1,7 +1,7 @@
 /**
- * @summary Configuration for ListForm components.
+ * @summary Configuration for StarterListForm components.
  *
- * @memberof Pages:ListForm
+ * @memberof Pages:StarterListForm
  * @function listForm_text
  * @locus Client
  * @augments listForm
@@ -16,7 +16,7 @@ export default {
     form: {
         coll:       "starter",          // target collection to send submit to
         showHdr:    true,               // show card header and title if true
-        bgTitle:    components.BG_CARD, // colour header text and background
+        bgTitle:    components.BG_CARD_PURPLE, // colour header text and background
 
         hasOverlay: false,              // support for form overlaying the list during edit operation
         hasGroups:  false,              // signals if form as grouped input fields
@@ -29,7 +29,7 @@ export default {
     list: {
         coll:       "starter",          // collection name to list
         showHdr:    true,               // show card header and title if true
-        bgTitle:    components.BG_CARD, // sets card title background and text color
+        bgTitle:    components.BG_CARD_TEAL, // sets card title background and text color
 
         hasOverlay: false,              // support for form overlaying the list during edit operation
         hasRows:    true,               // show row length selection box

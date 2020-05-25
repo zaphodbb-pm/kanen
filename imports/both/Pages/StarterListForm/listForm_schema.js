@@ -1,7 +1,7 @@
 /**
  * @summary Schema definition object for Starter collection.
  *
- * @memberof Pages:ListForm
+ * @memberof Pages:StarterListForm
  * @function listForm_schema
  * @locus Anywhere
  * @augments listForm

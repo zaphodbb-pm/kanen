@@ -33,7 +33,7 @@
 //* get page configuration information
 import Home from '/imports/both/Pages/Home/home_route'
 import Template from '/imports/both/Pages/Template/template_route'
-import ListForm from '/imports/both/Pages/ListForm/listForm_route'
+import ListForm from '/imports/both/Pages/StarterListForm/listForm_route'
 import Cards from '/imports/both/Pages/Cards/cards_route'
 import Widgets from '/imports/both/Pages/Widgets/widgets_route'
 import Content from '/imports/both/Pages/WidgetsContent/widgetsContent_route'

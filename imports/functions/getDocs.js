@@ -23,17 +23,17 @@
 export async function getDocs(coll, type, search, options) {
     let out = [];
 
-    //let method = type === "combo" ? "getCollDataCombo" : "getCollData";
+    let method = type === "combo" ? "getCollDataCombo" : "getCollData";
 
     try {
-        //out = await Meteor.callPromise(method, coll, type, search, options);
+        out = await Meteor.callPromise(method, coll, type, search, options);
 
-        out = [];
+        //out = [];
 
         return out;
 
     } catch (error) {
-        console.warn("getDocs", coll, search, options, publish, error);
+        console.warn("getDocs", coll, search, options, error);
         return [];
     }
 }
