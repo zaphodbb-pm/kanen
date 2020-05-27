@@ -2,10 +2,10 @@
     /**
      * Grid to list documents and fields for docs.
      *
-     * @memberof Components:List
-     * @function listGrid
+     * @memberof Pages:Starter
+     * @function starter_grid
      * @locus Client
-     * @isTemplate true
+     * @augments starter_list
      *
      * @param  {Object} config - decoration for table
      * @param  {Array}  labels
@@ -36,28 +36,17 @@
 
 
     //* local reactive variables
-    let EDIT_COLOR = elements.EDIT_COLOR;               // set color when item is in edit mode
-
-    let TAGS = {                                        // sets background label colour for "tag" cell
-        Image: "label-success",
-        Trigger: "label-info",
-        Message: "label-primary",
-        Logs: "label-warning",
-        System: "label-danger",
-        Default: "label-default",
-    };
-
+    let width =  "is-6";
+    let notice = "starter grid"
 
     let inEdit = false;
     let bgEdit = "";
     let currRow = "";
     let actRow = "";
     let submit = submitted;
-    //let width = config && config.dispWidth ? config.dispWidth : "is-6";
 
-    let width =  "is-6";
-    let notice = "default grid"
 
+    //* event handlers
     function deleteDoc(id) {
         dispatch('item-delete', {
             id: id,

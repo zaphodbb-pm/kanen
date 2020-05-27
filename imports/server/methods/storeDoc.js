@@ -9,48 +9,6 @@ import {myDocuments} from '/imports/server/functions/myDocuments'
 
 Meteor.methods({
     /**
-     * For list search bar, gets count of total number of user documents.
-     *
-     * @memberof Methods
-     * @function pagerCount
-     * @isMethod true
-     * @locus Server
-     *
-     * @param {String} coll
-     * @param {Object} query
-     * @return {Number}
-     */
-    pagerCount: function (coll, query) {
-        check(coll, String);
-        check(query, Object);
-
-        let out = 10;
-
-        if (Meteor.userId()) {                            // check if user is logged in
-            let q = query || {};
-            let out = 0;
-
-            switch (true) {
-                case coll === 'users':
-                    out = Meteor.users.find(q).count();
-                    break;
-
-                default:
-                    //*** adjust certain mappings to real collection
-                    //q = myDocuments(q, this.userId, kanen.schemaRoles[coll]);
-                    out = Mongo.Collection.get(coll).find(q).count();
-            }
-
-            return out;
-        }
-
-        return out;
-    },
-
-
-
-
-    /**
      * General insert document into collection.
      *
      * @memberof Methods
@@ -67,9 +25,6 @@ Meteor.methods({
         check(coll, String);
         check(doc, Object);
         let id;
-
-
-        console.log("insertDoc", coll, doc, verifyRole(Meteor.userId(), "roles.write") );
 
         if( verifyRole(Meteor.userId(), "roles.write") || coll.includes("logs") ){      // check if user is logged in or system wants to write to a log
             doc.tenantId = Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general";
@@ -146,15 +101,12 @@ Meteor.methods({
         check(coll, String);
         check(docId, String);
 
-        let doc = Mongo.Collection.get(coll).findOne({_id: docId});
-
-        if( verifyRole(Meteor.userId(), kanen.schemaRoles[coll].write ) ) {
-            let collection = kanen.collection[coll];
-            let doc = Mongo.Collection.get(collection).findOne({_id: docId});
+        if( verifyRole(Meteor.userId(), "roles.write" ) ) {
+            let doc = Mongo.Collection.get(coll).findOne({_id: docId});
 
             if(ownsDocument(Meteor.userId(), doc)){     // check if user is doc owner before delete
                 Mongo.Collection.get(coll).remove(doc._id);
-                return {status: 200, _id: docId, text:  `${docId} has been removed from ${coll} by Inputter`};
+                return {status: 200, _id: docId, text:  `${docId} has been removed from ${coll} by removeDoc`};
             }
             return {status: 404, _id: docId, text:  `User does not have permission to remove document.`};
         }else{

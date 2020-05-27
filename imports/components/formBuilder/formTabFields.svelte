@@ -20,13 +20,14 @@
     export let fields = [];
     export let defaults = [];
 
-    export let hasTabs = false;
-    export let hasGroups = false;
-    export let hasStepper = false;
+    //export let hasTabs = false;
+    //export let hasGroups = false;
+    //export let hasStepper = false;
 
     //* support functions
-    import {createEventDispatcher} from 'svelte';
+    import {createEventDispatcher, getContext} from 'svelte';
     const dispatch = createEventDispatcher();
+
 
 
     //* children components
@@ -34,12 +35,17 @@
 
 
     //* local reactive variables
+    let config = getContext("formConfig");
     let currTab = tabLabels.length > 0 ? tabLabels[0] : "";
     let currTabStep = 0;
     let steps = tabLabels && tabLabels.length > 0 ? tabLabels.length : 1;
     let watchFields = {}
     let rawFields = flatten(defaults);
     let finishBtn = "fin";
+
+
+
+    $: console.log("formTabs",config, tabLabels, fields, defaults);
 
 
     //* event handlers
@@ -89,7 +95,7 @@
 
 <div class="form-tabs">
 
-    {#if hasStepper}
+    {#if config.hasStepper}
         <ul class="steps is-horizontal has-content-centered mb-5">
             {#each tabLabels as item, idt}
                 <li class="steps-segment {idt === currTabStep ? 'is-active' : ''} {idt < currTabStep ? 'is-completed' : ''}">
@@ -103,7 +109,7 @@
         </ul>
     {/if}
 
-    {#if hasTabs && !hasStepper}
+    {#if config.hasTabs && !config.hasStepper}
         <div class="tabs is-boxed is-centered">
             <ul>
                 {#each tabLabels as item}
@@ -119,7 +125,7 @@
 
 
 
-    {#if hasTabs && !hasGroups}
+    {#if config.hasTabs && !config.hasGroups}
         {#each fields as tab, index}
 
             start of hasTabs && !hasGroups: {JSON.stringify(tab)}
@@ -133,7 +139,7 @@
         {/each}
     {/if}
 
-    {#if !hasTabs && hasGroups}
+    {#if !config.hasTabs && config.hasGroups}
         {#each fields as groups, idg}
             <div class="columns">
                 {#each groups as field, idf}
@@ -145,7 +151,7 @@
         {/each}
     {/if}
 
-    {#if hasTabs && hasGroups}
+    {#if config.hasTabs && config.hasGroups}
         {#each fields as tab, index}
 
             {#if tabLabels[index] === currTab}
@@ -162,7 +168,7 @@
         {/each}
     {/if}
 
-    {#if !hasTabs && !hasGroups}
+    {#if !config.hasTabs && !config.hasGroups}
         {#each fields as field, idf}
             <div class="mb-3">
                 <Field_Wrapper field="{fieldInfo(field)}" on:field-changed="{fieldChanged}"/>
@@ -170,7 +176,7 @@
         {/each}
     {/if}
 
-    {#if hasStepper}
+    {#if config.hasStepper}
         <div class="d-flex mt-5" style="justify-content: flex-end;">
             {#if currTabStep > 0}
                 <a class="button is-light align-items-center mr-3" on:click="{prev}">

@@ -7,29 +7,31 @@
      * @locus Client
      * @augments fieldWrapper
      *
-     * @return nothing - emits: onInputs with text, number or other types
+     * @emits: 'on-inputentry' with text, number or other types
      *
      */
 
     //* common props from parent
     export let field = {};
-    export let value = undefined;
 
     //* support functions
     import {validateEmail} from '/imports/functions/validateEmail'
-    import {onMount, createEventDispatcher} from 'svelte';
+    import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
     //* local reactive variable
     let inValue = "";
     let checkValue = "";
 
-    onMount( () => {
-        inValue = field.value;
-    })
+    $: setValue(field.value);
 
 
     //* functions that mutate local variables
+    function setValue(val){
+        console.log("setValue", val);
+        inValue = val;
+    }
+
     function checkInput(){
         let test = formatField(inValue, field.attributes);
 

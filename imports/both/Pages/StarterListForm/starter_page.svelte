@@ -1,9 +1,9 @@
 <script>
     /**
-     * @summary Layout for StarterListForm page.
+     * Layout for Starter page.
      *
-     * @memberof Pages:StarterListForm
-     * @function StarterListForm
+     * @memberof Pages:Starter
+     * @function starter_page
      * @locus Client
      *
      */
@@ -23,11 +23,11 @@
     import {lang} from '/imports/both/systemStores'
 
     // get page text information and set contexts for children components
-    import pageText from './listForm_text'
+    import pageText from './starter_page_text'
     setContext("pageText", pageText);
 
     // get component configuration information and set contexts for children components
-    import pageConfig from './listForm_config'
+    import pageConfig from './starter_page_config'
     setContext("pageConfig", pageConfig);
 
     // get the page header common component; component get gets its own translated text from "pageText" context
@@ -40,12 +40,12 @@
     //* page-body support **************************
     import {onMount, onDestroy} from 'svelte'
 
-    import config from './listForm_config'
+    import config from './starter_page_config'
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
-    import schema from './listForm_schema'
+    import schema from './starter_form_schema'
 
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
-    import listArray from './listForm_list'
+    import listArray from './starter_list'
 
     import {i18n} from '/imports/functions/i18n'
     let formText = i18n(pageText, "form", $lang);
@@ -84,10 +84,13 @@
     }
 
     function docToEdit(msg) {
-        currentDoc = msg;
+        currentDoc = msg.detail;
+        editdoc = msg.detail;
         showList = !conf.list.hasOverlay;
         showForm = !conf.list.hasOverlay || !!conf.form.hasOverlay;
         releaseEdit = false;
+
+        console.log("docToEdit", msg.detail);
     }
 
     function docSent(){
@@ -120,7 +123,8 @@
                     {fields}
                     {sort}
                     {submitted}
-            />
+
+                    on:send-doc="{docToEdit}"/>
 
         </article>
 

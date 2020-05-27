@@ -27,7 +27,7 @@
     setContext("Version", version);
 
     //* setup system wide text strings (all languages)
-    import commonText from '/imports/client/setup/commonText'
+    import commonText from '/imports/client/setup/textCommon'
     setContext("commonText", commonText);
 
     //* setup system wide Icons as a context

@@ -27,8 +27,6 @@
     //** meteor stuff
     let loc = Session.get("userPosition");
 
-    console.log("loc", loc);
-
 </script>
 
 <footer class="mt-5 pt-2 has-border-top is-hidden-mobile">

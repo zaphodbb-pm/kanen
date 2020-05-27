@@ -1,16 +1,15 @@
 /**
- * @summary Text for search box.
+ * @summary System wide search bar language strings.
  *
- * @memberof Components_List
- * @function vue-searchbox_text
+ * @memberof Structure:Client
+ * @function textSearch
  * @locus Client
- * @augments vue-searchbox
  *
- * @returns {Object} - search box text
+ * @returns {Object} label, helpText
+ *
  */
 
-export default {
-
+export default{
     label: {
         en: "Search",
     },
@@ -25,6 +24,4 @@ export default {
             "or all records with the string 'sport' and 'run'.  " +
             "This returns two sets of records with the defined term searches.",
     }
-};
-
-
+}

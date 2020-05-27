@@ -226,6 +226,9 @@
 </script>
 
 <div class="list-filters filter-selects">
+
+    bottom list filters
+
     {#each buildSelector as selector (selector.field) }
         <div class="filter-items">
 

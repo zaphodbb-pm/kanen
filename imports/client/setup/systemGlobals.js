@@ -57,6 +57,7 @@ export const components = {
     BG_CARD: "has-bg-maroon text-1dot2rem has-text-weight-semibold",
     BG_CARD_TEAL: "has-bg-teal text-1dot2rem has-text-weight-semibold",
     BG_CARD_PURPLE: "has-bg-purple text-1dot2rem has-text-weight-semibold",
+    BG_CARD_INFO: "has-background-info text-1dot2rem has-text-weight-semibold has-text-white",
 };
 
 
