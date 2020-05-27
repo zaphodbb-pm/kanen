@@ -1,10 +1,10 @@
 /**
- * Configuration list block for StarterListForm listing table page.
+ * Configuration list block for Starter page listing.
  *
- * @memberof Pages:StarterListForm
- * @function listForm_list
+ * @memberof Pages:Starter
+ * @function starter_list
  * @locus Client
- * @augments listForm
+ * @augments starter_page
  *
  * @returns {Object} fields
  *
@@ -19,7 +19,7 @@
 
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
-import listText from './listForm_text'
+import listText from './starter_page_text'
 
 let text = i18n(listText, "list", getLang());
 

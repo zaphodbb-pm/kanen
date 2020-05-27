@@ -61,8 +61,6 @@
     //* local reactive variables
     let calendar = i18n( getContext("commonText"), "calendar", $lang);
 
-    console.log("listTable", $lang, calendar);
-
     let EDIT_COLOR = elements.EDIT_COLOR;
     let tagColour = "is-info";                          // default tag colour
     let inEdit = false;
@@ -82,25 +80,25 @@
 
 
     //* event handlers
-    function modalDoc(id) {
-        let showDoc = _.findWhere(documents, {_id: id});
+    function modalDoc(msg) {
+        let showDoc = _.findWhere(documents, {_id: msg});
         dispatch('item-modal', showDoc);
     }
 
-    function modalUserDoc(id) {
-        let showDoc = _.findWhere(documents, {_id: id});
+    function modalUserDoc(msg) {
+        let showDoc = _.findWhere(documents, {_id: msg});
         dispatch('item-modal-user', showDoc);
     }
 
-    function launchPage(id) {
-        console.log("launchPage", id, this.config.target, window.location);
+    function launchPage(msg) {
+        //console.log("launchPage", id, this.config.target, window.location);
 
-        let page = window.location.origin + "/" + this.config.target + "?q=" + id;
+        let page = window.location.origin + config.target + "?q=" + msg.detail;
         window.open(page);
     }
 
-    function deleteDoc(id) {
-        dispatch('item-delete', {id: id,});
+    function deleteDoc(msg) {
+        dispatch('item-delete', {id: msg});
     }
 
 
@@ -114,21 +112,21 @@
         }
     }
 
-    function editDoc(id) {
-        let same = (id === actRow);
-        actRow = same ? actRow : id;
+    function editDoc(msg) {
+        let same = (msg === actRow);
+        actRow = same ? actRow : msg;
         inEdit = !inEdit;
 
         if (same) {
-            currRow = inEdit ? id : "";
+            currRow = inEdit ? msg : "";
         } else {
-            currRow = id;
+            currRow = msg;
             inEdit = true;
         }
 
         dispatch('item-edit', {
-            id: this.currRow,
-            edit: this.inEdit
+            id: currRow,
+            edit: inEdit
         });
     }
 
@@ -264,7 +262,8 @@
 
         <tbody>
             {#each tableItems(collection, labels, documents) as row, idx}
-                <tr style="backgroundColor: {row[0] && row[0].id && (currRow === row[0].id) ? EDIT_COLOR : ''}">
+                <tr  class="{row[0] && row[0].id && (currRow === row[0].id) ? 'EDIT_COLOR' : ''}">
+
                     {#each row as cell}
 
                         {#if cell.type === 'check'}
@@ -294,9 +293,9 @@
                             </td>
 
                         {:else if cell.type === 'edit' }
-                            <td on:click="{ () => editDoc(cell.id)}"
+                            <td on:click="{ () => editDoc(cell.id) }"
                                 style="word-wrap: break-word; word-break: break-all;"
-                                class="add-cursor has-text-link has-text-weight-semibold text-left">
+                                class="add-cursor has-text-info has-text-weight-semibold text-left">
 
                                 {cell.value}
                             </td>

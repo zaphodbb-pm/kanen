@@ -1,5 +1,6 @@
 // import app main routines
 import {Match} from 'meteor/check'
+import {check} from 'meteor/check'
 //import {timeAgo} from '/imports/both/functions/func-timeAgo'
 import {myDocuments} from '/imports/server/functions/myDocuments'
 
@@ -65,6 +66,49 @@ Meteor.methods({
 */
 
     /**
+     * For list search bar, gets count of total number of user documents.
+     *
+     * @memberof Methods
+     * @function countDocs
+     * @isMethod true
+     * @locus Server
+     *
+     * @param {String} coll
+     * @param {Object} query
+     * @return {Number}
+     */
+
+    countDocs: function (coll, query) {
+        check(coll, String);
+        check(query, Object);
+
+        let out = 0;
+
+        //if (Meteor.userId()) {                            // check if user is logged in
+            let q = query || {};
+            //let out = 0;
+
+            switch (true) {
+                case coll === 'users':
+                    out = Meteor.users.find(q).count();
+                    break;
+
+                default:
+                    //*** adjust certain mappings to real collection
+                    //q = myDocuments(q, this.userId, kanen.schemaRoles[coll]);
+                    out = Mongo.Collection.get(coll).find(q).count();
+            }
+
+            //return out;
+        //}
+
+        return out;
+    },
+
+
+
+
+    /**
      * Meteor method to retrieve document from MongoDB.
      *
      * @memberof Methods
@@ -82,9 +126,6 @@ Meteor.methods({
      */
 
     getCollData(coll, type, filter, options) {
-
-        console.log("getCollData start", coll, type, filter, options);
-
         const self = this;
         let docs = [];
         let query = {};

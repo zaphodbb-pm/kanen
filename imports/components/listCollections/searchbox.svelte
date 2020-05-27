@@ -22,7 +22,7 @@
     const dispatch = createEventDispatcher();
 
     import {i18n} from '/imports/functions/i18n'
-    import searchBoxText from './vue-searchbox_text'
+    import searchBoxText from '/imports/client/setup/textSearch'
 
     //* local raective variables
     let helpText = i18n(searchBoxText, "helpText");

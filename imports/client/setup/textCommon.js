@@ -2,7 +2,7 @@
  * @summary System wide common language strings.
  *
  * @memberof Structure:Client
- * @function version
+ * @function textCommon
  * @locus Client
  *
  * @returns {Object} text

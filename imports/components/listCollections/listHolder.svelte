@@ -22,20 +22,21 @@
      * @example
      *      config options for controlling list layout
      *
-     *              coll: "products",           // collection name to list
+     *              coll: "starter",            // collection name to list
+     *              showHdr: true,              // show card header and title if true
+     *              bgTitle: components.BG_CARD_TEAL, // sets card title background and text color
      *
-     *              hasOverlay: false,          // support for form overlaying the list during edit operation
+     *
      *              hasRows: true,              // show row length selection box
      *              hasSearch: true,            // show search box
-     *              hasPager: true,             // show pager component, pages = (number of items) / (rows per page)
      *              hasFilters: true,           // show search filters for specific fields
-     *              isShowFilters: true,        // show filters at page load; user can then toggle off
-     *              display: "grid",            // show results as a "list" (default) or asd a "grid" of cards
-     *              displayGrid: '/imports/both/pages/Pages/vue-listGrid',         // dynamically loaded grid card display component
+     *              hasPager: true,             // show pager component, pages = (number of items) / (rows per page)
+     *              hasOverlay: false,          // support for form overlaying the list during edit operation
      *
-     *              showHdr: false,              // show card header and title if true
-     *              bgTitle: kanen.constants.BG_CARD,   // sets card title background and text color
-     *              header: "",                 // label for card header
+     *              display: "grid",            // show results as a "list" (default) or asd a "grid" of cards
+     *              displayGrid: grid,          // loaded grid card display component: import grid from './starterGrid'
+     *
+     *              target: null,               // page to send item to with item id
      *
      *      field object keys:
      *              field: "name",              // field name
@@ -69,80 +70,53 @@
 
     //* make form text available to all children components
     setContext("listText", listText);
-
     fields = loadText( fields, listText);   // insert text into fields object
-
-    console.log("listHolder", config, listText, fields );
 
     //* components
     import Row_Size from './rowSize.svelte'
-    import Page_Count from './pageCount.svelte'
+    import Doc_Count from './docCount.svelte'
     import Search from './searchbox.svelte'
     import Pagination from './pagination.svelte'
     import List_Filters from './listFilters.svelte'
     import List_Table from './listTable.svelte'
-    import ListGrid from './listGrid'
+    //import ListGrid from './listGrid'
 
     //* local reactive variables
     let coll = config.coll;
-    let pageRows = 10;
-    let pageActive = 0;
+    let docRows = 10;
+    let docActive = 0;
     let totalDocs = 0;
     let collQuery = {};
 
     let collFields = {};
     let addFilters = {};
-    //let filterState = config.hasFilters ? "is-primary" : "is-light";
 
     let filterState =  "is-light";
     let showFilters = false;
     let addConditions = {};
 
-    let pageCounts = 500;
-    let pageCountLabel = "0 - 0 / 0 (0)";
+    let docCounts = 0;
+    let docCountLabel = "0 - 0 / 0 (0)";
     let labels = fields;
     let documents = [];
 
-
-    let info = {
-        config: config,
-        pageCounts: 1,
-        pageCountLabel: "",
-        pageActive: this.pageActive,
-
-        labels: fields,
-        documents: [],
-        submitted: submitted
-    };
-
-
-    if (config && config.displayGrid) {
-        console.log("hasGrid", config.displayGrid);
-
-        //addGridLayout();
+    //* check for imported grid layouts by page
+    let ListGrid;
+    if (config && (config.display === "grid") && config.displayGrid ) {
+        ListGrid = config.displayGrid;
     }
 
 
 
 
-
-
-
-    onMount(async () => {
+    onMount(() => {
         //* on first load, show a list of unfiltered documents for this user; "combo" type gets a different count
-        //totalDocs = await getPageCounts(coll, {});
 
         //addConditions = getConditions(fields);
 
-        //totalDocs = await getPageCounts(coll, {});
+        //totalDocs = await getDocCounts(coll, {});
 
-        //getCurrentDocs();
-
-        $: {
-            info.submitted = submitted;
-            totalDocs = await getPageCounts(coll, {});
-            getCurrentDocs();
-        }
+        getCurrentDocs();
     } );
 
 
@@ -157,7 +131,6 @@
     }
 
     function docDelete(msg) {
-        //let emit = dispatch;
         switch (true) {
             case coll === "users":
                 Meteor.call('userMgmtRemove', msg.detail.id, function (err, res) {
@@ -203,7 +176,9 @@
     //* functions that mutate local variables
     function addGridLayout() {
         if (config && config.displayGrid) {
-            return () => import(config.displayGrid);
+            import(config.displayGrid).then( res => {
+                ListGrid = res.default;
+            });
         } else {
             return ListGrid;
         }
@@ -223,16 +198,13 @@
 
     function newRow(msg) {
         //* when a user changes the rows length, get a the new longer list of documents
-        pageRows = parseInt(msg.detail.row);
-        info.pagesRow = pageRows;
+        docRows = parseInt(msg.detail.row);
         getCurrentDocs();
-
-        console.log("newRow", msg.detail, info.pagesRow);
     }
 
     function newPage(msg) {
         //* when a user uses pagination buttons,  get the documents for that range of selected page
-        pageActive = msg.page;
+        docActive = msg.page;
         getCurrentDocs();
     }
 
@@ -283,28 +255,26 @@
         }
     }
 
+
+
     async function getCurrentDocs() {
         let setQ = collQuery ? collQuery : {};
         let combineSearch = Object.assign({}, setQ, addFilters, addConditions);
 
-        pageCounts = await getPageCounts(coll, setQ);
-
         let f = buildFilter(
-                pageRows ? pageRows : 10,
-                pageActive ? pageActive : 1,
-                pageCounts,
+                docRows ? docRows : 10,
+                docActive ? docActive : 1,
+                docCounts,
                 sort ? sort : {}
         );
 
-        //* support for combination collection searches
+        docCounts = await getDocCounts(coll, setQ);
         documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
-
-        pageCountLabel = `${f.start} - ${f.end} / ${pageCounts} (${totalDocs})`;
-        info.pageCountLabel = pageCountLabel;
-
-        console.log("getDocs", documents,  pageCountLabel)
+        docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${docCounts})`;
 
         dispatch("list-docs-ready", documents);
+
+        console.log("getDocs", documents,  docCountLabel);
     }
 
 
@@ -319,6 +289,19 @@
         return out;
     }
 
+    async function getDocCounts(coll, query) {
+        let res = 0;
+
+        try {
+            res = await Meteor.callPromise("countDocs", coll, query);
+        } catch (error) {
+            console.warn("countDocs", error);
+        }
+
+        return res;
+    }
+
+    //** build and return a list of filters to apply to search
     function buildFilters(fields) {
         let filters = [];
 
@@ -333,14 +316,13 @@
             });
         }
 
-        //* build and return a list of filters to apply to search
         return filters;
     }
 
+    //** find all list fields that have a "condition" key set and apply as a general search criteria
     function getConditions(fields) {
         let conditions = {};
 
-        //* find all list fields that have a "condition" key set and apply as a general search criteria
         fields.forEach((con) => {
             if (con.condition && typeof con.condition === "object") {
                 conditions[con.field] = con.condition;
@@ -348,19 +330,6 @@
         });
 
         return conditions;
-    }
-
-    async function getPageCounts(coll, query) {
-        let res = 0;
-
-        try {
-            res = await Meteor.callPromise("pagerCount", coll, query);
-            //res = 77;
-        } catch (error) {
-            console.warn("pagerCount", error);
-        }
-
-        return res;
     }
 
 </script>
@@ -390,17 +359,10 @@
             {/if}
 
             {#if config.hasRows}
-                <div id="comp_rowSize" class="is-flex align-items-center">
+                <div id="comp_rowSize" class="is-flex justify-content-between align-items-center">
                     <Row_Size on:row-changed="{newRow}" />
-                    <Page_Count {pageCountLabel }/>
+                    <Doc_Count {docCountLabel }/>
                 </div>
-            {/if}
-
-
-            {#if !!config.hasFilters && !!config.showFilters}
-                top list filters
-
-                <List_Filters filters="{buildFilters()}" on:filters-changed="{filterList}" />
             {/if}
 
             <div class="columns">
@@ -410,7 +372,7 @@
                     {/if}
                 </div>
 
-                {#if !config.isShowFilters && !!config.hasFilters}
+                {#if !!config.hasFilters}
                     <div class="column is-2">
                         <div style="display: flex; flex-direction: row-reverse;">
                             <div class="button {filterState}" on:click="{setFilter}">
@@ -421,30 +383,29 @@
                 {/if}
             </div>
 
-            {#if config.hasFilters && !config.isShowFilters}
-                {#if showFilters}
-                        bottom list filters
-                    <List_Filters filters="{buildFilters()}" on:filters-changed="{filterList}" />
-                {/if}
+            {#if config.hasFilters && showFilters}
+                <List_Filters filters="{buildFilters()}" on:filters-changed="{filterList}" />
             {/if}
 
             {#if config.hasPager}
                 <div id="comp_pagination">
-                    <Pagination rows="{pageRows}" totalDocs="{pageCounts}" />
+                    <Pagination rows="{docRows}" totalDocs="{docCounts}" />
                 </div>
             {/if}
 
-
             {#if config.display === 'grid'}
-                addGridLayout
-                <!--
-                <component
-                        v-bind:is="addGridLayout"
-                        v-bind="info"
-                        v-on:item-delete="docDelete"
-                        v-on:item-edit="docEdit">
-                </component>
-                -->
+
+                <svelte:component
+                        this={ListGrid}
+                        {config}
+                        labels="{fields}"
+                        {documents}
+                        collection="{coll}"
+                        {submitted}
+
+                        on:item-delete="{docDelete}"
+                        on:item-edit="{docEdit}"/>
+
             {:else}
 
                 <List_Table
@@ -460,9 +421,7 @@
                     on:item-modal-user="{docModalUser}"/>
 
             {/if}
-
         </div>
-
     </div>
 
 </div>

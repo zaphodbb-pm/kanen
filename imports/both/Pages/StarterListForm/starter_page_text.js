@@ -1,16 +1,16 @@
 /**
- * @summary Labels for StarterListForm page.
+ * @summary Labels for Starter page.
  *
- * @memberof Pages:StarterListForm
- * @function listForm_text
+ * @memberof Pages:Starter
+ * @function starter_text
  * @locus Client
- * @augments listForm
+ * @augments starter_page
  *
  * @returns {Object}
  */
 
 export default {
-    navLabel: {en: "StarterListForm"},
+    navLabel: {en: "Starter Page"},
 
     //** page header; set to null to not display header or a specific item
     header:   {

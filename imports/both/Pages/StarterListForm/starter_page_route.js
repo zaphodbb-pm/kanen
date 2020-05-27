@@ -1,10 +1,10 @@
 /**
- * @summary Route config information for StarterListForm page.
+ * Route config information for Starter page.
  *
- * @memberof Pages:StarterListForm
- * @function listForm_route
+ * @memberof Pages:Starter
+ * @function starter_page_route
  * @locus Client
- * @augments listForm
+ * @augments starter_page
  *
  * @returns {Object}
  *
@@ -16,8 +16,8 @@
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
-import Page from './listForm.svelte'
-import PageText from './listForm_text'
+import Page from './starter_page.svelte'
+import PageText from './starter_page_text'
 
 let lang = getLang("en");
 

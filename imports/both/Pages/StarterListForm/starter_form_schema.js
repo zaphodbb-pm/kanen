@@ -1,14 +1,12 @@
 /**
  * @summary Schema definition object for Starter collection.
  *
- * @memberof Pages:StarterListForm
- * @function listForm_schema
+ * @memberof Pages:Starter
+ * @function starter_form_schema
  * @locus Anywhere
- * @augments listForm
+ * @augments starter_page
  *
  * @returns {Array} - array of field configuration objects
- *
- * @see {@link https://www.npmjs.com/package/simpl-schema|simple-schema} for detailed documentation
  *
  * @example
  * Schema items

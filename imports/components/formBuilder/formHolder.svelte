@@ -22,16 +22,17 @@
      * @example
      *      configuration object to set up form
      *
-     *          coll: base                          // collection to submit field values to
+     *          coll: "starter"                     // collection to submit field values to
      *          showHdr: false,                     // show card header and title if true
      *          bgTitle: elements.BG_CARD,          // background colour for header
      *
-     *          hasOverlay: false,                  // support for form overlaying the list during edit operation
      *          hasGroups: false,                   // allows fields to be grouped onto the same row
-     *          hasStepper: false,                  // user a stepper layour to tab through set sof fields
-     *          hasTabs: false,                     // uses tabs instead of stepper; note this should be opposite of 'hasStepper' or false
+     *          hasTabs:    false,                  // has tabbed fields in form
+     *          hasStepper: false,                  // use stepper layout for tab fields (usually hasTabs is set to true)
      *          hasPreview: true,                   // form can show a preview of select data fields
+     *          hasOverlay: false,                  // support for form overlaying the list during edit operation
      *          clone: true,                        // show clone button on form
+     *
      */
 
     //* incoming props from page
@@ -50,6 +51,7 @@
 
     //* make form text available to all children components
     setContext("formText", formText);
+    setContext("formConfig", config);
 
     //* get application specific support libraries
     import {elements} from '/imports/client/setup/systemGlobals'
@@ -64,21 +66,25 @@
 
     //* local reactive variables
     let coll = config.coll;
-    let tabLen = formText.formTabs && Array.isArray(formText.formTabs) ? formText.formTabs.length : 0;
-    let hasTabs = tabLen > 0 && (!!config.hasTabs || !!config.hasStepper);
+    let tabLabels = formText.formTabs;
 
+
+
+/*
     let mainFields = {
         tabLabels: formText.formTabs,
         fields: [],
         defaults: [],
 
-        hasTabs: config.hasTabs,
-        hasGroups: config.hasGroups,
-        hasStepper: config.hasStepper,
+        //hasTabs: config.hasTabs,
+        //hasGroups: config.hasGroups,
+        //hasStepper: config.hasStepper,
 
         //finishBtn: config.finishBtn,
         //finishBody: config.finishBody
     };
+
+ */
 
     let submit = {
         btnEdit: formText.labels.editBtn,
@@ -93,6 +99,7 @@
     };
 
     //** this component's working variables
+    let fields = [];
     let fieldValues = {};
     let fieldValid = {};
     let defaults = {};
@@ -105,13 +112,18 @@
     let showClone = false
 
     //** determine what layout switches are active
+    let tabLen = formText.formTabs && Array.isArray(formText.formTabs) ? formText.formTabs.length : 0;
+    let hasTabs = tabLen > 0 && (!!config.hasTabs || !!config.hasStepper);
+
     let organize = {
         hasTabs: hasTabs,
         tabLen: tabLen,
         hasGroups: config.hasGroups,
     }
 
-    $: loadEditdoc(editdoc);
+    $: {
+        loadEditdoc(editdoc);
+    }
 
 
     onMount( () => {
@@ -122,8 +134,8 @@
         //** note that there is a lot of "reactivity entanglement" to manage
         adjFields = orgFields(organize, schema, defaults, role);
         initFields = Object.assign({}, adjFields);
-        mainFields.fields = adjFields;
-        mainFields.defaults = adjFields;
+        fields = adjFields;
+        defaults = adjFields;
     });
 
 
@@ -151,7 +163,7 @@
 
         //** send completed doc to server insert / update methods
         submitForm(newValues, coll, true, false, self);
-        mainFields.fields = mainFields.defaults;
+        fields = defaults;
         dispatch("current-editted-doc", newValues);
     }
 
@@ -163,10 +175,12 @@
         showClone = false;
         submit.btnBackShow = false;
 
+
+
         switch (true) {
             case coll && coll === "myProfile":
                 currDoc = editdoc.data;
-                mainFields.fields = orgFields(organize, schema, currDoc, role);
+                fields = orgFields(organize, schema, currDoc, role);
                 break;
 
             case editdoc.type && editdoc.type === "edit":
@@ -191,12 +205,14 @@
             submit.btnState = false;
 
             showClone = false;
-            mainFields.fields = orgFields(organize, schema, initFields, role);
+            fields = orgFields(organize, schema, initFields, role);
         } else {
             showClone = config.clone;
             submit.btnState = true;
-            mainFields.fields = orgFields(organize, schema, currDoc, role);
+            fields = orgFields(organize, schema, currDoc, role);
         }
+
+        console.log("form fields", fields);
     }
 
     async function submitDoc() {
@@ -253,11 +269,11 @@
             submit.btnCount = 0;
 
             //** send completed doc to server insert / update methods
-            mainFields.fields = adjFields;
+            fields = adjFields;
 
             submitForm(newValues, coll, false, false, dispatch);
 
-            mainFields.fields = mainFields.defaults;
+            fields = defaults;
             dispatch("current-editted-doc", newValues);
         }
     }
@@ -269,15 +285,15 @@
 <div class=" card">
 
     {#if config.showHdr}
-        <div class="card-header {config.bgTitle}">
-            <div class="card-header-title" style="color: inherit; font-size: inherit; font-weight: inherit;">
+        <div class="card-header level {config.bgTitle}">
+            <div class="card-header-title " style="color: inherit; font-size: inherit; font-weight: inherit;">
                 {formText.labels.hdr}
             </div>
 
             {#if showClone}
-                <a class="button is-pulled-right mx-2 my-2 {bgClone}"
+                <a class="button mr-2 {bgClone}"
                    on:click="{cloneItem}">
-                    {config.cloneBtn}
+                    {formText.labels.cloneBtn}
                 </a>
             {/if}
         </div>
@@ -285,7 +301,11 @@
 
     <div class="card-content">
         <div id="tabbed-inputs">
-            <Form_Tabs {... mainFields} on:field-changed="{fieldChanged}" />
+            <Form_Tabs
+                       {tabLabels}
+                       {fields}
+                       {defaults}
+                       on:field-changed="{fieldChanged}" />
 
             <div class="buffer-y-large mt-4">
                 <div class="level">

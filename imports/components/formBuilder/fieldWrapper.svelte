@@ -48,12 +48,19 @@
 
     //* local reactive variables
     let fieldOpt = field.optional ? "" : "field-error";
-    let fieldValue = field.defaultValue;
+    //let fieldValue = field.defaultValue;
     let fieldHelpShow = false;
     let fieldHide = false;
     let formText = getContext("formText");
 
+    $: {
+        field = prepareField(field);
+        //console.log("fw field", field);
+    }
 
+
+
+    /*
     onMount(() => {
         let checkVal = typeof field.value !== "undefined" ? field.value : field.defaultValue;
         fieldOpt = testValid(checkVal, field.optional);
@@ -70,8 +77,30 @@
         }
     } );
 
+     */
+
 
     //* functions that mutate local variables
+    function prepareField(fieldIn){
+        let field = fieldIn;
+        let checkVal = typeof field.value !== "undefined" ? field.value : field.defaultValue;
+        fieldOpt = testValid(checkVal, field.optional);
+        field.fieldValue = checkVal;
+
+        //* for initial state, check for watched default
+        if (field.listen && field.listen.src) {
+            fieldHide = checkDefault(field.rawFields, field.listen);
+        }
+
+        //* check to make sure that we should watch another field and hide if default value
+        if (field.watchFields && field.listen && field.listen.src && (field.listen.src === field.watchFields.field)) {
+            fieldHide = checkWatched(field.watchFields, field.listen);
+        }
+
+        return field
+    }
+
+
     function toggleHelp() {
         fieldHelpShow = !fieldHelpShow;
     }
@@ -187,9 +216,7 @@
             <svelte:component
                     this="{components[field.fieldType]}"
                     {field}
-                    bind:value="{field.fieldValue}"
-                    on:on-inputentry="{fieldUpdate}"
-            />
+                    on:on-inputentry="{fieldUpdate}"/>
 
         </div>
 

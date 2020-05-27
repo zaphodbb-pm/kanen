@@ -1,17 +1,17 @@
 <script>
     /**
-     * Shows page count as range / total of search (total docs).
+     * Shows document count as range / total of search (total docs).
      *
      * @memberof Components:List
-     * @function pageCount
+     * @function docCount
      * @locus Client
      *
-     * @param  {String} pageCountLabel
+     * @param  {String} docCountLabel
      *
      */
 
     //* props
-    export let pageCountLabel = "";
+    export let docCountLabel = "";
 
     //** support functions
     import {getContext} from 'svelte';
@@ -22,5 +22,5 @@
 
 <div class="ml-4 mb-3 d-flex align-items-center">
     <Icon icon='{getContext("iconDoc")}' class="text-1dot5rem"/>
-    <span>{pageCountLabel}</span>
+    <span>{docCountLabel}</span>
 </div>
