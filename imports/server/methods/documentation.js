@@ -1,4 +1,6 @@
 import {Meteor} from "meteor/meteor";
+import {sortBy} from "../../functions/sortBy";
+import {groupBy} from "../../functions/groupBy";
 
 Meteor.methods({
 
@@ -310,7 +312,7 @@ function reformatDoc(res){
     let content = [];
 
     if (res && res.length > 0) {
-        let list = _.pairs(_.groupBy(res, "memberof"));
+        let list = Object.entries( groupBy(res, "memberof") );
 
         //** prepare documentation for insertion into an accordion component
         list = list.map(function (li) {
@@ -324,10 +326,10 @@ function reformatDoc(res){
         });
 
         //** sort topic and the body of a topic
-        list = _.sortBy(list, "label");
+        list = sortBy(list, "label");
 
         list = list.map((topic) => {
-            topic.list = _.sortBy(topic.list, "name");
+            topic.list = sortBy(topic.list, "name");
             return topic;
         });
 

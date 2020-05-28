@@ -29,12 +29,13 @@
     export let btnEdit;
     export let btnCreate;
     export let btnBack;
-    export let btnBackShow;
+    export let btnInvText;
 
+    export let btnBackShow;
     export let btnState;
     export let btnInvalid;
-    export let btnInvText;
     export let btnCount;
+
 
     //* reactive variables
     let formBtn =  btnCreate;
@@ -42,8 +43,7 @@
     let formBtnColorAlt =  elements.BG_BUTTON_ALT;
     let btnColor =  elements.BG_BUTTON;
 
-    formBtn = btnState ? btnEdit : btnCreate;
-    btnColor = btnState ? formBtnColorAlt : formBtnColor;
+    $:  setBtnState(btnState);
 
 
     function submit() {
@@ -58,12 +58,12 @@
         return btnCount === 1 ? btnInvText.suffix1 : btnInvText.suffixn;
     }
 
-    /*
-    function btnStateF() {
-        formBtn = btnState ? btnEdit : btnCreate;
-        btnColor = btnState ? formBtnColorAlt : formBtnColor;
+
+    function setBtnState(state) {
+        formBtn = state ? btnEdit : btnCreate;
+        btnColor = state ? formBtnColorAlt : formBtnColor;
     }
-     */
+
 
 </script>
 

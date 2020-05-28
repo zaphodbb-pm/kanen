@@ -50,6 +50,8 @@ export async function submitForm(doc, coll, clone, test, emit) {
 
         case test:                          //** for testing only
             console.log("submitForm-function", coll, doc._id, doc);
+
+            emit("doc-submitted", true);
             break;
 
  /*       case coll === "myProfile":
@@ -92,8 +94,6 @@ function generalSubmit(coll, doc, emit) {
     if (!doc._id) {
         Meteor.call('insertDoc', coll, doc, function (err, res) {
             methodReturn(err, res, "submit insertDoc");
-
-            console.log("res", res);
 
             if (res) {
                 emit("doc-submitted", true);

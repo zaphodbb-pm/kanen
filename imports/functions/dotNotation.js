@@ -9,6 +9,7 @@
  *
  * @param {Object} obj - parent to extract field from
  * @param {String} string - field name or dot name
+ *
  * @return {String|Number|Object}
  *
  * @example

@@ -28,7 +28,6 @@
 
     //* functions that mutate local variables
     function setValue(val){
-        console.log("setValue", val);
         inValue = val;
     }
 

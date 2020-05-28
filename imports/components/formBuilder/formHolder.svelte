@@ -69,32 +69,15 @@
     let tabLabels = formText.formTabs;
 
 
-
-/*
-    let mainFields = {
-        tabLabels: formText.formTabs,
-        fields: [],
-        defaults: [],
-
-        //hasTabs: config.hasTabs,
-        //hasGroups: config.hasGroups,
-        //hasStepper: config.hasStepper,
-
-        //finishBtn: config.finishBtn,
-        //finishBody: config.finishBody
-    };
-
- */
-
     let submit = {
         btnEdit: formText.labels.editBtn,
         btnCreate: formText.labels.createBtn,
         btnBack: formText.labels.backBtn,
-        btnBackShow: false,
+        btnInvText: formText.labels.invalidInput,
 
+        btnBackShow: false,
         btnState: false,
         btnInvalid: false,
-        btnInvText: formText.labels.invalidInput,
         btnCount: 0
     };
 
@@ -211,8 +194,6 @@
             submit.btnState = true;
             fields = orgFields(organize, schema, currDoc, role);
         }
-
-        console.log("form fields", fields);
     }
 
     async function submitDoc() {
@@ -264,13 +245,11 @@
             fieldValues = {};
             showClone = false;
             submit.btnState = false;
-
             submit.btnInvalid = false;
             submit.btnCount = 0;
 
             //** send completed doc to server insert / update methods
             fields = adjFields;
-
             submitForm(newValues, coll, false, false, dispatch);
 
             fields = defaults;

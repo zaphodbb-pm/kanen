@@ -40,10 +40,6 @@
     more = totPages > pagesLength;
     showPages = (totPages > 1);
 
-
-    console.log("pagination", rows, totalDocs);
-
-
     //* functions that mutate local variables
     function changepager(page) {
         currPage = page;

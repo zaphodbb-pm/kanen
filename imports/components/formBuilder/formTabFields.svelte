@@ -45,7 +45,7 @@
 
 
 
-    $: console.log("formTabs",config, tabLabels, fields, defaults);
+    //$: console.log("formTabs",config, tabLabels, fields, defaults);
 
 
     //* event handlers
