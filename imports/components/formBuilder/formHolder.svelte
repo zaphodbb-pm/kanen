@@ -48,7 +48,6 @@
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-
     //* make form text available to all children components
     setContext("formText", formText);
     setContext("formConfig", config);
@@ -67,7 +66,6 @@
     //* local reactive variables
     let coll = config.coll;
     let tabLabels = formText.formTabs;
-
 
     let submit = {
         btnEdit: formText.labels.editBtn,
@@ -104,9 +102,7 @@
         hasGroups: config.hasGroups,
     }
 
-    $: {
-        loadEditdoc(editdoc);
-    }
+    $: loadEditdoc(editdoc);
 
 
     onMount( () => {
@@ -157,8 +153,6 @@
         fieldValues = {};
         showClone = false;
         submit.btnBackShow = false;
-
-
 
         switch (true) {
             case coll && coll === "myProfile":

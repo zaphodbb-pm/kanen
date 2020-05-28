@@ -100,6 +100,12 @@
     let labels = fields;
     let documents = [];
 
+    let message = {
+        id: "",
+        type: "create",
+        coll: coll,
+    };
+
     //* check for imported grid layouts by page
     let ListGrid;
     if (config && (config.display === "grid") && config.displayGrid ) {
@@ -112,10 +118,7 @@
 
     onMount( async () => {
         //* on first load, show a list of unfiltered documents for this user;
-
-        //addConditions = getConditions(fields);
-
-        //totalDocs = await getDocCounts(coll, {});
+        addConditions = getConditions(fields);
 
         getCurrentDocs();
     } );
@@ -157,12 +160,6 @@
     }
 
     function docEdit(msg) {
-        let message = {
-            id: "",
-            type: "create",
-            coll: coll,
-        };
-
         //** if editing a doc send doc id else clear edit form
         if (msg.detail.edit) {
             message.id = msg.detail.id;
@@ -174,13 +171,10 @@
 
     function docRelease(msg){
         if(msg){
-            console.log("released true", msg);
             getCurrentDocs();
-        }else{
-            console.log("released false", msg);
+            dispatch("send-doc", message);
         }
     }
-
 
 
     //* functions that mutate local variables
@@ -310,6 +304,8 @@
     }
 
 </script>
+
+
 
 <div class="card list-holder-container">
 

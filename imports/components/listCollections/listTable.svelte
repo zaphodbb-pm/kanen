@@ -78,6 +78,8 @@
         default: "is-info",
     };
 
+    $: releaseItem(submitted);
+
 
     //* event handlers
     function modalDoc(msg) {
@@ -99,6 +101,12 @@
 
     function deleteDoc(msg) {
         dispatch('item-delete', {id: msg});
+    }
+
+    function releaseItem(msg){
+        if(msg){
+            hasSubmitted();
+        }
     }
 
 

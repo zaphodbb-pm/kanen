@@ -1,10 +1,10 @@
 /**
- * @summary Collects form inputs and submits to database upsert.
+ * Collects form inputs and submits to database upsert.
  *
- * @memberof Components_Form
+ * @memberof Components:Form
  * @function submitForm
  * @locus Client
- * @augments vue-formHolder
+ * @augments formHolder
  *
  * @param {Array} doc - document to submit [ {field: value} ]
  * @param {String} coll - name of mongoDB collection to store document
@@ -22,11 +22,6 @@ import {Session} from "meteor/session";
 
 
 export async function submitForm(doc, coll, clone, test, emit) {
-
-
-    //console.log("submitForm", coll, doc, clone, test, emit);
-
-
     //** check if cloning original document, then remove original id field to allow Mongo to complete an insertion
     if (clone) {
         delete doc._id;
