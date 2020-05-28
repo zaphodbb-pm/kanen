@@ -53,32 +53,7 @@
     let fieldHide = false;
     let formText = getContext("formText");
 
-    $: {
-        field = prepareField(field);
-        //console.log("fw field", field);
-    }
-
-
-
-    /*
-    onMount(() => {
-        let checkVal = typeof field.value !== "undefined" ? field.value : field.defaultValue;
-        fieldOpt = testValid(checkVal, field.optional);
-        fieldValue = checkVal;
-
-        //* for initial state, check for watched default
-        if (field.listen && field.listen.src) {
-            fieldHide = checkDefault(field.rawFields, field.listen);
-        }
-
-        //* check to make sure that we should watch another field and hide if default value
-        if (field.watchFields && field.listen && field.listen.src && (field.listen.src === field.watchFields.field)) {
-            fieldHide = checkWatched(field.watchFields, field.listen);
-        }
-    } );
-
-     */
-
+    $: field = prepareField(field);
 
     //* functions that mutate local variables
     function prepareField(fieldIn){

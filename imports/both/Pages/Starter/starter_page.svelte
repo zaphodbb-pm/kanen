@@ -122,7 +122,7 @@
                     {listText}
                     {fields}
                     {sort}
-                    {submitted}
+                    submitted="{releaseEdit}"
 
                     on:send-doc="{docToEdit}"/>
 

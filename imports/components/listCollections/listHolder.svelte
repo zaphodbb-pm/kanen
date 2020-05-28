@@ -65,7 +65,7 @@
 
     import {methodReturn} from '/imports/functions/methodReturn'
     import {buildFilter} from './func-buildFilter'
-    import {buildQuery} from './func-buildQuery'
+    //import {buildQuery} from './func-buildQuery'
     import {getDocs} from '/imports/functions/getDocs'
 
     //* make form text available to all children components
@@ -106,11 +106,12 @@
         ListGrid = config.displayGrid;
     }
 
+    $: docRelease(submitted);
 
+    $: getDocCounts(coll, {}).then( (res) => totalDocs = res);
 
-
-    onMount(() => {
-        //* on first load, show a list of unfiltered documents for this user; "combo" type gets a different count
+    onMount( async () => {
+        //* on first load, show a list of unfiltered documents for this user;
 
         //addConditions = getConditions(fields);
 
@@ -171,6 +172,15 @@
         dispatch("send-doc", message);
     }
 
+    function docRelease(msg){
+        if(msg){
+            console.log("released true", msg);
+            getCurrentDocs();
+        }else{
+            console.log("released false", msg);
+        }
+    }
+
 
 
     //* functions that mutate local variables
@@ -210,56 +220,28 @@
 
     function newSearch(msg) {
         //* respond to a user entering text into the search bar by constructing search fragment object
-        let target = msg.search;
+        let query = msg.detail.query;
+        let target = msg.detail.search;
+        target = target.replace(/ /g, '');          // remove all white spaces
 
         //* reset table if all text is removed
-        if (target.length === 0) {
+        if (target.length < 1) {
             collQuery = {};
             collFields = {};
-
             getCurrentDocs();
         }
 
         if (target.length > 2) {                        // need at least three characters to start a query
-            target = target.replace(/ /g, '');          // remove all white spaces
-
-            let list = {};
-            let fields = [];
-            let sArray = [];
-
-            //* get list of fields to search
-            fields.forEach(function (el) {
-                if (el.key) {
-                    list[el.key] = 1;
-                }
-                if (el.search) {
-                    fields.push(el.key);
-                }
-            });
-
-            collFields = list;
-
-            //* simple search
-            //** for logs search, respond to ":" as an object delimiter
-            if (target.includes(":")) {
-                sArray = target.split(":");
-                let key = {};
-                key["data." + sArray[0]] = {$regex: ".*" + sArray[1] + ".*", $options: "i"};
-                collQuery = key;
-            } else {
-                //** else do a simple or compound search starting with ; and then +
-                collQuery = buildQuery(target, fields);
-            }
-
+            collQuery = query;
             getCurrentDocs();
         }
     }
 
 
-
     async function getCurrentDocs() {
         let setQ = collQuery ? collQuery : {};
         let combineSearch = Object.assign({}, setQ, addFilters, addConditions);
+        docCounts = await getDocCounts(coll, setQ);
 
         let f = buildFilter(
                 docRows ? docRows : 10,
@@ -268,25 +250,20 @@
                 sort ? sort : {}
         );
 
-        docCounts = await getDocCounts(coll, setQ);
         documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
-        docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${docCounts})`;
+        docCountLabel = `${f.start} - ${f.end} / ${documents.length} (${totalDocs})`;
 
         dispatch("list-docs-ready", documents);
-
-        console.log("getDocs", documents,  docCountLabel);
     }
 
 
     //* pure functions
     function loadText(fields, text){
-        let out = JSON.parse( JSON.stringify(fields) );
-        out = out.map( (fld) => {
-            fld.label = text[fld.key].label;
-            return fld;
+        return fields.map( (fld) => {
+            let field = Object.assign({}, fld);     // ensure no side effects happen
+            field.label = text[field.key].label;
+            return field;
         })
-
-        return out;
     }
 
     async function getDocCounts(coll, query) {
@@ -368,7 +345,7 @@
             <div class="columns">
                 <div class="column">
                     {#if config.hasSearch}
-                        <Search on:search-changed="{newSearch}" />
+                        <Search {fields} on:search-changed="{newSearch}" />
                     {/if}
                 </div>
 

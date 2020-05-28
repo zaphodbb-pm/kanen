@@ -1,14 +1,15 @@
 /**
- * @summary  Build MongoDb query object.
+ * Build MongoDb query object from search.
  *
  * @memberof Components:List
  * @function buildQuery
  * @locus Client
- * @augments vue-listHolder
+ * @augments searchBox
  *
  *
  * @param {String} str
  * @param {Array} fields
+ *
  * @return {Object} modified MongoDb query
  *
  */
@@ -16,36 +17,41 @@
 
 //** common query building function
 export function buildQuery(str, fields) {
-    let compound = null;
+    let list = fields.filter( (fld) => fld.search );
+    let compound = {};
 
-    if (!str.includes(";") && !str.includes("+")) {
-        let search = [];
+    switch(true){
+        case str.trim().length < 1:
+            compound = {};
+            break;
 
-        _.each(fields, function (el) {
-            let s = {};
-            s[el] = checkString(str);
-            search.push(s);
-        });
+        case !str.includes(";") && !str.includes("+"):
+            compound = simpleSearch(str, list);
+            break;
 
-        if (str.includes("!")) {
-            compound = {$nor: search};
-        } else {
-            compound = {$or: search};
-        }
+        case str.includes(";"):
+            compound = orSplit(str, list);
+            break;
+
+        case !str.includes(";") && str.includes("+"):
+            compound = andSplit(str, list);
+            break;
     }
-
-
-    if (str.includes(";")) {
-        compound = orSplit(str, fields);
-    }
-
-
-    if (!str.includes(";") && str.includes("+")) {
-        compound = andSplit(str, fields);
-    }
-
 
     return compound;
+}
+
+
+function simpleSearch(str, list){
+    let search = [];
+
+    list.forEach( (el) => {
+        let s = {};
+        s[el.key] = checkString(str);
+        search.push(s);
+    });
+
+    return str.includes("!") ? {$nor: search} : {$or: search};
 }
 
 
@@ -58,21 +64,21 @@ function checkString(str) {
 }
 
 
-function orSplit(arr, fields) {
-    let ors = arr.split(";");
+function orSplit(str, list) {
+    let ors = str.split(";");
     let orArray = [];
 
-    _.each(ors, function (el) {
+    ors.forEach( (el) => {
         let orTerm = [];
 
         if (el.includes("+")) {
             orArray.push(andSplit(el, fields));
         } else {
-            _.each(fields, function (eli) {
+            list.forEach( (eli) => {
                 let item = {};
 
                 if (el.length > 1) {                //need at least two characters to form a compound search
-                    item[eli] = {$regex: ".*" + el + ".*", $options: "i"};
+                    item[eli.key] = {$regex: ".*" + el + ".*", $options: "i"};
                     orTerm.push(item);
                 }
             });
@@ -87,17 +93,17 @@ function orSplit(arr, fields) {
 }
 
 
-function andSplit(arr, fields) {
-    let ands = arr.split("+");
+function andSplit(str, list) {
+    let ands = str.split("+");
     let andArray = [];
 
-    _.each(ands, function (el) {
+    ands.forEach( (el) => {
         let andTerm = [];
 
-        _.each(fields, function (eli) {
+        list.forEach( (eli) => {
             let item = {};
             if (el.length > 1) {                //need at least two characters to form a compound search
-                item[eli] = checkString(el);
+                item[eli.key] = checkString(el);
                 andTerm.push(item);
             }
         });

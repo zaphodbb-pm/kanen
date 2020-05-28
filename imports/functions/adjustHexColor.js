@@ -7,6 +7,7 @@
  *
  * @param {String} color - #123456 or #789
  * @param {Number} percent - Integer: -100 <= percent <= 100
+ *
  * @return {{color: string, text: string}}
  *
  */

@@ -74,7 +74,11 @@ Meteor.methods({
             doc.updatedAt = Date.now();
 
             //* inject group name server side for security
-            doc["group"] = (Meteor.user().profile && Meteor.user().profile.group) ? Meteor.user().profile.group : "";
+            if( Meteor.user() && Meteor.user().profile && Meteor.user().profile.group ){
+                doc["group"] = Meteor.user().profile.group;
+            }else{
+                doc["group"] = "";
+            }
 
             Mongo.Collection.get(coll).update({_id: id}, {$set: doc});
 
