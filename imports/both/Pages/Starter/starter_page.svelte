@@ -16,7 +16,7 @@
     export let params;
 
     // app services (getContext is often optional)
-    import { setContext } from 'svelte';
+    import { onMount, setContext } from 'svelte';
     //import { getContext } from 'svelte';
 
     // get the user language preference from store (optional)
@@ -38,8 +38,6 @@
 
 
     //* page-body support **************************
-    import {onMount, onDestroy} from 'svelte'
-
     import config from './starter_page_config'
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
     import schema from './starter_form_schema'
@@ -59,22 +57,17 @@
     let sort = listArray.sort;
     let fields = listArray.fields;
     let submitted = false;
-
-
     let currentDoc = {};
     let showList = false;
     let showForm = false;
     let releaseEdit = false;
 
 
-
     onMount( () => {
+        showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
+        showForm = !conf.form.hasOverlay;
+    })
 
-    });
-
-    onDestroy( () => {
-        console.log("listForm page destroyed");
-    });
 
 
     function checkOverlay() {
@@ -89,21 +82,13 @@
         showList = !conf.list.hasOverlay;
         showForm = !conf.list.hasOverlay || !!conf.form.hasOverlay;
         releaseEdit = false;
-
-        console.log("docToEdit", msg.detail);
     }
 
     function docSent(){
         showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
         showForm = !conf.form.hasOverlay;
         releaseEdit = true;
-        currentDoc = {};
-
-        console.log("docSent");
     }
-
-
-
 
 </script>
 
@@ -116,32 +101,38 @@
 <section class="page-body">
 
     <div class="columns">
-        <article class="column is-6">
-            <List_Holder
-                    config="{conf.list}"
-                    {listText}
-                    {fields}
-                    {sort}
-                    submitted="{releaseEdit}"
 
-                    on:send-doc="{docToEdit}"/>
+        {#if showList}
+            <article class="column is-6">
+                <List_Holder
+                        config="{conf.list}"
+                        {listText}
+                        {fields}
+                        {sort}
+                        submitted="{releaseEdit}"
 
-        </article>
+                        on:send-doc="{docToEdit}"/>
 
-        <article class="column is-6">
-            <Form_Holder
-                    config="{conf.form}"
-                    {formText}
-                    {schema}
-                    {role}
-                    {editdoc}
-                    {directdoc}
+            </article>
+        {/if}
 
-                    on:back-to-list="{checkOverlay}"
-                    on:doc-submitted="{docSent}"
-            />
+        {#if showForm}
+            <article class="column is-6">
+                <Form_Holder
+                        config="{conf.form}"
+                        {formText}
+                        {schema}
+                        {role}
+                        {editdoc}
+                        {directdoc}
 
-        </article>
+                        on:back-to-list="{checkOverlay}"
+                        on:doc-submitted="{docSent}"
+                />
+
+            </article>
+        {/if}
+
     </div>
 
 </section>
