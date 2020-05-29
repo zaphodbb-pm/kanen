@@ -3,7 +3,7 @@
      * @summary Vue checkbox with switch css.
      *
      * @memberof Components_Form
-     * @function vue-switch
+     * @function switch
      * @locus Client
      * @augments fieldWrapper
      *
