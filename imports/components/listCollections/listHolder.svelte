@@ -65,7 +65,6 @@
 
     import {methodReturn} from '/imports/functions/methodReturn'
     import {buildFilter} from './func-buildFilter'
-    //import {buildQuery} from './func-buildQuery'
     import {getDocs} from '/imports/functions/getDocs'
 
     //* make form text available to all children components
@@ -89,8 +88,9 @@
     let collQuery = {};
 
     let collFields = {};
-    let addFilters = {};
 
+    let addFilters = {};
+    let getFilters = [];
     let filterState =  "is-light";
     let showFilters = false;
     let addConditions = {};
@@ -99,12 +99,6 @@
     let docCountLabel = "0 - 0 / 0 (0)";
     let labels = fields;
     let documents = [];
-
-    let message = {
-        id: "",
-        type: "create",
-        coll: coll,
-    };
 
     //* check for imported grid layouts by page
     let ListGrid;
@@ -119,6 +113,7 @@
     onMount( async () => {
         //* on first load, show a list of unfiltered documents for this user;
         addConditions = getConditions(fields);
+        getFilters = buildFilters(fields);
 
         getCurrentDocs();
     } );
@@ -160,6 +155,12 @@
     }
 
     function docEdit(msg) {
+        let message = {
+            id: "",
+            type: "create",
+            coll: coll,
+        };
+
         //** if editing a doc send doc id else clear edit form
         if (msg.detail.edit) {
             message.id = msg.detail.id;
@@ -171,6 +172,12 @@
 
     function docRelease(msg){
         if(msg){
+            let message = {
+                id: "",
+                type: "create",
+                coll: coll,
+            };
+
             getCurrentDocs();
             dispatch("send-doc", message);
         }
@@ -194,11 +201,21 @@
         showFilters = filterState === "is-primary";
     }
 
+
+
+
+
     function filterList(filters) {
         //* respond to user filter selection and get new list of filtered documents
         addFilters = filters;
         getCurrentDocs();
     }
+
+
+
+
+
+
 
     function newRow(msg) {
         //* when a user changes the rows length, get a the new longer list of documents
@@ -247,6 +264,8 @@
         documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
         docCountLabel = `${f.start} - ${f.end} / ${documents.length} (${totalDocs})`;
 
+        console.log("documents", documents);
+
         dispatch("list-docs-ready", documents);
     }
 
@@ -256,6 +275,7 @@
         return fields.map( (fld) => {
             let field = Object.assign({}, fld);     // ensure no side effects happen
             field.label = text[field.key].label;
+            field.filter = text[field.key].filter ? text[field.key].filter : null;
             return field;
         })
     }
@@ -279,6 +299,7 @@
         //* find all list fields that have a "filter" key set
         if(fields && fields.length > 0){
             fields.forEach((fld) => {
+
                 if (fld.filter && fld.filter.length > 0) {
                     filters.push(
                             {field: fld.field, filter: fld.filter, type: fld.type}
@@ -304,8 +325,6 @@
     }
 
 </script>
-
-
 
 <div class="card list-holder-container">
 
@@ -357,7 +376,7 @@
             </div>
 
             {#if config.hasFilters && showFilters}
-                <List_Filters filters="{buildFilters()}" on:filters-changed="{filterList}" />
+                <List_Filters filters="{getFilters}" on:filters-changed="{filterList}" />
             {/if}
 
             {#if config.hasPager}

@@ -20,15 +20,9 @@
     export let fields = [];
     export let defaults = [];
 
-    //export let hasTabs = false;
-    //export let hasGroups = false;
-    //export let hasStepper = false;
-
     //* support functions
     import {createEventDispatcher, getContext} from 'svelte';
     const dispatch = createEventDispatcher();
-
-
 
     //* children components
     import Field_Wrapper from './fieldWrapper.svelte'

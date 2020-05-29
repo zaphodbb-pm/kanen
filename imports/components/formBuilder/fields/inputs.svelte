@@ -7,7 +7,9 @@
      * @locus Client
      * @augments fieldWrapper
      *
-     * @emits: 'on-inputentry' with text, number or other types
+     * @param {Object} field
+     *
+     * @emits: 'on-inputentry' {value: value, error: errorVal} with text, number or other types
      *
      */
 

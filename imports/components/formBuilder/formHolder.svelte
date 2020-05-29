@@ -136,12 +136,11 @@
     }
 
     function cloneItem(){
-        const self = this;
         let newValues = Object.assign({}, currDoc, fieldValues);
         delete newValues._id;
 
         //** send completed doc to server insert / update methods
-        submitForm(newValues, coll, true, false, self);
+        submitForm(newValues, coll, true, false, dispatch);
         fields = defaults;
         dispatch("current-editted-doc", newValues);
     }
