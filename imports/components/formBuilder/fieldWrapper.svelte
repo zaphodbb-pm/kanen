@@ -43,12 +43,18 @@
     import Switch from './fields/switch.svelte'
     import TextArea from './fields/textarea.svelte'
     import CheckBoxes from './fields/checkboxes.svelte'
+    import Radios from './fields/radios.svelte'
+    import Swatches from './fields/colourPicker.svelte'
+    import HR from './fields/hr.svelte'
 
     let components = {
         input: Inputs,
         switch: Switch,
         textarea: TextArea,
-        checkboxes: CheckBoxes
+        checkboxes: CheckBoxes,
+        radios: Radios,
+        colours: Swatches,
+        hr: HR,
     }
 
 
@@ -192,7 +198,9 @@
 {#if !fieldHide}
     <div class="field" style="position: relative;">
         <div class="control {fieldOpt}">
-            <label class="has-float-label">{formText[field.field].label}</label>
+            {#if formText[field.field].label}
+                <label class="has-float-label">{formText[field.field].label}</label>
+            {/if}
 
             <svelte:component
                     this="{components[field.fieldType]}"

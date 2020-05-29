@@ -107,7 +107,6 @@ export default {
             startCheckbox: {
                 label: "Checkbox",
                 helpText: "Check box for single item on or off.",
-                //selects: ["one", "two"]
                 selects: [
                     {_id: "light", name: "a little rusty"},
                     {_id: "moderate", name: "a regular"},
@@ -117,7 +116,8 @@ export default {
 
             startRadios: {
                 label: "Radios",
-                selects: ["Bicycle", "Scooter", "Automobile", "Truck"]
+                //selects: ["Bicycle", "Scooter", "Automobile", "Truck"]
+                selects: [{_id: "yes", name: "Yes"}, {_id: "no", name: "No"}, {_id: "maybe", name: "Maybe"}]
             },
 
             startColours: {
@@ -174,7 +174,8 @@ export default {
             },
 
             hr1: {
-                label: "Form Spacer"
+                label: "",
+                tag: "Form Spacer"
             },
 
             startApiKey: {
