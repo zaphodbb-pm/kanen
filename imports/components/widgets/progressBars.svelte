@@ -34,22 +34,18 @@
      *
      */
 
-    //* support functions
-    import {toDecimals} from '/imports/functions/formatNumbers'
-    import {adjustHexColor} from '/imports/functions/adjustHexColor'
-    import {setBackground} from '/imports/functions/setBackground'
 
     //* props
     export let text = {};
     export let config = {};
     export let payload = null;
 
+    //* local reactive variables
     let height = config && config.height ? config.height : 6;
-
     let vert = config && config.orient === "vert";
-
     let bars = barsBuilder();
 
+    //* functions that mutate variables
     function barsBuilder(){
         //** get decorative items or apply defaults
         let bg = "#F8F8F8";

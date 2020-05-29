@@ -39,7 +39,7 @@
     import Icon from '/imports/components/elements/icon.svelte'
 
     //* support functions
-    import {toDecimals} from '/imports/functions/formatNumbers'
+    import {toDecimals} from '/imports/functions/toDecimals'
     import {adjustHexColor} from '/imports/functions/adjustHexColor'
     import {setBackground} from '/imports/functions/setBackground'
 

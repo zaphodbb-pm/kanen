@@ -42,8 +42,7 @@
      */
 
     //* support functions
-    import {toDecimals} from '/imports/functions/formatNumbers'
-    import {adjustHexColor} from '/imports/functions/adjustHexColor'
+    import {toDecimals} from '/imports/functions/toDecimals'
     import {setBackground} from '/imports/functions/setBackground'
 
     //* props
