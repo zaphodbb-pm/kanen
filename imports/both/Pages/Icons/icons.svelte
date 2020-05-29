@@ -43,17 +43,21 @@
 
 <section class="page-body">
 
-    <div class="columns is-multiline">
+    <div class="columns is-mobile is-multiline">
         {#each allIcons as icon}
 
-            <div class="column is-6">
-                <div class="d-flex align-items-center mb-3">
-                    <span><b>{icon[0]}</b> is {icon[1].iconName}: </span>
+            <div class="column is-half-mobile is-one-quarter-tablet is-narrow-desktop">
+                <div class="buffer-large">
+                    <div><b>{icon[0]}</b></div>
 
-                    <Icon icon={icon[1]} class="ml-2 is-size-6" />
-                    <Icon icon={icon[1]} class="ml-2 text-1dot2rem has-text-info" />
-                    <Icon icon={icon[1]} class="ml-2 is-size-4 has-text-link" />
-                    <Icon icon={icon[1]} class="ml-2 is-size-2 has-text-primary" />
+                    <div class="d-flex align-items-center">
+                        <Icon icon={icon[1]} class="ml-2 is-size-6" />
+                        <Icon icon={icon[1]} class="ml-2 text-1dot2rem has-text-info" />
+                        <Icon icon={icon[1]} class="ml-2 is-size-4 has-text-link" />
+                        <Icon icon={icon[1]} class="ml-2 is-size-2 has-text-primary" />
+                    </div>
+
+                    <div>{icon[1].iconName + ".json"}</div>
                 </div>
             </div>
 
