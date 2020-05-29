@@ -48,6 +48,9 @@
     let hasRange = false;
 
 
+    $: console.log("list filters", filters);
+
+
     onMount( () => {
         buildSelector = buildSelection(filters);
     });
@@ -226,9 +229,6 @@
 </script>
 
 <div class="list-filters filter-selects">
-
-    bottom list filters
-
     {#each buildSelector as selector (selector.field) }
         <div class="filter-items">
 
@@ -323,116 +323,6 @@
                 </div>
 
             {/if}
-
-
-
-
-
-
-
-        <!--
-        {#if selector.type === 'date'}
-            <div class="date">
-                <div class="field has-addons">
-                    <div class="control control-flatpickr" style="width: 14rem">
-                        flat-pickr
-
-                        <vue-flat-pickr class="input"
-                                        v-model="dateValue"
-                                        v-bind:config="params"
-                                        v-bind:placeholder="label"
-                                        v-on:on-change="dateUpdate($event, selector.field)"
-
-                                        v-bind:aria-describedby="helpText">
-                        </vue-flat-pickr>
-
-                    </div>
-
-                    {#if hasRange}
-                        <div class="control">
-                            <a class="button is-warning" on:click="{() => {clearDateRange(selector.field)} }">
-                                <div class="delete"></div>
-                            </a>
-                        </div>
-                    {/if}
-                </div>
-            </div>
-        {/if}
-
-
-
-
-
-
-
-
-
-
-        {#if selector.type === 'relativeDate'}
-            <div class="relativeDate select">
-                <select title="Filter"
-                        bind:value="{selector.current}"
-                        on:change="{() => emitFilterRD( selector.field, selector.current ) }">
-
-                    {#each selector.filter as filt}
-                        <option value="{filt._id}">
-                            {filt.name}
-                        </option>
-                    {/each}
-                </select>
-            </div>
-        {/if}
-
-
-        {#if selector.type === 'inDateRange'}
-            <div>
-                <select title="Filter"
-                        bind:value="{selector.current}"
-                        on:change="{() => emitFilterRange( selector.field, selector.current ) }">
-
-                    {#each selector.filter as filt}
-                        <option value="{filt._id}">
-                            {filt.name}
-                        </option>
-                    {/each}
-
-                </select>
-            </div>
-        {/if}
-
-
-        {#if selector.type === 'byDayOfWeek'}
-            <div class="byDayOfWeek select">
-                <select title="Filter"
-                        bind:value="{selector.current}"
-                        on:change="{() => emitFilterDay( selector.field, selector.current ) }">
-
-                    {#each selector.filter as filt}
-                        <option value="{filt._id}">
-                            {filt.name}
-                        </option>
-                    {/each}
-                </select>
-            </div>
-        {/if}
-
-
-        {#if true}
-            <div class="select">
-                <select title="Filter"
-                        bind:value="{selector.current}"
-                        on:change="{() => emitFilter( selector.field, selector.current ) }">
-
-                    {#each selector.filter as filt}
-                        <option value="{filt._id}">
-                            {filt.name}
-                        </option>
-                    {/each}}
-                </select>
-            </div>
-
-        {/if}
-        -->
 
         </div>
     {/each}

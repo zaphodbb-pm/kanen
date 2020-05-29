@@ -40,9 +40,15 @@
 
     //* load component fields
     import Inputs from './fields/inputs.svelte'
+    import Switch from './fields/switch.svelte'
+    import TextArea from './fields/textarea.svelte'
+    import CheckBoxes from './fields/checkboxes.svelte'
 
     let components = {
-        input: Inputs
+        input: Inputs,
+        switch: Switch,
+        textarea: TextArea,
+        checkboxes: CheckBoxes
     }
 
 

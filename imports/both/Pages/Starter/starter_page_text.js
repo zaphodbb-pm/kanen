@@ -35,6 +35,20 @@ export default {
                 label: "Updated At",
             },
 
+            classDays: {
+                label: "Class Days",
+                filter:  [
+                    {_id: "_id.none", name: "All Days"},
+                    {_id: "_id.mon", name: "Mon"},
+                    {_id: "_id.tue", name: "Tue"},
+                    {_id: "_id.wed", name: "Wed"},
+                    {_id: "_id.thu", name: "Thu"},
+                    {_id: "_id.fri", name: "Fri"},
+                    {_id: "_id.sat", name: "Sat"},
+                    {_id: "_id.sun", name: "Sun"},
+                ]
+            },
+
             _id: {
                 label: "Del",
             }
@@ -81,6 +95,7 @@ export default {
 
             startSwitch: {
                 label: "Boolean Switch",
+                tag: "Cancel Weekends",
                 helpText: "Fancy check box for single item on or off.",
             },
 
@@ -92,7 +107,12 @@ export default {
             startCheckbox: {
                 label: "Checkbox",
                 helpText: "Check box for single item on or off.",
-                selects: ["one", "two"]
+                //selects: ["one", "two"]
+                selects: [
+                    {_id: "light", name: "a little rusty"},
+                    {_id: "moderate", name: "a regular"},
+                    {_id: "active", name: "ready for anything"},
+                ]
             },
 
             startRadios: {

@@ -31,7 +31,6 @@ export default {
             field:  "name",
             key:    "name",
             type:   "edit",
-            //label:  text.name.label,
             label:  "tbd",
             sort:   1,
             search: true,
@@ -42,9 +41,18 @@ export default {
             key:    "updatedAt",
             type:   "text",
             label:  "tbd",
-            //label:  text.updatedAt.label,
             sort:   1,
             search: true,
+        },
+
+        {
+            field:  "classDays",
+            key: "classDays",
+            type: "byDayOfWeek",
+            label: "",
+            filter: "",
+            sort: false,
+            search: false,
         },
 
         {
@@ -52,7 +60,6 @@ export default {
             key:    "_id",
             type:   "del",
             label:  "tbd",
-            //label:  text._id.label,
             sort:   false,
             search: false,
         },
