@@ -38,10 +38,6 @@
     let finishBtn = "fin";
 
 
-
-    //$: console.log("formTabs",config, tabLabels, fields, defaults);
-
-
     //* event handlers
     function fieldChanged(msg){
         dispatch('field-changed', msg.detail);

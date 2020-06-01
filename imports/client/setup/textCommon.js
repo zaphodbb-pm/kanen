@@ -9,6 +9,12 @@
  *
  */
 
+
+export const fileReader = {
+    file_too_long: "Can't load files larger than getImageSizeKB.  <br/>Size = ",
+    file_wrong_type: "File type is not supported.  <br/>Type = ",
+}
+
 export default{
     currencies: {
         en: [

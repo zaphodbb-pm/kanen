@@ -75,7 +75,7 @@ export default {
                 }
             },
 
-            formTabs: ["Basic", "Complex", "Advanced", "Combi", "Modules"],
+            formTabs: ["Basic", "Complex", "Advanced", "Modules"],
 
             //** Form field text ********************************************
             name: {
@@ -91,6 +91,11 @@ export default {
             startInteger: {
                 label: "Integer Input",
                 helpText: "Integer defined by step size = 1. ",
+            },
+
+            startEmail: {
+                label: "Email Input",
+                helpText: "Checks for valid email before saving.",
             },
 
             startSwitch: {
@@ -116,7 +121,6 @@ export default {
 
             startRadios: {
                 label: "Radios",
-                //selects: ["Bicycle", "Scooter", "Automobile", "Truck"]
                 selects: [{_id: "yes", name: "Yes"}, {_id: "no", name: "No"}, {_id: "maybe", name: "Maybe"}]
             },
 
@@ -124,14 +128,29 @@ export default {
                 label: "Colours",
             },
 
+            startTimePicker: {
+                label: "Time Picker",
+                helpText: "Select time value from buttons.",
+                tag: {
+                    save: "Save",
+                    clear: "Clear",
+                    close: "Close",
+
+                    hours: "Hours",
+                    minutes: "Minutes",
+                    hr12: "AM / PM"
+                }
+            },
+
             startDateTime: {
-                label: "Date / Time",
-                helpText: "Can select date or time inout type",
+                label: "Date Picker (with optional time)",
+                helpText: "Can select date or time input type",
             },
 
             startStaticSelect: {
                 label: "Static Select",
                 helpText: "Select from a fixed list",
+                tag: {_id: "all", name: "All Options", colour: "#000000"},
                 selects: [
                     {_id: "sun", name: "Sunday", colour: "#000000"},
                     {_id: "mon", name: "Monday", colour: "#6666ff"},
@@ -146,6 +165,7 @@ export default {
             startDynamicSelect: {
                 label: "Dynamic Select",
                 helpText: "Uses a collection name to find a list of selection options.",
+                tag: {_id: "all", name: "All Options"},
             },
 
             startStaticTypeahead: {
@@ -166,11 +186,6 @@ export default {
                 label: "Dynamic Typeahead",
                 helpText: "Uses a collection to get a list of values that can then be searched through for " +
                         "characters typed into input box.",
-            },
-
-            startEditor: {
-                label: "Editor",
-                helpText: "Classic text editor on textarea",
             },
 
             hr1: {
@@ -196,14 +211,23 @@ export default {
                         "The file size is limited to 250KB.",
             },
 
-            startRows: {
-                label: "Row of Inputs",
-                helpText: "This is a combination box that contains rows of columns of input fields and returns an " +
-                        "array of arrays of objects",
+
+            startEditor: {
+                label: "Editor",
+                helpText: "Classic text editor on textarea",
+                tag: "Be creative, add your content..."
             },
 
             startList: {
                 label: "List of Items",
+                helpText: "This is a combination box that contains rows of columns of input fields and returns an " +
+                    "array of arrays of objects",
+            },
+
+
+
+            startRows: {
+                label: "Row of Inputs",
                 helpText: "This is a combination box that contains rows of columns of input fields and returns an " +
                         "array of arrays of objects",
             },

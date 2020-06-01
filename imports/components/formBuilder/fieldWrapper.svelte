@@ -7,25 +7,23 @@
      * @locus Client
      * @augments formTabFields
      *
-     * @param {String}  field - unique field name identifier
-     * @param {String}  fieldType - type of input field
-     * @param {Number}  tab - if tabbed fields are set, defines which tab to show this field
-     *
-     * @param {Object}  attributes - optional additional html attribute settings for field type
-     * @param {Object}  params - optional additional configuration information for field type
-     * @param {Boolean} optional - flags a field that must have user input to be valid
-     * @param {String}  defaultValue - initial input value
-     *
-     * @param {String}  helpText - optional help text to explain the input field meaning; ditto
-     * @param {String}  fieldText - optional field text label (ie apiKey); ditto
-     * @param {String}  selectsText - optional selects array for 'select', 'checkbox' and 'radio'; ditto
-     *
-     * @emits field-changed
+     * @param {Object}  field - unique field name identifier
+     * @param {String}  field.field - unique field name identifier
+     * @param {String}  field.fieldType - type of input field
+     * @param {String}  field.adjustLabel - shifts label right to accommodate button add-on
+     * @param {Object}  field.attributes - optional additional html attribute settings for field type
+     * @param {Object}  field.params - optional additional configuration information for field type
+     * @param {Boolean} field.optional - flags a field that must have user input to be valid
+     * @param {String}  field.defaultValue - initial input value
      *
      * @notes
-     * 1. Supports common inputs 'text', 'number', 'email', 'password', 'tel'
-     * 2. Supports more complex 'textarea', 'select', 'checkbox', 'radio', 'switch', 'date', 'upload'
-     * 3. Supports custom 'apiKey', 'editor'
+     *  Support text is set by 'formHolder' into context 'formText':
+     *      label - field label
+     *      helpText - (optional) help text to explain the input field meaning; ditto
+     *      tag - (optional) extra text for some components such as 'switch'
+     *      selects - (optional) array of {_id, name} objects for 'select' component
+     *
+     * @emits field-changed
      *
      */
 
@@ -33,37 +31,21 @@
     export let field = {};
 
     //* support functions
+    import {getContext} from 'svelte'
+    import {components} from './fields/func-registerField'
+    import {slide} from 'svelte/transition';
+    import {quintOut} from 'svelte/easing';
     import Icon from '/imports/components/elements/icon.svelte'
-    import {onMount, getContext} from 'svelte'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
-
-    //* load component fields
-    import Inputs from './fields/inputs.svelte'
-    import Switch from './fields/switch.svelte'
-    import TextArea from './fields/textarea.svelte'
-    import CheckBoxes from './fields/checkboxes.svelte'
-    import Radios from './fields/radios.svelte'
-    import Swatches from './fields/colourPicker.svelte'
-    import HR from './fields/hr.svelte'
-
-    let components = {
-        input: Inputs,
-        switch: Switch,
-        textarea: TextArea,
-        checkboxes: CheckBoxes,
-        radios: Radios,
-        colours: Swatches,
-        hr: HR,
-    }
 
 
     //* local reactive variables
     let fieldOpt = field.optional ? "" : "field-error";
-    //let fieldValue = field.defaultValue;
     let fieldHelpShow = false;
     let fieldHide = false;
     let formText = getContext("formText");
+    let adjustLabel = field.adjustLabel ? "adjust-label" : "";
 
     $: field = prepareField(field);
 
@@ -114,14 +96,10 @@
     //* pure functions
     const testValid = (val, optional) => {
         //** test for valid values in field
-        let test = false;
+        let test;
 
         if (typeof val === "object" && val !== null) {
-            if (Array.isArray(val)) {
-                test = val.length > 0;
-            } else {
-                test = val._id && !!val._id;
-            }
+            test = Array.isArray(val) ? (val.length > 0) : (val._id && !!val._id);
         } else {
             test = !!val;
         }
@@ -199,7 +177,7 @@
     <div class="field" style="position: relative;">
         <div class="control {fieldOpt}">
             {#if formText[field.field].label}
-                <label class="has-float-label">{formText[field.field].label}</label>
+                <label class="has-float-label {adjustLabel}">{formText[field.field].label}</label>
             {/if}
 
             <svelte:component
@@ -214,9 +192,11 @@
                 <Icon icon={getContext("iconHelp")} class="has-text-info"/>
             </span>
 
-            <div class="{fieldHelpShow ? 'open-body': 'close-body'}">
-                <p class="mt-2 mb-3 is-family-secondary">{@html formText[field.field].helpText}</p>
-            </div>
+            {#if fieldHelpShow}
+                <div class= "mt-2 mb-4" transition:slide="{{delay: 100, duration: 300, easing: quintOut }}">
+                    <p class="is-family-secondary">{@html formText[field.field].helpText}</p>
+                </div>
+            {/if}
         {/if}
     </div>
 {/if}
@@ -237,31 +217,19 @@
         z-index: 10;
     }
 
-    .field-hr::after {
-        color: #777 !important;
-        font-size: 1rem;
+    .has-float-label {
+        position: absolute;
+        left: 1rem;
+        top: -0.5rem;
+        background-color: #FFF;
+        padding: 0 0.25rem;
+        font-weight: 500;
+        font-size: 0.75rem;
+        z-index: 10;
     }
 
-    .is-box-small {
-        padding: 0.75rem;
-    }
-
-    .open-body {
-        overflow: hidden;
-        max-height: 50rem;
-
-        transition-property: all;
-        transition-duration: 3s;
-        transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    }
-
-    .close-body {
-        overflow: hidden;
-        max-height: 0;
-
-        transition-property: all;
-        transition-duration: 1.5s;
-        transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    .adjust-label {
+        left: 4rem;
     }
 
 </style>

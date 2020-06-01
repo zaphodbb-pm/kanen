@@ -30,7 +30,8 @@ out.iconWidget = widget;
 import learn from '/public/svg_to_js/graduation-cap-solid.json';
 out.iconLearn = learn;
 
-import content from '/public/svg_to_js/folder-open.json';
+
+import content from '/public/svg_to_js/book-open-solid.json';
 out.iconContent = content;
 
 import addressCard from '/public/svg_to_js/address-card.json';
@@ -47,6 +48,8 @@ out.iconTemplate = hammer;
 
 import database from '/public/svg_to_js/database-solid.json';
 out.iconListForm = database;
+
+
 
 //* Navbar Icons
 import bell from '/public/svg_to_js/bell.json';
@@ -69,6 +72,28 @@ out.iconDocumentation = documentation;
 
 
 //* component Icons
+import apiKey from '/public/svg_to_js/key-solid.json';
+out.iconApiKey = apiKey;
+
+import browse from '/public/svg_to_js/folder-open.json';
+out.iconBrowse = browse;
+
+import crop from '/public/svg_to_js/crop-alt-solid.json';
+out.iconCrop = crop;
+
+import cropSave from '/public/svg_to_js/file-upload-solid.json';
+out.iconCropSave = cropSave;
+
+import fileFile from '/public/svg_to_js/file-alt.json';
+out.iconFileFile = fileFile;
+
+import fileDelete from '/public/svg_to_js/minus-square-solid.json';
+out.iconFileDelete = fileDelete;
+
+import rowAdd from '/public/svg_to_js/plus-circle-solid.json';
+out.iconRowAdd = rowAdd;
+
+
 import music from '/public/svg_to_js/music-solid.json';
 out.iconMusic = music;
 
@@ -80,7 +105,6 @@ out.iconImage = image;
 
 import fileAlt from '/public/svg_to_js/file-alt.json';
 out.iconDoc = fileAlt;
-
 
 
 //* widget icons

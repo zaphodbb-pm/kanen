@@ -17,7 +17,6 @@
     export let field = {};
 
     //* support functions
-    import {validateEmail} from '/imports/functions/validateEmail'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 

@@ -1,5 +1,5 @@
 /**
- * @summary Prepares the form fields object for tabbed / grouped display.
+ * Prepares the form fields object for tabbed / grouped display.
  *
  * @memberof Components:Form
  * @function orgFields
