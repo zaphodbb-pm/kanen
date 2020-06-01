@@ -34,13 +34,7 @@
 
     //* functions that mutate local variables
     function setValue(val){
-        if(val && val.length > 0){
-            list = val;
-        }else{
-            list = field.params.selects;
-        }
-
-        console.log("setValue", val, list);
+        list = val;
     }
 
     function updateList(newList){

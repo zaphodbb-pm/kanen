@@ -336,47 +336,15 @@ export default [
         attributes: {maxlength: 5000, rows: 2},
         params: {
             key: "id",
-
-            selects: [
-                {id: 1, text: 'First Item'},
-                {id: 2, text: 'Second Item'},
-                {id: 3, text: 'Third Item'}
-            ]
         },
 
         optional: true,
-        defaultValue: [],
+        defaultValue: [{id: 1, text: '...'}],
     },
 
 
 
     /*
-
-
-     */
-
-
-
-    /*
-
-
-
-
-
-
-
-
-
-
-
-  {
-      field: "hr1",
-      fieldType: "hr",
-      tab: 2,
-      optional: true,
-  },
-
-
 
   {
       field: "startRows",
