@@ -20,8 +20,7 @@
      * @emits {Object} current-editted-doc - after submit; current document object with newly entered values
      *
      * @example
-     *      configuration object to set up form
-     *
+     *      configuration object to set up form:
      *          coll: "starter"                     // collection to submit field values to
      *          showHdr: false,                     // show card header and title if true
      *          bgTitle: elements.BG_CARD,          // background colour for header
@@ -33,6 +32,26 @@
      *          hasOverlay: false,                  // support for form overlaying the list during edit operation
      *          clone: true,                        // show clone button on form
      *
+     *      schema object per field item:
+     *          field: "startDynamicSelect",        String: (required) field name in database
+     *          fieldType: "select",                String: (required) see fieldWrapper notes
+     *          optional: true,                     Boolean: (required) if false, forces user entry to present in order to submit form
+     *
+     *          css: "is-fullwidth",                String: (optional for fieldWrapper) adds css to fieldWrapper
+     *          adjustLabel: true,                  Boolean: (optional for fieldWrapper) shifts label right to accommodate button add-on
+     *          group: {                            Object: (optional for formTabFields) allows formTabFields to create horizontal group of fields
+     *              section: 0,                                     (required) unique index number per group of fields
+     *              class: "is-two-thirds"                          (optional) column width control; else equal widths
+     *          },
+     *          tab: 1,                             Number: (optional for formTabFields) displays field in selected form tab set by formTabFields
+     *          attributes: {},                     Object: (optional per field) adds attributes to html tags such as 'input'
+     *          params: {                           Object: (optional for field) extra config for complex components
+     *              type: "dynamicSelect",
+     *              coll: "starter",
+     *              filter: {fields: {name: 1}},
+     *              options: {sort: {name: 1}}
+     *          },
+     *          defaultValue: {_id: "", name: ""},  Object|String|Number: (required) submit adds values if no user entry
      */
 
     //* incoming props from page

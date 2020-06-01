@@ -33,7 +33,27 @@
  *          startRows =             Array: of objects that define a row of inputs
  *          startList =             Array: of text strings
  *          startFieldset =         Array: of objects of input fields
- *          startKanban =           Array: of arrays of objects
+ *
+ * Config Object:
+ *              field: "startDynamicSelect",        String: field name in database
+ *              fieldType: "select",                String: see fieldWrapper notes
+ *              optional: true,                     Boolean: if false, forces user entry to present in order to submit form
+ *              css: "is-fullwidth",                String: (optional) adds css to fieldWrapper
+ *              adjustLabel: true,                  Boolean: (optional) shifts label right to accommodate button add-on
+ *              group: {                            Object: (optional) allows formTabFields to create horizontal group of fields
+ *                  section: 0,
+ *                  class: "is-two-thirds"
+ *              },
+ *              tab: 1,                             Number: (optional) displays field in selected form tab set by formTabFields
+ *              attributes: {},                     Object: adds attributes to html tags such as 'input'
+ *              params: {                           Object: (optional) extra config for complex components
+ *                  type: "dynamicSelect",
+ *                  coll: "starter",
+ *                  filter: {fields: {name: 1}},
+ *                  options: {sort: {name: 1}}
+ *              },
+ *              defaultValue: {_id: "", name: ""},  {Object|String|Number} submit adds values if no user entry
+ *
  *
  */
 
@@ -43,101 +63,265 @@ import fieldsetRows from "./starter_form_text_rows";
 
 export default [
 
+    //** first tab for basic fields
     {
         // control and decoration for fields in a form
         field: "name",
         fieldType: "input",
+        optional: false,
+
         tab: 0,
         group: null,  //group: {section: 2, class: "is-one-quarter"},
 
         attributes: {type: "text", maxlength: 64},
         params: {},
-        optional: false,
         defaultValue: "",
     },
 
     {
         field: "startNumber",
         fieldType: "input",
+        optional: true,
+
         tab: 0,
-        group: {section: 0, class: "is-one-half"},
+        group: {section: 0, class: "is-two-thirds"},
 
         attributes: {type: "number", min: 9.5, max: 100.5, step: 0.1},
         params: {},
-
-        optional: true,
         defaultValue: 11.0,
     },
 
     {
         field: "startInteger",
         fieldType: "input",
+        optional: true,
+
         tab: 0,
-        group: {section: 0, class: "is-one-half"},
+        group: {section: 0, class: "is-one-third"},
 
         attributes: {type: "number", step: 1},
         params: {},
-
-        optional: true,
         defaultValue: 0,
     },
 
     {
-        field: "startSwitch",
-        fieldType: "switch",
-        tab: 0,
-        attributes: {},
-        params: {},
-
+        field: "startEmail",
+        fieldType: "input",
         optional: true,
-        defaultValue: false,
+
+        tab: 0,
+
+        attributes: {type: "email"},
+        params: {},
+        defaultValue: "",
     },
 
     {
         field: "startTextArea",
         fieldType: "textarea",
+        optional: true,
         tab: 0,
         attributes: {maxlength: 5000, rows: 3},
         params: {},
-
-        optional: true,
         defaultValue: "",
-    },
-
-    {
-        field: "startCheckbox",
-        fieldType: "checkboxes",
-        tab: 0,
-        attributes: {},
-        params: {cols: 2, buttons: false},
-
-        optional: true,
-        defaultValue: [],
-    },
-
-    {
-       field: "startRadios",
-       fieldType: "radios",
-       tab: 0,
-       attributes: {},
-       params: {cols: 2},
-
-       optional: true,
-       defaultValue: {_id: "", name: ""},
     },
 
     {
         field: "hr1",
         fieldType: "hr",
-        tab: 0,
         optional: true,
+        tab: 0,
+    },
+
+    {
+        field: "startSwitch",
+        fieldType: "switch",
+        optional: true,
+
+        tab: 0,
+        attributes: {},
+        params: {},
+        defaultValue: false,
+    },
+
+    {
+        field: "startCheckbox",
+        fieldType: "checkboxes",
+        optional: true,
+
+        tab: 0,
+        attributes: {},
+        params: {cols: 2, buttons: false},
+        defaultValue: [],
+    },
+
+    {
+        field: "startRadios",
+        fieldType: "radios",
+        optional: true,
+
+        tab: 0,
+        attributes: {},
+        params: {cols: 3},
+        defaultValue: {_id: "", name: ""},
+    },
+
+
+    //** second tabbed set of fields
+    {
+        field: "startStaticSelect",
+        fieldType: "select",
+        optional: true,
+
+        css: "is-fullwidth",
+        tab: 1,
+        attributes: {},
+        params: {type: "staticSelect", colours: true},
+        defaultValue: {_id: "all", name: "All Options"},
+    },
+
+    {
+        field: "startDynamicSelect",
+        fieldType: "select",
+        optional: true,
+
+        css: "is-fullwidth",
+        tab: 1,
+        attributes: {},
+        params: {
+            type: "dynamicSelect",
+            coll: "starter",
+            filter: {fields: {name: 1}},
+            options: {sort: {name: 1}}
+        },
+        defaultValue: {_id: "", name: ""},
+    },
+
+    {
+        field: "startStaticTypeahead",
+        fieldType: "typeahead",
+        optional: true,
+
+        tab: 1,
+        attributes: {},
+        params: {type: "staticSelect", rows: 10},
+        defaultValue: {_id: "", name: ""},
+    },
+
+    {
+        field: "startDynamicTypeahead",
+        fieldType: "typeahead",
+        optional: true,
+
+        tab: 1,
+        attributes: {},
+        params: {
+            type: "dynamicSelect",
+            rows: 10,
+            coll: "starter",
+            filter: {fields: {_id: 1, name: 1}},
+            options: {sort: {name: 1}}
+        },
+        defaultValue: {_id: "", name: ""},
+    },
+
+    {
+        field: "startTimePicker",
+        fieldType: "timePicker",
+        optional: true,
+
+        tab: 1,
+
+        attributes: {},
+        params: {
+            hr12: true,
+            timeStart: 6,
+            timeEnd: 23,
+            minuteIncrement: 15
+        },
+        defaultValue: "",
+    },
+
+    {
+        field: "startDateTime",
+        fieldType: "datePicker",
+        tab: 1,
+        attributes: {maxlength: 10},
+        params: {dateFormat: 'Y-m-d', mode: 'single'},
+
+        optional: true,
+        defaultValue: "",
+    },
+
+    //* third tab set
+    {
+        field: "startApiKey",
+        fieldType: "apiKey",
+        optional: true,
+
+        tab: 2,
+        adjustLabel: true,
+
+        attributes: {},
+        params: {length: 24},
+        defaultValue: "",
+    },
+
+    {
+        field: "startFile",
+        fieldType: "fileInput",
+        optional: true,
+
+        tab: 2,
+        adjustLabel: true,
+
+        attributes: {},
+        params: {format: "text", type: ["json", "text.*"]},
+        defaultValue: {name: "", src: ""},
+    },
+
+    {
+        field: "startImage",
+        fieldType: "fileInput",
+        optional: true,
+
+        tab: 2,
+        adjustLabel: true,
+
+        attributes: {},
+        params: {
+            format: "image",
+            type: ["image.*"],
+
+            //* include croppie setup
+            croppie: {
+                viewport: {width: 450, height: 150, type: 'square'},
+            },
+        },
+        defaultValue: {name: "", src: ""},
     },
 
     {
         field: "startColours",
         fieldType: "colours",
-        tab: 0,
+        optional: true,
+
+        tab: 2,
         attributes: {type: "text", maxlength: 64},
+        params: {},
+        defaultValue: "",
+    },
+
+
+
+
+
+    //** fourth tabbed set of fields
+    {
+        field: "startEditor",
+        fieldType: "editor",
+        tab: 3,
+        attributes: {maxlength: 50000},
         params: {},
 
         optional: true,
@@ -145,86 +329,45 @@ export default [
     },
 
 
+    {
+        field: "startList",
+        fieldType: "itemList",
+        tab: 3,
+        attributes: {maxlength: 5000, rows: 2},
+        params: {
+            key: "id",
+
+            selects: [
+                {id: 1, text: 'First Item'},
+                {id: 2, text: 'Second Item'},
+                {id: 3, text: 'Third Item'}
+            ]
+        },
+
+        optional: true,
+        defaultValue: [],
+    },
+
+
 
     /*
-  //** second tabbed set of fields
-  {
-      field: "startDateTime",
-      fieldType: "date",
-      tab: 1,
-      attributes: {maxlength: 10},
-      params: {},
 
-      optional: true,
-      defaultValue: "",
-  },
 
-  {
-      field: "startStaticSelect",
-      fieldType: "select",
-      tab: 1,
-      attributes: {},
-      params: {type: "staticSelect", colours: true},
+     */
 
-      optional: true,
-      defaultValue: {_id: "", name: "", colour: "#FFF"},
-  },
 
-  {
-      field: "startStaticTypeahead",
-      fieldType: "typeahead",
-      tab: 1,
-      attributes: {},
-      params: {type: "staticSelect", rows: 10},
 
-      optional: true,
-      defaultValue: {_id: "", name: ""},
-  },
+    /*
 
-  {
-      field: "startDynamicSelect",
-      fieldType: "select",
-      tab: 1,
-      attributes: {},
-      params: {
-          type: "dynamicSelect",
-          coll: "circuits",
-          filter: {fields: {name: 1}},
-          options: {sort: {name: 1}}
-      },
 
-      optional: true,
-      defaultValue: {_id: "", name: ""},
-  },
 
-  {
-      field: "startDynamicTypeahead",
-      fieldType: "typeahead",
-      tab: 1,
-      attributes: {},
-      params: {
-          type: "dynamicSelect",
-          rows: 10,
-          coll: "circuits",
-          filter: {fields: {_id: 1, name: 1}},
-          options: {sort: {name: 1}}
-      },
 
-      optional: true,
-      defaultValue: {_id: "", name: ""},
-  },
 
-  //** third tabbed set of fields
-  {
-      field: "startEditor",
-      fieldType: "editor",
-      tab: 2,
-      attributes: {maxlength: 50000},
-      params: {},
 
-      optional: true,
-      defaultValue: "",
-  },
+
+
+
+
 
   {
       field: "hr1",
@@ -233,38 +376,7 @@ export default [
       optional: true,
   },
 
-  {
-      field: "startApiKey",
-      fieldType: "apiKey",
-      tab: 2,
-      attributes: {},
-      params: {length: 24},
 
-      optional: true,
-      defaultValue: "",
-  },
-
-  {
-      field: "startFile",
-      fieldType: "fileInput",
-      tab: 2,
-      attributes: {},
-      params: {format: "text", type: ["json", "text.*"]},
-
-      optional: true,
-      defaultValue: {name: "", src: ""},
-  },
-
-  {
-      field: "startImage",
-      fieldType: "fileInput",
-      tab: 2,
-      attributes: {},
-      params: {format: "image", type: ["image.*"]},
-
-      optional: true,
-      defaultValue: {name: "", src: ""},
-  },
 
   {
       field: "startRows",
@@ -277,16 +389,7 @@ export default [
       defaultValue: [],
   },
 
-  {
-      field: "startList",
-      fieldType: "itemList",
-      tab: 3,
-      attributes: {maxlength: 5000, rows: 2},
-      params: {},
 
-      optional: true,
-      defaultValue: [],
-  },
 
   {
       field: "startFieldset",
@@ -299,16 +402,6 @@ export default [
       defaultValue: {},
   },
 
-  {
-      field: "startKanban",
-      fieldType: "kanban",
-      tab: 4,
-      attributes: {columns: 7},
-      params: {headers: ["To Do", "Doing", "Done", "Waiting"], hdr_id: ["todo", "doing", "done", "waiting"], rows: 1},
-
-      optional: true,
-      defaultValue: [[]],
-  }
 
    */
 ];

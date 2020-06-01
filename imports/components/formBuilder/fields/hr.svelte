@@ -20,7 +20,7 @@
 </script>
 
 <div class="is-divider field-hr"
-     style="margin: 3rem 0 2rem 0;"
+     style="margin: 1rem 0 0.5rem 0;"
      id="{field.field}"
      data-content="{tag}">
 
