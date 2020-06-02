@@ -6,12 +6,6 @@
  * @locus Client
  * @augments formWrapper
  *
- * @param {Array} doc - document to submit [ {field: value} ]
- * @param {String} coll - name of mongoDB collection to store document
- * @param {Boolean} clone - flag to create a clone of the current document
- * @param {Boolean} test - for testing only; does not submit form but does all the checks
- * @param {Boolean} dispatch - parent's dispatch function object
- *
  * @returns {Object} - Svelte components
  *
  * @notes
@@ -42,19 +36,6 @@ import Swatches from './colourPicker.svelte'
 
 import Editor from './editor.svelte'
 import ItemList from './itemList.svelte'
-
-
-
-
-/*
-    VueRows,
-    VueFieldset,
-    VueArrayList,
-    VueDragColumns
-*/
-
-
-
 
 
 export const components = {

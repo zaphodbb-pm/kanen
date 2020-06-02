@@ -108,10 +108,22 @@ export default [
         field: "startEmail",
         fieldType: "input",
         optional: true,
-
+        group: {section: 1},
         tab: 0,
 
         attributes: {type: "email"},
+        params: {},
+        defaultValue: "",
+    },
+
+    {
+        field: "startPhone",
+        fieldType: "input",
+        optional: true,
+        group: {section: 1},
+        tab: 0,
+
+        attributes: {type: "tel"},
         params: {},
         defaultValue: "",
     },
@@ -336,6 +348,7 @@ export default [
         attributes: {maxlength: 5000, rows: 2},
         params: {
             key: "id",
+            showCheck: true
         },
 
         optional: true,

@@ -45,6 +45,8 @@
     let fieldHelpShow = false;
     let fieldHide = false;
     let formText = getContext("formText");
+    let label = formText && formText[field.field] && formText[field.field].label ? formText[field.field].label : "n/a";
+    let helpText = formText && formText[field.field] && formText[field.field].helpText ? formText[field.field].helpText : "";
     let adjustLabel = field.adjustLabel ? "adjust-label" : "";
 
     $: field = prepareField(field);
@@ -176,8 +178,8 @@
 {#if !fieldHide}
     <div class="field" style="position: relative;">
         <div class="control {fieldOpt}">
-            {#if formText[field.field].label}
-                <label class="has-float-label {adjustLabel}">{formText[field.field].label}</label>
+            {#if label}
+                <label class="has-float-label {adjustLabel}">{label}</label>
             {/if}
 
             <svelte:component
@@ -187,14 +189,14 @@
 
         </div>
 
-        {#if formText[field.field].helpText}
+        {#if helpText}
             <span class="field-info has-text-primary add-cursor" on:click|stopPropagation="{toggleHelp}">
                 <Icon icon={getContext("iconHelp")} class="has-text-info"/>
             </span>
 
             {#if fieldHelpShow}
                 <div class= "mt-2 mb-4" transition:slide="{{delay: 100, duration: 300, easing: quintOut }}">
-                    <p class="is-family-secondary">{@html formText[field.field].helpText}</p>
+                    <p class="is-family-secondary">{@html helpText}</p>
                 </div>
             {/if}
         {/if}

@@ -8,10 +8,10 @@
      * @augments fieldWrapper
      *
      * @param {Object} field
-     * @param {Object} field.params1 - {format: "text", type: ["json", "text.*"]},
-     * @param {Object} field.params2 - {format: "image", type: ["image.*"],
-     *                                  croppie: {viewport: {width: 450, height: 150, type: 'square'}}
-     *                                 }
+     * @param {Object} field.params (text) - {format: "text", type: ["json", "text.*"]},
+     * @param {Object} field.params (image) -   { format: "image", type: ["image.*"],
+     *                                            croppie: {viewport: {width: 450, height: 150, type: 'square'} }
+     *                                          }
      *
      * @emits: 'on-inputentry' {value: {src, name}, error: false}
      *

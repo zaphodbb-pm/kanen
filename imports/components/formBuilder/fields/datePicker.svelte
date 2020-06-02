@@ -38,11 +38,10 @@
 
     function checkInput(selectedDates, dateStr){
         inValue = dateStr;
-
         dispatch('on-inputentry', {value: dateStr, error: false});
     }
 
-
+    //* lifecycle states
     onMount( () => {
         let target = document.getElementById("fp_" + field.field);
         fp = flatpickr(target, field.params);

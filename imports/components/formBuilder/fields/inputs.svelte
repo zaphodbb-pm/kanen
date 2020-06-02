@@ -37,6 +37,7 @@
         let test = formatField(inValue, field.attributes);
 
         if(test){
+            inValue = test.value;
             checkValue = test.error ? "field-input-error" : "";
             dispatch('on-inputentry', test );
         }
@@ -68,7 +69,7 @@
                 }
                 break;
 
-            case attr && attr.type && (attr.type === "phone"):
+            case attr && attr.type && (attr.type === "tel"):
                 value = ('' + value).replace(/\D/g, '');                // Filter only numbers from the input
                 break;
         }

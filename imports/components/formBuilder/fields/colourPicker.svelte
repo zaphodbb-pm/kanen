@@ -17,10 +17,10 @@
     export let field = {};
 
     //* support functions
+    import {textColour} from '/imports/functions/textColour'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-    import {textColour} from '/imports/functions/textColour'
 
     //* local reactive variable
     let inValue = "";
@@ -100,7 +100,7 @@
 
 
 
-<style scoped>
+<style>
 
     .swatch {
         height: 2rem;

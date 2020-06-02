@@ -11,10 +11,17 @@
      *
      * @emits: 'on-inputentry' {value: value, error: errorVal} with text, number or other types
      *
+     * @see Quill editor {@link https://quilljs.com/docs/formats/|toolbar setup}
+     *
+     * @notes
+     *      1. some css over-rides have been applied.
+     *         See '/imports/client/css/kanen-custom/kanen_override.scss'; line 36
+     *
      */
 
     //* common props from parent
     export let field = {};
+
 
     //* support functions
     import {onMount, onDestroy, getContext, createEventDispatcher} from 'svelte';
@@ -31,6 +38,7 @@
     $: setValue(field.value);
 
 
+    //* editor toolbar configuration
     const toolbarOptions = [
         [{ 'header': [1, 2, 3, false] }],
 
@@ -49,6 +57,23 @@
     ];
 
 
+    //* functions that mutate local variables
+    function setValue(val){
+        inValue = val;
+
+        if(quill){
+            quill.root.innerHTML = inValue;
+            let value = quill.root.innerHTML;
+        }
+    }
+
+    function checkInput(){
+        let value = quill.root.innerHTML;
+        dispatch('on-inputentry', {value: value, error: false});
+    }
+
+
+    //* lifecycle states
     onMount(async () => {
         //** load big modules dynamically only when needed
         const { default: Quill } = await import("quill");
@@ -70,22 +95,6 @@
     onDestroy( () => {
         quill = null;
     });
-
-
-    //* functions that mutate local variables
-    function setValue(val){
-        inValue = val;
-
-        if(quill){
-            quill.root.innerHTML = inValue;
-            let value = quill.root.innerHTML;
-        }
-    }
-
-    function checkInput(){
-        let value = quill.root.innerHTML;
-        dispatch('on-inputentry', {value: value, error: false});
-    }
 
 </script>
 

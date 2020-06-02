@@ -19,18 +19,24 @@
 
 </script>
 
-<div class="is-divider field-hr"
-     style="margin: 1rem 0 0.5rem 0;"
-     id="{field.field}"
+
+
+<div id="{field.field}"
+     class="is-divider field-hr hr-buffer"
      data-content="{tag}">
 
 </div>
+
 
 
 <style>
     .field-hr::after {
         color: #777 !important;
         font-size: 1rem;
+    }
+
+    .hr-buffer {
+        margin: 1rem 0 0.5rem 0;
     }
 
 </style>

@@ -33,12 +33,12 @@ input[type="number"] {
 }
 
 
-/** override theme for meteor ui login button */
-.login-link-text {
-  color: #fff;
+/** quill editor */
+.ql-container {
+  font-size: 1rem !important;
 }
 
-.login-link-text:hover {
-  color: #fff;
-  font-weight: bold;
+
+.ql-picker-options {
+  z-index: 11 !important;
 }
