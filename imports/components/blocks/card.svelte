@@ -1,12 +1,11 @@
 <script>
 
     /**
-     * @summary Component block: card.
+     * Component block: card.
      *
      * @memberof Components:Blocks
      * @function card
      * @locus Client
-     * @isTemplate true
      *
      */
 

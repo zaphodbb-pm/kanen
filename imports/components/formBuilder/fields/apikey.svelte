@@ -11,7 +11,7 @@
      * @emits: {String} newApikey
      *
      * @notes
-     * 1. Restricted to use by administrator to set api keys for users
+     * 1. Restrict use to administrator to set api keys for users
      * 2. Uses window.crypto capability of modern browsers
      *
      */
@@ -20,6 +20,7 @@
     export let field = {};
 
     //* support functions
+    import {buildApiKey} from '/imports/functions/buildApiKey'
     import Icon from '/imports/components/elements/icon.svelte'
     import {getContext, createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
@@ -36,20 +37,7 @@
 
     //* event handlers
     function setkey() {
-
-        //** Own version of a character selector in order to keep all code contained within in this component
-        let choices = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let out = [];
-
-        let arr = new Uint8Array(field.params && field.params.length || 24);
-        window.crypto.getRandomValues(arr);
-
-        arr.forEach(function (item) {
-            let pos = Math.round(item / 255 * choices.length);
-            out.push(choices.charAt(pos));
-        });
-
-        keyValue = out.join("");
+        keyValue = buildApiKey(field.params.length);
         dispatch('on-inputentry', {value: keyValue, error: false}  );
     }
 
