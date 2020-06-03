@@ -57,7 +57,6 @@
  *
  */
 
-import fieldsetConfig from './starter_form_text_fieldset'
 import fieldsetRows from "./starter_form_text_rows";
 
 
@@ -357,32 +356,18 @@ export default [
 
 
 
-    /*
 
-  {
-      field: "startRows",
-      fieldType: "rows",
-      tab: 3,
-      attributes: {},
-      params: fieldsetRows.config,
+    {
+        field: "startRows",
+        fieldType: "rows",
+        tab: 3,
+        attributes: {},
+        params: {
+            key: "id",
+            config: fieldsetRows,
+        },
 
-      optional: true,
-      defaultValue: [],
-  },
-
-
-
-  {
-      field: "startFieldset",
-      fieldType: "fieldset",
-      tab: 3,
-      attributes: {},
-      params: fieldsetConfig.config,
-
-      optional: true,
-      defaultValue: {},
-  },
-
-
-   */
+        optional: true,
+        defaultValue: [],
+    }
 ];

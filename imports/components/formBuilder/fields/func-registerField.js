@@ -36,6 +36,7 @@ import Swatches from './colourPicker.svelte'
 
 import Editor from './editor.svelte'
 import ItemList from './itemList.svelte'
+import RowList from './rows.svelte'
 
 
 export const components = {
@@ -54,4 +55,5 @@ export const components = {
     datePicker: DatePicker,
     editor: Editor,
     itemList: ItemList,
+    rows: RowList,
 }

@@ -45,7 +45,7 @@
     let fieldHelpShow = false;
     let fieldHide = false;
     let formText = getContext("formText");
-    let label = formText && formText[field.field] && formText[field.field].label ? formText[field.field].label : "n/a";
+    let label = formText && formText[field.field] && formText[field.field].label ? formText[field.field].label : "";
     let helpText = formText && formText[field.field] && formText[field.field].helpText ? formText[field.field].helpText : "";
     let adjustLabel = field.adjustLabel ? "adjust-label" : "";
 

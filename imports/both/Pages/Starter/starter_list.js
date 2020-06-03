@@ -46,16 +46,6 @@ export default {
         },
 
         {
-            field:  "classDays",
-            key: "classDays",
-            type: "byDayOfWeek",
-            label: "",
-            filter: "",
-            sort: false,
-            search: false,
-        },
-
-        {
             field:  "_id",
             key:    "_id",
             type:   "del",

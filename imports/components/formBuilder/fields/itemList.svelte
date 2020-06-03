@@ -17,10 +17,9 @@
     export let field = {};
 
     //* support functions
-    import {getContext, createEventDispatcher} from 'svelte';
-
     import Icon from '/imports/components/elements/icon.svelte'
     import Sortable from '/imports/components/blocks/rowDragDrop.svelte'
+    import {getContext, createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
     //* local reactive variable

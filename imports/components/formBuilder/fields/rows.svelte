@@ -30,37 +30,61 @@
     export let field = {};
 
     //* support functions
-    import {getContext, createEventDispatcher} from 'svelte';
-    const dispatch = createEventDispatcher();
-    let formText = getContext("formText");
-
-    //let source = formText[field.field] && formText[field.field].selects ? formText[field.field].selects : [];
-
-    import { quintOut } from "svelte/easing";
-    import { crossfade } from "svelte/transition";
-    import { flip } from "svelte/animate";
+    import {generateId} from '/imports/functions/generateId'
     import Icon from '/imports/components/elements/icon.svelte'
+    import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
+    import Sortable from '/imports/components/blocks/rowDragDrop.svelte'
+    import {getContext,  setContext, createEventDispatcher} from 'svelte';
+    const dispatch = createEventDispatcher();
+
+
 
     //* local reactive variable
+    const fieldsArray = field.params && field.params.config ? field.params.config : [];
+
+    console.log("params", field, fieldsArray);
+
+
     let list = [];
     let key = field.params.key;
 
     let rows = [];
-
-    /*
-    rowAdd = kanen.icons.ROW_ADD;
-    rowDrag = kanen.icons.DRAG;
-    rowRemove = kanen.icons.DELETE;
-    rowEdit = kanen.icons.EDIT;
-    rowDone = kanen.icons.EDIT_DONE;
-    */
     const rowUniq = generateId(8);
 
     let rowInEdit = "";
     let editing = false;
 
-    const params = field.params;
 
+
+    //* set new formText context for embedded formWrapper
+    let formText = getContext("formText");
+    let rowText = formText[field.field] && formText[field.field].rowText ? formText[field.field].rowText : null;
+
+    let rowTextLabels = Object.values(rowText);
+
+
+    list = [
+        {id: 1, info: fieldsArray},
+        {id: 2, info: fieldsArray},
+        {id: 3, info: fieldsArray},
+    ];
+
+
+    if(rowText){
+        setContext("formText", rowText);
+
+
+
+        console.log("rowText", rowText);
+    }
+
+    //const params = field.params.config.config;
+
+
+
+
+
+    /*
     let td0_value = params && params.td0 && params.td0.defaultValue ? params.td0.defaultValue  : "";
     let td1_value = params && params.td1 && params.td1.defaultValue ? params.td1.defaultValue  : "";
     let td2_value = params && params.td2 && params.td2.defaultValue ? params.td2.defaultValue  : "";
@@ -69,7 +93,7 @@
     let td5_value = params && params.td5 && params.td5.defaultValue ? params.td5.defaultValue  : {_id: "none", name: ""};
     let td6_value = params && params.td6 && params.td6.defaultValue ? params.td6.defaultValue  : {_id: "none", name: ""};
     let td7_value = params && params.td7 && params.td7.defaultValue ? params.td7.defaultValue  : {_id: "none", name: ""};
-
+*/
 
 
     $: setValue(field.value);
@@ -79,6 +103,20 @@
     function setValue(val){
         rows = val ? val : [];
     }
+
+
+    function updateList(newList){
+        let updated = newList.map( (nl, idx) =>  {
+            nl.id = idx + 1;
+            return nl;
+        });
+
+        list = updated;
+        dispatch('on-inputentry', {value: list, error: false});
+    }
+
+
+
 
     /*
     import {i18n} from '/imports/client/functions/func-i18n'
@@ -141,9 +179,27 @@
         return `${hr}:${min} ${suffix}`
     }
 
+
+
+
+    function tdUpdate(msg) {
+        console.log("tdUpdate", msg.detail);
+
+
+        //td0_value = msg;
+    }
+
+
+
+
+
+
     function resetRow() {
         editing = false;
 
+        console.log("resetRow")
+
+        /*
         td0_value = "";
         td1_value = 0;
         td2_value = 0;
@@ -152,9 +208,17 @@
         td5_value = {_id: "none"};
         td6_value = {_id: "none"};
         td7_value = {_id: "none"};
+
+         */
     }
 
+
     function setRow(id) {
+
+        console.log("setRow")
+
+
+        /*
         let out = {
             id: id,
             td0: formatNumber(td0_value, "td0"),
@@ -173,18 +237,31 @@
         }
 
         return out;
+
+         */
     }
 
     function addRow() {
         let idx = rows && rows.length ? rows.length + 1 : 1;     // default "id" value
 
+        console.log("addRow", idx);
+
+
+        /*
+
         rows.push(setRow(idx));
         emitValues();
         resetRow();
+
+         */
     }
 
     function updateRow(msg) {
         editing = true;
+
+        console.log("updateRow", msg);
+
+        /*
         let test = rows.filter(row => row.id === msg);
 
         td0_value = formatNumber(test[0].td0, "td0");
@@ -196,12 +273,18 @@
         td6_value = test[0].td6;
         td7_value = test[0].td7;
         rowInEdit = test[0].id;
+
+         */
     }
 
     function returnRow() {
         let edit = rowInEdit;
 
+        console.log("returnRow", edit)
+
+
         if (edit) {
+            /*
             rows = rows.map(row => {
                 if (row.id === edit) {
                     return this.setRow(edit);
@@ -210,6 +293,7 @@
                     return row;
                 }
             });
+            */
 
             emitValues();
             resetRow();
@@ -217,10 +301,15 @@
     }
 
     function deleteRow(rowid) {
+
         rows = rows.filter(row => row.id !== rowid);
         emitValues();
+
+        console.log("deleteRow", rowid, rows);
     }
 
+
+    /*
     function dropRow(dropResult) {
         const {removedIndex, addedIndex, payload} = dropResult;
 
@@ -240,7 +329,9 @@
             emitValues();
         }
     }
+*/
 
+    /*
     function td0_update(msg) {
         td0_value = msg;
     }
@@ -273,10 +364,16 @@
         td7_value = msg;
     }
 
+     */
+
 
     function emitValues() {
-        const self = this;
 
+
+        console.log("emitValues");
+
+
+        /*
         let out = rows.map(row => {
             return {
                 id: row.id,
@@ -292,263 +389,95 @@
         });
 
         dispatch('on-inputentry', out);
+
+         */
     }
+
+
+    function updateElement(item, prop, value) {
+        item[prop] = value;
+        updateList(list);
+    }
+
+
+    function sortList(ev){
+        let newList = ev.detail;
+        updateList(newList)
+    }
+
 </script>
 
 
 
+<fieldset class="box field-rows">
 
-<fieldset class="box vue-rows">
-
-    <div class="buffer-y">
-
-        <div class="table-container">
-            <table class="table is-narrow is-fullwidth">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th v-if="params.td0">{params.td0.label}</th>
-                    <th v-if="params.td1">{params.td1.label}</th>
-                    <th v-if="params.td2">{params.td2.label}</th>
-                    <th v-if="params.td3">{params.td3.label}</th>
-                    <th v-if="params.td4">{params.td4.label}</th>
-                    <th v-if="params.td5">{params.td5.label}</th>
-                    <th v-if="params.td6">{params.td6.label}</th>
-                    <th v-if="params.td7">{params.td7.label}</th>
-                    <th></th>
-                </tr>
-                </thead>
-
-                <Container v-on:drop="dropRow" drag-handle-selector=".row-handle" tag="tbody">
-                    <Draggable v-for="row in rows" v-bind:key="rowUniq + '_' + row.id" tag="tr">
-                        <td>
-                                <span class="add-cursor row-handle">
-                                    <i class="has-text-primary" v-bind:class="rowDrag"></i>
-                                </span>
-
-                            <span class="add-cursor ml-2" v-on:click="updateRow(row.id)">
-                                <i class="add-cursor has-text-primary" v-bind:class="rowEdit"></i>
-                            </span>
-                        </td>
-
-                        <td v-if="params.td0">{row.td0}</td>
-                        <td v-if="params.td1">{row.td1}</td>
-                        <td v-if="params.td2">{row.td2}</td>
-                        <td v-if="params.td3">{row.td3}</td>
-                        <td v-if="params.td4">{formatTime(row.td4, "td4")}</td>
-                        <td v-if="params.td5">{row.td5.name}</td>
-                        <td v-if="params.td6">{row.td6.name}</td>
-                        <td v-if="params.td7">{row.td7.name}</td>
-
-                        <td class="add-cursor" v-on:click="deleteRow(row.id)">
-                            <i class="has-text-danger" v-bind:class="rowRemove"></i>
-                        </td>
-
-                    </Draggable>
-
-                    <tr style="height: 2rem;"></tr>
-                </Container>
-
-            </table>
+    <div class="columns">
+        <div class="column is-offset-2 is-9">
+            <div class="level">
+                {#each Object.values(rowText) as row}
+                    <div class="has-text-weight-bold">{row.label}</div>
+                {/each}
+            </div>
         </div>
     </div>
+
+
+    <Sortable
+            bind:list={list}
+            key={field.params.key}
+            on:sort={sortList}
+            let:item={item}>
+
+
+        <div class="columns">
+            <div class="column is-1 add-cursor has-text-info">
+                <Icon icon='{getContext("iconDrag")}' class="text-1dot5rem"/>
+            </div>
+
+            <div class="column is-1 add-cursor" on:click="{() => updateRow(item.id)}">
+                <Icon icon='{getContext("iconEdit")}' class="text-1dot5rem"/>
+            </div>
+
+            <div class="column">
+                <div class="level">
+                {#each Object.values(item.info) as field}
+                    <div class="mx-2">{field.field}</div>
+                {/each}
+                </div>
+            </div>
+
+            <div class="column is-1 add-cursor" on:click="{() => deleteRow(item.id)}">
+                <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
+            </div>
+
+        </div>
+
+    </Sortable>
+
 
 
     <div class="buffer has-background-white-ter">
         <div class="columns">
+
             <div class="column">
                 <div class="columns">
-
-                    <div class="column" v-if="params.td0">
-                        <div class="field">
-                            <div class="control">
-                                <vue-inputs
-                                        v-bind:id="'td0_' + id"
-                                        v-bind:attributes="params.td0.attributes"
-                                        v-bind:cmpLabel="params.td0.label"
-                                        v-model="td0_value"
-                                        v-on:on-inputentry="td0_update"
-                                        v-bind:aria-describedby="params.td0.helpText">
-                                </vue-inputs>
-                            </div>
+                    {#each fieldsArray as field, idf (field.field)}
+                        <div class="column">
+                            <Field_Wrapper field="{field}" on:field-changed="{tdUpdate}"/>
                         </div>
-                    </div>
-
-                    <div class="column" v-if="params.td1">
-                        <div class="field">
-                            <div class="control">
-                                <vue-inputs
-                                        v-bind:id="'td1_' + id"
-                                        v-bind:attributes="params.td1.attributes"
-                                        v-bind:cmpLabel="params.td1.label"
-                                        v-model="td1_value"
-                                        v-on:on-inputentry="td1_update"
-                                        v-bind:aria-describedby="params.td1.helpText">
-                                </vue-inputs>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column" v-if="params.td2">
-                        <div class="field">
-                            <div class="control">
-                                <vue-inputs
-                                        v-bind:id="'td2_' + id"
-                                        v-bind:attributes="params.td2.attributes"
-                                        v-bind:cmpLabel="params.td2.label"
-                                        v-model="td2_value"
-                                        v-on:on-inputentry="td2_update"
-                                        v-bind:aria-describedby="params.td2.helpText">
-                                </vue-inputs>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column" v-if="params.td3">
-                        <div class="field">
-                            <div class="control">
-                                <vue-switch
-                                        v-bind:id="'td3' + id"
-                                        v-bind:switchLabel="params.td3.label"
-                                        v-bind:switchField="id"
-                                        v-on:on-switch="td3_update"
-                                        v-model="td3_value"
-                                        v-bind="params.td3.attributes"
-                                        v-bind:aria-describedby="params.td3.helpText">
-                                </vue-switch>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column" v-if="params.td4">
-                        <div class="field">
-                            <div class="control">
-
-                                <vue-time-picker v-bind:id="'td4_' + id"
-                                                 v-bind:label="params.td4.label"
-                                                 v-bind:config="params.td4.config"
-                                                 v-model="td4_value"
-                                                 v-on:on-input-time="td4_update"
-                                                 v-bind:aria-describedby="params.td4.helpText">
-                                </vue-time-picker>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column" v-if="params.td5">
-                        <div class="field">
-                            <div class="control">
-                                <vue-selects
-                                        v-bind:id="'td5_' + id"
-                                        v-bind:cmpSelects="params.td5.selects"
-                                        v-bind:cmpLabel="params.td5.label"
-                                        v-on:on-select="td5_update"
-                                        v-model="td5_value"
-                                        v-bind="{parms: {}, value: td5_value}"
-                                        v-bind:aria-describedby="params.td5.helpText">
-                                </vue-selects>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column" v-if="params.td6">
-                        <div class="field">
-                            <div class="control">
-                                <vue-selects
-                                        v-bind:id="'td6_' + id"
-                                        v-bind:cmpSelects="params.td6.selects"
-                                        v-bind:cmpLabel="params.td6.label"
-                                        v-on:on-select="td6_update"
-                                        v-model="td6_value"
-                                        v-bind="{parms: {}, value: td6_value}"
-                                        v-bind:aria-describedby="params.td6.helpText">
-                                </vue-selects>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="column" v-if="params.td7">
-                        <div class="field">
-                            <div v-if="params.td7.params.type === 'dynamicSelectSearch'"
-                                 class="control is-expanded dynamicSelectSearch">
-                                <vue-typeahead-search
-                                        v-bind:id="'td7_' + id"
-                                        v-bind:source="[]"
-                                        v-bind:cmpLabel="params.td7.label"
-                                        v-on:on-select="td7_update"
-                                        v-model="td7_value"
-                                        v-bind="{parms: params.td7.params, value: td7_value}"
-                                        v-bind:aria-describedby="params.td7.helpText">
-                                </vue-typeahead-search>
-                            </div>
-
-                            <div v-else-if="params.td7.params.type === 'typeaheadDynamicSelect'"
-                                 class="control is-expanded dynamicSelect">
-                                <vue-typeahead
-                                        v-bind:id="'td7_' + id"
-                                        v-bind:source="[]"
-                                        v-bind:cmpLabel="params.td7.label"
-                                        v-on:on-select="td7_update"
-                                        v-model="td7_value"
-                                        v-bind="{parms: params.td7.params, value: td7_value}"
-                                        v-bind:aria-describedby="params.td7.helpText">
-                                </vue-typeahead>
-                            </div>
-
-                            <div v-else class="control is-expanded dynamicSelect">
-                                dynamicSelect
-
-                                <!--
-                                <vue-selects
-                                        v-bind:id="'td7_' + id"
-                                        v-bind:cmpSelects="[]"
-                                        v-bind:cmpLabel="params.td7.label"
-                                        v-on:on-select="td7_update"
-                                        v-model="td7_value"
-                                        v-bind="{parms: params.td7.params, value: td7_value}"
-                                        v-bind:aria-describedby="params.td7.helpText">
-                                </vue-selects>
-                                -->
-                            </div>
-
-                        </div>
-                    </div>
+                    {/each}
                 </div>
-
             </div>
 
-            <div class="column is-1 text-1dot6rem add-cursor" v-show="!editing" v-on:click="addRow">
-                <i class="has-text-primary" v-bind:class="rowAdd"></i>
+            <div class="column is-1 add-cursor has-text-info" style="display: {!editing ? 'block' : 'none'}" on:click="{addRow}">
+                <Icon icon='{getContext("iconRowAdd")}' class="text-1dot5rem"/>
             </div>
 
-            <div class="column is-1 text-1dot6rem add-cursor" v-show="editing" v-on:click="returnRow">
-                <i class="has-text-primary" v-bind:class="rowDone"></i>
+            <div class="column is-1 add-cursor has-text-success" style="display: {editing ? 'block' : 'none'}" on:click="{returnRow}">
+                <Icon icon='{getContext("iconEditDone")}' class="text-1dot5rem"/>
             </div>
 
         </div>
-
     </div>
 
 </fieldset>
-
-
-
-
-
-<style>
-
-    table {
-        display: table;
-        border-collapse: separate;
-    }
-
-    tr {
-        display: table-row !important;
-    }
-
-    tr[style*="transform"] {
-        border-collapse: separate !important;
-    }
-
-</style>

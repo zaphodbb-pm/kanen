@@ -103,7 +103,7 @@
     <div class="columns">
 
         {#if showList}
-            <article class="column is-6">
+            <article class="column is-4">
                 <List_Holder
                         config="{conf.list}"
                         {listText}
@@ -117,7 +117,7 @@
         {/if}
 
         {#if showForm}
-            <article class="column is-6">
+            <article class="column is-8">
                 <Form_Holder
                         config="{conf.form}"
                         {formText}

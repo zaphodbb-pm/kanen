@@ -35,6 +35,8 @@ export default {
                 label: "Updated At",
             },
 
+
+            /*
             classDays: {
                 label: "Class Days",
                 filter:  [
@@ -48,6 +50,8 @@ export default {
                     {_id: "_id.sun", name: "Sun"},
                 ]
             },
+
+             */
 
             _id: {
                 label: "Del",
@@ -96,6 +100,11 @@ export default {
             startEmail: {
                 label: "Email Input",
                 helpText: "Checks for valid email before saving.",
+            },
+
+            startPhone: {
+                label: "Telephone Input",
+                helpText: "Supports '+' country code, 7 or 10 digit numbers, brackets and extension as 'x', 'ext'.",
             },
 
             startSwitch: {
@@ -230,6 +239,13 @@ export default {
                 label: "Row of Inputs",
                 helpText: "This is a combination box that contains rows of columns of input fields and returns an " +
                         "array of arrays of objects",
+
+                rowText: {
+                    td0: {label: "Test"},
+                    td1: {label: "Number One"},
+                    td2: {label: "Number Two"},
+                    td3: {label: "", tag: "Active"},
+                }
             },
 
             startFieldset: {

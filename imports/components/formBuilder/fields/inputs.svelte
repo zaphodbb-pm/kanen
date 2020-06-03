@@ -18,6 +18,7 @@
 
     //* support functions
     import {validateEmail} from '/imports/functions/validateEmail'
+    import {validatePhone} from '/imports/functions/validatePhone'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
@@ -70,7 +71,9 @@
                 break;
 
             case attr && attr.type && (attr.type === "tel"):
-                value = ('' + value).replace(/\D/g, '');                // Filter only numbers from the input
+                let validate = validatePhone(value);
+                errorVal = value.length > 0 && !validate.test;
+                value = validate.filter
                 break;
         }
 

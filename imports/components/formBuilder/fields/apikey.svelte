@@ -20,7 +20,7 @@
     export let field = {};
 
     //* support functions
-    import {buildApiKey} from '/imports/functions/buildApiKey'
+    import {generateId} from '/imports/functions/generateId'
     import Icon from '/imports/components/elements/icon.svelte'
     import {getContext, createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
@@ -37,7 +37,7 @@
 
     //* event handlers
     function setkey() {
-        keyValue = buildApiKey(field.params.length);
+        keyValue = generateId(field.params.length);
         dispatch('on-inputentry', {value: keyValue, error: false}  );
     }
 
