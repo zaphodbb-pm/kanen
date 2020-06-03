@@ -19,10 +19,60 @@
  */
 
 
-export default [
+export default {
+
+
+    config: {
+
+            td0: {
+                label: "Test",
+                helpText: "",
+
+                attributes: {type: "text"},
+                params: {},
+                optional: true,
+                defaultValue: "",
+            },
+
+            td1: {
+                label: "Number One",
+                helpText: "",
+
+                attributes: {type: "number", min: 0, step: 1},
+                params: {},
+                optional: true,
+                defaultValue: "",
+            },
+
+            td2: {
+                label: "Number Two",
+                helpText: "",
+
+                attributes: {type: "number", min: 0, max: 100, step: 1},
+                params: {},
+                optional: true,
+                defaultValue: "",
+            },
+
+            td3: {
+                label: "Switch",
+                helpText: "",
+
+                attributes: {},
+                params: {},
+                optional: true,
+                defaultValue: "",
+            }
+
+    },
+
+
+    array: [
         {
             field: "td0",
             fieldType: "input",
+            label: "Test",
+            helpText: "",
 
             attributes: {type: "text"},
             params: {},
@@ -33,6 +83,8 @@ export default [
         {
             field: "td1",
             fieldType: "input",
+            label: "Number One",
+            helpText: "",
 
             attributes: {type: "number", min: 0, step: 1},
             params: {},
@@ -43,6 +95,8 @@ export default [
         {
             field: "td2",
             fieldType: "input",
+            label: "Number Two",
+            helpText: "",
 
             attributes: {type: "number", min: 0, max: 100, step: 1},
             params: {},
@@ -53,10 +107,18 @@ export default [
         {
             field: "td3",
             fieldType: "switch",
+            label: "Switch",
+            helpText: "",
 
             attributes: {},
             params: {},
             optional: true,
             defaultValue: "",
         }
-    ];
+    ]
+};
+
+
+
+
+

@@ -8,8 +8,8 @@
      * @augments formWrapper
      *
      * @param {Object} field
-     * @param {Object} field.params1 - {type: "staticSelect", rows: 10}
-     * @param {Object} field.params1 - {type: "dynamicSelect", rows: 10, coll: "circuits", filter: {fields: {_id: 1, name: 1}}, options: {sort: {name: 1}}}
+     * @param {Object} field.params (static) - {type: "staticSelect", rows: 10}
+     * @param {Object} field.params (dynamic) - {type: "dynamicSelect", rows: 10, coll: "circuits", filter: {fields: {_id: 1, name: 1}}, options: {sort: {name: 1}}}
      *
      * @emits: 'on-inputentry' {value: value, error: false} with array of objects
      *

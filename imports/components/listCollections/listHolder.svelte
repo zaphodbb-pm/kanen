@@ -274,8 +274,8 @@
     function loadText(fields, text){
         return fields.map( (fld) => {
             let field = Object.assign({}, fld);     // ensure no side effects happen
-            field.label = text[field.key].label;
-            field.filter = text[field.key].filter ? text[field.key].filter : null;
+            field.label = text[field.key] && text[field.key].label ? text[field.key].label : "";
+            field.filter = text[field.key] && text[field.key].filter ? text[field.key].filter : null;
             return field;
         })
     }

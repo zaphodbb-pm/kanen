@@ -2,7 +2,7 @@
  * Own version of a character selector in order to build a variable length api key.
  *
  * @memberof Functions
- * @function buildApiKey
+ * @function generateId
  * @locus Client
  *
  * @param {Number} length - length / number of characters for api key
@@ -10,7 +10,7 @@
  * @returns {String} - api key of requested length
  */
 
-export function buildApiKey( length ) {
+export function generateId( length ) {
     let choices = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let out = [];
 

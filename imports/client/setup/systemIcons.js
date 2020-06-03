@@ -120,6 +120,15 @@ out.iconFilters = filters;
 import del_icon from '/public/svg_to_js/trash-alt-solid.json';
 out.iconDelete = del_icon;
 
+import grip from '/public/svg_to_js/grip-lines-solid.json';
+out.iconDrag = grip;
+
+import edit from '/public/svg_to_js/pencil-alt-solid.json';
+out.iconEdit = edit;
+
+import editDone from '/public/svg_to_js/check-solid.json';
+out.iconEditDone = editDone;
+
 import cancel from '/public/svg_to_js/times-circle.json';
 out.iconCancel = cancel;
 

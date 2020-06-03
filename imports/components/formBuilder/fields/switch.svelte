@@ -25,6 +25,8 @@
     //* local reactive variable
     let inValue = "";
     let checkValue = "";
+    const tag = formText[field.field] && formText[field.field].tag ? formText[field.field].tag : "";
+    const label = formText[field.field] && formText[field.field].label ? formText[field.field].label : "";
 
     $: setValue(field.value);
 
@@ -42,15 +44,17 @@
 
 </script>
 
-<div class="box d-flex align-items-center">
+
+<div class="input d-flex align-items-center" style="{label ? 'padding: 1.5rem' : ''}">
 
     <div class="switch-toggle  {inValue ? 'has-background-primary': ''}"  on:click|stopPropagation="{clickSwitch}">
         <div class="switch-toggle-bubble {inValue ? 'bubble-on': ''}"></div>
     </div>
 
-    <label class="switch-label">{formText[field.field].tag}</label>
+    <label class="switch-label">{tag}</label>
 
 </div>
+
 
 <style>
     .switch-label {
