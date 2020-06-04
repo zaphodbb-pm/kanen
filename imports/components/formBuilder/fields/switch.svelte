@@ -7,7 +7,7 @@
      * @locus Client
      * @augments fieldWrapper
      *
-     * @param {Object} field
+     * @param {Object} - isCheck ? true = checkbox : else = toggle
      *
      * @emits: 'on-inputentry' {value: value, error: errorVal} with boolean
      *
@@ -23,10 +23,10 @@
     let formText = getContext("formText");
 
     //* local reactive variable
-    let inValue = "";
-    let checkValue = "";
+    let inValue = false;
     const tag = formText[field.field] && formText[field.field].tag ? formText[field.field].tag : "";
     const label = formText[field.field] && formText[field.field].label ? formText[field.field].label : "";
+    const isCheck = !!(field.params && field.params.isCheck);
 
     $: setValue(field.value);
 
@@ -36,10 +36,9 @@
         inValue = val;
     }
 
-
     function clickSwitch(){
         inValue = !inValue;
-        dispatch('on-inputentry', {value: inValue, error: false} )
+        dispatch('on-inputentry', {value: inValue, error: false} );
     }
 
 </script>
@@ -47,19 +46,39 @@
 
 <div class="input d-flex align-items-center" style="{label ? 'padding: 1.5rem' : ''}">
 
-    <div class="switch-toggle  {inValue ? 'has-background-primary': ''}"  on:click|stopPropagation="{clickSwitch}">
-        <div class="switch-toggle-bubble {inValue ? 'bubble-on': ''}"></div>
-    </div>
+    {#if isCheck}
 
-    <label class="switch-label">{tag}</label>
+        <div>
+            <input type="checkbox"
+                   id="{field.field + '_checkbox'}"
+                   class="is-checkradio is-primary has-background-color"
+                   title=""
+                   {...field.attributes}
+                   bind:checked={inValue}
+                   on:click|stopPropagation="{clickSwitch}">
+
+            <label for="{field.field + '_checkbox'}">{tag}</label>
+        </div>
+
+    {:else}
+
+        <div class="switch-toggle  {inValue ? 'has-background-primary': ''}"  on:click|stopPropagation="{clickSwitch}">
+            <div class="switch-toggle-bubble {inValue ? 'bubble-on': ''}"></div>
+        </div>
+
+        <label class="switch-label">{tag}</label>
+
+    {/if}
 
 </div>
 
 
 <style>
+
     .switch-label {
         margin-left: 1rem;
     }
+
     .switch-toggle {
         position: relative;
         height: 1.5rem;
@@ -85,6 +104,12 @@
     .switch-toggle-bubble.bubble-on {
         transform: translateX(1.5rem);
         transition-duration: 0.5s;
+    }
+
+
+    .checkbox-button input[type="checkbox"] {
+        opacity: 0;
+        cursor: none;
     }
 
 </style>

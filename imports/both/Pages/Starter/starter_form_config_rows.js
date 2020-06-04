@@ -19,6 +19,58 @@
  */
 
 
+
+
+
+export default {
+
+    field1: {
+        field: "field1",
+        fieldType: "input",
+
+        attributes: {type: "text"},
+        params: {},
+        optional: true,
+        defaultValue: "",
+    },
+
+
+    field2: {
+        field: "field2",
+        fieldType: "input",
+
+        attributes: {type: "number", min: 0, step: 1},
+        params: {},
+        optional: true,
+        defaultValue: 0,
+    },
+
+    field3: {
+        field: "field3",
+        fieldType: "input",
+
+        attributes: {type: "number", min: 0, max: 100, step: 1},
+        params: {},
+        optional: true,
+        defaultValue: 1,
+    },
+
+    field4: {
+        field: "field4",
+        fieldType: "switch",
+
+        attributes: {},
+        params: {isCheck: true},
+        optional: true,
+        defaultValue: true,
+    }
+};
+
+
+
+
+
+/*
 export default [
         {
             field: "td0",
@@ -60,3 +112,4 @@ export default [
             defaultValue: "",
         }
     ];
+*/

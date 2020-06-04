@@ -57,7 +57,7 @@
  *
  */
 
-import fieldsetRows from "./starter_form_text_rows";
+import fieldsetRows from "./starter_form_config_rows";
 
 
 export default [
@@ -150,8 +150,21 @@ export default [
         optional: true,
 
         tab: 0,
+        group: {section: 2, class: ""},
         attributes: {},
         params: {},
+        defaultValue: false,
+    },
+
+    {
+        field: "startCheckItem",
+        fieldType: "switch",
+        optional: true,
+
+        tab: 0,
+        group: {section: 2, class: ""},
+        attributes: {},
+        params: {isCheck: true},
         defaultValue: false,
     },
 

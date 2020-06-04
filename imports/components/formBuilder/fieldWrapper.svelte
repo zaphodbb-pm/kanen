@@ -57,6 +57,7 @@
         let checkVal = typeof field.value !== "undefined" ? field.value : field.defaultValue;
         fieldOpt = testValid(checkVal, field.optional);
         field.fieldValue = checkVal;
+        field.value = checkVal;
 
         //* for initial state, check for watched default
         if (field.listen && field.listen.src) {
@@ -67,6 +68,9 @@
         if (field.watchFields && field.listen && field.listen.src && (field.listen.src === field.watchFields.field)) {
             fieldHide = checkWatched(field.watchFields, field.listen);
         }
+
+
+        //console.log("prepareField", fieldIn, field);
 
         return field
     }
