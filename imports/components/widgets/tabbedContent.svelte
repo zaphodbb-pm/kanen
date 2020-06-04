@@ -105,9 +105,7 @@
     </div>
 
     {#each body() as tab}
-        {#if tab.label === currTab}
-            <div>{@html tab.text}</div>
-        {/if}
+        <div class:is-hidden={!(tab.label === currTab)}>{@html tab.text}</div>
     {/each}
 
 </div>
