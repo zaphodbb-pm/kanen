@@ -40,7 +40,7 @@
 
 
     //* local reactive variable
-    const fieldsArray = field.params && field.params.config ? field.params.config : [];
+    const fieldsArray = field.params && field.params.config ? field.params.config : {};
 
     console.log("params", field, fieldsArray);
 
@@ -63,26 +63,22 @@
     let rowTextLabels = Object.values(rowText);
 
 
+    /*
     list = [
         {id: 1, info: fieldsArray},
         {id: 2, info: fieldsArray},
         {id: 3, info: fieldsArray},
     ];
+    */
 
 
     if(rowText){
         setContext("formText", rowText);
 
-
-
         console.log("rowText", rowText);
     }
 
     //const params = field.params.config.config;
-
-
-
-
 
     /*
     let td0_value = params && params.td0 && params.td0.defaultValue ? params.td0.defaultValue  : "";
@@ -102,6 +98,9 @@
     //* functions that mutate local variables
     function setValue(val){
         rows = val ? val : [];
+
+
+        console.log("rows", field);
     }
 
 
@@ -185,6 +184,9 @@
     function tdUpdate(msg) {
         console.log("tdUpdate", msg.detail);
 
+        console.log("tdUpdate array", fieldsArray);
+
+
 
         //td0_value = msg;
     }
@@ -260,6 +262,8 @@
         editing = true;
 
         console.log("updateRow", msg);
+
+
 
         /*
         let test = rows.filter(row => row.id === msg);
@@ -428,7 +432,6 @@
             on:sort={sortList}
             let:item={item}>
 
-
         <div class="columns">
             <div class="column is-1 add-cursor has-text-info">
                 <Icon icon='{getContext("iconDrag")}' class="text-1dot5rem"/>
@@ -449,7 +452,6 @@
             <div class="column is-1 add-cursor" on:click="{() => deleteRow(item.id)}">
                 <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
             </div>
-
         </div>
 
     </Sortable>
@@ -461,7 +463,7 @@
 
             <div class="column">
                 <div class="columns">
-                    {#each fieldsArray as field, idf (field.field)}
+                    {#each  Object.values(fieldsArray) as field, idf (field.field)}
                         <div class="column">
                             <Field_Wrapper field="{field}" on:field-changed="{tdUpdate}"/>
                         </div>
@@ -469,11 +471,11 @@
                 </div>
             </div>
 
-            <div class="column is-1 add-cursor has-text-info" style="display: {!editing ? 'block' : 'none'}" on:click="{addRow}">
+            <div class="column is-1 add-cursor has-text-info" class:is-hidden={editing} on:click="{addRow}">
                 <Icon icon='{getContext("iconRowAdd")}' class="text-1dot5rem"/>
             </div>
 
-            <div class="column is-1 add-cursor has-text-success" style="display: {editing ? 'block' : 'none'}" on:click="{returnRow}">
+            <div class="column is-1 add-cursor has-text-success" class:is-hidden={!editing} on:click="{returnRow}">
                 <Icon icon='{getContext("iconEditDone")}' class="text-1dot5rem"/>
             </div>
 

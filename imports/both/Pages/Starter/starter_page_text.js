@@ -113,6 +113,12 @@ export default {
                 helpText: "Fancy check box for single item on or off.",
             },
 
+            startCheckItem: {
+                label: "Check Item",
+                tag: "Make Active",
+                helpText: "Alternative to a switch item.",
+            },
+
             startTextArea: {
                 label: "Text Area",
                 helpText: "Expandable text area.",
@@ -241,10 +247,10 @@ export default {
                         "array of arrays of objects",
 
                 rowText: {
-                    td0: {label: "Test"},
-                    td1: {label: "Number One"},
-                    td2: {label: "Number Two"},
-                    td3: {label: "", tag: "Active"},
+                    field1: {label: "Test"},
+                    field2: {label: "Number One"},
+                    field3: {label: "Number Two"},
+                    field4: {label: "", tag: "Active"},
                 }
             },
 

@@ -29,9 +29,14 @@
     $: setValue(field.value);
 
 
+
+
     //* functions that mutate local variables
     function setValue(val){
         inValue = val;
+
+        //console.log("inputs", field, inValue);
+
     }
 
     function checkInput(){
