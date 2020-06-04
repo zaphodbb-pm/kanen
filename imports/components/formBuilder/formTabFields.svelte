@@ -117,14 +117,10 @@
 
     {#if config.hasTabs && !config.hasGroups}
         {#each fields as tab, index}
-
-            start of hasTabs && !hasGroups: {JSON.stringify(tab)}
-            <div style="margin-top: 1rem;">
-                {#if tabLabels[index] === currTab}
-                    {#each tab as field}
-                        <Field_Wrapper field="{fieldInfo(field)}"  on:field-changed="{fieldChanged}"/>
-                    {/each}}
-                {/if}
+            <div class:is-hidden={!(tabLabels[index] === currTab)} style="margin-top: 1rem;">
+                {#each tab as field}
+                    <Field_Wrapper field="{fieldInfo(field)}"  on:field-changed="{fieldChanged}"/>
+                {/each}
             </div>
         {/each}
     {/if}
@@ -143,18 +139,15 @@
 
     {#if config.hasTabs && config.hasGroups}
         {#each fields as tab, index}
-
-            {#if tabLabels[index] === currTab}
-                {#each tab as groups, grp}
-                    <div class="columns">
-                        {#each groups as group, idg}
-                            <div class="column {group.group && group.group.class ? group.group.class : '' }" style="margin-top: 1rem;">
-                                <Field_Wrapper field="{fieldInfo(group)}" on:field-changed="{fieldChanged}"/>
-                            </div>
-                        {/each}
-                    </div>
-                {/each}
-            {/if}
+            {#each tab as groups, grp}
+                <div class="columns" class:is-hidden={!(tabLabels[index] === currTab)}>
+                    {#each groups as group, idg}
+                        <div class="column {group.group && group.group.class ? group.group.class : '' }" style="margin-top: 1rem;">
+                            <Field_Wrapper field="{fieldInfo(group)}" on:field-changed="{fieldChanged}"/>
+                        </div>
+                    {/each}
+                </div>
+            {/each}
         {/each}
     {/if}
 
