@@ -204,31 +204,24 @@
             fields.forEach(function (el) {
                 let val = dotNotation(values, el.key);
 
-                //*** "users" is a special case
-                if (coll === "users") {
-                    if (el.key === "emails") {
-                        val = val && val[0] ? val[0].address : "ex@example.com";
-                    }
-                }
+                switch(true){
 
-                //*** convert timestamps to relative time string
-                if (el.key === "updatedAt") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "createdAt") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "data.time") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "timeStamp") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "tag") {
-                    val = values.data && values.data.event ? values.data.event : val;
-                }
-                if (el.type === "object") {
-                    val = JSON.stringify(val).replace(/,/g, ", ");
+                    //*** "users" is a special case
+                    case coll === "users" && el.key === "emails":
+                        val = val && val[0] ? val[0].address : "ex@example.com";
+                        break;
+
+                    case el.key === "tag":
+                        val = values.data && values.data.event ? values.data.event : val;
+                        break;
+
+                    case ["updatedAt", "createdAt", "data.time", "timeStamp"].includes(el.key):
+                        val = timeAgo(val);
+                        break;
+
+                    case el.type === "object":
+                        val = JSON.stringify(val).replace(/,/g, ", ");
+                        break;
                 }
 
                 let base = el.base ? el.base : "";
@@ -250,9 +243,6 @@
         });
         return out;
     }
-
-
-
 
 </script>
 
