@@ -365,8 +365,8 @@
                 </div>
 
                 {#if !!config.hasFilters}
-                    <div class="column is-2">
-                        <div style="display: flex; flex-direction: row-reverse;">
+                    <div class="column is-3">
+                        <div class="d-flex flex-row-reverse">
                             <div class="button {filterState}" on:click="{setFilter}">
                                 <Icon icon='{getContext("iconFilters")}' class="text-1dot5rem"/>
                             </div>
