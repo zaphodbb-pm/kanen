@@ -17,7 +17,8 @@
      * @param {String}  field.defaultValue - initial input value
      *
      * @param {Object}  field.listen - {src: <fieldName>, key: watching object -> <keyName>, value: <trigger value>}
-     * @param {Array}  field.role - list of user role strings that can see this field
+     * @param {Array}   field.role - list of user role strings that can see this field
+     * @param {String}  field.css - certain field inserts can be further modified with css
      *
      * @notes
      *  Support text is set by 'formHolder' into context 'formText':

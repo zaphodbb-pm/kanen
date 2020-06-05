@@ -21,7 +21,7 @@ export default {
 
         hasGroups:  true,               // allows fields to be grouped onto the same row
         hasTabs:    true,               // has tabbed fields in form
-        hasStepper: false,              // use stepper layout for tab fields (usually hasTabs is set to true)
+        hasStepper: false,              // use stepper layout for tab fields (needs hasTabs set to true)
         hasPreview: false,              // support auxiliary preview button
         hasOverlay: false,              // support for form overlaying the list during edit operation
         clone:      true,               // allow user to clone current document in edit

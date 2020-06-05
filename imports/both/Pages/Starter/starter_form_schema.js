@@ -38,7 +38,7 @@
  *              field: "startDynamicSelect",        String: field name in database
  *              fieldType: "select",                String: see fieldWrapper notes
  *              optional: true,                     Boolean: if false, forces user entry to present in order to submit form
- *              css: "is-fullwidth",                String: (optional) adds css to fieldWrapper
+ *
  *              adjustLabel: true,                  Boolean: (optional) shifts label right to accommodate button add-on
  *              group: {                            Object: (optional) allows formTabFields to create horizontal group of fields
  *                  section: 0,
@@ -53,6 +53,10 @@
  *                  options: {sort: {name: 1}}
  *              },
  *              defaultValue: {_id: "", name: ""},  {Object|String|Number} submit adds values if no user entry
+ *
+ *              css: "is-fullwidth",                String: (optional) adds css to fieldWrapper
+ *              listen: {src, key, value}           Object: {src: <fieldName>, key: watching object -> <keyName>, value: <trigger value>}
+ *              role: ["admin]                      Array: list of user role strings that can see this field
  *
  *
  */
