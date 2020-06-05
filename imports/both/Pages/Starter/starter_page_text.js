@@ -99,7 +99,7 @@ export default {
 
             startEmail: {
                 label: "Email Input",
-                helpText: "Checks for valid email before saving.",
+                helpText: "Checks for valid email before saving.  This field is 'watched' by startPhone at right.",
             },
 
             startPhone: {
@@ -229,7 +229,7 @@ export default {
 
             startEditor: {
                 label: "Editor",
-                helpText: "Classic text editor on textarea",
+                helpText: "Classic text editor on textarea.",
                 tag: "Be creative, add your content..."
             },
 
