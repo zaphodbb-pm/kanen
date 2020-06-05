@@ -1,6 +1,6 @@
 <script>
     /**
-     * Row container for other input types.
+     * Complex row container that can contain other form field types.
      *
      * @memberof Components:Form
      * @function rows
@@ -12,17 +12,21 @@
      * @emits: 'on-inputentry' {value: value, error: errorVal} - value {Object} of field values
      *
      * @notes
-     *   Field types that can bet set:
-     *      td0 = input field - typically text, but can be other types
-     *      td1 = input field - typically number, but can be other types
-     *      td2 = input field - typically number, but can be other types
-     *      td3 = switch
-     *      td4 = time select widget - set for 15 minute increments
-     *      td5 = static select - requires list of values
-     *      td6 = static select - requires list of values
-     *      td7 = dynamic select or dynamic typeahead - requires target collection to fetch list items
+     *   1. Any field types in FormHolder can used as sub-fields in this component.
+     *      Common types are "input", "select", "typeahead" and "switch".
+     *      Other types are not practical in this type of arrangement.
      *
-     *   If a field item is null, then this table cell will not show.
+     *   2. Returned value is {Array} of objects:
+     *      {
+     *          id: 2,
+     *          info: {
+     *              field1: "try two",
+     *              field2: 0,
+     *              field3: 1,
+     *              field4: true
+     *          }
+     *      }
+     *
      */
 
 
@@ -40,33 +44,101 @@
 
 
     //* local reactive variable
+    let list = [];
+    let key = field.params.key;
+
+    const rowUniq = generateId(8);
+    let editing = false;
+    let rowInEdit = null;
 
     //** get field set-up and prepare out going object that contains first default values and user entry values
     const fieldsArray = field.params && field.params.config ? field.params.config : {};
     let rowDefault ={};
     let rowValues = {};
 
-    resetRow(fieldsArray);
-
-    let list = [];
-    let key = field.params.key;
-
-    const rowUniq = generateId(8);
-    let editing = false;
-
-    //* set new formText context for embedded formWrapper
+    //** set new formText context for embedded formWrapper
     let formText = getContext("formText");
     let rowText = formText[field.field] && formText[field.field].rowText ? formText[field.field].rowText : null;
     let rowTextLabels = Object.values(rowText);
+
 
     if(rowText){
         setContext("formText", rowText);
     }
 
+    //** reset input row section to default
+    resetRow(fieldsArray);
+
+    //** when editing a form document, load value from document
     $: setValue(field.value);
 
 
     //* functions that mutate local variables
+    function setValue(val){
+        list = val ? val : [];
+    }
+
+    function sortList(ev){
+        list = ev.detail;
+        updateList(list);
+    }
+
+    function updateList(newList){
+        let updated = newList.map( (nl, idx) =>  {
+            nl.id = idx + 1;
+            return nl;
+        });
+
+        dispatch('on-inputentry', {value: updated, error: false});
+    }
+
+    function fieldsUpdate(msg) {
+        let change = msg.detail;
+        rowValues[change.field] = change.value;
+    }
+
+    function addRow() {
+        let idx = list && list.length ? list.length + 1 : 1;     // default "id" value
+        list = [...list, {id: idx, info: rowValues}];
+
+        updateList(list);
+        resetRow(fieldsArray);
+    }
+
+    function editRow(msg) {
+        editing = true;
+        let test = list.find(row => row.id === msg);
+        rowInEdit = msg;
+
+        if(test){
+            let temp = rowDefault;
+            temp.forEach(row => row.value = test.info[row.field] );
+            rowDefault = temp;
+            rowValues = test.info;
+        }
+    }
+
+    function returnRow(msg) {
+        let test = list.find(row => row.id === rowInEdit);
+        let idx = list.findIndex(row => row.id === rowInEdit);
+
+        if(test){
+            list[idx].info = rowValues;
+        }
+
+        updateList(list);
+        resetRow(fieldsArray);
+        editing = false;
+    }
+
+    function deleteRow(rowid) {
+        let temp = list
+        temp = temp.filter(row => row.id !== rowid);
+        list = temp;
+
+        updateList(list);
+    }
+
     function resetRow(fieldArray){
         let fa = deepClone(fieldArray);
 
@@ -78,135 +150,18 @@
         rowDefault = Object.values(fa);
     }
 
-
-    function setValue(val){
-        list = val ? val : [];
-
-        console.log("setValue", list);
-    }
-
-    function updateList(newList){
-        let updated = newList.map( (nl, idx) =>  {
-            nl.id = idx + 1;
-            return nl;
-        });
-
-        list = updated;
-        dispatch('on-inputentry', {value: list, error: false});
-    }
-
-    function formatNumber(val, comp) {
-        let value = val;
-        let attr = params[comp] && params[comp].attributes ? params[comp].attributes : null;
-
-        if (attr && attr.type && (attr.type === "number")) {
-            value = parseFloat(value);
-
-            if (attr.step && Number.isInteger(attr.step)) {
-                value = Math.round(value);
-            }
-        }
-
-        return value;
-    }
-
-    function formatTime(val, comp){
-        //** check for valid time string
-        if(typeof val !== 'string' || !val.includes(":")){
-            return "";
-        }
-
-        //** convert 24 hour time to 12 hour time plus suffix for displaying only
-        let ampm = params[comp] && params[comp].config && params[comp].config.hr12 ? params[comp].config.hr12 : false;
-
-        let frag = val.split(":");
-        let hr = parseInt( frag[0] );
-        let min = parseInt( frag[1] );
-        let suffix = ampm ? ( (hr <= 12) ? "am" : "pm" ) : "";
-
-        if (hr > 12 && ampm) {
-            hr = hr - 12;
-        }
-
-        if (hr < 10 && !ampm) {
-            hr = "0" + hr.toString();
-        }
-
-        //* add leading zero to minutes
-        if (min < 10) {
-            min = "0" + min.toString();
-        }
-
-        return `${hr}:${min} ${suffix}`
-    }
-
-
-    function updateElement(item, prop, value) {
-        item[prop] = value;
-        updateList(list);
-    }
-
-
-    function sortList(ev){
-        let newList = ev.detail;
-        updateList(newList)
-    }
-
-
-
-    function fieldsUpdate(msg) {
-        let change = msg.detail;
-        rowValues[change.field] = change.value;
-    }
-
-    function addRow() {
-        let idx = list && list.length ? list.length + 1 : 1;     // default "id" value
-        list = [...list, {id: idx, info: rowValues}];
-        resetRow(fieldsArray);
-    }
-
-    function editRow(msg) {
-        editing = true;
-        let test = list.find(row => row.id === msg);
-
-        if(test){
-            let temp = rowDefault;
-            temp.forEach(row => row.value = test.info[row.field] );
-            rowDefault = temp;
-            rowValues = test.info;
-        }
-    }
-
-    function returnRow(msg) {
-        let test = list.find(row => row.id === msg.detail);
-
-        if(test){
-            list[msg.detail - 1].info = rowValues;
-        }
-        resetRow(fieldsArray);
-        editing = false;
-    }
-
-    function deleteRow(rowid) {
-        let temp = list
-        temp = temp.filter(row => row.id !== rowid);
-        list = temp;
-    }
-
 </script>
 
 
 
 <fieldset class="box field-rows">
 
-    <div class="columns">
-        <div class="column is-offset-2 is-9">
-            <div class="level">
-                {#each Object.values(rowText) as row}
-                    <div class="has-text-weight-bold">{row.label}</div>
-                {/each}
+    <div class="d-flex" style="margin-left: 10%; margin-right: 5%;">
+        {#each Object.values(rowText) as row}
+            <div class="has-text-weight-bold has-text-right" style="width: {100 / rowTextLabels.length}%;">
+                {row.tag && (typeof row.tag === "string") ? row.tag : row.label}
             </div>
-        </div>
+        {/each}
     </div>
 
 
@@ -216,26 +171,34 @@
             on:sort={sortList}
             let:item={item}>
 
-        <div class="columns">
-            <div class="column is-1 add-cursor has-text-info">
+        <div class="d-flex">
+            <div class="add-cursor has-text-info" style="width: 5%;">
                 <Icon icon='{getContext("iconDrag")}' class="text-1dot5rem"/>
             </div>
 
-            <div class="column is-1 add-cursor" on:click="{() => editRow(item.id)}">
+            <div class="cadd-cursor" style="width: 5%;" on:click="{() => editRow(item.id)}">
                 <Icon icon='{getContext("iconEdit")}' class="text-1dot5rem"/>
             </div>
 
-            <div class="column">
-                <div class="level">
-
+            <div class="d-flex" style="width: 85%;">
                 {#each Object.values(item.info) as field}
-                    <div class="mx-2">{field}</div>
-                {/each}
+                    <div class="has-text-right" style="width: {100 / rowTextLabels.length}%;">
 
-                </div>
+                        {#if typeof field === 'boolean'}
+                            {#if field}
+                                <Icon icon='{getContext("iconStatus")}' class="text-1dot5rem has-text-success"/>
+                            {/if}
+                        {:else if typeof field === 'object'}
+                            {field.name}
+                        {:else}
+                            {field}
+                        {/if}
+
+                    </div>
+                {/each}
             </div>
 
-            <div class="column is-1 add-cursor" on:click="{() => deleteRow(item.id)}">
+            <div class="add-cursor has-text-right" style="width: 5%;" on:click="{() => deleteRow(item.id)}">
                 <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
             </div>
         </div>
@@ -244,8 +207,8 @@
 
 
 
-    <div class="buffer has-background-white-ter">
-        <div class="columns">
+    <div class="has-border-top pt-3 mt-5">
+        <div class="columns is-vcentered">
 
             <div class="column">
                 <div class="columns">
@@ -257,12 +220,12 @@
                 </div>
             </div>
 
-            <div class="column is-1 add-cursor has-text-info" class:is-hidden={editing} on:click="{addRow}">
-                <Icon icon='{getContext("iconRowAdd")}' class="text-1dot5rem"/>
+            <div class="column is-1 add-cursor has-text-info align-items-center" class:is-hidden={editing} on:click="{addRow}">
+                <Icon icon='{getContext("iconRowAdd")}' class="is-size-3"/>
             </div>
 
-            <div class="column is-1 add-cursor has-text-success" class:is-hidden={!editing} on:click="{returnRow}">
-                <Icon icon='{getContext("iconEditDone")}' class="text-1dot5rem"/>
+            <div class="column is-1 add-cursor has-text-success align-items-center" class:is-hidden={!editing} on:click="{returnRow}">
+                <Icon icon='{getContext("iconEditDone")}' class="is-size-3"/>
             </div>
 
         </div>

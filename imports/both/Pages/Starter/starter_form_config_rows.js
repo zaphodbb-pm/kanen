@@ -47,12 +47,12 @@ export default {
 
     field3: {
         field: "field3",
-        fieldType: "input",
-
-        attributes: {type: "number", min: 0, max: 100, step: 1},
-        params: {},
+        fieldType: "select",
         optional: true,
-        defaultValue: 1,
+
+        attributes: {},
+        params: {type: "staticSelect"},
+        defaultValue: {_id: "all", name: "All Options"},
     },
 
     field4: {

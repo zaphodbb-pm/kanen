@@ -249,7 +249,20 @@ export default {
                 rowText: {
                     field1: {label: "Test"},
                     field2: {label: "Number One"},
-                    field3: {label: "Number Two"},
+                    field3: {
+                        label: "Select Two",
+                        tag: {_id: "all", name: "All Options", colour: "#000000"},
+                        selects: [
+                            {_id: "sun", name: "Sunday", colour: "#000000"},
+                            {_id: "mon", name: "Monday", colour: "#6666ff"},
+                            {_id: "tue", name: "Tuesday", colour: "#bb22bb"},
+                            {_id: "wed", name: "Wednesday", colour: "#33aa33"},
+                            {_id: "thu", name: "Thursday", colour: "#ff8822"},
+                            {_id: "fri", name: "Friday", colour: "#aaaaaa"},
+                            {_id: "sat", name: "Saturday", colour: "#ff0000"},
+                        ]
+                    },
+
                     field4: {label: "", tag: "Active"},
                 }
             },
