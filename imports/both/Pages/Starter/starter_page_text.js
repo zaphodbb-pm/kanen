@@ -35,24 +35,6 @@ export default {
                 label: "Updated At",
             },
 
-
-            /*
-            classDays: {
-                label: "Class Days",
-                filter:  [
-                    {_id: "_id.none", name: "All Days"},
-                    {_id: "_id.mon", name: "Mon"},
-                    {_id: "_id.tue", name: "Tue"},
-                    {_id: "_id.wed", name: "Wed"},
-                    {_id: "_id.thu", name: "Thu"},
-                    {_id: "_id.fri", name: "Fri"},
-                    {_id: "_id.sat", name: "Sat"},
-                    {_id: "_id.sun", name: "Sun"},
-                ]
-            },
-
-             */
-
             _id: {
                 label: "Del",
             }

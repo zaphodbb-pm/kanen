@@ -84,7 +84,6 @@
 
     //* local reactive variables
     let coll = config.coll;
-    let tabLabels = formText.formTabs;
 
     let submit = {
         btnEdit: formText.labels.editBtn,
@@ -292,11 +291,7 @@
 
     <div class="card-content">
         <div id="tabbed-inputs">
-            <Form_Tabs
-                       {tabLabels}
-                       {fields}
-                       {defaults}
-                       on:field-changed="{fieldChanged}" />
+            <Form_Tabs {fields} on:field-changed="{fieldChanged}" />
 
             <div class="buffer-y-large mt-4">
                 <div class="level">
