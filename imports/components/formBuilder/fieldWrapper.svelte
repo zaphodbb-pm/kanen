@@ -29,6 +29,7 @@
 
     //* props
     export let field = {};
+    export let watchFields = {};
 
     //* support functions
     import {getContext} from 'svelte'
@@ -49,7 +50,16 @@
     let helpText = formText && formText[field.field] && formText[field.field].helpText ? formText[field.field].helpText : "";
     let adjustLabel = field.adjustLabel ? "adjust-label" : "";
 
-    $: field = prepareField(field);
+    $: {
+        field = prepareField(field);
+        fieldHide = !!( (field.listen && field.listen.src) && (field.defaultValue === field.value ) );
+    }
+
+    $: {
+        if( (field.listen && field.listen.src) && watchFields.field){
+            fieldHide = checkWatched(watchFields, field.listen);
+        }
+    }
 
     //* functions that mutate local variables
     function prepareField(fieldIn){
@@ -58,19 +68,6 @@
         fieldOpt = testValid(checkVal, field.optional);
         field.fieldValue = checkVal;
         field.value = checkVal;
-
-        //* for initial state, check for watched default
-        if (field.listen && field.listen.src) {
-            fieldHide = checkDefault(field.rawFields, field.listen);
-        }
-
-        //* check to make sure that we should watch another field and hide if default value
-        if (field.watchFields && field.listen && field.listen.src && (field.listen.src === field.watchFields.field)) {
-            fieldHide = checkWatched(field.watchFields, field.listen);
-        }
-
-
-        //console.log("prepareField", fieldIn, field);
 
         return field
     }
@@ -81,10 +78,10 @@
     }
 
     function fieldInfo(field) {
-        return Object.assign(field, {watchFields: this.watchFields, rawFields: this.rawFields});
+        return Object.assign(field, {watchFields: field.watchFields, rawFields: field.rawFields});
     }
 
-    const fieldUpdate = (inMsg) => {
+    function fieldUpdate(inMsg){
         fieldOpt = testValid(inMsg.detail.value, field.optional);
 
         //*** flow input fields changes up to holder
@@ -100,7 +97,7 @@
 
 
     //* pure functions
-    const testValid = (val, optional) => {
+    function testValid(val, optional){
         //** test for valid values in field
         let test;
 
@@ -113,7 +110,7 @@
         return optional || test ? "" : "field-error";
     }
 
-    const checkWatched = (watched, listen) => {
+    function checkWatched(watched, listen){
         let hide = false;
         let key = listen.key;
         let val = listen.value;
@@ -147,7 +144,7 @@
         return hide;
     }
 
-    const checkDefault = (arr, listen) => {
+    function checkDefault(arr, listen){
         //* for initial state, check for watched default and select value to track
         let out = false;
 
