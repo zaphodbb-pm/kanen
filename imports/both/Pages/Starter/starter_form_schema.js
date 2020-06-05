@@ -122,6 +122,11 @@ export default [
         group: {section: 1},
         tab: 0,
 
+        //** src = field to watch;
+        //** key = if watched field returns an object, then look at key:value
+        //** value = value to trigger on;  allows select box to drive listeners
+        listen: {src: "startEmail", key: null, value: ""},
+
         attributes: {type: "tel"},
         params: {},
         defaultValue: "",
