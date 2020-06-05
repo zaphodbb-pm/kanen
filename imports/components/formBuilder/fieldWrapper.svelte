@@ -16,6 +16,9 @@
      * @param {Boolean} field.optional - flags a field that must have user input to be valid
      * @param {String}  field.defaultValue - initial input value
      *
+     * @param {Object}  field.listen - {src: <fieldName>, key: watching object -> <keyName>, value: <trigger value>}
+     * @param {Array}  field.role - list of user role strings that can see this field
+     *
      * @notes
      *  Support text is set by 'formHolder' into context 'formText':
      *      label - field label
