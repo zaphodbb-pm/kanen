@@ -16,7 +16,7 @@
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
-import Page from './starter_page.svelte'
+import Page from './starter_page_loader.svelte'
 import PageText from './starter_page_text'
 
 let lang = getLang("en");

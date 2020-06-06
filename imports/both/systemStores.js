@@ -16,4 +16,6 @@ import {writable} from 'svelte/store'
 import {getLang} from '../functions/getLang'
 export let lang = writable( getLang("en") );
 
-//* set user position
+//* set user position and items
+export let userPosition = writable( {} );
+export let userExtras = writable( {} );

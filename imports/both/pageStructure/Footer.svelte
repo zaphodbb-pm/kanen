@@ -23,9 +23,12 @@
     import text from './Footer_text'
 
     let showWidget = true;
+    let loc;
 
-    //** meteor stuff
-    let loc = Session.get("userPosition");
+    //** user stuff
+    import {userPosition} from '/imports/both/systemStores'
+    $: loc = $userPosition;
+
 
 </script>
 
@@ -46,10 +49,10 @@
 
     <!-- for dev and test only -->
     {#if showWidget}
-    <div class="text-0dot8rem" style="margin-bottom: 50px;">
-        <span>lat: location.lat</span>
-        <span class="ml-3">lng: location.lng</span>
-    </div>
+        <div class="text-0dot8rem mb-5">
+            <span>lat: {loc.lat}</span>
+            <span class="ml-3">lng: {loc.lng}</span>
+        </div>
     {/if}
 
 </footer>

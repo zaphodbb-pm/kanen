@@ -18,10 +18,9 @@
 
 
 import {methodReturn} from '/imports/functions/methodReturn'
-import {Session} from "meteor/session";
 
 
-export async function submitForm(doc, coll, clone, test, emit) {
+export async function submitForm(doc, coll, clone, test, emit, extras) {
     //** check if cloning original document, then remove original id field to allow Mongo to complete an insertion
     if (clone) {
         delete doc._id;
@@ -34,7 +33,6 @@ export async function submitForm(doc, coll, clone, test, emit) {
     doc.authorName = doc.authorName ? doc.authorName : (me && me.username ? me.username : "username");
     doc.authorFullName = doc.authorFullName ? doc.authorFullName : (me && me.profile && me.profile.name ? me.profile.name : "");
 
-    let extras = Session.get("userExtras");
     doc.tenantId = doc.tenantId ? doc.tenantId : extras && extras.tenantId ? extras.tenantId : "general";
 
     //** provide a case insensitive form of the name for sorted listing
@@ -78,6 +76,15 @@ export async function submitForm(doc, coll, clone, test, emit) {
             break;
 
         default:
+            //** check if this document includes a reference to an address; get geo location if true
+            if(doc.address){
+                let HTTPresult = await HTTP.getPromise(buildRequestUrl(doc.address, "string"));
+                doc = getGeoLocation(doc, HTTPresult);
+
+
+                console.log("address", doc.address, HTTPresult, doc);
+            }
+
             generalSubmit(coll, doc, emit);
     }
     return true;
@@ -103,4 +110,49 @@ function generalSubmit(coll, doc, emit) {
             }
         });
     }
+}
+
+
+
+
+function getGeoLocation(doc, info) {
+    //** converts the result from google geocoder into an object that MongoDb can use and adds to field "geoLocation"
+    let out = doc;
+
+    if (info && info.statusCode === 200) {
+        if (info && info.data && info.data.results[0] && info.data.results[0].geometry && info.data.results[0].geometry.location) {
+            let latLng = info.data.results[0].geometry.location;
+
+            if (latLng && typeof latLng === "object") {
+                out.geoLocation = {
+                    type: "Point",
+                    coordinates: [latLng.lng, latLng.lat]
+                };
+            }
+        }
+    } else {
+        console.warn("http-result-error", info);
+    }
+
+    return out;
+}
+
+
+function buildRequestUrl(address, type) {
+    //** uses Google maps api to geocode an address string
+    let key = Meteor.settings.public.google_maps_api_key;
+    let baseUrl = Meteor.settings.public.google_maps_base_uri;
+    let url = null;
+
+    if (type === "array") {
+        let addr = _.compact(address).join(", ").trim().replace(/\s+/g, "+");
+        url = `${baseUrl}=${addr}&key=${key}`;
+    }
+
+    if (type === "string") {
+        let addr = address.replace(/\s+/g, " ").trim().replace(/\s+/g, "+");
+        url = `${baseUrl}=${addr}&key=${key}`;
+    }
+
+    return url;
 }

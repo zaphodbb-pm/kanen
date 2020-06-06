@@ -1,9 +1,0 @@
-/**
-     * Footer component for MainPage
-     *
-     * @memberof Structure:Client
-     * @function Footer
-     * @locus Client
-     * @augments MainPage
-     *
-     */

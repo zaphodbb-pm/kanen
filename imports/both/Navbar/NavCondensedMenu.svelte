@@ -11,6 +11,10 @@
      * @param {Boolean} bottom - flag to shape menu for use at bottom
      */
 
+    //* props
+    export let currentRoute;
+    export let bottom = false;
+
     //* get system wide icon definition
     import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
@@ -25,8 +29,7 @@
         navigateTo(path);
     }
 
-    export let currentRoute;
-    export let bottom = false;
+
 
 
 </script>

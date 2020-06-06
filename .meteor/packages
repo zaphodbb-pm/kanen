@@ -20,9 +20,9 @@ svelte:compiler
 http@1.4.2
 fourseven:scss
 accounts-password
-session
 aldeed:console-me
 mizzao:user-status
 
 dburles:mongo-collection-instances
 mongo
+session

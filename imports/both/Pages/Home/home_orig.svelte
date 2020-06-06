@@ -1,9 +1,9 @@
 <script>
     /**
-     * @summary Layout insert for Home page.
+     * @summary Layout for Home page.
      *
      * @memberof Pages:Home
-     * @function home_insert
+     * @function Home
      * @locus Client
      *
      */

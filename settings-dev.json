@@ -1,5 +1,12 @@
 {
   "require_documentation": "true",
   "multi_tenancy": "true",
-  "mongodb": "4.2.1"
+  "mongodb": "4.2.1",
+
+  "public": {
+    "google_maps_api_key": "AIzaSyDoziWW6Caoegh1jM5cWebp3uwchAdND-8",
+    "google_maps_base_uri": "https://maps.googleapis.com/maps/api/geocode/json?address"
+  }
 }
+
+

@@ -1,9 +1,0 @@
-/**
-     * @summary Navbar brand insert.
-     *
-     * @memberof Navbar
-     * @function Navbar_Brand
-     * @locus Client
-     * @augments Navbar
-     *
-     */

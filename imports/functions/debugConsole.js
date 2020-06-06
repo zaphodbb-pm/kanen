@@ -29,7 +29,10 @@
  */
 
 export function debugConsole(level, name, vrbl, label) {
-    let sysDebug = Session.get("systemDebug");
+    //let sysDebug = Session.get("systemDebug");
+
+    let sysDebug = "";
+
     if(!sysDebug || !Array.isArray(vrbl) ){ return null; }
 
     //** if the debug level is set in SysConfigs.debugLevel, then output message
