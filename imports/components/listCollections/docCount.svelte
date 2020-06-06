@@ -5,6 +5,7 @@
      * @memberof Components:List
      * @function docCount
      * @locus Client
+     * @augments listHolder
      *
      * @param  {String} docCountLabel
      *

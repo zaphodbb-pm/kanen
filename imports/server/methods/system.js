@@ -136,7 +136,7 @@ Meteor.methods({
         if( request && request.length === 1 ){
 
             let docs = {};
-            let filter = _.extend( request.filter, request.options );
+            let filter = Object.assign( request.filter, request.options  );
             docs = Mongo.Collection.get(request.coll).findOne( request.query, filter );
 
             if(docs && request.trim) {
@@ -151,15 +151,26 @@ Meteor.methods({
         //* find "n" document in collection < limit set in publish method
         if( request && request.length > 1 ){
             let docs = [];
-            let filter = _.extend( request.filter, request.options, {limit: request.length} );
+            let filter = Object.assign( request.filter, request.options, {limit: request.length} );
             docs = Mongo.Collection.get(request.coll).find( request.query, filter ).fetch();
 
             if(docs && request.trim) {
+
+
+                docs.forEach( (doc, idx) => {
+                    const id = doc._id;
+                    docs[idx] = doc[ request.trim ];
+                    docs[idx]._id = id;
+                } );
+
+
+                /*
                 _.each( docs, function(el, idx){
                     const id = el._id;
                     docs[idx] = el[ request.trim ];
                     docs[idx]._id = id;
                 });
+                 */
             }
 
             return docs ? docs : null;
@@ -168,15 +179,25 @@ Meteor.methods({
         //* find all documents in collection
         if( request && request.length === -1 ){
             let docs = [];
-            let filter = _.extend( request.filter, request.options );
+            let filter = Object.assign(request.filter, request.options);
             docs = Mongo.Collection.get(request.coll).find( request.query, filter ).fetch();
 
             if(docs && request.trim) {
+                docs.forEach( (doc, idx) => {
+                    const id = doc._id;
+                    docs[idx] = doc[ request.trim ];
+                    docs[idx]._id = id;
+                } );
+
+
+                /*
                 _.each( docs, function(el, idx){
                     const id = el._id;
                     docs[idx] = el[ request.trim ];
                     docs[idx]._id = id;
                 });
+
+                 */
             }
 
             return docs ? docs : null;

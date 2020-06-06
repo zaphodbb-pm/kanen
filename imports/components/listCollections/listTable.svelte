@@ -3,8 +3,9 @@
      * Table to list documents and fields for docs.
      *
      * @memberof Components:List
-     * @function vue-listTable
+     * @function listTable
      * @locus Client
+     * @augments listHolder
      *
      * @param  {Object} config - decoration for table
      * @param  {Array}  labels
@@ -83,12 +84,16 @@
 
     //* event handlers
     function modalDoc(msg) {
-        let showDoc = _.findWhere(documents, {_id: msg});
+        //let showDoc = _.findWhere(documents, {_id: msg});
+
+        let showDoc = documents.find( (doc) =>  doc._id === msg);
         dispatch('item-modal', showDoc);
     }
 
     function modalUserDoc(msg) {
-        let showDoc = _.findWhere(documents, {_id: msg});
+        //let showDoc = _.findWhere(documents, {_id: msg});
+
+        let showDoc = documents.find( (doc) =>  doc._id === msg);
         dispatch('item-modal-user', showDoc);
     }
 

@@ -88,6 +88,7 @@ Meteor.methods({
             let q = query || {};
             //let out = 0;
 
+
             switch (true) {
                 case coll === 'users':
                     out = Meteor.users.find(q).count();

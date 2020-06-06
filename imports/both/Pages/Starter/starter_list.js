@@ -6,22 +6,20 @@
  * @locus Client
  * @augments starter_page
  *
- * @returns {Object} fields
+ * @returns {Object} - default = {sort: object, fields: array}
  *
  * @example
  * Typical object structure for listing table
  *      _id =               String: id for the document in that table row
  *      name =              String: item name
- *      updatedAt =         String: unix timestamp converted to time ago format
+ *      startStaticSelect = Object: option from selector
+ *      startDateTime =     String: YYYY-mm-dd format
+ *
+ *      //updatedAt =         String: unix timestamp converted to time ago format
  *
  */
 
 
-import {getLang} from '/imports/functions/getLang'
-import {i18n} from '/imports/functions/i18n'
-import listText from './starter_page_text'
-
-let text = i18n(listText, "list", getLang());
 
 export default {
     sort: {"sortName": 1, "name": 1},
@@ -37,12 +35,26 @@ export default {
         },
 
         {
-            field:  "updatedAt",
-            key:    "updatedAt",
+            field:  "startStaticSelect",
+            key:    "startStaticSelect.name",
             type:   "text",
             label:  "tbd",
             sort:   1,
             search: true,
+            filter: {_id: "none", name: "None"}
+        },
+
+        {
+            field:  "startDateTime",
+            key:    "startDateTime",
+            type:   "date",
+            label:  "tbd",
+            sort:   1,
+            search: true,
+            filter: {
+                dateFormat: "d-m-Y",
+                mode: "range"
+            }
         },
 
         {

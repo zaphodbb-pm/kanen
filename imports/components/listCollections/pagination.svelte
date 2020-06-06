@@ -2,10 +2,10 @@
     /**
      * @summary Builds pagination bar.
      *
-     * @memberof Components_List
-     * @function vue-pagination
+     * @memberof Components:List
+     * @function pagination
      * @locus Client
-     * @isTemplate true
+     * @augments listHolder
      *
      * @param  {Number} rows
      * @param  {Number} totalDocs

@@ -5,7 +5,6 @@
      * @memberof Components:List
      * @function listHolder
      * @locus Client
-     * @isTemplate true
      *
      * @param {Object} config - see example
      * @param {Array} fields - list of fields to fetch and show in a table
@@ -41,9 +40,10 @@
      *      field object keys:
      *              field: "name",              // field name
      *              key: "name",                // document key value
-     *              label: text.name.label,     // user readable label for form
+     *              label: "Field Name",        // user readable label for list field
      *              type: "inDateRange",        // how to display in the table or grid; also used by filter
-     *              filter: text.name.filter,   // filter information
+     *              filter: config,             // filter configuration information
+     *              filterText: object          // text for various parts of a filter
      *              condition: {$gte: now},     // general MongoDb search criterion merged with other items for a final query
      *              sort: 1,                    // allows sorting based on value returned
      *              search: true,               // allows for searching from search bar
@@ -57,7 +57,18 @@
     export let sort = {};
     export let submitted = false;
 
+
+
+    /*
+    console.log("listHolder config",  config);
+    console.log("listHolder listText",  listText);
+    console.log("listHolder fields",  fields);
+*/
+
+
+
     //* support functions
+    import {deepClone} from '/imports/functions/deepClone'
     import {onMount, onDestroy, setContext, getContext} from 'svelte'
     import Icon from '/imports/components/elements/icon.svelte'
     import {createEventDispatcher} from 'svelte';
@@ -69,6 +80,7 @@
 
     //* make form text available to all children components
     setContext("listText", listText);
+
     fields = loadText( fields, listText);   // insert text into fields object
 
     //* components
@@ -112,9 +124,8 @@
 
     onMount( async () => {
         //* on first load, show a list of unfiltered documents for this user;
-        addConditions = getConditions(fields);
+        //addConditions = getConditions(fields);
         getFilters = buildFilters(fields);
-
         getCurrentDocs();
     } );
 
@@ -202,18 +213,14 @@
     }
 
 
-
-
-
     function filterList(filters) {
         //* respond to user filter selection and get new list of filtered documents
-        addFilters = filters;
+
+        console.log("filterList", filters.detail);
+
+        addFilters = filters.detail;
         getCurrentDocs();
     }
-
-
-
-
 
 
 
@@ -274,8 +281,12 @@
     function loadText(fields, text){
         return fields.map( (fld) => {
             let field = Object.assign({}, fld);     // ensure no side effects happen
-            field.label = text[field.key] && text[field.key].label ? text[field.key].label : "";
-            field.filter = text[field.key] && text[field.key].filter ? text[field.key].filter : null;
+            field.label = text[field.field] && text[field.field].label ? text[field.field].label : "";
+
+            if(text[field.field] && text[field.field].filter){
+                field.filterText = text[field.field].filter;
+            }
+
             return field;
         })
     }
@@ -300,9 +311,14 @@
         if(fields && fields.length > 0){
             fields.forEach((fld) => {
 
-                if (fld.filter && fld.filter.length > 0) {
+                if (fld.filter) {
                     filters.push(
-                            {field: fld.field, filter: fld.filter, type: fld.type}
+                        {
+                            field: fld.field,
+                            filter: fld.filter,
+                            filterText: fld.filterText,
+                            type: fld.type
+                        }
                     )
                 }
             });
@@ -326,6 +342,8 @@
 
 </script>
 
+
+
 <div class="card list-holder-container">
 
     {#if config.showHdr}
@@ -335,7 +353,6 @@
             </div>
         </div>
     {/if}
-
 
     <div class="card-content">
         <div id="comp_listCollections">

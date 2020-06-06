@@ -5,7 +5,7 @@
      * @memberof Components:List
      * @function listGrid
      * @locus Client
-     * @isTemplate true
+     * @augments listHolder
      *
      * @param  {Object} config - decoration for table
      * @param  {Array}  labels
