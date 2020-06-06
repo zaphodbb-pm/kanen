@@ -4,7 +4,8 @@
      *
      * @memberof Components:List
      * @function rowSize
-     * @locus Client
+     * @locus client
+     * @augments listHolder
      *
      * @param  {Object} config - decoration for row selector
      * @param  {String} label

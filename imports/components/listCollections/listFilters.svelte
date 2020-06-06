@@ -5,10 +5,11 @@
      * @memberof Components:List
      * @function listFilters
      * @locus Client
+     * @augments listHolder
      *
      * @param  {Array} filters - array of filter objects
      *
-     * @returns {Object} - emits 'filters-changed' - a valid MongoDb selector object
+     * @returns {Object} - emits 'filters-changed' - a valid MongoDb selector object across all filter components
      *
      * @notes
      *      Filter can search objects as well.  Format is fieldName + "<parentField>.<childName>".
@@ -33,19 +34,18 @@
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-    //import {parseDate} from '/imports/client/functions/func-parseDate'
-    //import VueFlatPickr from 'vue-flatpickr-component'
+    //* add plugins
+    import Filter_Date from './filterPlugins/dateFilter.svelte'
+    import Filter_Select from './filterPlugins/selectFilter.svelte'
 
-    let parseDate = (p) => p;
+    let filterInserts = {
+        date: Filter_Date,
+        text: Filter_Select,
+    }
 
     //* local reactive variables
     let buildSelector = [];
     let outFilter = {};
-    let dateValue = "";
-    let label = "Date Range";
-    let helpText = "date range help.";
-    let params = {dateFormat: "d-m-Y", mode: "range"};
-    let hasRange = false;
 
 
     $: console.log("list filters", filters);
@@ -64,25 +64,10 @@
         });
     }
 
-    function dateUpdate(ev, field) {
-        if (Array.isArray(ev) && ev.length === 2) {
-            let start = new Date(ev[0]);
-            let end = new Date(ev[1]);
 
-            outFilter[field] = {$gte: start.toISOString(), $lte: end.toISOString()};
-            hasRange = true;
 
-            dispatch("filters-changed", outFilter);
-        }
-    }
 
-    function clearDateRange(field) {
-        dateValue = "";
-        delete this.outFilter[field];
-        hasRange = false;
-        dispatch("filters-changed", outFilter);
-    }
-
+    /*
     function emitFilter(field, sel) {
         switch (true) {
                 //** build geolocation object
@@ -145,6 +130,10 @@
         dispatch("filters-changed", outFilter);
     }
 
+     */
+
+
+    /*
     function emitFilterRD(field, sel) {
         let now = new Date();
         let parts = parseDate(now);
@@ -179,6 +168,10 @@
         dispatch("filters-changed", this.outFilter);
     }
 
+     */
+
+
+    /*
     function emitFilterRange(field, sel) {
         let now = new Date();
         let parts = parseDate(now);
@@ -213,6 +206,10 @@
         dispatch("filters-changed", outFilter);
     }
 
+     */
+
+
+    /*
     function emitFilterDay(field, sel) {
         let val = sel.replace("_id.", "");
 
@@ -226,41 +223,36 @@
     }
 
 
+*/
+
+
+    function filterUpdate(msg){
+        Object.entries(msg.detail).forEach( (m) => {
+            if (m[1] ){
+                outFilter[ m[0] ] = m[1];
+            }else{
+               delete outFilter[ m[0] ];
+            }
+        })
+
+        dispatch("filters-changed", outFilter);
+    }
+
 </script>
 
+
+
 <div class="list-filters filter-selects">
-    {#each buildSelector as selector (selector.field) }
+    {#each buildSelector as field (field.field) }
         <div class="filter-items">
 
-            {#if selector.type === 'date'}
-                <div class="date">
-                    <div class="field has-addons">
-                        <div class="control control-flatpickr" style="width: 14rem">
-                            flat-pickr
+            <svelte:component
+                    this="{filterInserts[field.type]}"
+                    {field}
+                    on:filter-changed="{filterUpdate}"/>
 
-                            <!--
-                            <vue-flat-pickr class="input"
-                                            v-model="dateValue"
-                                            v-bind:config="params"
-                                            v-bind:placeholder="label"
-                                            v-on:on-change="dateUpdate($event, selector.field)"
 
-                                            v-bind:aria-describedby="helpText">
-                            </vue-flat-pickr>
-                            -->
-
-                        </div>
-
-                        {#if hasRange}
-                            <div class="control">
-                                <a class="button is-warning" on:click="{() => {clearDateRange(selector.field)} }">
-                                    <div class="delete"></div>
-                                </a>
-                            </div>
-                        {/if}
-                    </div>
-                </div>
-
+        <!--
             {:else if selector.type === 'relativeDate'}
 
                 <div class="relativeDate select">
@@ -323,10 +315,13 @@
                 </div>
 
             {/if}
+                            -->
 
         </div>
     {/each}
 </div>
+
+
 
 <style>
 

@@ -19,28 +19,6 @@ export default {
         body:   {en: ""},
     },
 
-    list: {
-        en: {
-
-            labels: {
-                hdr: "Document List",
-                addNew: "Add New"
-            },
-
-            name: {
-                label: "Name",
-            },
-
-            updatedAt: {
-                label: "Updated At",
-            },
-
-            _id: {
-                label: "Del",
-            }
-        }
-    },
-
     form: {
         en: {
 
@@ -265,5 +243,42 @@ export default {
                 ]
             }
         }
-    }
+    },
+
+    list: {
+        en: {
+
+            labels: {
+                hdr: "Document List",
+                addNew: "Add New"
+            },
+
+            name: {
+                label: "Name",
+            },
+
+            startStaticSelect: {
+                label: "Select",
+
+                filter: [
+                    {_id: "sun", name: "Sunday", colour: "#000000"},
+                    {_id: "mon", name: "Monday", colour: "#6666ff"},
+                    {_id: "tue", name: "Tuesday", colour: "#bb22bb"},
+                    {_id: "wed", name: "Wednesday", colour: "#33aa33"},
+                    {_id: "thu", name: "Thursday", colour: "#ff8822"},
+                    {_id: "fri", name: "Friday", colour: "#aaaaaa"},
+                    {_id: "sat", name: "Saturday", colour: "#ff0000"},
+                ]
+            },
+
+            startDateTime: {
+                label: "Date",
+                filter: {placeholder: "Date Range"},
+            },
+
+            _id: {
+                label: "Del",
+            }
+        }
+    },
 };

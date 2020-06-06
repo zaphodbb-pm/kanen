@@ -13,7 +13,7 @@
 export function timeAgo(time) {
 
     time = time ? time : new Date(10000000);                    // make sure that time is defined
-    time = _.isObject(time) ? time: new Date(time);             // convert number to date object
+    time = time && time.constructor === Object ? time: new Date(time); // convert number to date object
 
     let now = new Date();
     let seconds =  (now.getTime() - time.getTime());            // milliseconds since last update

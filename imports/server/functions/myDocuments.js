@@ -23,7 +23,7 @@ export function myDocuments(obj, user, rolesIn) {
 
 
     let roles = rolesIn ? rolesIn : [];
-    if(!_.isArray(roles) ){ roles = roles.read; }
+    if( !Array.isArray(roles) ){ roles = roles.read; }
     let key = roles.includes("author") ? "author" : null;
 
     //* if collection allows anyone to see the doc, then return doc
@@ -87,6 +87,6 @@ export function myDocuments(obj, user, rolesIn) {
             addQuery[key] = {$in: members};
         }
 
-        return  _.extend(obj, addQuery);
+        return Object.assign(obj, addQuery);
     }
 }
