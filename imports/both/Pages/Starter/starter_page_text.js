@@ -67,6 +67,17 @@ export default {
                 helpText: "Supports '+' country code, 7 or 10 digit numbers, brackets and extension as 'x', 'ext'.",
             },
 
+            startTextArea: {
+                label: "Text Area",
+                helpText: "Expandable text area.",
+            },
+
+            address: {
+                label: "Address",
+                helpText: "This address will generate a geolocation object on submit.",
+            },
+
+
             startSwitch: {
                 label: "Boolean Switch",
                 tag: "Cancel Weekends",
@@ -77,11 +88,6 @@ export default {
                 label: "Check Item",
                 tag: "Make Active",
                 helpText: "Alternative to a switch item.",
-            },
-
-            startTextArea: {
-                label: "Text Area",
-                helpText: "Expandable text area.",
             },
 
             startCheckbox: {

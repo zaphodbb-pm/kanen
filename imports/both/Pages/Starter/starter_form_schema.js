@@ -14,6 +14,7 @@
  *          startNumber =           Number: float set by step attribute and includes min / max boundaries
  *          startInteger =          Number: integer set by step attribute
  *          startSwitch =           Boolean: checkbox as switch
+ *          address =               String: use to generate a geolocation object for mongo
  *          startTextArea =         String: text area characters
  *          startCheckbox =         Array: list of selected checkboxes
  *          startRadios =           String: group of radio buttons set by select array
@@ -145,6 +146,18 @@ export default [
         params: {},
         defaultValue: "",
     },
+
+    {
+        field: "address",
+        fieldType: "input",
+        optional: true,
+
+        tab: 0,
+        attributes: {type: "text", maxlength: 128},
+        params: {},
+        defaultValue: "",
+    },
+
 
     {
         field: "hr1",

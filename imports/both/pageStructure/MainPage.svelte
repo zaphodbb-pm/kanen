@@ -13,7 +13,6 @@
      *
      */
 
-    import Navbar from '../Navbar/Navbar.svelte'
     import SideNav from '../Navbar/NavSideMenu.svelte'
     import Footer from './Footer.svelte'
     import Route from 'svelte-router-spa/src/components/route.svelte'
@@ -22,10 +21,6 @@
     export let params = {};
 
 </script>
-
-
-
-<Navbar {currentRoute} />
 
 
 <div class="page-master-layout has-background-white">
@@ -37,7 +32,7 @@
 
         <div class="column">
             <section id="page-layout">
-                <Route {currentRoute}  {params} />
+                <Route {currentRoute} {params} />
             </section>
 
             <Footer />

@@ -63,6 +63,7 @@
     export let directdoc;
 
     //** svelte handlers
+    import {userExtras} from '/imports/both/systemStores'
     import {onMount, setContext, getContext} from 'svelte';
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
@@ -261,7 +262,7 @@
 
             //** send completed doc to server insert / update methods
             fields = adjFields;
-            submitForm(newValues, coll, false, false, dispatch);
+            submitForm(newValues, coll, false, false, dispatch, $userExtras);
 
             fields = defaults;
             dispatch("current-editted-doc", newValues);

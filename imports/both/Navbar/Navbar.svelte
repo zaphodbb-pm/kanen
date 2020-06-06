@@ -8,23 +8,24 @@
      *
      */
 
-    import {layout} from '/imports/client/setup/systemGlobals'
+    //* props
+    export let currentRoute;
 
+    //* support files
+    import {layout} from '/imports/client/setup/systemGlobals'
+    import {createEventDispatcher} from 'svelte'
+    const dispatch = createEventDispatcher();
+
+    //* components
     import Navbar_Brand from './Navbar_Brand.svelte'
     import Navbar_Links from './Navbar_Links.svelte'
     import NavShortcuts from './NavCondensedMenu.svelte'
     import SideNav from './NavSideMenu.svelte'
     import AsideNav from './asideNavWrapper.svelte'
 
-    import {createEventDispatcher} from 'svelte'
-    const dispatch = createEventDispatcher();
-
-    export let currentRoute;
-
     //** simple nav configuration options
     let theme = "light";        // "light" or "dark" background
     let side = "left";          // "left" or "right" entry
-
     let open = false;           // hamburger state true = "open"; false = "closed"
 
 </script>
@@ -82,8 +83,8 @@
 </div>
 
 
-<AsideNav bind:open {theme} {side}>
-    <SideNav {currentRoute} {theme}/>
+<AsideNav bind:open {theme} {side} >
+    <SideNav {currentRoute} {theme} on:side-link-selected={() => open = false} />
 </AsideNav>
 
 

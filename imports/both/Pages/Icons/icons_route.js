@@ -13,7 +13,7 @@
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
-import Page from './icons.svelte'
+import Page from './icons_loader.svelte'
 import PageText from './icons_text'
 
 let lang = getLang("en");

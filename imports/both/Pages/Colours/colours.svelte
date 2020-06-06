@@ -1,14 +1,12 @@
 <script>
     /**
-     * @summary Layout for Icons page.
+     * Layout for Colours page.
      *
      * @memberof Pages:Colours
      * @function Icons
      * @locus Client
      *
      */
-
-
 
     //* setup props to receive route data
     export let currentRoute;

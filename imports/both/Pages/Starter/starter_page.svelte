@@ -69,7 +69,6 @@
     })
 
 
-
     function checkOverlay() {
         showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
         showForm = !conf.form.hasOverlay;
@@ -79,8 +78,12 @@
     function docToEdit(msg) {
         currentDoc = msg.detail;
         editdoc = msg.detail;
-        showList = !conf.list.hasOverlay;
-        showForm = !conf.list.hasOverlay || !!conf.form.hasOverlay;
+
+        if(!releaseEdit){
+            showList = !conf.list.hasOverlay;
+            showForm = !conf.list.hasOverlay || !!conf.form.hasOverlay;
+        }
+
         releaseEdit = false;
     }
 
@@ -97,42 +100,32 @@
 <Hdr />
 
 
-
 <section class="page-body">
-
     <div class="columns">
 
-        {#if showList}
-            <article class="column is-5">
-                <List_Holder
-                        config="{conf.list}"
-                        {listText}
-                        {fields}
-                        {sort}
-                        submitted="{releaseEdit}"
+        <article class="column is-5" class:is-hidden={!showList}>
+            <List_Holder
+                    config="{conf.list}"
+                    {listText}
+                    {fields}
+                    {sort}
+                    submitted="{releaseEdit}"
+                    on:send-doc="{docToEdit}"/>
 
-                        on:send-doc="{docToEdit}"/>
+        </article>
 
-            </article>
-        {/if}
+        <article class="column is-7" class:is-hidden={!showForm}>
+            <Form_Holder
+                    config="{conf.form}"
+                    {formText}
+                    {schema}
+                    {role}
+                    {editdoc}
+                    {directdoc}
+                    on:back-to-list="{checkOverlay}"
+                    on:doc-submitted="{docSent}"/>
 
-        {#if showForm}
-            <article class="column is-7">
-                <Form_Holder
-                        config="{conf.form}"
-                        {formText}
-                        {schema}
-                        {role}
-                        {editdoc}
-                        {directdoc}
-
-                        on:back-to-list="{checkOverlay}"
-                        on:doc-submitted="{docSent}"
-                />
-
-            </article>
-        {/if}
+        </article>
 
     </div>
-
 </section>

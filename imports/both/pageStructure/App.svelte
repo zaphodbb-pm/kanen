@@ -41,11 +41,33 @@
     //* get system wide constants
     //import {documents, colors, colorArrays, components, theme } from '/imports/client/setup/systemGlobals'
 
+    //* set up user extra items
+    import {userPosition} from '/imports/both/systemStores'
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        $userPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+
+            accuracy: position.coords.accuracy,
+            altitude: position.coords.altitude,
+            altitudeAccuracy: position.coords.altitudeAccuracy,
+            heading: position.coords.heading,
+            speed: position.coords.speed,
+        };
+    });
+
     //* load router -> will render main page & components based on nav-link selection
+    import Navbar from '../Navbar/Navbar.svelte'
+
     import Pages from 'svelte-router-spa/src/components/router.svelte'
+    import { activeRoute } from 'svelte-router-spa/src/store'
     import {routes} from '../routes'
 
 
 </script>
+
+
+<Navbar currentRoute="{$activeRoute}" />
 
 <Pages {routes} />

@@ -10,6 +10,9 @@
      *
      */
 
+    //* props
+    export let currentRoute;
+
     //* get system wide icon definition
     import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
@@ -23,8 +26,6 @@
         event.stopPropagation()
         navigateTo(path);
     }
-
-    export let currentRoute;
 
     let showLinks = routes.filter( (route) => !!route.component );
 

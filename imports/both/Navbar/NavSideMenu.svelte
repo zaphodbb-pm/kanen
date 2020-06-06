@@ -27,6 +27,7 @@
     function navigate(event, path) {
         event.preventDefault()
         event.stopPropagation()
+        dispatch("side-link-selected", true);
         navigateTo(path);
     }
 
@@ -38,7 +39,7 @@
 
 {#each groups as group }
 
-    <div class="mb-4">
+    <div class="nav-side-menu mb-4">
         {#each group as links}
 
             <a class="navbar-item navbar-hover "
