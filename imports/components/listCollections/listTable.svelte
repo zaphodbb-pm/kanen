@@ -25,6 +25,7 @@
      *              "modal" - sends doc info to modal for detailed display
      *              "modalUser" - sends doc info to then fetch user info
      *              "text" - plain text display
+     *              "select" - gets "name" field value
      *              "date" - formatted date display text
      *              "phone" - formatted phone number with link to phone application
      *              "email" - formatted email with link to email application
@@ -225,7 +226,7 @@
                         break;
 
                     case el.type === "object":
-                        val = JSON.stringify(val).replace(/,/g, ", ");
+                        val = val ? JSON.stringify(val).replace(/,/g, ", ") : "";
                         break;
                 }
 
@@ -319,7 +320,7 @@
                                 {cell.value}
                             </td>
 
-                        {:else if cell.type === 'text' }
+                        {:else if cell.type === 'text' || cell.type === 'select'}
                             <td class="has-text-left">
                                 {cell.prefix}{cell.value}{cell.suffix}
                             </td>

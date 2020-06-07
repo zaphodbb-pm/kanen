@@ -37,7 +37,7 @@ export default {
         {
             field:  "startStaticSelect",
             key:    "startStaticSelect.name",
-            type:   "text",
+            type:   "select",
             label:  "tbd",
             sort:   1,
             search: true,
@@ -55,6 +55,16 @@ export default {
                 dateFormat: "d-m-Y",
                 mode: "range"
             }
+        },
+
+        {
+            field:  "geoLocation",
+            key:    "geoLocation",
+            type:   "object",
+            label:  "tbd",
+            sort:   false,
+            search: true,
+            filter: {_id: "none", name: "World Wide"}
         },
 
         {

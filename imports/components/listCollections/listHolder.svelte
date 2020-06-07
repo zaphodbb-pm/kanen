@@ -57,19 +57,8 @@
     export let sort = {};
     export let submitted = false;
 
-
-
-    /*
-    console.log("listHolder config",  config);
-    console.log("listHolder listText",  listText);
-    console.log("listHolder fields",  fields);
-*/
-
-
-
     //* support functions
-    import {deepClone} from '/imports/functions/deepClone'
-    import {onMount, onDestroy, setContext, getContext} from 'svelte'
+    import {onMount, setContext, getContext} from 'svelte'
     import Icon from '/imports/components/elements/icon.svelte'
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
@@ -90,7 +79,6 @@
     import Pagination from './pagination.svelte'
     import List_Filters from './listFilters.svelte'
     import List_Table from './listTable.svelte'
-    //import ListGrid from './listGrid'
 
     //* local reactive variables
     let coll = config.coll;
@@ -128,7 +116,6 @@
         getFilters = buildFilters(fields);
         getCurrentDocs();
     } );
-
 
 
     //* event handlers
@@ -212,17 +199,11 @@
         showFilters = filterState === "is-primary";
     }
 
-
     function filterList(filters) {
         //* respond to user filter selection and get new list of filtered documents
-
-        console.log("filterList", filters.detail);
-
         addFilters = filters.detail;
         getCurrentDocs();
     }
-
-
 
     function newRow(msg) {
         //* when a user changes the rows length, get a the new longer list of documents
@@ -270,8 +251,6 @@
 
         documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
         docCountLabel = `${f.start} - ${f.end} / ${documents.length} (${totalDocs})`;
-
-        console.log("documents", documents);
 
         dispatch("list-docs-ready", documents);
     }
@@ -327,7 +306,7 @@
         return filters;
     }
 
-    //** find all list fields that have a "condition" key set and apply as a general search criteria
+    //** find all list fields that have a "condition" key set and apply as a general search criterion
     function getConditions(fields) {
         let conditions = {};
 

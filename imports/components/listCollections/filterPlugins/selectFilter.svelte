@@ -16,71 +16,26 @@
     export let field = {};
 
     //* support functions
-    import {onMount, onDestroy, createEventDispatcher} from 'svelte';
+    import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
-    //* local reactive variable
+    //* local reactive variables
     let selected;
     let outFilter = {};
-    let inValue = "";
-
-
-    console.log("select field", field);
-
-
-    //* lifecycle states
-    onMount( () => {
-
-    });
-
-    onDestroy( () => {
-
-    });
 
 
     //* event handlers
-    function clearDateRange() {
-        inValue = "";
-        outFilter[field.field] = null;
-
-
-        dispatch("filter-changed", outFilter);
-    }
-
-    function dateUpdate(ev) {
-
-        dispatch("filter-changed", outFilter);
-    }
-
-
-
-
     function emitFilter(sel) {
-
-        console.log("emitFilter", sel);
-
-
-
-
-
         let val = sel.replace("_id.", "");
 
-        if (sel === "_id.none") {
-            //delete outFilter[field + "._id"];
-
-            outFilter[field.field] = null;
-
+        if (sel === "none" || sel === "all" ) {
+            outFilter[field.field + "._id"] = null;
         } else {
-            //outFilter[field + "._id"] = {$in: [val]};
-
-            outFilter[field.field] = {$in: [val]};
+            outFilter[field.field + "._id"] = val;
         }
-
-        console.log("outFilter", outFilter);
 
         dispatch("filter-changed", outFilter);
     }
-
 
 </script>
 

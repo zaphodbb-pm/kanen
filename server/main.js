@@ -29,14 +29,13 @@ import '/imports/server/methods/documentation'
 //** isomorphic routines
 import '/imports/both/collections'
 
-/*
+
 //** main configuration set up
-import {writeLog} from '/imports/server/functions/func-writeLog'
-import '/imports/server/startup/config'
+//import {writeLog} from '/imports/server/functions/func-writeLog'
 import '/imports/server/startup/indexing'
-import '/imports/server/grapher/grapherStartup'
+//import '/imports/server/grapher/grapherStartup'
 
-
+/*
 //** load method modules
 import '/imports/server/methods/paymentMethods';
 import '/imports/server/methods/postingMethods';
