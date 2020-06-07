@@ -2,7 +2,7 @@
  * @summary Nav label for Widgets page.
  *
  * @memberof Pages:Widgets
- * @function widgets_text
+ * @function widgets_text_nav
  * @locus Client
  * @augments widgets
  *

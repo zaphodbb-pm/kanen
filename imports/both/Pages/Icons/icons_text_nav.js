@@ -1,10 +1,10 @@
 /**
- * @summary Nav label for Home page.
+ * @summary Nav label for Icons page.
  *
- * @memberof Pages:Home
- * @function home_text
+ * @memberof Pages:Icons
+ * @function icons_text_nav
  * @locus Client
- * @augments home
+ * @augments icons
  *
  * @returns {Object} - {nav}
  */

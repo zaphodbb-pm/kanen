@@ -2,7 +2,7 @@
  * @summary Nav label for Colours page.
  *
  * @memberof Pages:Colours
- * @function colours_text
+ * @function colours_text_nav
  * @locus Client
  * @augments colours
  *
