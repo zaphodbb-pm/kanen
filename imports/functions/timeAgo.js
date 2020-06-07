@@ -3,7 +3,7 @@
  *
  * @memberof Functions:Client
  * @function timeAgo
- * @locus Client
+ * @locus Anywhere
  *
  * @param {Object} time - Date object
  * @return {string} - relative time from now to 'time'

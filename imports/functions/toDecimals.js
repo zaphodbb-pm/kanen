@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function toDecimals
- * @locus Client
+ * @locus Anywhere
  *
  * @param  {Number} number
  * @param  {Number} digits

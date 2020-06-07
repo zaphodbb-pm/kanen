@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function formatNumber
- * @locus Client
+ * @locus Anywhere
  *
  * @param  {Number} num
  * @param {Number} f - scale factor; can be float

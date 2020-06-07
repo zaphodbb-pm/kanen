@@ -1,5 +1,5 @@
 /**
- * @summary Handles info returned from a method call.
+ * Handles info returned from a method call.
  *
  * @memberof Functions
  * @function methodReturn

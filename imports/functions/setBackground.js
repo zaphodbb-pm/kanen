@@ -1,5 +1,5 @@
 /**
- * @summary For use by widgets; gets info from the flow object, extracts colour information and sets a background display colour.
+ * For use by widgets; gets info from the flow object, extracts colour information and sets a background display colour.
  *
  * @memberof Functions
  * @function setBackground

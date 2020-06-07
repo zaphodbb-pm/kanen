@@ -1,7 +1,7 @@
 /**
  * Returns a function, that, as long as it continues to be invoked, will not be triggered.
  *
- * @memberof Functions:Client
+ * @memberof Functions
  * @function debounce
  * @locus Client
  *
