@@ -21,8 +21,10 @@
     import { setContext } from 'svelte';
 
     //* get page text information and set contexts for children components
-    import pageText from './widgets_text'
-    setContext("pageText", pageText);
+    import {header, page} from './widgets_text'
+
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
     //* get page text information and set contexts for children components
     import pageConfig from './widgets_config'
@@ -35,12 +37,12 @@
 
     //* page body support **************************
     import Expander from '/imports/components/widgets/expanderSlot.svelte'
-    let expander1Text =  i18n(pageText.components, "expander1", lng);
-    let expander2Text =  i18n(pageText.components, "expander2", lng);
+    let expander1Text =  i18n(page.components, "expander1", lng);
+    let expander2Text =  i18n(page.components, "expander2", lng);
 
     import Infobox from '/imports/components/widgets/infobox.svelte'
-    let infoboxText =  i18n(pageText.components, "infobox", lng);
-    let infoboxText2 =  i18n(pageText.components, "infobox2", lng);
+    let infoboxText =  i18n(page.components, "infobox", lng);
+    let infoboxText2 =  i18n(page.components, "infobox2", lng);
 
     let payload = {
         values: [47.56],
@@ -48,7 +50,7 @@
     };
 
     import ProgBars from '/imports/components/widgets/progressBars.svelte'
-    let progbarText =  i18n(pageText.components, "progExample", lng);
+    let progbarText =  i18n(page.components, "progExample", lng);
 
     let plBars = {
         values: [23, 47, 92],
@@ -56,8 +58,8 @@
     }
 
     import Gauge from '/imports/components/widgets/gauge.svelte'
-    let guage1Text =  i18n(pageText.components, "gaugeRing", lng);
-    let guage2Text =  i18n(pageText.components, "gaugePie", lng);
+    let guage1Text =  i18n(page.components, "gaugeRing", lng);
+    let guage2Text =  i18n(page.components, "gaugePie", lng);
 
     let g1 = {
         values: [95],
@@ -70,11 +72,11 @@
     };
 
     import SquareBox from '/imports/components/widgets/squareBox.svelte'
-    let sbText =  i18n(pageText.components, "squarebox", lng);
+    let sbText =  i18n(page.components, "squarebox", lng);
     let sb = {values: [95]};
 
     import BigBox from '/imports/components/widgets/bigInfobox.svelte'
-    let bigText =  i18n(pageText.components, "bigInfobox", lng);
+    let bigText =  i18n(page.components, "bigInfobox", lng);
     let bigPayload = {values: [55], maxValues: [120],};
 
 </script>
@@ -89,7 +91,7 @@
     <div class="columns mt-5">
 
         <div class="column buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "col1", lng)}</div>
+            <div class="title is-4">{i18n(page.page, "col1", lng)}</div>
 
             <div class="columns">
                 <div class="column">
@@ -131,7 +133,7 @@
         </div>
 
         <div class="column  buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "col4", lng)}</div>
+            <div class="title is-4">{i18n(page.page, "col4", lng)}</div>
 
             <div class="columns">
                 <div class="column">
@@ -179,7 +181,7 @@
 
     <div class="columns mt-5">
         <div class="column  buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "col3", lng)}</div>
+            <div class="title is-4">{i18n(page.page, "col3", lng)}</div>
 
             <div class="columns">
                 <div class="column">
@@ -222,7 +224,7 @@
         </div>
 
         <div class="column buffer-large">
-            <div class="title is-4">{i18n(pageText.page, "col2", lng)}</div>
+            <div class="title is-4">{i18n(page.page, "col2", lng)}</div>
 
             <div class="columns">
                 <div class="column">

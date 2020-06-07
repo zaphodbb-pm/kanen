@@ -2,17 +2,17 @@
  * Labels for bottom footer.
  *
  *
- * @memberof Components
+ * @memberof Structure:Client
  * @function Footer_text
  * @locus Client
  * @augments Footer
  *
- * @returns {Object} kanen.i18n.comp_footer
+ * @returns {Object}
  */
 
 export default {
         title: {en: "Footer Title"},
         notice: {en: "notice text"},
         copyright: {en: " by "},
-        company: {en: "Eigentum Enterprises Inc."}
+        company: {en: "Your Company Here Inc."}
 };

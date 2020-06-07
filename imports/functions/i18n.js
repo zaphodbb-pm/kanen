@@ -21,6 +21,8 @@ export function i18n(allText, field, lang) {
         if(field && typeof field === 'string'){
             out = allText[field] && allText[field][language] ? allText[field][language] : "";
             out = out ? out : "";
+        }else{
+            out = allText[language] ? allText[language] : "";
         }
     }
 

@@ -9,20 +9,20 @@
  * @returns {Object}
  */
 
-export default {
-    navLabel: {en: "Cards"},
 
-    header: null,
+//** page header; set to null to not display header or a specific item
+export const header = null;
 
-    /*
-    header:   {
-        title:  {en: "Page Two"},
-        lead:   {en: "Use this page to access and manage items two"},
-        body:   {en: "Supporting text for header"},
-    },
-     */
+/*
+export const header = {
+    title:  {en: "Home Page"},
+    lead:   {en: "Welcome to Kanen - the seedling starter package"},
+    body:   {en: "Introduction to Kanen."},
+};
+ */
 
-    page: {},
+
+export const page = {
 
     components: {
         cardOne: {

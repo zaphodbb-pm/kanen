@@ -9,15 +9,16 @@
  * @returns {Object}
  */
 
-export default {
-    navLabel: {en: "Jsdoc"},
 
-    //** page header; set to null to not display header or a specific item
-    header:   {
-        title:  {en: "Software Documentation"},
-        lead:   {en: "List of all software pages, routines and components."},
-        body:   null //{en: ""},
-    },
+//** page header; set to null to not display header or a specific item
+export const header = {
+    title:  {en: "Software Documentation"},
+    lead:   {en: "List of all software pages, routines and components."},
+    body:   null //{en: ""},
+};
+
+
+export const page = {
 
     page: {
         howToUse: {

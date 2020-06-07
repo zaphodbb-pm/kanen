@@ -23,8 +23,10 @@
     setContext("pageText", pageText);
 
     //* get component configuration information and set contexts for children components
-    import pageConfig from './widgetsContent_config'
-    setContext("pageConfig", pageConfig);
+    import {header, page} from './widgetsContent_text'
+
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
 
 
@@ -33,11 +35,8 @@
 
 
     //* page body support **************************
-    import {i18n} from '/imports/functions/i18n'
     import TabContent from '/imports/components/widgets/tabbedContent.svelte'
     import Accordian from '/imports/components/widgets/accordian.svelte'
-
-    let tabText = i18n(pageText.components, "tabbed", $lang);
 
 </script>
 
@@ -53,7 +52,7 @@
     </article>
 
     <article class="column is-6">
-        <Accordian content="{tabText}" tabSettings="is-warning is-light"  />
+        <Accordian text="tabbed" tabSettings="is-warning is-light"  />
     </article>
 
 </section>

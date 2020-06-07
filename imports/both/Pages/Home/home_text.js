@@ -6,18 +6,20 @@
  * @locus Client
  * @augments home
  *
- * @returns {Object}
+ * @returns {Object} - {header, page}
  */
 
-export default {
-    navLabel: {en: "Home"},
 
-    //** page header; set to null to not display header or a specific item
-    header:   {
-        title:  {en: "Home Page"},
-        lead:   {en: "Welcome to Kanen - the seedling starter package"},
-        body:   {en: "Introduction to Kanen."},
-    },
+
+//** page header; set to null to not display header or a specific item
+export const header = {
+    title:  {en: "Home Page"},
+    lead:   {en: "Welcome to Kanen - the seedling starter package"},
+    body:   {en: "Introduction to Kanen."},
+};
+
+
+export const page = {
 
     page: {},
 

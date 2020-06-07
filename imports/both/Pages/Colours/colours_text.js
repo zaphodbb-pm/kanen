@@ -9,19 +9,20 @@
  * @returns {Object}
  */
 
-export default {
-    navLabel: {en: "Colours"},
 
-    //** page header; set to null to not display header or a specific item
-    header:   {
-        title:  {en: "Colours Page"},
-        lead:   {en: "Shows the system wide colour constants."},
-        body:   {en: "Import the colour setting objects into the Svelte component as: </br></br>" +
-                "<pre>import { colors, components, theme } from '/imports/client/setup/systemGlobals'</pre></br>" +
-                "add the values to a component's class or style as colors.PURPLE, components.BG_CARD or theme.THEME_INFO."
+//** page header; set to null to not display header or a specific item
+export const header = {
+    title:  {en: "Colours Page"},
+    lead:   {en: "Shows the system wide colour constants."},
+    body:   {en: "Import the colour setting objects into the Svelte component as: </br></br>" +
+            "<pre>import { colors, components, theme } from '/imports/client/setup/systemGlobals'</pre></br>" +
+            "add the values to a component's class or style as colors.PURPLE, components.BG_CARD or theme.THEME_INFO."
 
-        },
     },
+};
+
+
+export const page = {
 
     page: {
         swatches: {en: "Colour Swatches"},

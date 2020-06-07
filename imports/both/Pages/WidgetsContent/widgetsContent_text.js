@@ -9,15 +9,15 @@
  * @returns {Object}
  */
 
-export default {
-    navLabel: {en: "Content"},
+//** page header; set to null to not display header or a specific item
+export const header = {
+    title:  {en: "Content Widgets"},
+    lead:   {en: "A variety of content management widgets"},
+    body:   {en: ""},
+};
 
-    header:   {
-        title:  {en: "Content Widgets"},
-        lead:   {en: "A variety of content management widgets"},
-        body:   {en: ""},
-    },
 
+export const page = {
 
     page: {},
 
@@ -54,18 +54,6 @@ export default {
                     dbContent: null
                 },
             ]
-        },
-
-        list: {
-            name: {en: "Name"}
-        },
-
-        form: {
-            name: {en: "Name"}
-        },
-
-        widget: {
-            title: {en: "Title"}
         }
     }
 };

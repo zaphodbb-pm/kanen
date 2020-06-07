@@ -28,7 +28,7 @@
 
 
     //* external props
-    export let content = "";
+    export let text = [];
     export let tabSettings = "";
     export let eventMain = "";
     export let eventSub = "";
@@ -46,6 +46,17 @@
     //import {methodReturn} from "../../functions/func-methodReturn";
     import Icon from '/imports/components/elements/icon.svelte'
 
+    //* component controls
+    let content = getContext("pageText").components;
+
+    $: {
+        if(typeof text === "string"){
+            content = i18n(content, text, $lang);
+        }else{
+            content = text;
+        }
+    }
+
     let  currTab = content && content.length > 0 ? content[0].label : "";
     let topics = [];
 
@@ -59,7 +70,6 @@
     function setContent(sub) {
         dispatch(eventSub, sub);
     }
-
 
     function body(content) {
         if (content) {

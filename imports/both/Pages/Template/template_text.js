@@ -9,16 +9,15 @@
  * @returns {Object}
  */
 
-export default {
-    navLabel: {en: "Template"},
+//** page header; set to null to not display header or a specific item
+export const header = {
+    title:  {en: "Template Page"},
+    lead:   {en: "Stock Starter Page Template"},
+    body:   {en: "Add, subtract or change items to meet your needs."},
+};
 
-    //** page header; set to null to not display header or a specific item
-    header:   {
-        title:  {en: "Template Page"},
-        lead:   {en: "Stock Starter Page Template"},
-        body:   {en: "Add, subtract or change items to meet your needs."},
-    },
 
+export const page = {
     page: {},
 
     components: {

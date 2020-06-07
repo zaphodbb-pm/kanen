@@ -22,8 +22,10 @@
     import { getContext } from 'svelte';
 
     //* get page text information and set contexts for children components
-    import pageText from './cards_text'
-    setContext("pageText", pageText);
+    import {header, page} from './cards_text'
+
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
     //* get component configuration information and set contexts for children components
     import pageConfig from './cards_config'
