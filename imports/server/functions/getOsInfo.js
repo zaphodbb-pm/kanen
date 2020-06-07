@@ -1,7 +1,7 @@
 /**
- * @summary Gets local os/machine information.
+ * Gets local os/machine information.
  *
- * @memberof Functions_Server
+ * @memberof Functions:Server
  * @function getOSinfo
  * @locus Server
  *
