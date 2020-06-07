@@ -2,7 +2,7 @@
  * @summary Nav label for Starter page.
  *
  * @memberof Pages:Starter
- * @function starter_text
+ * @function starter_text_nav
  * @locus Client
  * @augments starter
  *

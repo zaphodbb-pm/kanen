@@ -279,7 +279,28 @@ export const page = {
 
             startDateTime: {
                 label: "Date",
-                filter: {placeholder: "Date Range"},
+                filter: {
+                    placeholder: "Date Range",
+
+                    //** if this filter type has relativeDates set,
+                    //** then build a start date from now using days derived from _id value;
+                    //** else use absolute date range
+
+                    /*
+                    relativeDates: [
+                        {_id: "none", name: "All Times"},
+                        {_id: "days_p_1", name: "Today"},
+                        {_id: "days_p_7", name: "Past Week"},
+                        {_id: "days_p_30", name: "Past Month"},
+                        {_id: "days_p_90", name: "Past Quarter"},
+                        {_id: "days_f_1", name: "Tomorrow"},
+                        {_id: "days_f_7", name: "This Week"},
+                        {_id: "days_f_30", name: "This Month"},
+                        {_id: "days_f_90", name: "This Quarter"}
+                    ]
+
+                     */
+                },
             },
 
             geoLocation: {

@@ -74,38 +74,6 @@ export default{
                 {_id: "dec", name: "Dec"},
             ]
         },
-    },
-
-    searchGeoLocations: {
-        en: [
-            {_id: "_id.none", name: "World Wide"},
-            {_id: "_id.nearby", name: "Nearby"},
-            {_id: "_id.citywide", name: "City Wide"},
-            {_id: "_id.inregion", name: "In Region"}
-        ]
-    },
-
-    searchRelativeDates: {
-        en: [
-            {_id: "_id.none", name: "All Times"},
-            {_id: "_id.days1", name: "Today"},
-            {_id: "_id.days7", name: "This Week"},
-            {_id: "_id.days30", name: "This Month"},
-            {_id: "_id.days90", name: "This Quarter"}
-        ]
-    },
-
-    searchDayOfWeek: {
-        en: [
-            {_id: "_id.none", name: "All Days"},
-            {_id: "_id.mon", name: "Mon"},
-            {_id: "_id.tue", name: "Tue"},
-            {_id: "_id.wed", name: "Wed"},
-            {_id: "_id.thu", name: "Thu"},
-            {_id: "_id.fri", name: "Fri"},
-            {_id: "_id.sat", name: "Sat"},
-            {_id: "_id.sun", name: "Sun"},
-        ]
     }
 }
 
