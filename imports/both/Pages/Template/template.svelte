@@ -23,8 +23,10 @@
     import {lang} from '/imports/both/systemStores'
 
     // get page text information and set contexts for children components
-    import pageText from './template_text'
-    setContext("pageText", pageText);
+    import {header, page} from './template_text'
+
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
     // get component configuration information and set contexts for children components
     import pageConfig from './template_config'
@@ -70,7 +72,7 @@
     <div class="columns">
         <article class="column is-6">
             <div class="box">
-                {@html i18n(pageText.components, "box", $lang)}
+                {@html i18n(page.components, "box", $lang)}
             </div>
         </article>
 

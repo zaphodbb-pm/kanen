@@ -20,8 +20,10 @@
     import { setContext } from 'svelte';
 
     //* get page text information and set contexts for children components
-    import pageText from './icons_text'
-    setContext("pageText", pageText);
+    import {header, page} from './icons_text'
+
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
     //* get the page header common component
     import Hdr from '/imports/both/pageStructure/PageHeader.svelte'

@@ -23,8 +23,10 @@
     import {lang} from '/imports/both/systemStores'
 
     // get page text information and set contexts for children components
-    import pageText from './starter_page_text'
-    setContext("pageText", pageText);
+    import {header, page} from './starter_page_text'
+
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
     // get component configuration information and set contexts for children components
     import pageConfig from './starter_page_config'
@@ -46,8 +48,8 @@
     import listArray from './starter_list'
 
     import {i18n} from '/imports/functions/i18n'
-    let formText = i18n(pageText, "form", $lang);
-    let listText = i18n(pageText, "list", $lang);
+    let formText = i18n(page, "form", $lang);
+    let listText = i18n(page, "list", $lang);
 
     let conf = config;
     let role = "";

@@ -21,9 +21,10 @@
     import {lang} from '/imports/both/systemStores'
 
     //* get page text information and set contexts for children components
-    import pageText from './home_text'
-    setContext("pageText", pageText);
+    import {header, page} from './home_text'
 
+    setContext("pageHdr", header);
+    setContext("pageText", page);
 
 
     //* get the page header common component; component get gets its own translated text

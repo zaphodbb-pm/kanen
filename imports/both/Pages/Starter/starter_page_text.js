@@ -9,19 +9,18 @@
  * @returns {Object}
  */
 
-export default {
-    navLabel: {en: "Starter Page"},
+//** page header; set to null to not display header or a specific item
+export const header = {
+    title:  {en: "Starter List & Form Page"},
+    lead:   {en: "List and Form Components to Enter Data into Database"},
+    body:   {en: ""},
+};
 
-    //** page header; set to null to not display header or a specific item
-    header:   {
-        title:  {en: "Starter List & Form Page"},
-        lead:   {en: "List and Form Components to Enter Data into Database"},
-        body:   {en: ""},
-    },
+
+export const page = {
 
     form: {
         en: {
-
             labels: {
                 hdr:        "Edit Document Form",
                 txt:        "",
