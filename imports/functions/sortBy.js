@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function sorBy
- * @locus Client
+ * @locus Anywhere
  *
  * @param {Array} inList - list of objects
  * @param {Array} key - key name

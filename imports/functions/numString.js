@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function numString
- * @locus Client
+ * @locus Anywhere
  *
  * @param {Number} num
  * @returns {String} - large number with thousands comma

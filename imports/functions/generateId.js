@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function generateId
- * @locus Client
+ * @locus Anywhere
  *
  * @param {Number} length - length / number of characters for api key
  *

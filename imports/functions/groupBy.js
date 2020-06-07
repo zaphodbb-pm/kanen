@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function groupBy
- * @locus Client
+ * @locus Anywhere
  *
  * @param {Array} list - array or array of objects
  * @param {String} key - key name to group objects

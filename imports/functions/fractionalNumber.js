@@ -3,7 +3,7 @@
  *
  * @memberof Functions
  * @function fractionalNumber
- * @locus Client
+ * @locus Anywhere
  *
  * @param  {Number} num
  * @param  {String} scale - 'imperial' or 'metric'

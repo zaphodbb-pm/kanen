@@ -1,14 +1,15 @@
 /**
- * @summary Control the output of debug messages to the browser console.
+ * Control the output of debug messages to the browser console.
  *
  * @memberof Functions
  * @function debugConsole
- * @locus Client
+ * @locus Anywhere
  *
  * @param {String} level - see below
  * @param {String} name - label to help identify / tag the console message
  * @param {Array} vrbl - list of in program variable to report on
  * @param {Array} label - labels to prefix variables for identification
+ * @param {String} debugOptions - a string of options that have been turned by system
  * @return nothing - outputs message to console
  *
  * @example
@@ -28,15 +29,12 @@
  *
  */
 
-export function debugConsole(level, name, vrbl, label) {
-    //let sysDebug = Session.get("systemDebug");
+export function debugConsole(level, name, vrbl, label, debugOptions) {
+    if(!debugOptions || !Array.isArray(vrbl) ){ return null; }
 
-    let sysDebug = "";
-
-    if(!sysDebug || !Array.isArray(vrbl) ){ return null; }
 
     //** if the debug level is set in SysConfigs.debugLevel, then output message
-    if( sysDebug.includes(level)  ){
+    if( debugOptions.includes(level)  ){
         vrbl.forEach( (v, idx) => {
             let labelOut = label && label[idx] ? label[idx] : "out";
             let out = JSON.parse( JSON.stringify(v) );
