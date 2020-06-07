@@ -267,6 +267,7 @@ export default {
                 label: "Select",
 
                 filter: [
+                    {_id: "all", name: "All", colour: "#000000"},
                     {_id: "sun", name: "Sunday", colour: "#000000"},
                     {_id: "mon", name: "Monday", colour: "#6666ff"},
                     {_id: "tue", name: "Tuesday", colour: "#bb22bb"},
@@ -280,6 +281,16 @@ export default {
             startDateTime: {
                 label: "Date",
                 filter: {placeholder: "Date Range"},
+            },
+
+            geoLocation: {
+                label: "Geo",
+                filter: [
+                    {_id: "none", name: "World Wide"},
+                    {_id: "nearby", name: "Nearby"},
+                    {_id: "citywide", name: "City Wide"},
+                    {_id: "inregion", name: "In Region"}
+                ],
             },
 
             _id: {

@@ -178,7 +178,7 @@
                                     {cell.value}
                                 </div>
 
-                            {:else if cell.type === 'text'}
+                            {:else if cell.type === 'text' || cell.type === 'select'}
                                 <div class="has-text-left is-size-7">
                                     <strong>{cell.keyName}:</strong> {cell.value}
                                 </div>

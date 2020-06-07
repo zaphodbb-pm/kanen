@@ -72,6 +72,7 @@
             <input type="text"
                    id="fp_{field.field}"
                    class="input"
+                   style="width: 14rem;"
                    bind:value="{inValue}"
                    placeholder={field.filterText.placeholder}>
 
