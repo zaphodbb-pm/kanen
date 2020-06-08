@@ -36,6 +36,6 @@ export default {
 
     roles: ["all"],                         // roles that can see this link in Navbar and be routed to
 
-    group: 1,                               // for side navigation; group routes into a block
+    group: 2,                               // for side navigation; group routes into a block
     isNavMobile: false,                     // (optional) show link in mobile nav block at bottom or top
 };

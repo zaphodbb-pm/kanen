@@ -303,8 +303,8 @@ export const page = {
                 },
             },
 
-            geoLocation: {
-                label: "",
+            address: {
+                label: "Geo",
                 filter: [
                     {_id: "none", name: "World Wide"},
                     {_id: "nearby", name: "Nearby"},

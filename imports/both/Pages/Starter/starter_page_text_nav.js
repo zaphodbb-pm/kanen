@@ -10,4 +10,4 @@
  */
 
 
-export const nav = {en: "Starter Page"};
+export const nav = {en: "Starter ListForm"};
