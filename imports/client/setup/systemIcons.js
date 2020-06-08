@@ -50,6 +50,9 @@ out.iconTemplate = hammer;
 import database from '/public/svg_to_js/database-solid.json';
 out.iconListForm = database;
 
+import users from '/public/svg_to_js/users-cog-solid.json';
+out.iconUsers = users;
+
 
 
 //* Navbar Icons

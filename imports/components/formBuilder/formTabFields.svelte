@@ -111,14 +111,14 @@
                 {#each tab as groups, grp}
                     <div class="columns" class:is-hidden={!(tabLabels[index] === currTab)}>
                         {#each groups as field}
-                            <div class="column {field.group && field.group.class ? field.group.class : '' }" style="margin-top: 1rem;">
+                            <div class="column {field.group && field.group.class ? field.group.class : '' }">
                                 <Field_Wrapper {field} {watchFields}  on:field-changed="{fieldChanged}"/>
                             </div>
                         {/each}
                     </div>
                 {/each}
             {:else}
-                <div class:is-hidden={!(tabLabels[index] === currTab)} style="margin-top: 1rem;">
+                <div class:is-hidden={!(tabLabels[index] === currTab)}>
                     {#each tab as field}
                         <Field_Wrapper {field} {watchFields}  on:field-changed="{fieldChanged}"/>
                     {/each}
@@ -132,7 +132,7 @@
             {#each fields as groups, idg}
                 <div class="columns">
                     {#each groups as field}
-                        <div class="column {field.group && field.group.class ? field.group.class : '' }">
+                        <div class="column {field.group && field.group.class ? field.group.class : '' }" style="padding-top: 1rem;">
                             <Field_Wrapper {field} {watchFields}  on:field-changed="{fieldChanged}"/>
                         </div>
                     {/each}
@@ -140,7 +140,7 @@
             {/each}
         {:else}
             {#each fields as field}
-                <div class="mb-3">
+                <div class="mb-3" style="padding-top: 1rem;">
                     <Field_Wrapper {field} {watchFields} on:field-changed="{fieldChanged}"/>
                 </div>
             {/each}

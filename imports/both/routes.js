@@ -39,6 +39,8 @@ import Widgets from '/imports/both/Pages/Widgets/widgets_route'
 import Content from '/imports/both/Pages/WidgetsContent/widgetsContent_route'
 import Icons from '/imports/both/Pages/Icons/icons_route'
 import Colours from '/imports/both/Pages/Colours/colours_route'
+import Users from '/imports/both/Pages/Users/users_route'
+
 import Documentation from '/imports/both/Pages/Documentation/documentation_route'
 
 
@@ -54,6 +56,7 @@ const routes = [
     Colours,
     Widgets,
     Content,
+    Users,
     Documentation,
 
 
