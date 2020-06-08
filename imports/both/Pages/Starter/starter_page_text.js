@@ -304,7 +304,7 @@ export const page = {
             },
 
             geoLocation: {
-                label: "Geo",
+                label: "",
                 filter: [
                     {_id: "none", name: "World Wide"},
                     {_id: "nearby", name: "Nearby"},

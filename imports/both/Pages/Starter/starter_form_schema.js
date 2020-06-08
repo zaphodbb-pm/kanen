@@ -213,6 +213,8 @@ export default [
     },
 
 
+
+
     //** second tabbed set of fields
     {
         field: "startStaticSelect",
@@ -374,7 +376,6 @@ export default [
         defaultValue: "",
     },
 
-
     {
         field: "startList",
         fieldType: "itemList",
@@ -389,9 +390,6 @@ export default [
         defaultValue: [{id: 1, text: '...'}],
     },
 
-
-
-
     {
         field: "startRows",
         fieldType: "rows",
@@ -405,4 +403,7 @@ export default [
         optional: true,
         defaultValue: [],
     }
+
+
+
 ];
