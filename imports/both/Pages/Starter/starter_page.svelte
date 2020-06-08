@@ -65,12 +65,14 @@
     let releaseEdit = false;
 
 
+    //* lifecycle controls
     onMount( () => {
         showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
         showForm = !conf.form.hasOverlay;
     })
 
 
+    //* functions that mutate reactive variables
     function checkOverlay() {
         showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
         showForm = !conf.form.hasOverlay;

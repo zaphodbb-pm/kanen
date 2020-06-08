@@ -19,10 +19,6 @@ shell-server@0.5.0            # Server-side component of the `meteor shell` comm
 svelte:compiler
 http@1.4.2
 fourseven:scss
-accounts-password
-aldeed:console-me
-mizzao:user-status
 
-dburles:mongo-collection-instances
 mongo
-session
+accounts-password

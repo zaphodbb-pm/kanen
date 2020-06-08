@@ -63,15 +63,14 @@
 /* kanen custom add-ons */
 @import "../imports/client/css/kanen-custom/kanen_element_addons";
 @import "../imports/client/css/kanen-custom/kanen_override";
-@import "../imports/client/css/kanen-custom/kanban";
+//@import "../imports/client/css/kanen-custom/kanban";
 /* additional elements */
-@import "../imports/client/css/optional-css/colours";
+//@import "../imports/client/css/optional-css/colours";
 @import "../imports/client/css/optional-css/borders";
 @import "../imports/client/css/optional-css/buffer";
 @import "../imports/client/css/optional-css/shadow-depth";
 @import "../imports/client/css/optional-css/materialize-effects";
 //@import "../imports/client/css/optional-css/flipper";
-@import "../imports/client/css/optional-css/shadow-depth";
 @import "../imports/client/css/optional-css/bootstrap-add-ons";
 
 
@@ -80,7 +79,6 @@
 @import "../imports/client/css/bulma-third-party/bulmaDivider";
 //@import "../imports/client/css/bulma-third-party/pricingTable";
 @import "../imports/client/css/bulma-third-party/bulmaStepper";
-//@import "../imports/client/css/bulma-third-party/bulmaCalendar";
 //@import "../imports/client/css/bulma-third-party/bulmaTimeline";
 @import "../imports/client/css/bulma-third-party/bulmaRibbon";
 @import "../imports/client/css/bulma-third-party/bulmaCheckRadio";

@@ -1,10 +1,9 @@
 /**
- * @summary Select Meteor extensions
+ * Select Meteor extensions
  *
- * @memberof Meteor
+ * @memberof Structure:Client
  * @function Meteor_extensions
  * @locus Client
- * @isTemplate false
  *
  * @notes
  *  1.  Meteor.callPromise extracted from https://github.com/deanius/meteor-promise/ to reduce version conflicts
