@@ -1,5 +1,5 @@
 /**
- * @summary Main entry point for server code
+ * Main entry point for server code
  *
  * @memberof Structure:Server
  * @function server-main
@@ -144,11 +144,11 @@ Meteor.startup(() => {
 
 
 //* set up server side debug console
-import 'meteor/aldeed:console-me';
+//import 'meteor/aldeed:console-me';
 //if (Meteor.isServer) {
     //** Debug tool: allow server side console to send logs to client
-    ConsoleMe.enabled = true;
-    console.log("cm", ConsoleMe);
+    //ConsoleMe.enabled = true;
+    //console.log("cm", ConsoleMe);
 
     //Meteor.call("buildDSvelteJsdoc");
     //Meteor.call("fetchDocumentation");

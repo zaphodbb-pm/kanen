@@ -1,8 +1,8 @@
 /**
- * @summary Configuration for Template components.
+ * Configuration for Template components (optional).
  *
  * @memberof Pages:Template
- * @function template_text
+ * @function template_config
  * @locus Client
  * @augments template
  *

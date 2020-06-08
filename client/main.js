@@ -4,7 +4,7 @@
  *
  * @memberof Structure:Client
  * @function main
- * @locus Client*
+ * @locus Client
  *
  * @notes
  *      1. Meteor_extensions.js and themeFiles.scss are eagerly loaded at startup.

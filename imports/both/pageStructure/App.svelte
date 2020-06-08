@@ -20,7 +20,7 @@
      *
      */
 
-    import { onMount, setContext, getContext } from 'svelte';
+    import { setContext } from 'svelte';
 
     //* setup system wide version info
     import version from '/imports/client/setup/version'
@@ -30,6 +30,7 @@
     import commonText from '/imports/client/setup/textCommon'
     setContext("commonText", commonText);
 
+
     //* setup system wide Icons as a context
     import {mainIcons} from '/imports/client/setup/systemIcons'
 
@@ -37,6 +38,7 @@
     for( const key of keys){
         setContext(key, mainIcons[key]);
     }
+
 
     //* get system wide constants
     //import {documents, colors, colorArrays, components, theme } from '/imports/client/setup/systemGlobals'
