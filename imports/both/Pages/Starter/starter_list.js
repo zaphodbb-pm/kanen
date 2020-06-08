@@ -60,7 +60,7 @@ export default {
         {
             field:  "geoLocation",
             key:    "geoLocation",
-            type:   "object",
+            type:   "address",
             label:  "tbd",
             sort:   false,
             search: true,

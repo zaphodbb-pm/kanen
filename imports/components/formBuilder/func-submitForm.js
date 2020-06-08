@@ -80,9 +80,6 @@ export async function submitForm(doc, coll, clone, test, emit, extras) {
             if(doc.address){
                 let HTTPresult = await HTTP.getPromise(buildRequestUrl(doc.address, "string"));
                 doc = getGeoLocation(doc, HTTPresult);
-
-
-                console.log("address", doc.address, HTTPresult, doc);
             }
 
             generalSubmit(coll, doc, emit);

@@ -16,7 +16,7 @@
     export let params;
 
     // app services (getContext is often optional)
-    import { onMount, setContext } from 'svelte';
+    import { onMount, onDestroy, setContext } from 'svelte';
     //import { getContext } from 'svelte';
 
     // get the user language preference from store (optional)
@@ -69,7 +69,7 @@
     onMount( () => {
         showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
         showForm = !conf.form.hasOverlay;
-    })
+    });
 
 
     //* functions that mutate reactive variables

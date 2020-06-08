@@ -396,8 +396,6 @@
                                 </span>
                             </td>
 
-                        {:else}
-                            <td>n/a</td>
                         {/if}
 
                     {/each}

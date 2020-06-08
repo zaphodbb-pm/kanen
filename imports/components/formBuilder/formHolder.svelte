@@ -64,7 +64,7 @@
 
     //** svelte handlers
     import {userExtras} from '/imports/both/systemStores'
-    import {onMount, setContext, getContext} from 'svelte';
+    import {onMount, onDestroy, setContext, getContext} from 'svelte';
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
@@ -290,8 +290,10 @@
         </div>
     {/if}
 
+
     <div class="card-content">
         <div id="tabbed-inputs">
+
             <Form_Tabs {fields} on:field-changed="{fieldChanged}" />
 
             <div class="buffer-y-large mt-4">

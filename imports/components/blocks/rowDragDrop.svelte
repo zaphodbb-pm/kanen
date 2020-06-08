@@ -26,8 +26,9 @@
     import { quintOut } from "svelte/easing";
     import { crossfade } from "svelte/transition";
     import { flip } from "svelte/animate";
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher} from "svelte";
     const dispatch = createEventDispatcher();
+
 
     //** flip animation
     const [send, receive] = crossfade({
@@ -36,7 +37,7 @@
             const style = getComputedStyle(node);
             const transform = style.transform === "none" ? "" : style.transform;
             return {
-                duration: 600,
+                duration: 600,      // causes a hesitation during route change!  need to add "|local" to send/receive
                 easing: quintOut,
                 css: t => `transform: ${transform} scale(${t}); opacity: ${t}`
             };
@@ -82,9 +83,42 @@
 </script>
 
 
+
+
+
 {#if list && list.length}
     <ul>
         {#each list as item, index (getKey(item))}
+            <li
+                    data-index={index}
+                    data-id={JSON.stringify(getKey(item))}
+                    draggable="true"
+                    on:dragstart={start}
+                    on:dragover={over}
+                    on:dragleave={leave}
+                    on:drop={drop}
+                    in:receive|local={{ key: getKey(item) }}
+                    out:send|local={{ key: getKey(item) }}
+                    animate:flip={{ duration: 300 }}
+                    class:over={getKey(item) === isOver}>
+
+                <slot {item} {index}>
+                    <p>{getKey(item)}</p>
+                </slot>
+            </li>
+        {/each}
+    </ul>
+{/if}
+
+
+
+
+
+<!--
+{#if list && list.length}
+    <ul>
+        {#each list as item, index (getKey(item))}
+
             <li
                     data-index={index}
                     data-id={JSON.stringify(getKey(item))}
@@ -103,9 +137,12 @@
                 </slot>
 
             </li>
+
         {/each}
     </ul>
 {/if}
+-->
+
 
 
 <style>
