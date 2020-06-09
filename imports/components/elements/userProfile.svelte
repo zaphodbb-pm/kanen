@@ -178,7 +178,7 @@
     {:else}
 
         <div class="navbar-item">
-            <a href="/loginForm" class="has-text-centered">
+            <a href="/login" class="has-text-centered">
                 <div class="d-flex align-items-center">
                     <Icon icon={getContext("iconSignIn")} class="text-1dot5rem"/>
                     <span class="is-hidden-touch">{text.signIn}</span>

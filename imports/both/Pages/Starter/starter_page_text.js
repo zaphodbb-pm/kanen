@@ -66,6 +66,11 @@ export const page = {
                 helpText: "Supports '+' country code, 7 or 10 digit numbers, brackets and extension as 'x', 'ext'.",
             },
 
+            startPassword: {
+                label: "Password Input",
+                helpText: "TBD check strength",
+            },
+
             startTextArea: {
                 label: "Text Area",
                 helpText: "Expandable text area.",
@@ -166,11 +171,6 @@ export const page = {
                 label: "Dynamic Typeahead",
                 helpText: "Uses a collection to get a list of values that can then be searched through for " +
                         "characters typed into input box.",
-            },
-
-            hr1: {
-                label: "",
-                tag: "Form Spacer"
             },
 
             startApiKey: {

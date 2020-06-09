@@ -1,19 +1,19 @@
 /**
- * Labels for Template page.
+ * Labels for MyProfile page.
  *
- * @memberof Pages:Template
- * @function template_text
+ * @memberof Pages:MyProfile
+ * @function myProfile_text
  * @locus Client
- * @augments template
+ * @augments myProfile
  *
  * @returns {Object}
  */
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Template Page"},
-    lead:   {en: "Stock Starter Page Template"},
-    body:   {en: "Add, subtract or change items to meet your needs."},
+    title:  {en: "My Profile Page"},
+    lead:   {en: ""},
+    body:   {en: ""},
 };
 
 

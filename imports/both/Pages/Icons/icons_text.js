@@ -22,6 +22,10 @@ export const header = {
 
 export const page = {
 
+    page: {
+        count: {en: "Total number of icons: "}
+    },
+
     components: {
         list: {
             name: {en: "Name"}

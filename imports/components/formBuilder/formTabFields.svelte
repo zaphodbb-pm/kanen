@@ -33,7 +33,7 @@
     let currTab = tabLabels.length > 0 ? tabLabels[0] : "";
     let currTabStep = 0;
     let steps = tabLabels && tabLabels.length > 0 ? tabLabels.length : 1;
-    let watchFields = {}
+    let watchFields = {};
     let finishBtn = "fin";
 
     //* event handlers
