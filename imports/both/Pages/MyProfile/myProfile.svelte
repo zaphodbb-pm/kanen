@@ -1,9 +1,9 @@
 <script>
     /**
-     * Layout for Template page.
+     * Layout for MyProfile page.
      *
-     * @memberof Pages:Template
-     * @function template
+     * @memberof Pages:MyProfile
+     * @function myProfile
      * @locus Client
      *
      */
@@ -19,17 +19,16 @@
     import { setContext } from 'svelte';
 
     //** get the user language preference from store (optional)
-    import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/both/systemStores'
 
     //** get page text information and set contexts for children components
-    import {header, page} from './template_text'
+    import {header, page} from './myProfile_text'
 
     setContext("pageHdr", header);
     setContext("pageText", page);
 
     //** get component configuration information and set contexts for children components
-    import pageConfig from './template_config'
+    import pageConfig from './myProfile_config'
     setContext("pageConfig", pageConfig);
 
     //** get the page header common component; component get gets its own translated text from "pageText" context
@@ -41,16 +40,17 @@
 
     //* page-body support **************************
     import {onMount, onDestroy} from 'svelte'
+    import {i18n} from '/imports/functions/i18n'
     import TabContent from '/imports/components/widgets/tabbedContent.svelte'
 
     let message = "";
 
     onMount( () => {
-        message = "<b>template page</b> mounted";
+        message = "<b>myProfile page</b> mounted";
     });
 
     onDestroy( () => {
-        console.log("template page destroyed");
+        console.log("myProfile page destroyed");
     });
 
 </script>

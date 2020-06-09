@@ -1,6 +1,6 @@
 <script>
     /**
-     * @summary Layout for Icons page.
+     * Layout for Icons page.
      *
      * @memberof Pages:Icons
      * @function Icons
@@ -13,6 +13,7 @@
     export let params;
 
     //* get the user language preference from store
+    import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/both/systemStores'
     let lng = $lang;
 
@@ -44,6 +45,8 @@
 
 
 <section class="page-body">
+
+    <div class="content is-family-secondary">{i18n(page.page, "count", $lang) + allIcons.length}</div>
 
     <div class="columns is-mobile is-multiline">
         {#each allIcons as icon}

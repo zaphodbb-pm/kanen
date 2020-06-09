@@ -13,9 +13,13 @@
  *          name =                  String: name of this document
  *          startNumber =           Number: float set by step attribute and includes min / max boundaries
  *          startInteger =          Number: integer set by step attribute
- *          startSwitch =           Boolean: checkbox as switch
- *          address =               String: use to generate a geolocation object for mongo
+ *          startEmail =            String: email entry with validation
+ *          startPhone =            String: tel entry with validation
+ *          startPassword =         String: password entry with validation
  *          startTextArea =         String: text area characters
+ *          address =               String: use to generate a geolocation object for mongo
+ *          hr1 =                   None: divider for fields in a tab
+ *          startSwitch =           Boolean: checkbox as switch
  *          startCheckbox =         Array: list of selected checkboxes
  *          startRadios =           String: group of radio buttons set by select array
  *
@@ -133,6 +137,17 @@ export default [
         listen: {src: "startEmail", key: null, value: ""},
 
         attributes: {type: "tel"},
+        params: {},
+        defaultValue: "",
+    },
+
+    {
+        field: "startPassword",
+        fieldType: "input",
+        optional: true,
+        tab: 0,
+
+        attributes: {type: "password"},
         params: {},
         defaultValue: "",
     },

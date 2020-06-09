@@ -166,6 +166,11 @@ out.iconStatus = status;
 
 
 
+//* brand icons
+import google from '/public/svg_to_js/google.json';
+out.iconGoogle = google;
+
+
 //* other Icons
 import beer from '/public/svg_to_js/beer-solid.json';
 out.iconBeer = beer;
