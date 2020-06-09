@@ -17,9 +17,9 @@
 
 
 export const layout = {
-    TOP_NAV: false,
-    SECONDARY_LOGO: false,
-    SHORTCUTS: true
+    TOP_NAV: false,                                 // turns off top nav bar links; side nav only
+    SECONDARY_LOGO: false,                          // secondary logo support (optional)
+    SHORTCUTS: true                                 // builds  short cut menu that is in navbar; mobile has shortcuts at bottom
 }
 
 export const documents = {
@@ -62,7 +62,7 @@ export const components = {
 
 
 export const elements = {
-    //** sets common button theme
+    //** sets common button theme and over-rides css framework theme
     BG_BUTTON: "is-primary has-text-weight-semibold",
     BG_BUTTON_ALT: "is-warning has-text-weight-semibold",
     BG_BUTTON_CLONE: "is-warning has-text-weight-semibold",

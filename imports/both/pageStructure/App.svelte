@@ -20,16 +20,15 @@
      *
      */
 
+
+    //* set up system wide text context
     import { setContext } from 'svelte';
 
-    //* setup system wide version info
     import version from '/imports/client/setup/version'
-    setContext("Version", version);
+    setContext("Version", version);             //setup system wide version info
 
-    //* setup system wide text strings (all languages)
     import commonText from '/imports/client/setup/textCommon'
-    setContext("commonText", commonText);
-
+    setContext("commonText", commonText);       // setup system wide text strings (all languages)
 
     //* setup system wide Icons as a context
     import {mainIcons} from '/imports/client/setup/systemIcons'
@@ -39,9 +38,6 @@
         setContext(key, mainIcons[key]);
     }
 
-
-    //* get system wide constants
-    //import {documents, colors, colorArrays, components, theme } from '/imports/client/setup/systemGlobals'
 
     //* set up user extra items
     import {userPosition} from '/imports/both/systemStores'
@@ -61,13 +57,12 @@
 
     //* load router -> will render main page & components based on nav-link selection
     import Navbar from '../Navbar/Navbar.svelte'
-
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import { activeRoute } from 'svelte-router-spa/src/store'
     import {routes} from '../routes'
 
-
 </script>
+
 
 
 <Navbar currentRoute="{$activeRoute}" />

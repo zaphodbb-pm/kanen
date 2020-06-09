@@ -187,6 +187,13 @@ Meteor.methods({
                 //docs = Mongo.Collection.get(coll).createQuery(query).fetchOne();
                 docs = Mongo.Collection.get(coll).findOne( filter, options );
                 break;
+
+            case type === "count":
+                //query = Object.assign(base, kanen.queries[coll].allFields);
+                //docs = Mongo.Collection.get(coll).createQuery(query).fetchOne();
+
+                docs = Mongo.Collection.get(coll).find(filter, options).count();
+                break;
         }
 
         return docs;

@@ -13,14 +13,17 @@
      *
      */
 
+    //* props
+    export let currentRoute;
+    export let params = {};
+
+    //* get components
     import SideNav from '../Navbar/NavSideMenu.svelte'
     import Footer from './Footer.svelte'
     import Route from 'svelte-router-spa/src/components/route.svelte'
 
-    export let currentRoute;
-    export let params = {};
-
 </script>
+
 
 
 <div class="page-master-layout has-background-white">
