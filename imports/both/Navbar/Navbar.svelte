@@ -1,6 +1,6 @@
 <script>
     /**
-     * @summary Navbar insert.
+     * Main Navbar component fixed at top of page.
      *
      * @memberof Navbar
      * @function Navbar
@@ -13,8 +13,16 @@
 
     //* support files
     import {layout} from '/imports/client/setup/systemGlobals'
-    import {createEventDispatcher} from 'svelte'
+    import {createEventDispatcher, setContext, getContext} from 'svelte'
     const dispatch = createEventDispatcher();
+
+    //* get the user language preference from store
+    import {i18n} from '/imports/functions/i18n'
+    import {lang} from '/imports/both/systemStores'
+
+    //* get page text information and set contexts for children components
+    import {navbar} from './Navbar_text'
+    setContext("navbar", i18n(navbar, "", $lang) );
 
     //* components
     import Navbar_Brand from './Navbar_Brand.svelte'
@@ -23,7 +31,11 @@
     import SideNav from './NavSideMenu.svelte'
     import AsideNav from './asideNavWrapper.svelte'
 
-    //** simple nav configuration options
+    import Notifications from '/imports/components/elements/notifications.svelte'
+    import UserProfile from '/imports/components/elements/userProfile.svelte'
+    import UserCredit from '/imports/components/elements/userCredit.svelte'
+
+    //** simple nav configuration options for aside navs
     let theme = "light";        // "light" or "dark" background
     let side = "left";          // "left" or "right" entry
     let open = false;           // hamburger state true = "open"; false = "closed"
@@ -51,11 +63,9 @@
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
-
     </div>
 
     <div class="navbar-menu">
-
         <div class="navbar-start">
             {#if layout.TOP_NAV}
                 <Navbar_Links {currentRoute}> </Navbar_Links>
@@ -67,17 +77,20 @@
                 <NavShortcuts {currentRoute}> </NavShortcuts>
             {/if}
         </div>
-
     </div>
 
     <div class="navbar-widgets">
-        widgets
+        <UserCredit  />
+
+        <Notifications />
+
+        <UserProfile />
     </div>
 
 </nav>
 
-<div class="navbar w-100 justify-content-center is-fixed-bottom is-light is-navMobile is-hidden-tablet"
-     style="display: inline-flex">
+<div class="navbar w-100 justify-content-center is-fixed-bottom is-light is-hidden-tablet"
+     style="display: inline-flex; min-height: 2rem;">
 
     <NavShortcuts {currentRoute} bottom />
 </div>
@@ -86,12 +99,3 @@
 <AsideNav bind:open {theme} {side} >
     <SideNav {currentRoute} {theme} on:side-link-selected={() => open = false} />
 </AsideNav>
-
-
-<style>
-
-    .is-navMobile {
-        min-height: 2rem;
-    }
-
-</style>

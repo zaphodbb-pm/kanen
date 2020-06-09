@@ -56,8 +56,18 @@ out.iconUsers = users;
 
 
 //* Navbar Icons
+import signIn from '/public/svg_to_js/sign-in-alt-solid.json';
+out.iconSignIn = signIn;
+
+import defaultUser from '/public/svg_to_js/user-circle-solid.json';
+out.iconDefaultUser = defaultUser;
+
+
 import bell from '/public/svg_to_js/bell.json';
 out.iconNotify = bell;
+
+import clock from '/public/svg_to_js/clock-solid.json';
+out.iconClock = clock;
 
 import bookmark from '/public/svg_to_js/bookmark.json';
 out.iconMark = bookmark;

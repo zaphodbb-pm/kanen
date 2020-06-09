@@ -117,7 +117,7 @@
                 {#if item.list}
                     <div class="accordian-list">
                         <span class="badge is-primary">{item.list.length}</span>
-                            <b class="pr-3">{item.label}</b>
+                        <b class="pr-3">{item.label}</b>
                     </div>
                 {:else}
                     <b>{item.label}</b>
