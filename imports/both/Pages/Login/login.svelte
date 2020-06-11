@@ -38,26 +38,51 @@
 
 
     //* page-body support **************************
+    import {userExtras} from '/imports/both/systemStores'
+    import {userLoggedIn} from '/imports/both/systemStores'
+    import {lastRoute} from '/imports/both/systemStores'
+
+    import {buildNavLinks} from '/imports/functions/buildNavLinks'
+    import {logUser} from '/imports/functions/logUser'
+    import {routes} from '/imports/both/routes'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
-    import Auth_Google from './thirdPartyAuth/authGoogle.svelte'
+    import Auth_Service from './authService.svelte'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
+    let services = pageConfig.services;
     let formFields = pageConfig.form;
     let formText = i18n(page, "form", $lang);
     setContext("formText", formText);
 
+    //* local reactive variables
     let text = i18n(page, "page", $lang);
+    let formEmail = "";
+    let formPassword = "";
     let messages = [];
     let watchFields = {};
 
-    let formEmail = "";
-    let formPassword = "";
+
+    console.log("login start", $lastRoute);
+
+
+    //** dev only
+    Meteor.logout(function () {
+        $userLoggedIn = null;
+
+        console.log("logout");
+    });
+
+
+
 
     function fieldChanged(msg){
 
         console.log("fieldChanged", msg.detail, msg.detail.value);
 
         switch(msg.detail.field){
+
+
+            /*
             case "loginSwitch":
 
                 //* preserve email entry values
@@ -74,36 +99,29 @@
                 formFields[toggle].value = msg.detail.value;
 
                 break;
+                */
 
             case "loginEmail":
                 formEmail = msg.detail.value
-                console.log("loginEmail", msg.detail.value);
                 break;
 
             case "loginPassword":
                 formPassword = msg.detail.value;
-                console.log("loginPassword", msg.detail.value);
                 break;
         }
 
-        dispatch('field-changed', msg.detail);
         watchFields = msg.detail;
     }
 
 
-    function buttonClickSend() {
-
-        redirect();
-
-        /*
-        Meteor.loginWithPassword({email: getEmail}, getPassword, function (err) {
+    function authPassword() {
+        Meteor.loginWithPassword({email: formEmail}, formPassword, function (err) {
             redirect(err);
         });
-        */
     }
 
     function Auth(msg){
-        console.log("Auth", msg, msg.detail);
+        redirect(msg.detail.err);
     }
 
     function redirect(err){
@@ -111,28 +129,20 @@
         if (err) {
             messages.push(err.message);
         } else {
+            $userLoggedIn = Meteor.user();
+            logUser(Meteor.user(), "logIn");
+            buildNavLinks($userLoggedIn, routes);
             targetPage();
         }
     }
 
     async function targetPage() {
+        let result = await Meteor.callPromise("loadExtraFields");
+        $userExtras = result ? result : null;
 
-        //let result = await Meteor.callPromise("loadExtraFields");
-        //result = result ? result : null;
-
-        //Session.set("userExtras", result ? result : {} );
-
-        //buildNavLinkObjects(result);
-        navigateTo("/myProfile");
-
-        //*** if access was attempted to a restricted page and login worked, then redirect to attempted page
-
-        /*
-        let path = FlowRouter.getQueryParam('history');
-        path = path ? path : destination;
-        FlowRouter.go(path);
-
-         */
+        let penultimate = $lastRoute.length > 2 ? $lastRoute.slice(-2, -1)[0] : null;
+        let target = penultimate && penultimate.name ? penultimate.name : "/myProfile";
+        navigateTo(target);
     }
 
 </script>
@@ -161,17 +171,19 @@
                         </div>
                     {/each}
 
-                    <a class="button is-primary mt-5" on:click="{buttonClickSend}">
+                    <a class="button is-primary mt-5" on:click="{authPassword}">
                         {text.btnSend}
                     </a>
 
+                    {#if services}
+                        <div class="is-divider field-hr" style="margin: 2.5rem 0 0.5rem 0;" data-content="{text.labelDivider}"></div>
 
-
-                    <div class="is-divider field-hr" style="margin: 2.5rem 0 0.5rem 0;" data-content="{text.labelDivider}"></div>
-
-                    <section class="level mt-5">
-                        <Auth_Google on:on-auth={Auth}   />
-                    </section>
+                        {#each services as service}
+                            <section class="level mt-5">
+                                <Auth_Service on:on-auth={Auth} {...service} />
+                            </section>
+                        {/each}
+                    {/if}
 
                     <article class="message is-warning" class:is-hidden="{messages.length < 1}">
                         <div class="message-body">

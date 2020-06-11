@@ -1,10 +1,10 @@
 /**
- * Route config information for Login page.
+ * Route config information for ChangePassword page.
  *
- * @memberof Pages:Login
- * @function login_route
+ * @memberof Pages:ChangePassword
+ * @function changePassword_route
  * @locus Client
- * @augments login
+ * @augments changePassword
  *
  * @returns {Object}
  *
@@ -15,23 +15,23 @@
 
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
-import {nav} from './login_text_nav'
+import {nav} from './changePassword_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
-import Page from './login_loader.svelte'
+import Page from './changePassword_loader.svelte'
 //import Page from './changePassword.svelte'
 
 
 let lang = getLang("en");
 
 export default {
-    name: "/login",                         // link that router will use
+    name: "/changePassword",                // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
-    //onlyIf: { guard: userIsAdmin, redirect: '/login' },
+    //onlyIf: { guard: userIsAdmin, redirect: '/changePassword' },
 
-    icon: "iconSignIn",                     // Navbar icon to show
+    icon: "iconChangePwd",                   // Navbar icon to show
     label: i18n(nav, "", lang),         // Navbar text to show
 
     roles: ["all"],                         // roles that can see this link in Navbar and be routed to

@@ -19,26 +19,29 @@
     //* support functions
     import {validateEmail} from '/imports/functions/validateEmail'
     import {validatePhone} from '/imports/functions/validatePhone'
-    import {createEventDispatcher} from 'svelte';
+    import Icon from '/imports/components/elements/icon.svelte'
+    import {createEventDispatcher, getContext} from 'svelte';
     const dispatch = createEventDispatcher();
 
     //* local reactive variable
     let inValue = "";
     let checkValue = "";
+    let attributes = field.attributes;
+    let hasShow = field.attributes && field.attributes.type && field.attributes.type === "password";
+    let isText = true;
+    let showTitles = field.tag ? field.tag : {};
+
 
     $: setValue(field.value);
-
 
 
 
     //* functions that mutate local variables
     function setValue(val){
         inValue = val;
-
-        //console.log("inputs", field, inValue);
-
     }
 
+    //* event handlers
     function checkInput(){
         let test = formatField(inValue, field.attributes);
 
@@ -46,6 +49,13 @@
             inValue = test.value;
             checkValue = test.error ? "field-input-error" : "";
             dispatch('on-inputentry', test );
+        }
+    }
+
+    function checkShow(msg){
+        if(hasShow){
+            attributes.type = isText ? "text" : "password";
+            isText = !isText;
         }
     }
 
@@ -88,9 +98,28 @@
 </script>
 
 
-<label id="{field.field}">
-    <input class="input {checkValue}"
-           {...field.attributes}
-           bind:value={inValue}
-           on:keyup="{checkInput}">
-</label>
+
+<div id="{field.field}" class="field has-addons">
+    <div class="control is-expanded">
+        <input class="input {checkValue}"
+               {...attributes}
+               bind:value={inValue}
+               on:keyup="{checkInput}">
+    </div>
+
+    {#if hasShow}
+        <div class="control">
+            <a class="button has-text-grey" on:click={checkShow}>
+                {#if isText}
+                    <span title="{showTitles.show}">
+                        <Icon icon='{getContext("iconShowText")}' class="text-1dot5rem" />
+                    </span>
+                {:else}
+                    <span title="{showTitles.hide}">
+                        <Icon icon='{getContext("iconHideText")}' class="text-1dot5rem"  />
+                    </span>
+                {/if}
+            </a>
+        </div>
+    {/if}
+</div>

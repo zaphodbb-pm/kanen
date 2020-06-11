@@ -23,33 +23,27 @@ export const page = {
         en: {
             //* card general labels
             btnSend: "Sign In",
-            btnReceive: "Receive Info",
 
             //* card field specific labels
             labelTitle: "Log In",
-            labelEmail: "Email Address",
-            labelPassword: "Enter Password",
             labelDivider: "OR",
-            labelShowPassword: "Show Password"
         }
     },
 
     form: {
         en: {
             loginEmail: {
-                label: "Email Input",
+                label: "Email",
                 helpText: "Checks for valid email before saving.  This field is 'watched' by startPhone at right.",
             },
 
             loginPassword: {
-                label: "Password Input",
+                label: "Password",
                 helpText: "TBD check strength",
-            },
-
-            loginSwitch: {
-                label: "",
-                tag: "Show Password",
-                helpText: "",
+                tag: {
+                    show: "Show Password",
+                    hide: "Hide Password",
+                }
             }
         }
     }

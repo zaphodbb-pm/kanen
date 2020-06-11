@@ -52,6 +52,7 @@ Meteor.methods({
                 authorName: doc.username,
                 authorFullName: doc.username,
 
+                profile: {},
                 updatedAt: Date.now()
             };
 
@@ -117,6 +118,7 @@ Meteor.methods({
                 authorName: doc.username,
                 authorFullName: doc.username,
 
+                profile: doc.profile,
                 updatedAt: Date.now()
             };
 
@@ -166,11 +168,11 @@ Meteor.methods({
     userMgmtRemove: function (docId) {
         check(docId, String);
 
-        if (Meteor.userId() && verifyRole(Meteor.userId(), "administrator")) {    // check if updating user is administrator
+        //if (Meteor.userId() && verifyRole(Meteor.userId(), "administrator")) {    // check if updating user is administrator
             let doc = Meteor.users.findOne({_id: docId});
             Meteor.users.remove(doc._id);
             return {status: 200, _id: docId, text: `${doc.username} has been removed`};
-        }
+        //}
     },
 
     /**

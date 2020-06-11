@@ -56,11 +56,14 @@ out.iconUsers = users;
 
 
 //* Navbar Icons
+import defaultUser from '/public/svg_to_js/user-circle-solid.json';
+out.iconDefaultUser = defaultUser;
+
 import signIn from '/public/svg_to_js/sign-in-alt-solid.json';
 out.iconSignIn = signIn;
 
-import defaultUser from '/public/svg_to_js/user-circle-solid.json';
-out.iconDefaultUser = defaultUser;
+import changePwd from '/public/svg_to_js/exchange-alt-solid.json';
+out.iconChangePwd = changePwd;
 
 
 import bell from '/public/svg_to_js/bell.json';
@@ -106,6 +109,12 @@ out.iconFileDelete = fileDelete;
 
 import rowAdd from '/public/svg_to_js/plus-circle-solid.json';
 out.iconRowAdd = rowAdd;
+
+import showField from '/public/svg_to_js/eye.json';
+out.iconShowText = showField;
+
+import hideField from '/public/svg_to_js/eye-slash.json';
+out.iconHideText = hideField;
 
 
 import music from '/public/svg_to_js/music-solid.json';
