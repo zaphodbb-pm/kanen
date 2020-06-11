@@ -12,32 +12,35 @@
      *
      */
 
+
+    //* props
+    export let icon  = "";
+    export let title = "";
+    export let service = ""
+
     //* support files
     import Icon from '/imports/components/elements/icon.svelte'
-    import {createEventDispatcher, setContext, getContext} from 'svelte';
+    import {createEventDispatcher, getContext} from 'svelte';
     const dispatch = createEventDispatcher();
 
-    //* convenience variables
-    let serviceIcon  = "iconGoogle";
-    let title = "Google";
 
     //* access auth service
     function authService() {
-        Meteor.loginWithGoogle({}, function (err) {
-            dispatch("on-auth", {err: err, auth: !err});
-        });
+
+        if(service){
+            Meteor[service]({}, function (err) {
+                dispatch("on-auth", {service: title, err: err, auth: !err});
+            });
+        }
     }
 
 </script>
 
-
-
 <div class="level-item">
     <a class="button is-info login-circle" on:click="{authService}" {title}>
-        <Icon icon={getContext(serviceIcon)} class="text-2dot0rem"/>
+        <Icon icon={getContext(icon)} class="text-2dot0rem"/>
     </a>
 </div>
-
 
 
 <style>

@@ -16,7 +16,8 @@ export const navbar = {
             toProfile: "Profile",
             signIn: "Sign In",
             logOut: "Log Out",
-            changePassword: "Change Password"
+            changePassword: "Change Password",
+            title: "user image"
         },
 
         userCredit: {

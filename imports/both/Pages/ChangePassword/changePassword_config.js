@@ -1,10 +1,10 @@
 /**
- * Configuration for Login components (optional).
+ * Configuration for ChangePassword components (optional).
  *
- * @memberof Pages:Login
- * @function login_config
+ * @memberof Pages:ChangePassword
+ * @function changePassword_config
  * @locus Client
- * @augments login
+ * @augments changePassword
  *
  * @returns {Object}
  */
@@ -14,19 +14,19 @@ export default {
     form: [
 
         {
-            field: "loginEmail",
+            field: "oldPassword",
             fieldType: "input",
             optional: true,
             tab: 0,
 
-            attributes: {type: "email", autocomplete: "username"},
+            attributes: {type: "password", autocomplete: "current-password"},
             params: {},
             defaultValue: "",
             value: "",              // force value; usual set by formHolder
         },
 
         {
-            field: "loginPassword",
+            field: "newPassword",
             fieldType: "input",
             optional: true,
             tab: 0,
@@ -36,15 +36,5 @@ export default {
             defaultValue: "",
             value: "",              // force value; usual set by formHolder
         }
-    ],
-
-    //** each login services also needs registration on the server:main.js -> function registerExternalLogin()
-    services: [
-        {
-            icon:   "iconGoogle",
-            title:  "Google",
-            service: "loginWithGoogle"
-        }
-
     ]
 };

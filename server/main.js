@@ -15,6 +15,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base'
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
+import _ from 'underscore'
 //import { UserStatus } from 'meteor/mizzao:user-status';
 
 
@@ -84,47 +85,8 @@ Meteor.startup(() => {
 
     //* set up user accounts and login capability
     //configAccountsPackage();
-    //registerExternalLogin();
+    registerExternalLogin();
 
-
-    /*
-    //** build an impersonate capability for "sweatcrew" and "administrator" roles
-    //** adapted from https://github.com/steventebrinke/meteor-impersonate
-    //**
-    Accounts.registerLoginHandler("impersonate", function ({impersonateUser}) {
-        if (!impersonateUser) return undefined; // don't handle
-
-        check(impersonateUser, String);
-
-        let user = Meteor.user();
-
-        if(user){
-            if (impersonateUser === user._id) {
-                return {error: Meteor.Error(400, "Bad request. You already are yourself.")};
-            }
-
-            //** need correct role
-            if ( !["sweatcrew", "administrator"].includes( user.role._id ) ) {
-                return {error: Meteor.Error(403, "Permission denied. You need to be an admin to impersonate users.")};
-            }
-
-            if (!Meteor.users.findOne({_id: impersonateUser})) {
-                return {error: Meteor.Error(404, "User not found. Can't impersonate it.")};
-            }
-
-            return {userId: impersonateUser};
-
-        }else{
-            return {error: Meteor.Error(400, "Bad request. You are not logged in.")};
-        }
-    });
-
-     */
-
-
-
-    /*
-    //* control the traffic hitting this server
     const THROTTLE_METHODS = _.chain(Meteor.server.method_handlers)
         .keys()
         .reject(function(meth){ return meth.includes("/") || meth.includes("__"); })
@@ -137,8 +99,6 @@ Meteor.startup(() => {
         // Rate limit per connection ID
         connectionId() { return true; },
     }, 100, 1000);
-
-     */
 });
 
 
@@ -203,6 +163,9 @@ if (Meteor.isServer) {
         }
     });
 }
+
+*/
+
 
 if (Meteor.isServer) {
     //** When checking external services for account validation / login,
@@ -269,12 +232,8 @@ function buildUserDoc(type, fields, user){
         author: fields.userId,
         username: user.username,
         tenantId: user.tenantId,
+        role: user.role && user.role._id ? user.role._id : null,
 
-        organization: {
-            location: user.location && user.location._id ? user.location._id : null,
-            department: user.department && user.department._id ? user.department._id : null,
-            role: user.role && user.role._id ? user.role._id : null,
-        },
 
         connection: {
             connectionId: fields.connectionId,
@@ -301,6 +260,7 @@ function registerExternalLogin(){
         }
     );
 
+    /*
     ServiceConfiguration.configurations.upsert(
         { service: "linkedin" },
         { $set: {
@@ -327,9 +287,15 @@ function registerExternalLogin(){
             }
         }
     );
+
+     */
 }
 
 
+
+
+
+/*
 //** for initial system startup only;
 //** if no "administrator" exists, then creat one
 function initializeAdmin(){

@@ -42,6 +42,7 @@ import Icons from '/imports/both/Pages/Icons/icons_route'
 import Colours from '/imports/both/Pages/Colours/colours_route'
 
 import Login from '/imports/both/Pages/Login/login_route'
+import ChangePassword from '/imports/both/Pages/ChangePassword/changePassword_route'
 import MyProfile from '/imports/both/Pages/MyProfile/myProfile_route'
 import Users from '/imports/both/Pages/Users/users_route'
 import Documentation from '/imports/both/Pages/Documentation/documentation_route'
@@ -62,6 +63,7 @@ const routes = [
     Content,
 
     Login,
+    ChangePassword,
     MyProfile,
     Users,
     Documentation,

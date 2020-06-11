@@ -54,6 +54,8 @@
     let helpText = formText && formText[field.field] && formText[field.field].helpText ? formText[field.field].helpText : "";
     let adjustLabel = field.adjustLabel ? "adjust-label" : "";
 
+    field.tag = formText && formText[field.field] && formText[field.field].tag ? formText[field.field].tag : null;
+
     $: {
         field = prepareField(field);
         fieldHide = !!( (field.listen && field.listen.src) && (field.defaultValue === field.value ) );

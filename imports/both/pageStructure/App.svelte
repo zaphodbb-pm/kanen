@@ -59,9 +59,22 @@
     import Navbar from '../Navbar/Navbar.svelte'
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import { activeRoute } from 'svelte-router-spa/src/store'
+    import {lastRoute} from '/imports/both/systemStores'
     import {routes} from '../routes'
 
+
+    //* keep track of path history
+    $: {
+        $lastRoute = [...$lastRoute, $activeRoute];
+
+        if($lastRoute && $lastRoute.length > 4 ){
+            $lastRoute = $lastRoute.slice(1);
+        }
+    }
+
 </script>
+
+
 
 
 
