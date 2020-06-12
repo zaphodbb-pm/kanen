@@ -68,6 +68,11 @@ export const page = {
                 ],
             },
 
+            credits: {
+                label: "Credits",
+                helpText: "",
+            },
+
             hr1: {
                 label: "",
                 tag: "Site Admin Only"

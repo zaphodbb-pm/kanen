@@ -13,9 +13,7 @@
     //** support functions
     import {userExtras} from '/imports/both/systemStores'
     import {userLoggedIn} from '/imports/both/systemStores'
-    import {buildNavLinks} from '/imports/functions/buildNavLinks'
     import {logUser} from '/imports/functions/logUser'
-    import {routes} from '/imports/both/routes'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
     import { getContext } from 'svelte';
     import {createEventDispatcher} from 'svelte';
@@ -28,7 +26,6 @@
 
     //* local reactive variables
     let showImg = false;
-    let loggedIn = false;
     let user = {};
     let userName = "";
 
@@ -46,8 +43,6 @@
     function logout() {
         Meteor.logout(function () {
             logUser(user, "logOut");
-            buildNavLinks(null, routes);
-
             $userExtras = {};
             $userLoggedIn = null;
             navigateTo("/login");
