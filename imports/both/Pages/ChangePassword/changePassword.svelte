@@ -58,7 +58,6 @@
     //** event handlers
     function fieldChanged(msg){
         switch(msg.detail.field){
-
             case "oldPassword":
                 formOldPassword = msg.detail.value
                 break;

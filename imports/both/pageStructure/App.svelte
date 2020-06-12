@@ -40,7 +40,7 @@
 
 
     //* set up user extra items
-    import {userPosition} from '/imports/both/systemStores'
+    import {userPosition, userLoggedIn} from '/imports/both/systemStores'
 
     navigator.geolocation.getCurrentPosition(function (position) {
         $userPosition = {
@@ -59,7 +59,7 @@
     import Navbar from '../Navbar/Navbar.svelte'
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import { activeRoute } from 'svelte-router-spa/src/store'
-    import {lastRoute} from '/imports/both/systemStores'
+    import {lastRoute, userExtras} from '/imports/both/systemStores'
     import {routes} from '../routes'
 
 
@@ -69,6 +69,20 @@
 
         if($lastRoute && $lastRoute.length > 4 ){
             $lastRoute = $lastRoute.slice(1);
+        }
+    }
+
+    $: {
+        let test = $userLoggedIn
+        console.log("app user", test);
+
+        if(test){
+            Meteor.call("loadExtraFields", function(err, res){
+                if(err){ console.log("loadExtraFields error", err); }
+                if(res){ $userExtras = res ? res : null; console.log("loadExtraFields", res) }
+            });
+        }else{
+            $userExtras = null;
         }
     }
 

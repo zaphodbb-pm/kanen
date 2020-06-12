@@ -39,7 +39,7 @@ Meteor.methods({
                 tenantId: doc.tenantId ? doc.tenantId : "general",
                 active: doc.active ? doc.active : false,
                 emailMain: doc.emailMain && doc.emailMain !== "" ? doc.emailMain : doc.username + "@example.com",
-                credit: doc.credit ? doc.credit : 0,
+                credits: doc.credits ? doc.credits : 0,
 
                 role: doc.role ? doc.role : "",
 
@@ -106,7 +106,7 @@ Meteor.methods({
                 emailMain: doc.emailMain && doc.emailMain !== "" ? doc.emailMain : doc.username + "@example.com",
                 tenantId: doc.tenantId ? doc.tenantId : "general",
                 active: doc.active ? doc.active : false,
-                credit: doc.credit ? doc.credit : 0,
+                credits: doc.credits ? doc.credits : 0,
 
                 role: doc.role ? doc.role : "",
                 admin: doc.admin ? doc.admin : false,
@@ -258,7 +258,7 @@ Meteor.methods({
                 role: 1,
                 groups: 1,
                 groupMaster: 1,
-                credit: 1,
+                credits: 1,
                 status: 1,
             };
 

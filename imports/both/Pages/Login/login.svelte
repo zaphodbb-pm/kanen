@@ -42,9 +42,7 @@
     import {userLoggedIn} from '/imports/both/systemStores'
     import {lastRoute} from '/imports/both/systemStores'
 
-    import {buildNavLinks} from '/imports/functions/buildNavLinks'
     import {logUser} from '/imports/functions/logUser'
-    import {routes} from '/imports/both/routes'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Auth_Service from './authService.svelte'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
@@ -61,46 +59,8 @@
     let messages = [];
     let watchFields = {};
 
-
-    console.log("login start", $lastRoute);
-
-
-    //** dev only
-    Meteor.logout(function () {
-        $userLoggedIn = null;
-
-        console.log("logout");
-    });
-
-
-
-
     function fieldChanged(msg){
-
-        console.log("fieldChanged", msg.detail, msg.detail.value);
-
         switch(msg.detail.field){
-
-
-            /*
-            case "loginSwitch":
-
-                //* preserve email entry values
-                let email = formFields.findIndex( (f) => f.field === "loginEmail");
-                formFields[email].value = formEmail;
-
-                //* preserve password entry values and toggle input type
-                let pswd = formFields.findIndex( (f) => f.field === "loginPassword");
-                formFields[pswd].attributes.type = msg.detail.value ? "text" : "password";
-                formFields[pswd].value = formPassword;
-
-                //* toggle switch field
-                let toggle = formFields.findIndex( (f) => f.field === "loginSwitch");
-                formFields[toggle].value = msg.detail.value;
-
-                break;
-                */
-
             case "loginEmail":
                 formEmail = msg.detail.value
                 break;
@@ -131,14 +91,13 @@
         } else {
             $userLoggedIn = Meteor.user();
             logUser(Meteor.user(), "logIn");
-            buildNavLinks($userLoggedIn, routes);
             targetPage();
         }
     }
 
     async function targetPage() {
-        let result = await Meteor.callPromise("loadExtraFields");
-        $userExtras = result ? result : null;
+        //let result = await Meteor.callPromise("loadExtraFields");
+        //$userExtras = result ? result : null;
 
         let penultimate = $lastRoute.length > 2 ? $lastRoute.slice(-2, -1)[0] : null;
         let target = penultimate && penultimate.name ? penultimate.name : "/myProfile";

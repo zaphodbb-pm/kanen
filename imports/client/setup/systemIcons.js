@@ -65,6 +65,9 @@ out.iconSignIn = signIn;
 import changePwd from '/public/svg_to_js/exchange-alt-solid.json';
 out.iconChangePwd = changePwd;
 
+import coins from '/public/svg_to_js/coins-solid.json';
+out.iconCredits = coins;
+
 
 import bell from '/public/svg_to_js/bell.json';
 out.iconNotify = bell;

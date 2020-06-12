@@ -17,8 +17,39 @@ export function buildNavLinks(user, routes) {
 
 
     console.log("buildNavLinks", user, routes);
-    return {};
+    //return {};
 
+    return parents;
+
+
+    //*** get parent links
+    Object.keys(routes).forEach(function (key) {
+        let nav = routes[key].nav;
+
+        let roles = routes[key].role;
+        if(!Array.isArray(roles) ){ roles = roles.read; }
+
+        if (nav && nav.isParent) {
+            switch (true) {
+                case user && user.admin:
+                    parents[nav.lnk] = nav;
+                    break;
+
+                case roles.includes("all"):
+                    parents[nav.lnk] = nav;
+                    break;
+
+                case !!(user && user.role && user.role._id):
+                    if (roles.includes(user.role._id)) {
+                        parents[nav.lnk] = nav;
+                    }
+                    break;
+            }
+        }
+    });
+
+
+    /*
     //*** get parent links
     Object.keys(routes).forEach(function (key) {
         let nav = routes[key].nav;
@@ -45,7 +76,10 @@ export function buildNavLinks(user, routes) {
         }
     });
 
+     */
 
+
+    /*
     //*** attach sublinks to parent links
     Object.keys(parents).forEach(function (parent) {
         let children = [];
@@ -78,4 +112,6 @@ export function buildNavLinks(user, routes) {
         parents[parent]["subMenu"] = children;
     });
     return parents;
+
+     */
 }

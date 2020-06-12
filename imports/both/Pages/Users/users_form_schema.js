@@ -15,6 +15,7 @@
  *          role  =         Object: user roles for access to capabilities
  *          emailMain =     String: valid email
  *          pwdMain =       String: new password for user or username is default
+ *          credits =       Number: acquired credits
  *
  *          active =        Boolean: make user info active
  *          groups =        String: user group
@@ -70,6 +71,16 @@ export default [
         params: {type: "staticSelect"},
         optional: true,
         defaultValue: {_id: "basic", name: "Basic"},
+    },
+
+    {
+        field: "credits",
+        fieldType: "input",
+        tab: 0,
+        attributes: {type: "number", step: 0.01},
+        params: {},
+        optional: true,
+        defaultValue: 0,
     },
 
     {
