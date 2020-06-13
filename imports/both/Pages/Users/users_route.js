@@ -34,7 +34,10 @@ export default {
     icon: "iconUsers",                      // Navbar icon to show
     label: i18n(nav, "", lang),         // Navbar text to show
 
-    roles: ["all"],                         // roles that can see this link in Navbar and be routed to
+    roles: {                                // roles that can see this link in Navbar and be routed to
+        read: ["siteAdmin"],
+        write: ["siteAdmin"]
+    },
 
     group: 2,                               // for side navigation; group routes into a block
     isNavMobile: false,                     // (optional) show link in mobile nav block at bottom or top

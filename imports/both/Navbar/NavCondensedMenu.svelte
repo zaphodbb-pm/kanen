@@ -15,22 +15,23 @@
     export let currentRoute;
     export let bottom = false;
 
-    //* get system wide icon definition
-    import Icon from '/imports/components/elements/icon.svelte'
+    //* component support files
     import { getContext } from 'svelte';
-
-    //* get route information and config
-    import { shortcuts } from '/imports/both/routes'
+    import Icon from '/imports/components/elements/icon.svelte'
+    import {showRoutes} from '/imports/both/systemStores'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
+    //** build short cut links for top or bottom nav
+    let shortcuts = [];
+
+    $: shortcuts = $showRoutes.filter( (route) => route.isNavMobile );
+
+    //* event handler
     function navigate(event, path) {
         event.preventDefault()
         event.stopPropagation()
         navigateTo(path);
     }
-
-
-
 
 </script>
 
@@ -72,6 +73,5 @@
         color: #CC5C00 !important;
         background-color: #eee !important;
     }
-
 
 </style>

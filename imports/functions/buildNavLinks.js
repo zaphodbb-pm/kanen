@@ -13,105 +13,27 @@
  */
 
 export function buildNavLinks(user, routes) {
-    let parents = {};
+    let out = [];
 
+    routes.forEach(function (route) {
+        let roles = route && route.roles && route.roles.read ? route.roles.read : [];
 
-    console.log("buildNavLinks", user, routes);
-    //return {};
+        switch (true) {
+            case user && user.admin:
+                out.push(route);
+                break;
 
-    return parents;
+            case roles.includes("all"):
+                out.push(route);
+                break;
 
-
-    //*** get parent links
-    Object.keys(routes).forEach(function (key) {
-        let nav = routes[key].nav;
-
-        let roles = routes[key].role;
-        if(!Array.isArray(roles) ){ roles = roles.read; }
-
-        if (nav && nav.isParent) {
-            switch (true) {
-                case user && user.admin:
-                    parents[nav.lnk] = nav;
-                    break;
-
-                case roles.includes("all"):
-                    parents[nav.lnk] = nav;
-                    break;
-
-                case !!(user && user.role && user.role._id):
-                    if (roles.includes(user.role._id)) {
-                        parents[nav.lnk] = nav;
-                    }
-                    break;
-            }
-        }
-    });
-
-
-    /*
-    //*** get parent links
-    Object.keys(routes).forEach(function (key) {
-        let nav = routes[key].nav;
-
-        let roles = routes[key].role;
-        if(!_.isArray(roles) ){ roles = roles.read; }
-
-        if (nav && nav.isParent) {
-            switch (true) {
-                case user && user.admin:
-                    parents[nav.lnk] = nav;
-                    break;
-
-                case roles.includes("all"):
-                    parents[nav.lnk] = nav;
-                    break;
-
-                case !!(user && user.role && user.role._id):
-                    if (roles.includes(user.role._id)) {
-                        parents[nav.lnk] = nav;
-                    }
-                    break;
-            }
-        }
-    });
-
-     */
-
-
-    /*
-    //*** attach sublinks to parent links
-    Object.keys(parents).forEach(function (parent) {
-        let children = [];
-
-        Object.keys(routes).forEach(function (key) {
-            let nav = routes[key].nav;
-            if (nav && nav.subLnk && parent === nav.parent) {
-
-                let roles = routes[key].role;
-                if(!Array.isArray(roles) ){ roles = roles.read; }
-
-                switch (true) {
-                    case user && user.admin:
-                        children.push({lnk: nav.lnk, txt: nav.txt, icon: nav.icon, role: nav.role});
-                        break;
-
-                    case roles.includes("all"):
-                        children.push({lnk: nav.lnk, txt: nav.txt, icon: nav.icon, role: nav.role});
-                        break;
-
-                    case !!(user && user.role && user.role._id):
-                        if (roles.includes(user.role._id)) {
-                            children.push({lnk: nav.lnk, txt: nav.txt, icon: nav.icon, role: nav.role});
-                        }
-                        break;
+            case !!(user && user.role && user.role._id):
+                if (roles.includes(user.role._id)) {
+                    out.push(route);
                 }
-            }
-        });
-
-        parents[parent]["subMenu"] = children;
+                break;
+        }
     });
-    return parents;
 
-     */
+    return out;
 }
