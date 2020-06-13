@@ -46,7 +46,7 @@
     export let submitted = false;
 
     // get the user language preference from store
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
 
     //** support functions
     import {getContext} from 'svelte';

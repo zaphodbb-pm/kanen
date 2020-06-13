@@ -18,7 +18,7 @@
     //* support functions
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
-    import {userPosition} from '/imports/both/systemStores'
+    import {userPosition} from '/imports/client/systemStores'
 
     //* local reactive variable
     let selected;

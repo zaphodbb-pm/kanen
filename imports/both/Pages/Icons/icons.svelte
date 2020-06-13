@@ -14,7 +14,7 @@
 
     //* get the user language preference from store
     import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
     let lng = $lang;
 
     //* app services

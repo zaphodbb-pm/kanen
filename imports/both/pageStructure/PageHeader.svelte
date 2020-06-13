@@ -10,7 +10,7 @@
      */
 
     //* get the user language preference from store and text from parent page context
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
     import { getContext } from 'svelte';
     import {i18n} from '/imports/functions/i18n'
 

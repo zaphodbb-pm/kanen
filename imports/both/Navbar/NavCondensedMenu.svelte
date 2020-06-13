@@ -18,7 +18,7 @@
     //* component support files
     import { getContext } from 'svelte';
     import Icon from '/imports/components/elements/icon.svelte'
-    import {showRoutes} from '/imports/both/systemStores'
+    import {showRoutes} from '/imports/client/systemStores'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
     //** build short cut links for top or bottom nav

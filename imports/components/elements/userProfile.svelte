@@ -12,7 +12,7 @@
 
     //** support functions
     import Icon from '/imports/components/elements/icon.svelte'
-    import {userLoggedIn} from '/imports/both/systemStores'
+    import {userLoggedIn} from '/imports/client/systemStores'
     import {logUser} from '/imports/functions/logUser'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
     import {createEventDispatcher, getContext } from 'svelte';

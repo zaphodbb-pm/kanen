@@ -11,7 +11,7 @@
 
 
     //* support files
-    import {userExtras} from '/imports/both/systemStores'
+    import {userExtras} from '/imports/client/systemStores'
     import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
 

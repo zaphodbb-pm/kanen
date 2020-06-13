@@ -18,7 +18,7 @@
     import { getContext } from 'svelte';
 
     //* get the user language preference from store
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
 
     //* get page text information and set contexts for children components
     import {header, page} from './home_text'
