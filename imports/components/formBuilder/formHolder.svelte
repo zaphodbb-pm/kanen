@@ -63,7 +63,7 @@
     export let directdoc;
 
     //** svelte handlers
-    import {userExtras} from '/imports/both/systemStores'
+    import {userExtras} from '/imports/client/systemStores'
     import {onMount, onDestroy, setContext, getContext} from 'svelte';
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();

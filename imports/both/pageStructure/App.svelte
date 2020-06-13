@@ -45,14 +45,14 @@
 
     //* set up user extra items
     import {buildNavLinks} from '/imports/functions/buildNavLinks'
-    import {userPosition, userLoggedIn, userExtras} from '/imports/both/systemStores'
+    import {userPosition, userLoggedIn, userExtras} from '/imports/client/systemStores'
 
     //* load router -> will render main page & components based on nav-link selection
     import {Tracker} from 'meteor/tracker'
     import Navbar from '../Navbar/Navbar.svelte'
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import { activeRoute } from 'svelte-router-spa/src/store'
-    import {showRoutes, lastRoute} from '/imports/both/systemStores'
+    import {showRoutes, lastRoute} from '/imports/client/systemStores'
     import {allRoutes} from '../routes'
 
     //* local reactive variables

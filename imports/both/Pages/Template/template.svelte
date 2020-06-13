@@ -20,7 +20,7 @@
 
     //** get the user language preference from store (optional)
     import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
 
     //** get page text information and set contexts for children components
     import {header, page} from './template_text'

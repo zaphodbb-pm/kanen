@@ -18,7 +18,7 @@
     import { getContext } from 'svelte';
 
     //* get page text information and set contexts for children components
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
     import pageText from './widgetsContent_text'
     setContext("pageText", pageText);
 

@@ -15,7 +15,7 @@
     let version = getContext("Version");
 
     //** get the user language preference from store
-    import {lang} from '/imports/both/systemStores'
+    import {lang} from '/imports/client/systemStores'
     let lng = $lang;
 
     //** get component text strings
@@ -26,7 +26,7 @@
     let loc;
 
     //** user stuff
-    import {userPosition} from '/imports/both/systemStores'
+    import {userPosition} from '/imports/client/systemStores'
     $: loc = $userPosition;
 
 
