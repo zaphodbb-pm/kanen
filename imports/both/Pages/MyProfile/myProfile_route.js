@@ -19,13 +19,13 @@ import {nav} from './myProfile_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
 import Page from './myProfile_loader.svelte'
-//import Page from './changePassword.svelte'
+//import Page from './myProfile.svelte'
 
 
 let lang = getLang("en");
 
 export default {
-    name: "/myProfile",                      // link that router will use
+    name: "/my-profile",                      // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
@@ -39,6 +39,6 @@ export default {
         write: ["basic", "standard", "pro", "siteAdmin"]
     },
 
-    group: 0,                               // for side navigation; group routes into a block
+    group: 2,                               // for side navigation; group routes into a block
     isNavMobile: false,                     // (optional) show link in mobile nav block at bottom or top
 };

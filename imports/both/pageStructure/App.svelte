@@ -56,7 +56,9 @@
     import {allRoutes} from '../routes'
 
     //* local reactive variables
-    let routes = [];
+    //* Note that the spa-router does not reactively update; need to kick start a change on log state
+    let routes = null;
+    let routesLoggedOut = null;
 
     //* get user position from browser
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -87,13 +89,15 @@
                     routes = navs
                     $showRoutes = navs;
                     $userExtras = result;
+                    routesLoggedOut = null;
                 }
             });
         }else{
             let navs = buildNavLinks(null, allRoutes);
-            routes = navs
+            routesLoggedOut = navs
             $showRoutes = navs;
             $userExtras = null;
+            routes = null;
         }
     });
 
@@ -114,4 +118,9 @@
 
 <Navbar currentRoute="{$activeRoute}" />
 
-<Pages {routes} />
+
+{#if routes}
+    <Pages {routes} />
+{:else}
+    <Pages routes="{routesLoggedOut}" />
+{/if}

@@ -52,30 +52,30 @@
         navigateTo(path);
     }
 
-
-
 </script>
 
 
 {#each groups as group }
 
-    <div class="nav-side-menu mb-4">
-        {#each group as links}
+    {#if group}
+        <div class="nav-side-menu mb-4">
+            {#each group as links}
 
-            <a class="navbar-item navbar-hover "
-               class:is-nav-active={currentRoute.name === links.name}
-               class:dark={theme === "dark"}
-               on:click={event => navigate(event, links.name)}
-               href={links.name}>
+                <a class="navbar-item navbar-hover "
+                   class:is-nav-active={currentRoute.name === links.name}
+                   class:dark={theme === "dark"}
+                   on:click={event => navigate(event, links.name)}
+                   href={links.name}>
 
-                <div class="d-flex align-items-center" title={links.label}>
-                    <Icon icon={getContext(links.icon)} class="text-1dot5rem"/>
-                    <div class="nav-page-text ml-2">{links.label}</div>
-                </div>
-            </a>
+                    <div class="d-flex align-items-center" title={links.label}>
+                        <Icon icon={getContext(links.icon)} class="text-1dot5rem"/>
+                        <div class="nav-page-text ml-2">{links.label}</div>
+                    </div>
+                </a>
 
-        {/each}
-    </div>
+            {/each}
+        </div>
+    {/if}
 
 {/each}
 

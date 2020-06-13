@@ -35,8 +35,8 @@ export default {
     label: i18n(nav, "", lang),         // Navbar text to show
 
     roles: {                                // roles that can see this link in Navbar and be routed to
-        read: ["all"],
-        write: ["none"]
+        read: ["basic", "standard", "pro", "siteAdmin"],
+        write: ["basic", "standard", "pro", "siteAdmin"]
     },
 
     group: 2,                               // for side navigation; group routes into a block

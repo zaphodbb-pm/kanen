@@ -32,11 +32,14 @@ import learn from '/public/svg_to_js/graduation-cap-solid.json';
 out.iconLearn = learn;
 
 
-import content from '/public/svg_to_js/book-open-solid.json';
+import content from '/public/svg_to_js/grip-horizontal-solid.json';
 out.iconContent = content;
 
-import addressCard from '/public/svg_to_js/address-card.json';
-out.iconCard = addressCard;
+import cards from '/public/svg_to_js/box-open-solid.json';
+out.iconCard = cards;
+
+import myProfile from '/public/svg_to_js/address-card.json';
+out.iconMyProfile = myProfile;
 
 import icons from '/public/svg_to_js/icons-solid.json';
 out.iconIcons = icons;

@@ -10,5 +10,5 @@
  */
 
 
-export const nav = {en: "Content"};
+export const nav = {en: "Tab Widgets"};
 
