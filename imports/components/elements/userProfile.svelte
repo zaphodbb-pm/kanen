@@ -11,15 +11,12 @@
 
 
     //** support functions
-    import {userExtras} from '/imports/both/systemStores'
+    import Icon from '/imports/components/elements/icon.svelte'
     import {userLoggedIn} from '/imports/both/systemStores'
     import {logUser} from '/imports/functions/logUser'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
-    import { getContext } from 'svelte';
-    import {createEventDispatcher} from 'svelte';
+    import {createEventDispatcher, getContext } from 'svelte';
     const dispatch = createEventDispatcher();
-
-    import Icon from '/imports/components/elements/icon.svelte'
 
     //* component controls
     let text = getContext("navbar").userProfile;
@@ -43,8 +40,6 @@
     function logout() {
         Meteor.logout(function () {
             logUser(user, "logOut");
-            $userExtras = {};
-            $userLoggedIn = null;
             navigateTo("/login");
         });
     }

@@ -16,7 +16,7 @@
     export let params;
 
     //* support functions
-    import {createEventDispatcher, setContext, getContext} from 'svelte';
+    import {createEventDispatcher, setContext} from 'svelte';
     const dispatch = createEventDispatcher();
 
     //** get the user language preference from store (optional)
@@ -38,8 +38,6 @@
 
 
     //* page-body support **************************
-    import {userExtras} from '/imports/both/systemStores'
-    import {userLoggedIn} from '/imports/both/systemStores'
     import {lastRoute} from '/imports/both/systemStores'
 
     import {logUser} from '/imports/functions/logUser'
@@ -47,6 +45,7 @@
     import Auth_Service from './authService.svelte'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
+    //* local static variables
     let services = pageConfig.services;
     let formFields = pageConfig.form;
     let formText = i18n(page, "form", $lang);
@@ -89,19 +88,12 @@
         if (err) {
             messages.push(err.message);
         } else {
-            $userLoggedIn = Meteor.user();
             logUser(Meteor.user(), "logIn");
-            targetPage();
+
+            let penultimate = $lastRoute.length > 2 ? $lastRoute.slice(-2, -1)[0] : null;
+            let target = penultimate && penultimate.name ? penultimate.name : "/myProfile";
+            navigateTo(target);
         }
-    }
-
-    async function targetPage() {
-        //let result = await Meteor.callPromise("loadExtraFields");
-        //$userExtras = result ? result : null;
-
-        let penultimate = $lastRoute.length > 2 ? $lastRoute.slice(-2, -1)[0] : null;
-        let target = penultimate && penultimate.name ? penultimate.name : "/myProfile";
-        navigateTo(target);
     }
 
 </script>

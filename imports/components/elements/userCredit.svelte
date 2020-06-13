@@ -22,7 +22,7 @@
     let credit = "";
 
     $: {
-        let credits = $userExtras ? $userExtras.credits : 0;
+        let credits = $userExtras && $userExtras.credits ? $userExtras.credits : 0;
         credit = credits.toFixed(0);
     }
 

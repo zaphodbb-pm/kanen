@@ -11,17 +11,38 @@
      *
      */
 
+    //* props
+    export let currentRoute;
+    export let theme = "light";
+
     //* get system wide icon definition
     import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';
 
     //* get route information and config
-    import { groups } from '/imports/both/routes'
+    import {showRoutes} from '/imports/both/systemStores'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
 
     //** get event dispatcher
     import {createEventDispatcher} from 'svelte'
     const dispatch = createEventDispatcher();
+
+    //* local reactive variables
+    let groups = [];
+
+    $: {
+        let inRoutes = $showRoutes;
+        let buildGroups = [];
+
+        inRoutes.forEach( (route) => {
+            if( typeof route.group === "number"){
+                buildGroups[route.group] = buildGroups[route.group] ? buildGroups[route.group] : [];
+                buildGroups[route.group].push(route);
+            }
+        });
+
+        groups = buildGroups;
+    }
 
     //** respond to a link click
     function navigate(event, path) {
@@ -31,8 +52,7 @@
         navigateTo(path);
     }
 
-    export let currentRoute;
-    export let theme = "light";
+
 
 </script>
 

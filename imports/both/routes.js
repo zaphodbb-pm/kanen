@@ -1,5 +1,5 @@
 /**
- * @summary Build system page routes.
+ * Build system page routes.  Note that all pages need to be registered here.
  *
  * @memberof Structure
  * @function routes
@@ -8,8 +8,8 @@
  * @returns {Array} - array of route objects
  *
  * @notes
- *  1. route objects are located within the associated page directory under /imports/both/pages<pageName>
- *  2. the order of the page route objects in the returned array determines the page order
+ *  1. Route objects are located within the associated page directory under /imports/both/pages<pageName>
+ *  2. The order of the page route objects in the returned array determines the page order
  *
  *  @example
  *      Typical route object
@@ -22,7 +22,7 @@
  *          icon =          {String} Navbar icon to show from global context (app page), ie. "iconLearn"
  *          label =         {String} Navbar text to show, ie. i18n(PageText, "navLabel", lang)
  *
- *          roles =         {Array} roles that can see this link in Navbar and be routed to, ie. ["all"]
+ *          roles =         {Array} of objects: {read: array, write: array} - roles that can see this link in Navbar and be routed to, ie. ["all"]
  *
  *          group =         {Number} for side navigation; group routes into a block
  *          isNavMobile =   {Boolean} (optional) show link in mobile nav block at bottom or top
@@ -51,7 +51,7 @@ import Documentation from '/imports/both/Pages/Documentation/documentation_route
 
 //* Load page route configurations into array for processing.
 //* Note that array order determines the displayed nav link order.
-const routes = [
+const allRoutes = [
     Home,
     Template,
     Starter,
@@ -74,25 +74,11 @@ const routes = [
         name: '404',
         path: '404',
         redirectTo: '/home',
+        roles: {                                // roles that can see this link in Navbar and be routed to
+            read: ["all"],
+            write: ["none"]
+        },
     }
 ];
 
-export {routes}
-
-
-//** build short cut links for top or bottom nav
-let shortcuts = routes.filter( (route) => route.isNavMobile );
-export {shortcuts}
-
-
-//** build grouped side bar links
-let groups = [];
-
-routes.forEach( (route) => {
-    if( typeof route.group === "number"){
-        groups[route.group] = groups[route.group] ? groups[route.group] : [];
-        groups[route.group].push(route);
-    }
-});
-
-export {groups}
+export {allRoutes}

@@ -22,17 +22,20 @@ import Page from './colours_loader.svelte'
 let lang = getLang("en");
 
 export default {
-    name: "/colours",                             // link that router will use
+    name: "/colours",                       // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconColours",                       // Navbar icon to show
-    label: i18n(nav, "", lang),             // Navbar text to show
+    icon: "iconColours",                    // Navbar icon to show
+    label: i18n(nav, "", lang),         // Navbar text to show
 
-    roles: ["all"],                         // roles that can see this link in Navbar and be routed to
+    roles: {                                // roles that can see this link in Navbar and be routed to
+        read: ["all"],
+        write: ["none"]
+    },
 
     group: 1,                               // for side navigation; group routes into a block
-    isNavMobile: true,                     // (optional) show link in mobile nav block at bottom or top
+    isNavMobile: true,                      // (optional) show link in mobile nav block at bottom or top
 };
