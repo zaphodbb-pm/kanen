@@ -35,6 +35,9 @@ out.iconLearn = learn;
 import content from '/public/svg_to_js/grip-horizontal-solid.json';
 out.iconContent = content;
 
+import buildContent from '/public/svg_to_js/university-solid.json';
+out.iconBuildContent = buildContent;
+
 import cards from '/public/svg_to_js/box-open-solid.json';
 out.iconCard = cards;
 

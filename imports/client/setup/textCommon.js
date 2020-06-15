@@ -16,6 +16,15 @@ export const fileReader = {
 }
 
 export default{
+    userLangs: {
+        en: [
+            {_id: "all", name: "All Languages"},
+            {_id: "en",  name: "English"},
+            {_id: "fr",  name: "Francais"},
+            {_id: "es",  name: "Espaniol"},
+        ]
+    },
+
     currencies: {
         en: [
             {_id: "usd", name: "US Dollars"},

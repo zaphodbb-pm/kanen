@@ -58,7 +58,7 @@
     //* event handlers
     function emitSelect(selId) {
         let item = source.find( (s) => s._id === selId );       // get text for _id values
-        let colour = item.colour ? item.colour : null;
+        let colour = item && item.colour ? item.colour : null;
         let out = colour ? {_id: item._id, name: item.name, colour: colour} : {_id: item._id, name: item.name};
 
         activeColour = colour;
@@ -110,20 +110,26 @@
             });
         }
 
+        let prepend = field.params && field.params.prepend ? field.params.prepend : null;
+        if(prepend){
+            out.unshift(prepend)
+        }
+
         selects = out ? out : [];
+        source = out ? out : [];
     }
 
     async function getSelectsField(coll, query, filter, type) {
         let field = field.params && field.params.field ? field.params.field : null;
-        let source = await getDocs(coll, "oneAllFields", query, filter);
+        let docs = await getDocs(coll, "oneAllFields", query, filter);
 
         if (field) {
             if (type && type === "array") {
-                source = source[field];
+                source = docs[field];
             }
 
             if (type && type === "row") {
-                source = source[field].map((r) => {
+                source = docs[field].map((r) => {
                     return {_id: r.id, name: r.td0}
                 });
             }
