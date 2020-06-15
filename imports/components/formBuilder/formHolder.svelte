@@ -64,7 +64,7 @@
 
     //** svelte handlers
     import {userExtras} from '/imports/client/systemStores'
-    import {onMount, onDestroy, setContext, getContext} from 'svelte';
+    import {onMount, setContext} from 'svelte';
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
@@ -213,11 +213,6 @@
             tabFields.fields = orgFields(organize, schema, currDoc, role);
         }
     }
-
-
-
-
-
 
     async function submitDoc() {
         let newValues = {};
