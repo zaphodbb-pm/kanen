@@ -109,7 +109,13 @@
     let created = false;
     let currDoc = {};
     let bgClone = elements.BG_BUTTON_CLONE;
-    let showClone = false
+    let showClone = false;
+
+    //* fields prepared for form display
+    let tabFields = {
+        fields: [],
+        defaults: [],
+    };
 
     //** determine what layout switches are active
     let tabLen = formText.formTabs && Array.isArray(formText.formTabs) ? formText.formTabs.length : 0;
@@ -132,8 +138,8 @@
         //** note that there is a lot of "reactivity entanglement" to manage
         adjFields = orgFields(organize, schema, defaults, role);
         initFields = Object.assign({}, adjFields);
-        fields = adjFields;
-        defaults = adjFields;
+        tabFields.fields = adjFields;
+        tabFields.defaults = adjFields;
     });
 
 
@@ -160,7 +166,7 @@
 
         //** send completed doc to server insert / update methods
         submitForm(newValues, coll, true, false, dispatch);
-        fields = defaults;
+        tabFields.fields = tabFields.defaults;
         dispatch("current-editted-doc", newValues);
     }
 
@@ -175,7 +181,7 @@
         switch (true) {
             case coll && coll === "myProfile":
                 currDoc = editdoc.data;
-                fields = orgFields(organize, schema, currDoc, role);
+                tabFields.fields = orgFields(organize, schema, currDoc, role);
                 break;
 
             case editdoc.type && editdoc.type === "edit":
@@ -200,13 +206,18 @@
             submit.btnState = false;
 
             showClone = false;
-            fields = orgFields(organize, schema, initFields, role);
+            tabFields.fields = orgFields(organize, schema, initFields, role);
         } else {
             showClone = config.clone;
             submit.btnState = true;
-            fields = orgFields(organize, schema, currDoc, role);
+            tabFields.fields = orgFields(organize, schema, currDoc, role);
         }
     }
+
+
+
+
+
 
     async function submitDoc() {
         let newValues = {};
@@ -261,10 +272,11 @@
             submit.btnCount = 0;
 
             //** send completed doc to server insert / update methods
-            fields = adjFields;
+            tabFields.fields = adjFields;
+
             submitForm(newValues, coll, false, false, dispatch, $userExtras);
 
-            fields = defaults;
+            tabFields.fields = tabFields.defaults;
             dispatch("current-editted-doc", newValues);
         }
     }
@@ -294,7 +306,7 @@
     <div class="card-content">
         <div id="tabbed-inputs">
 
-            <Form_Tabs {fields} on:field-changed="{fieldChanged}" />
+            <Form_Tabs fields="{tabFields.fields}" on:field-changed="{fieldChanged}" />
 
             <div class="buffer-y-large mt-4">
                 <div class="level">

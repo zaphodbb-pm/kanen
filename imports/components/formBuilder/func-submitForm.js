@@ -47,15 +47,14 @@ export async function submitForm(doc, coll, clone, test, emit, extras) {
             emit("doc-submitted", true);
             break;
 
- /*       case coll === "myProfile":
-            Meteor.call('employeeUpdateItem', "profile", doc, function (err, res) {
+        case coll === "myProfile":
+            Meteor.call('userMgmtUpdateItem', "profile", doc, function (err, res) {
                 if (res) {
                     emit("doc-submitted", true);
                 }
                 methodReturn(err, res);
             });
             break;
-*/
 
         case coll === "users":
             if (!doc._id) {
@@ -99,6 +98,7 @@ function generalSubmit(coll, doc, emit) {
             }
         });
     } else {
+
         Meteor.call('updateDoc', coll, doc._id, doc, function (err, res) {
             methodReturn(err, res, "submit updateDoc");
 

@@ -81,6 +81,11 @@ export const page = {
                 helpText: "This address will generate a geolocation object on submit.",
             },
 
+            hr1: {
+                label: "",
+                tag: "Form Spacer"
+            },
+
 
             startSwitch: {
                 label: "Boolean Switch",

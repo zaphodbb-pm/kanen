@@ -64,19 +64,18 @@
         </a>
 
         <div class="navbar-dropdown is-right has-text-weight-semibold">
-
-            <a href="/myProfile" class="navbar-item">{userName} {text.toProfile}</a>
+            <a class="navbar-item" on:click="{() => navigateTo('/my-profile')}">{userName} {text.toProfile}</a>
 
             <hr class="navbar-divider">
 
-            <a href="/changePassword" class="navbar-item">{text.changePassword}</a>
+            <a class="navbar-item" on:click="{() => navigateTo('/changePassword')}">{text.changePassword}</a>
             <a class="navbar-item" on:click="{logout}">{text.logOut}</a>
         </div>
 
     {:else}
 
         <div class="navbar-item">
-            <a href="/login" class="has-text-centered">
+            <a class="has-text-centered" on:click="{() => navigateTo('/login')}">
                 <div class="d-flex align-items-center">
                     <Icon icon={getContext("iconSignIn")} class="text-1dot5rem"/>
                     <span class="is-hidden-touch">{text.signIn}</span>

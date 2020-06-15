@@ -20,52 +20,73 @@ export const header = {
 export const page = {
     page: {},
 
-    components: {
+    form: {
+        en: {
 
-        box: {
-            en: "The <em>time</em> has come to <u>speak</u> of many things ..."
-        },
+            labels: {
+                hdr: "My Personal Information",
+                clone: false,
+                cloneBtn: "Clone Item",
+                createBtn: "Create New Entry",
+                editBtn: "Save Edit",
+            },
 
-        example1: {
-            en: [
-                {
-                    icon: "",
-                    label: "One",
-                    text: "The <b>quick</b> brown fox jumped over the <em>lazy</em> black dog.",
-                    dbContent: null  //dbContent: { coll: "", name: ""}
-                },
+            formTabs: ["Main", "My Address"],
 
-                {
-                    icon: "",
-                    label: "Two",
-                    text: "Hickory, dickory, dock <br/>" +
-                        "The mouse ran up the clock <br/>" +
-                        "The clock stuck 1:00 <br />" +
-                        "The mouse fell like a rock <br/>" +
-                        "'Twas an electric clock <br/>" +
-                        "Hickory, dickory, dock!",
-                    dbContent: null
-                },
 
-                {
-                    icon: "",
-                    label: "Three",
-                    text: "Some pithy content talking about pictures.",
-                    dbContent: null
-                }
-            ]
-        },
+            //** Parameters ********************************************
+            name: {
+                label: "First Name and Last Name",
+                helpText: "",
+            },
 
-        list: {
-            name: {en: "Name"}
-        },
+            image: {
+                label: "Profile Image",
+                helpText: "Add your unique profile image.",
+            },
 
-        form: {
-            name: {en: "Name"}
-        },
+            hr1: {
+                label: "",
+                tag: "Contact Info"
+            },
 
-        widget: {
-            title: {en: "Title"}
+            phone: {
+                label: "Phone",
+                helpText: "",
+            },
+
+            email: {
+                label: "Email",
+                helpText: "Secondary email, when set, will receive any mail notifications.  Note that this email address must be unique and your own.  " +
+                    "Sweatcrew will check to see if another user has the same email.  If so, your choice will be reset to your last known " +
+                    "secondary value.  Otherwise it will be accepted and will be become active.",
+            },
+
+            //** second tab set of fields
+            address: {
+                label: "Address",
+                helpText: "Street address for customer",
+            },
+
+            city: {
+                label: "City",
+                helpText: "",
+            },
+
+            province: {
+                label: "Province",
+                helpText: "",
+            },
+
+            country: {
+                label: "Country",
+                helpText: "",
+            },
+
+            postCode: {
+                label: "Post",
+                helpText: "",
+            },
         }
-    }
+    },
 };

@@ -39,19 +39,60 @@
 
 
     //* page-body support **************************
+    import config from './myProfile_config'
+    import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
+    import schema from './myProfile_form_schema'
+
     import {onMount, onDestroy} from 'svelte'
     import {i18n} from '/imports/functions/i18n'
-    import TabContent from '/imports/components/widgets/tabbedContent.svelte'
+    let formText = i18n(page, "form", $lang);
 
-    let message = "";
+    //* local reactive variables
+    let conf = config;
+    let role = "";
+    let editdoc = {};
+    let directdoc = {};
+
+    let submitted = false;
+    let currentDoc = {};
+    let showList = false;
+    let showForm = false;
+    let releaseEdit = false;
+
+    let  baseProfile = {
+        id: "",
+        type: "create",
+        coll: conf.form.coll,
+        data: {email: " "},
+    };
+
 
     onMount( () => {
-        message = "<b>myProfile page</b> mounted";
+        currentDoc = baseProfile;
+        getMyDoc();
     });
 
-    onDestroy( () => {
-        console.log("myProfile page destroyed");
-    });
+    function docSent(msg) {
+        if (msg) {
+            getMyDoc();
+        }
+    }
+
+    function getMyDoc() {
+        currentDoc = baseProfile;
+
+        //** get current logged in user
+        let me = Meteor.user();
+
+        if(me){
+            currentDoc = {
+                id: me._id,
+                type: "edit",
+                coll: conf.form.coll,
+                data: me.profile,
+            };
+        }
+    }
 
 </script>
 
@@ -61,24 +102,18 @@
 
 
 
-<section class="page-body">
+<div class="columns">
+    <div id="my-profile-display" class="column">
 
-    <article class="mb-5">
-        <div>{message}</div>
-        <div>{@html message}</div>
-    </article>
+        <Form_Holder
+                config="{conf.form}"
+                {formText}
+                {schema}
+                {role}
+                editdoc={currentDoc}
+                {directdoc}
 
-    <div class="columns">
-        <article class="column is-6">
-            <div class="box">
-                {@html i18n(page.components, "box", $lang)}
-            </div>
-        </article>
-
-        <article class="column is-6">
-            <TabContent text="example1" tabSettings="is-boxed is-fullwidth" />
-        </article>
+                on:doc-submitted="{docSent}"/>
 
     </div>
-
-</section>
+</div>

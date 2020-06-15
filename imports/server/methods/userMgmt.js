@@ -2,7 +2,8 @@
 
 import {Meteor} from "meteor/meteor";
 import {Accounts} from 'meteor/accounts-base';
-import {check} from 'meteor/check'
+import {check, Match} from 'meteor/check'
+
 
 import {objectify} from '/imports/server/functions/objectify'
 import {verifyRole} from '/imports/server/functions/verifyRole'
@@ -65,7 +66,7 @@ Meteor.methods({
     },
 
     /**
-     * @summary Update a user's profile info.
+     * Update a user's main info.
      *
      * @memberof Methods
      * @function userMgmtUpdate
@@ -130,7 +131,7 @@ Meteor.methods({
     },
 
     /**
-     * @summary Update a user's profile field value.
+     * Update a user's profile field value.
      *
      * @memberof Methods
      * @function userMgmtUpdateItem
@@ -238,7 +239,7 @@ Meteor.methods({
     },
 
     /**
-     * @summary Get extra user fields based on user id.
+     * Get extra user fields based on user id.
      *
      * @memberof Methods
      * @function loadExtraFields
@@ -269,7 +270,7 @@ Meteor.methods({
     },
 
     /**
-     * @summary External Login service support.
+     * External Login service support.
      *
      * @memberof Methods
      * @function getServiceConfiguration
