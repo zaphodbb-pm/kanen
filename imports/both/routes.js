@@ -46,6 +46,7 @@ import Login from '/imports/both/Pages/Login/login_route'
 import ChangePassword from '/imports/both/Pages/ChangePassword/changePassword_route'
 
 import Users from '/imports/both/Pages/Users/users_route'
+import BuildContent from '/imports/both/Pages/BuildContent/buildContent_route'
 import Documentation from '/imports/both/Pages/Documentation/documentation_route'
 
 
@@ -68,6 +69,7 @@ const allRoutes = [
     ChangePassword,
 
     Users,
+    BuildContent,
     Documentation,
 
 
