@@ -418,7 +418,4 @@ export default [
         optional: true,
         defaultValue: [],
     }
-
-
-
 ];

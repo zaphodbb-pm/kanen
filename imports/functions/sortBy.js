@@ -2,7 +2,7 @@
  * Sort an array of objects by key and direction.
  *
  * @memberof Functions
- * @function sorBy
+ * @function sortBy
  * @locus Anywhere
  *
  * @param {Array} inList - list of objects
