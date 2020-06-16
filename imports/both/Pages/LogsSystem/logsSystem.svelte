@@ -41,11 +41,15 @@
 
     //* page-body support **************************
     import config from './logsSystem_config'
+    import DeleteRecords from '/imports/components/elements/getRelativeDates.svelte'
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
     import listArray from './logsSystem_list'
 
     import {i18n} from '/imports/functions/i18n'
     let listText = i18n(page, "list", $lang);
+    let element = i18n(page, "element", $lang);
+
+    setContext("formText", element);
 
     let conf = config;
     let sort = listArray.sort;
@@ -60,6 +64,9 @@
 
 
 <section class="page-body">
+
+    <DeleteRecords />
+
     <div class="columns">
 
         <article class="column">

@@ -30,17 +30,21 @@
     let items= [];
     let currPage= 1;
     let pagesLength= 5                  // sets the number of pagination targets
+    let totPages = 1;
+    let len = 1;
 
 
-    let totPages = Math.ceil(totalDocs / rows);
-    let len = totPages < pagesLength ? totPages : pagesLength;
+    $: {
+        totPages = Math.ceil(totalDocs / rows);
+        len = totPages < pagesLength ? totPages : pagesLength;
 
-    pages = totPages;
-    items = [...Array(len).keys()].map(x => ++x);
-    more = totPages > pagesLength;
-    showPages = (totPages > 1);
+        pages = totPages;
+        items = [...Array(len).keys()].map(x => ++x);
+        more = totPages > pagesLength;
+        showPages = (totPages > 1);
+    }
 
-    //* functions that mutate local variables
+    //* event handler
     function changepager(page) {
         currPage = page;
         dispatch('page-changed', {
@@ -48,14 +52,15 @@
         });
     }
 
+    //* functions that mutate local variables
     function prev() {
         if (currPage > 1) {
             currPage = currPage - 1;
             changepager(currPage);
 
             if (currPage >= pagesLength) {
-                items.pop();
                 items.unshift(currPage + 1 - pagesLength);
+                items = items.slice(0, -1);
             }
         }
     }
@@ -69,7 +74,7 @@
                 let maxPage = currPage < pages ? currPage : pages;
 
                 items.shift();
-                items.push(maxPage);
+                items = [... items, maxPage];
             }
         }
     }

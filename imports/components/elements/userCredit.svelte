@@ -1,6 +1,6 @@
 <script>
     /**
-     * @summary Credit widget to display user information.
+     * User Credit element
      *
      * @memberof Components:Elements
      * @function userCredit
