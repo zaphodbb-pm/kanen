@@ -45,8 +45,11 @@ import MyProfile from '/imports/both/Pages/MyProfile/myProfile_route'
 import Login from '/imports/both/Pages/Login/login_route'
 import ChangePassword from '/imports/both/Pages/ChangePassword/changePassword_route'
 
-import Users from '/imports/both/Pages/Users/users_route'
 import BuildContent from '/imports/both/Pages/BuildContent/buildContent_route'
+import LogsSystem from '/imports/both/Pages/LogsSystem/logsSystem_route'
+import LogsUsers from '/imports/both/Pages/LogsUsers/logsUsers_route'
+import Users from '/imports/both/Pages/Users/users_route'
+import SysConfig from '/imports/both/Pages/SysConfig/sysConfig_route'
 import Documentation from '/imports/both/Pages/Documentation/documentation_route'
 
 
@@ -68,8 +71,11 @@ const allRoutes = [
     Login,
     ChangePassword,
 
-    Users,
     BuildContent,
+    LogsSystem,
+    LogsUsers,
+    Users,
+    SysConfig,
     Documentation,
 
 

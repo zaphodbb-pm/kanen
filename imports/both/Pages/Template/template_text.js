@@ -26,46 +26,16 @@ export const page = {
             en: "The <em>time</em> has come to <u>speak</u> of many things ..."
         },
 
-        example1: {
-            en: [
-                {
-                    icon: "",
-                    label: "One",
-                    text: "The <b>quick</b> brown fox jumped over the <em>lazy</em> black dog.",
-                    dbContent: null  //dbContent: { coll: "", name: ""}
-                },
-
-                {
-                    icon: "",
-                    label: "Two",
-                    text: "Hickory, dickory, dock <br/>" +
-                        "The mouse ran up the clock <br/>" +
-                        "The clock stuck 1:00 <br />" +
-                        "The mouse fell like a rock <br/>" +
-                        "'Twas an electric clock <br/>" +
-                        "Hickory, dickory, dock!",
-                    dbContent: null
-                },
-
-                {
-                    icon: "",
-                    label: "Three",
-                    text: "Some pithy content talking about pictures.",
-                    dbContent: null
-                }
-            ]
-        },
-
-        list: {
-            name: {en: "Name"}
-        },
-
-        form: {
-            name: {en: "Name"}
-        },
-
         widget: {
             title: {en: "Title"}
         }
-    }
+    },
+
+    list: {
+        name: {en: "Name"}
+    },
+
+    form: {
+        name: {en: "Name"}
+    },
 };

@@ -59,6 +59,10 @@ out.iconListForm = database;
 import users from '/public/svg_to_js/users-cog-solid.json';
 out.iconUsers = users;
 
+import sysLogs from '/public/svg_to_js/wave-square-solid.json';
+out.iconSysLogs = sysLogs;
+
+
 
 
 //* Navbar Icons

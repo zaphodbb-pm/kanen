@@ -11,9 +11,10 @@
 
 
 //** system info
-SysConfigs = new Mongo.Collection("sysConfigs");            // contains one document for configuring rating parameters
+SysConfig = new Mongo.Collection("sysConfig");              // contains one document for configuring rating parameters
 LogsSystem = new Mongo.Collection("logsSystem");            // Systems events such as heartbeat
 LogsUsers = new Mongo.Collection("logsUsers");              // Tracks user actions such as login / logout
+LogsSensors = new Mongo.Collection("logsSensors");          // Tracks any real time sensor inputs
 
 
 //** client accessable data

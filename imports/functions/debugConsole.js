@@ -13,17 +13,18 @@
  * @return nothing - outputs message to console
  *
  * @example
- *    level = (String): one of "o", "e", "f", "m", "r", "s", "v"
- *              "o" = Blaze onRendered, onCreated or onDestroyed sections.
- *              "e" = Blaze events sections.
+ *
+ *    level = (String): one of "o", "c", "e", "f", "m", "p", "r", "s"
+ *              "o" = onMount or onDestroy sections.
+ *              "c" = components.
+ *              "e" = event handlers.
  *              "f" = functions.
  *              "m" = collection methods.
+ *              "p" = page messages.
  *              "r" = reactive variable settings.
  *              "s" = system messages.
- *              "v" = Vue components.
- *              "w" = Vue component method functions.
  *
- *              Note that "oefmrsv" will send messages from all sections.
+ *              Note that "ocefmprs" will send messages from all sections.
  *              Any combination of switches can be used to select the appropriate amount of messages.
  *              Also, an empty string "" will stop all messages.
  *

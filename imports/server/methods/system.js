@@ -4,6 +4,85 @@ import {check} from 'meteor/check'
 Meteor.methods({
 
     /**
+     * @summary Meteor method to query server directly tfor system wide information.
+     *
+     * @memberof Methods
+     * @function getSysInfo
+     * @isMethod true
+     * @locus Server
+     *
+     * @returns {Object} - document
+     */
+
+    getSysInfo: function () {
+        return SysConfig.findOne({});
+    },
+
+    /**
+     * @summary General client side system config info from database.
+     *
+     * @memberof Methods
+     * @function clientSysConfig
+     * @isMethod true
+     * @locus Server
+     *
+     * @returns {Object} - client config information
+     */
+
+    clientSysConfig() {
+        let sysConfig = SysConfig.findOne({});
+        let sysDebug = null;
+        let showWidgets = false;
+
+        if(sysConfig){
+            sysDebug = sysConfig.debugLevel && (sysConfig.debugLevel !== "") ? sysConfig.debugLevel : null;
+            showWidgets = !!sysConfig.showWidgets;
+        }
+
+        return {
+            sysDebug: sysDebug,
+            showWidgets: showWidgets,
+        };
+    },
+
+
+
+    /**
+     * @summary Meteor method to query server directly to get first document from a collection.
+     *
+     * @memberof Methods
+     * @function getDocId
+     * @isMethod true
+     * @locus Server
+     *
+     * @param {String} coll - collection to query
+     * @param {String} field - user field to query on
+     *
+     * @returns {String} - document Id
+     */
+
+    getDocId: function (coll, field) {
+        check(coll, String);
+        check(field, String);
+
+        let docs = null;
+        if (Meteor.userId()) {              // check if user is logged in
+            let fieldValue = Meteor.user() && Meteor.user()[field] ? Meteor.user()[field] : null;
+            let query = {};
+            query[field] = fieldValue;
+
+            docs = Mongo.Collection.get(coll).findOne(query, {fields: {_id: 1}});
+        }
+
+        return docs ? docs : null;
+    },
+
+
+
+
+
+
+    /**
      * @summary Builds client side icon set from icon sets from line awesome files in public directory.
      *
      * @memberof Methods
@@ -65,51 +144,8 @@ Meteor.methods({
         });
     },
 
-    /**
-     * @summary Meteor method to query server directly to get first document from a collection.
-     *
-     * @memberof Methods
-     * @function getDocId
-     * @isMethod true
-     * @locus Server
-     *
-     * @param {String} coll - collection to query
-     * @param {String} field - user field to query on
-     *
-     * @returns {String} - document Id
-     */
 
-    getDocId: function (coll, field) {
-        check(coll, String);
-        check(field, String);
-
-        let docs = null;
-        if (Meteor.userId()) {              // check if user is logged in
-            let fieldValue = Meteor.user() && Meteor.user()[field] ? Meteor.user()[field] : null;
-            let query = {};
-            query[field] = fieldValue;
-
-            docs = Mongo.Collection.get(coll).findOne(query, {fields: {_id: 1}});
-        }
-
-        return docs ? docs : null;
-    },
-
-    /**
-     * @summary Meteor method to query server directly tfor system wide information.
-     *
-     * @memberof Methods
-     * @function getSysInfo
-     * @isMethod true
-     * @locus Server
-     *
-     * @returns {Object} - document
-     */
-
-    getSysInfo: function () {
-        return SysConfigs.findOne({});
-    },
-
+    /*
     /**
      * @summary Meteor method to query server directly for documents.
      *
@@ -122,6 +158,7 @@ Meteor.methods({
      * @returns {Array/Object}
      */
 
+    /*
     directCollection: function (request) {
         check(request, Object);
 
@@ -164,13 +201,12 @@ Meteor.methods({
                 } );
 
 
-                /*
                 _.each( docs, function(el, idx){
                     const id = el._id;
                     docs[idx] = el[ request.trim ];
                     docs[idx]._id = id;
                 });
-                 */
+
             }
 
             return docs ? docs : null;
@@ -190,17 +226,19 @@ Meteor.methods({
                 } );
 
 
-                /*
                 _.each( docs, function(el, idx){
                     const id = el._id;
                     docs[idx] = el[ request.trim ];
                     docs[idx]._id = id;
                 });
 
-                 */
+
             }
 
             return docs ? docs : null;
         }
+
     }
+
+     */
 });

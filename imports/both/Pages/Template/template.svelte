@@ -74,11 +74,6 @@
                 {@html i18n(page.components, "box", $lang)}
             </div>
         </article>
-
-        <article class="column is-6">
-            <TabContent text="example1" tabSettings="is-boxed is-fullwidth" />
-        </article>
-
     </div>
 
 </section>

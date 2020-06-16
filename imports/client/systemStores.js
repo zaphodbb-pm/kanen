@@ -5,6 +5,10 @@
  * @function getLang
  * @locus Client
  *
+ * @param {Object} sysConfig - server derived: get certain system parameters for client side configuration
+ * @param {Boolean} showWidget - sysConfig derived: show extra components for dev, debug work
+ * @param {String} sysDebug - sysConfig derived: string list of items that will log messages to the console
+ *
  * @param {String} lang - browser derived: user language preference as a two letter code
  *
  * @param {Object} userPosition - browser derived: lat / lng co-ordinates
@@ -20,6 +24,11 @@
 
 import {writable} from 'svelte/store'
 //import {readable} from 'svelte/store'
+
+//* set system parameters
+export let sysConfig = writable( null );
+export let showWidget = writable( false );
+export let sysDebug = writable( "" );
 
 //* set language preference
 import {getLang} from '../functions/getLang'
