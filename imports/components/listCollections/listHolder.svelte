@@ -213,7 +213,7 @@
 
     function newPage(msg) {
         //* when a user uses pagination buttons,  get the documents for that range of selected page
-        docActive = msg.page;
+        docActive = msg.detail.page;
         getCurrentDocs();
     }
 
@@ -377,7 +377,7 @@
 
             {#if config.hasPager}
                 <div id="comp_pagination">
-                    <Pagination rows="{docRows}" totalDocs="{docCounts}" />
+                    <Pagination rows="{docRows}" totalDocs="{docCounts}" on:page-changed="{newPage}"/>
                 </div>
             {/if}
 
