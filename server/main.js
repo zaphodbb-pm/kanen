@@ -15,8 +15,8 @@
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base'
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
+import { UserStatus } from 'meteor/mizzao:user-status';
 import _ from 'underscore'
-//import { UserStatus } from 'meteor/mizzao:user-status';
 
 
 //** load method modules
@@ -27,57 +27,18 @@ import '/imports/server/methods/userMgmt';
 import '/imports/server/methods/documentation'
 
 
-
 //** isomorphic routines
 import '/imports/both/collections'
+import Version from '/imports/both/version'
 
 
 //** main configuration set up
-//import {writeLog} from '/imports/server/functions/func-writeLog'
+import {writeLog} from '/imports/server/functions/writeLog'
 import '/imports/server/startup/indexing'
-//import '/imports/server/grapher/grapherStartup'
-
-/*
-//** load method modules
-import '/imports/server/methods/paymentMethods';
-import '/imports/server/methods/postingMethods';
-import '/imports/server/methods/emailMethods';
-import '/imports/server/methods/exportImportMethods';
-import '/imports/server/methods/inputMethods';
-import '/imports/server/methods/pagerMethods';
-import '/imports/server/methods/usersMethods';
-import '/imports/server/methods/employeeMethods';
-import '/imports/server/methods/systemMethods';
-import '/imports/server/methods/commMethods'
-import '/imports/server/methods/directMethods'
-import '/imports/server/methods/docsMethods'
-import '/imports/server/methods/logsMethods'
-import '/imports/server/grapher/grapherMethods'
-
-import '/imports/server/methods/mindbodyMethods'
-import '/imports/server/methods/sweatcrewMethods'
-import '/imports/server/methods/crewsMethods'
-import '/imports/server/methods/friendsMethods'
-import '/imports/server/methods/ratingMethods'
-import '/imports/server/methods/checkinMethods'
-
-
-//** load report (method) modules
-import '/imports/server/reports/merchantReports'
-import '/imports/server/reports/companyReports'
-
-//** load add-on packages
-import '/imports/both/addOns/slack/slack_server'
-
- */
-
-
 
 
 Meteor.startup(() => {
     console.log("main server starting ...");
-
-    //Meteor.users.remove({}); // for dev work only
 
     //* check to make sure we can access the system
     //* if no accounts are found, then create a default administrator / administrator account
@@ -104,9 +65,10 @@ Meteor.startup(() => {
 
 
 
+/*
 //* set up server side debug console
 //import 'meteor/aldeed:console-me';
-//if (Meteor.isServer) {
+if (Meteor.isServer) {
     //** Debug tool: allow server side console to send logs to client
     //ConsoleMe.enabled = true;
     //console.log("cm", ConsoleMe);
@@ -115,29 +77,29 @@ Meteor.startup(() => {
     //Meteor.call("fetchDocumentation");
 
 
-    //resetDb();
-
-
     //* for dev work only
     //Meteor.call("buildLineAwesomeIcons", "private/svg", "public/svg_to_js");
-//}
+    //Meteor.users.remove({}); // for dev work only
+    //resetDb();
+}
+*/
 
 
-
-/*
 
 if (Meteor.isServer) {
     //** track system restarts
     let startData = {
         event: "startup",
         description: "Meteor startup sequence",
-        version: VERSION,
-        app: APP_NAME,
-        update: LAST_UPDATE
+        version: Version.VERSION,
+        app: Version.APP_NAME,
+        update: Version.LAST_UPDATE
     };
 
     writeLog("LogsSystem", startData);
 }
+
+
 
 if (Meteor.isServer) {
     //** track user login / logouts
@@ -164,7 +126,6 @@ if (Meteor.isServer) {
     });
 }
 
-*/
 
 
 if (Meteor.isServer) {
@@ -218,7 +179,7 @@ function configAccountsPackage(){
         return  "Hello, " +  user.username + "\n\n" +
             "To start using the SweatCrew service, simply click the link below. \n"  +
             adjUrl + "\n\n" +
-            "Thank you from SweatCrew Support"
+            "Thank you from Kanen Support"
     };
 }
 
@@ -233,6 +194,7 @@ function buildUserDoc(type, fields, user){
         username: user.username,
         tenantId: user.tenantId,
         role: user.role && user.role._id ? user.role._id : null,
+        email: user.emails && user.emails[0].address ? user.emails[0].address : "n/a",
 
 
         connection: {
@@ -259,36 +221,6 @@ function registerExternalLogin(){
             }
         }
     );
-
-    /*
-    ServiceConfiguration.configurations.upsert(
-        { service: "linkedin" },
-        { $set: {
-                clientId: Meteor.settings.service_linkedin_clientId,
-                secret: Meteor.settings.service_linkedin_secret,
-            }
-        }
-    );
-
-    ServiceConfiguration.configurations.upsert(
-        { service: "slack" },
-        { $set: {
-                clientId: Meteor.settings.service_slack_clientId,
-                secret: Meteor.settings.service_slack_secret,
-            }
-        }
-    );
-
-    ServiceConfiguration.configurations.upsert(
-        { service: "facebook" },
-        { $set: {
-                clientId: Meteor.settings.service_facebook_appId,
-                secret: Meteor.settings.service_facebook_secret,
-            }
-        }
-    );
-
-     */
 }
 
 

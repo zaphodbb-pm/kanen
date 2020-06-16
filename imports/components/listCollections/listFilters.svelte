@@ -35,6 +35,7 @@
         date: Filter_Date,
         select: Filter_Select,
         address: Filter_Geo,
+        timeStamp: Filter_Date,
     }
 
     //* local reactive variables

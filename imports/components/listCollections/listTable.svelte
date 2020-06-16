@@ -85,22 +85,16 @@
 
     //* event handlers
     function modalDoc(msg) {
-        //let showDoc = _.findWhere(documents, {_id: msg});
-
         let showDoc = documents.find( (doc) =>  doc._id === msg);
         dispatch('item-modal', showDoc);
     }
 
     function modalUserDoc(msg) {
-        //let showDoc = _.findWhere(documents, {_id: msg});
-
         let showDoc = documents.find( (doc) =>  doc._id === msg);
         dispatch('item-modal-user', showDoc);
     }
 
     function launchPage(msg) {
-        //console.log("launchPage", id, this.config.target, window.location);
-
         let page = window.location.origin + config.target + "?q=" + msg.detail;
         window.open(page);
     }
@@ -320,7 +314,7 @@
                                 {cell.value}
                             </td>
 
-                        {:else if cell.type === 'text' || cell.type === 'select'}
+                        {:else if cell.type === 'text' || cell.type === 'select' || cell.type === 'timeStamp'}
                             <td class="has-text-left">
                                 {cell.prefix}{cell.value}{cell.suffix}
                             </td>

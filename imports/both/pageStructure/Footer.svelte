@@ -15,14 +15,14 @@
     let version = getContext("Version");
 
     //** get the user language preference from store
-    import {lang} from '/imports/client/systemStores'
+    import {sysConfig, showWidget, lang} from '/imports/client/systemStores'
     let lng = $lang;
 
     //** get component text strings
     import {i18n} from '/imports/functions/i18n'
     import text from './Footer_text'
 
-    let showWidget = true;
+    //let showPosition = false;
     let loc;
 
     //** user stuff
@@ -48,7 +48,7 @@
 
 
     <!-- for dev and test only -->
-    {#if showWidget}
+    {#if $showWidget}
         <div class="text-0dot8rem mb-5">
             <span>lat: {loc.lat}</span>
             <span class="ml-3">lng: {loc.lng}</span>

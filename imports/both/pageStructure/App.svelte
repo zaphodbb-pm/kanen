@@ -28,7 +28,7 @@
     //* set up system wide text context
     import { setContext } from 'svelte';
 
-    import version from '/imports/client/setup/version'
+    import version from '/imports/both/version'
     setContext("Version", version);             //setup system wide version info
 
     import commonText from '/imports/client/setup/textCommon'
@@ -52,13 +52,26 @@
     import Navbar from '../Navbar/Navbar.svelte'
     import Pages from 'svelte-router-spa/src/components/router.svelte'
     import { activeRoute } from 'svelte-router-spa/src/store'
-    import {showRoutes, lastRoute} from '/imports/client/systemStores'
+    import {sysConfig, sysDebug, showWidget, showRoutes, lastRoute} from '/imports/client/systemStores'
     import {allRoutes} from '../routes'
 
     //* local reactive variables
     //* Note that the spa-router does not reactively update; need to kick start a change on log state
     let routes = null;
     let routesLoggedOut = null;
+
+
+    //* load client-side system parameters
+    Meteor.call("clientSysConfig", function(err, res){
+        if(err){ console.log("clientSysConfig error", err); }
+
+        if(res){
+            $sysConfig = res;
+            $showWidget = !!(res.showWidgets);
+            $sysDebug = res.showWidgets ? res.showWidgets : "";
+        }
+    })
+
 
     //* get user position from browser
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -73,6 +86,7 @@
             speed: position.coords.speed,
         };
     });
+
 
     //* respond to user login / logout / page refresh actions from parent Meteor instance
     Tracker.autorun(function(){

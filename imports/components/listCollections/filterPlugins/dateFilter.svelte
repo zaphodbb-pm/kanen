@@ -59,11 +59,11 @@
             let offset = parseInt( parts[2] ) * 1000 * 3600 * 24;   // time expressed in milliseconds / day
             let dir = parts[1] === "p" ? -1 : 1;
 
-            let yesterday = ( new Date(now - offset) ).toISOString();
+            let past = ( new Date(now - offset) ).toISOString();
             let today = ( new Date(now) ).toISOString();
-            let tomorrow = ( new Date(now + offset) ).toISOString();
+            let future = ( new Date(now + offset) ).toISOString();
 
-            outFilter[field.field] = dir < 0 ? {$gte: yesterday, $lte: today} : {$gte: today, $lte: tomorrow};
+            outFilter[field.field] = dir < 0 ? {$gte: past, $lte: today} : {$gte: today, $lte: future};
         }
 
         dispatch("filter-changed", outFilter);
@@ -82,7 +82,12 @@
             let start = new Date(ev[0]);
             let end = new Date(ev[1]);
 
-            outFilter[field.field] = {$gte: start.toISOString(), $lte: end.toISOString()};
+            if(field.type === "timeStamp"){
+                outFilter[field.field] = {$gte: start.getTime(), $lte: end.getTime()};
+            }else{
+                outFilter[field.field] = {$gte: start.toISOString(), $lte: end.toISOString()};
+            }
+
             hasRange = true;
             dispatch("filter-changed", outFilter);
         }
