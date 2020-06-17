@@ -37,8 +37,22 @@
     //** event handlers
     function fieldChanged(msg){
         let radio = msg.detail && msg.detail.value && msg.detail.value._id ? msg.detail.value._id : "none";
+        let now = Date.now();
+        let day = 1000 * 3600 * 24;         // milliseconds per day;
 
-        dispatch("new-range", radio);
+        let ranges = {
+            none: now,
+            days_1: day,
+            days_7: day * 7,
+            days_30: day * 30,
+            days_90: day * 90,
+            days_365: day * 365,
+            all: 0,
+        }
+
+        let out = {$lt: now - ranges[radio] };
+
+        dispatch("new-range", out);
     }
 
 </script>
