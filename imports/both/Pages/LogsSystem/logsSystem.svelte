@@ -60,20 +60,7 @@
     //* event handlers
     function deleteRange(msg){
         releaseEdit = false;
-        let now = Date.now();
-        let day = 1000 * 3600 * 24;         // milliseconds per day;
-
-        let ranges = {
-            none: now,
-            days_1: day,
-            days_7: day * 7,
-            days_30: day * 30,
-            days_90: day * 90,
-            days_365: day * 365,
-            all: 0,
-        }
-
-        let out = {timeStamp: {$lt: now - ranges[msg.detail] } };
+        let out = {timeStamp: msg.detail};
 
         Meteor.call("removeDocuments", "logsSystem", out, function(err, res){
             if(err){ console.log("removeDocuments error", err) }
