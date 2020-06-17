@@ -78,8 +78,33 @@ Meteor.methods({
     },
 
 
+    /**
+     * @summary Meteor method to bulk remove documents by admin users.
+     *
+     * @memberof Methods
+     * @function removeDocuments
+     * @isMethod true
+     * @locus Server
+     *
+     * @param {String} coll - collection to query
+     * @param {Object} query - delete date range
+     *
+     * @returns {String} - document Id
+     */
 
+    removeDocuments: function (coll, query) {
+        check(coll, String);
+        check(query, Object);
 
+        let number = 0;
+        if (Meteor.user() && Meteor.user().admin) {              // check if admin user is logged in
+            number = Mongo.Collection.get(coll).remove(query);
+
+            return {status: 200, count: number, text: `${number} documents have been removed on ${coll} by removeDocuments`};
+        }else{
+            return {status: 400, count: 0, text: "Invalid user"};
+        }
+    },
 
 
     /**

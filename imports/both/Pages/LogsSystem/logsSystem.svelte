@@ -16,8 +16,8 @@
     export let params;
 
     // app services (getContext is often optional)
-    import { onMount, onDestroy, setContext } from 'svelte';
-    //import { getContext } from 'svelte';
+    import {createEventDispatcher, setContext } from 'svelte';
+    const dispatch = createEventDispatcher();
 
     // get the user language preference from store (optional)
     import {lang} from '/imports/client/systemStores'
@@ -56,6 +56,36 @@
     let fields = listArray.fields;
     let releaseEdit = false;
 
+
+    //* event handlers
+    function deleteRange(msg){
+        releaseEdit = false;
+        let now = Date.now();
+        let day = 1000 * 3600 * 24;         // milliseconds per day;
+
+        let ranges = {
+            none: now,
+            days_1: day,
+            days_7: day * 7,
+            days_30: day * 30,
+            days_90: day * 90,
+            days_365: day * 365,
+            all: 0,
+        }
+
+        let out = {timeStamp: {$lt: now - ranges[msg.detail] } };
+
+        Meteor.call("removeDocuments", "logsSystem", out, function(err, res){
+            if(err){ console.log("removeDocuments error", err) }
+
+            if(res){
+                console.log("removeDocuments", res);
+            }
+
+            releaseEdit = true;
+        })
+    }
+
 </script>
 
 
@@ -65,7 +95,7 @@
 
 <section class="page-body">
 
-    <DeleteRecords />
+    <DeleteRecords on:new-range={deleteRange}/>
 
     <div class="columns">
 

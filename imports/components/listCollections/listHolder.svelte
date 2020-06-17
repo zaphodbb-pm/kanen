@@ -93,7 +93,6 @@
     let getFilters = [];
     let filterState =  "is-light";
     let showFilters = false;
-    let addConditions = {};
 
     let docCounts = 0;
     let docCountLabel = "0 - 0 / 0 (0)";
@@ -108,11 +107,8 @@
 
     $: docRelease(submitted);
 
-    $: getDocCounts(coll, {}).then( (res) => totalDocs = res);
-
     onMount( async () => {
         //* on first load, show a list of unfiltered documents for this user;
-        //addConditions = getConditions(fields);
         getFilters = buildFilters(fields);
         getCurrentDocs();
     } );
@@ -239,8 +235,10 @@
 
     async function getCurrentDocs() {
         let setQ = collQuery ? collQuery : {};
-        let combineSearch = Object.assign({}, setQ, addFilters, addConditions);
-        docCounts = await getDocCounts(coll, setQ);
+        let combineSearch = Object.assign({}, setQ, addFilters);
+        docCounts = await getDocCounts(coll, combineSearch);
+
+        getDocCounts(coll, {}).then( (res) => totalDocs = res);
 
         let f = buildFilter(
                 docRows ? docRows : 10,
@@ -250,7 +248,7 @@
         );
 
         documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
-        docCountLabel = `${f.start} - ${f.end} / ${documents.length} (${totalDocs})`;
+        docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${totalDocs})`;
 
         dispatch("list-docs-ready", documents);
     }
