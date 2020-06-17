@@ -16,8 +16,8 @@
     export let params;
 
     // app services (getContext is often optional)
-    import {setContext } from 'svelte';
-    //import { getContext } from 'svelte';
+    import {createEventDispatcher, setContext } from 'svelte';
+    const dispatch = createEventDispatcher();
 
     // get the user language preference from store (optional)
     import {lang} from '/imports/client/systemStores'
@@ -41,17 +41,53 @@
 
     //* page-body support **************************
     import config from './logsUsers_config'
+    import DeleteRecords from '/imports/components/elements/getRelativeDates.svelte'
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
     import listArray from './logsUsers_list'
 
     import {i18n} from '/imports/functions/i18n'
     let listText = i18n(page, "list", $lang);
+    let element = i18n(page, "element", $lang);
 
     let conf = config;
     let sort = listArray.sort;
     let fields = listArray.fields;
     let submitted = false;
     let releaseEdit = false;
+
+
+    setContext("formText", element);
+
+    //* event handlers
+    function deleteRange(msg){
+        releaseEdit = false;
+        let now = Date.now();
+        //let day = 1000 * 3600 * 24;         // milliseconds per day;
+
+        let day = 1000 * 225;         // milliseconds per quarter hour;
+
+        let ranges = {
+            none: now,
+            days_1: day,
+            days_7: day * 7,
+            days_30: day * 30,
+            days_90: day * 90,
+            days_365: day * 365,
+            all: 0,
+        }
+
+        let out = {updatedAt: {$lt: now - ranges[msg.detail] } };
+
+        Meteor.call("removeDocuments", "logsUsers", out, function(err, res){
+            if(err){ console.log("removeDocuments error", err) }
+
+            if(res){
+                console.log("removeDocuments", res);
+            }
+
+            releaseEdit = true;
+        })
+    }
 
 </script>
 
@@ -61,6 +97,9 @@
 
 
 <section class="page-body">
+
+    <DeleteRecords on:new-range={deleteRange}/>
+
     <div class="columns">
 
         <article class="column">

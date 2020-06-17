@@ -13,7 +13,8 @@
     import {userExtras} from '/imports/client/systemStores'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Icon from '/imports/components/elements/icon.svelte'
-    import { getContext, setContext } from 'svelte';
+    import { createEventDispatcher, getContext, setContext } from 'svelte';
+    const dispatch = createEventDispatcher();
 
     //* component controls
     let text = getContext("formText");
@@ -35,9 +36,9 @@
 
     //** event handlers
     function fieldChanged(msg){
+        let radio = msg.detail && msg.detail.value && msg.detail.value._id ? msg.detail.value._id : "none";
 
-        console.log("fieldChanged", msg.detail);
-
+        dispatch("new-range", radio);
     }
 
 </script>
