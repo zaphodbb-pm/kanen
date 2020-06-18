@@ -110,9 +110,7 @@
 
                 <form class="card-content">
                     {#each formFields as field}
-                        <div class="mb-3" style="padding-top: 1rem;">
-                            <Field_Wrapper {field} {watchFields} on:field-changed="{fieldChanged}"/>
-                        </div>
+                        <Field_Wrapper class="my-4" {field} {watchFields} on:field-changed="{fieldChanged}"/>
                     {/each}
 
                     <a class="button is-primary my-5" on:click="{changePassword}">
@@ -126,7 +124,6 @@
                             {/each}
                         </div>
                     </article>
-
                 </form>
 
             </div>

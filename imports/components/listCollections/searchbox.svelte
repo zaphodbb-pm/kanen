@@ -15,7 +15,7 @@
     export let fields = [];
 
     //** support functions
-    import {getContext} from 'svelte';
+    import {onMount, getContext} from 'svelte';
     import {slide} from 'svelte/transition';
     import {quintOut} from 'svelte/easing';
     import Icon from '/imports/components/elements/icon.svelte'
@@ -33,19 +33,15 @@
     let showIcon = !!helpText;
     let showHelp = false;
 
+    onMount( () => {
+        changesearch();
+    });
+
 
     function changesearch() {
         searchchars = searchchars.replace(/ /g, '');            // remove all white spaces
-        if (searchchars.length > 2) {                           // need at least three characters to start a query
-            let query = buildQuery(searchchars, fields);
-            dispatch('search-changed', {search: searchchars, query: query});
-        }else{
-            dispatch('search-changed', {search: searchchars, query: {}});
-        }
-    }
-
-    function toggleHelp() {
-        showHelp = !showHelp;
+        let query = searchchars.length > 2 ? buildQuery(searchchars, fields) : {};
+        dispatch('search-changed', {search: searchchars, query: query});
     }
 
 </script>
@@ -69,7 +65,7 @@
 
     <div class="control">
         {#if showIcon}
-            <a class="button is-info is-outlined" on:click="{toggleHelp}">
+            <a class="button is-info is-outlined" on:click="{() => {showHelp = !showHelp;} }">
 
                 <Icon icon='{getContext("iconHelp")}' class="text-1dot5rem"/>
             </a>

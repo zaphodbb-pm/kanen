@@ -15,7 +15,7 @@ Meteor.startup(function(){
 //** client accessable data
 
     //** system collections
-    Content._ensureIndex({author: 1});
+    Learn._ensureIndex({author: 1});
     BuildEmail._ensureIndex({author: 1});
     Notifications._ensureIndex({author: 1});
     LogsSystem._ensureIndex({updatedAt: 1});

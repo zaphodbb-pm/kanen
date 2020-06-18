@@ -12,7 +12,6 @@
     //* support files
     import {userExtras} from '/imports/client/systemStores'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
-    import Icon from '/imports/components/elements/icon.svelte'
     import { createEventDispatcher, getContext, setContext } from 'svelte';
     const dispatch = createEventDispatcher();
 
