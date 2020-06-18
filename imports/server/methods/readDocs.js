@@ -174,12 +174,24 @@ Meteor.methods({
                 //query = Object.assign(base, kanen.queries[coll].allFields);
                 //docs = Mongo.Collection.get(coll).createQuery(query).fetch();
                 docs = Mongo.Collection.get(coll).find( filter, options ).fetch();
+
                 break;
 
             case type === "content":
                 //query = Object.assign(base, kanen.queries[coll].content);
                 //docs = Mongo.Collection.get(coll).createQuery(query).fetch();
-                docs = Mongo.Collection.get(coll).find( filter, options ).fetch();
+                let fields = {
+                    fields:{
+                        name: 1,
+                        parentPage: 1,
+                    }
+                }
+
+                let opts = Object.assign({}, options, fields);
+
+
+
+                docs = Mongo.Collection.get(coll).find( filter, opts ).fetch();
                 break;
 
             case type === "oneAllFields":

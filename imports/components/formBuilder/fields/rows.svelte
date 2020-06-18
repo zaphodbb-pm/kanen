@@ -214,7 +214,7 @@
                 <div class="columns">
                     {#each rowDefault as field, idf (field.field)}
                         <div class="column">
-                            <Field_Wrapper field="{field}" on:field-changed="{fieldsUpdate}"/>
+                            <Field_Wrapper class="" field="{field}" on:field-changed="{fieldsUpdate}"/>
                         </div>
                     {/each}
                 </div>

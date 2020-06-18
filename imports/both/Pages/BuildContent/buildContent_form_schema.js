@@ -83,7 +83,7 @@ export default [
         css: "is-fullwidth",
         params: {
             type: "dynamicSelect",
-            coll: "content",
+            coll: "learn",
             filter: {sort: {name: 1}, fields: {name: 1}},
             prepend: {_id: "root", name: "_rootPage"}       // for buildContent; add a root choice for table of contents building
         },

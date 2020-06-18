@@ -31,6 +31,8 @@ out.iconWidget = widget;
 import learn from '/public/svg_to_js/graduation-cap-solid.json';
 out.iconLearn = learn;
 
+import miniWiki from '/public/svg_to_js/book-open-solid.json';
+out.iconMiniWiki = miniWiki;
 
 import content from '/public/svg_to_js/grip-horizontal-solid.json';
 out.iconContent = content;
@@ -128,6 +130,9 @@ out.iconShowText = showField;
 
 import hideField from '/public/svg_to_js/eye-slash.json';
 out.iconHideText = hideField;
+
+import readTime from '/public/svg_to_js/glasses-solid.json';
+out.iconReadTime = readTime;
 
 
 import music from '/public/svg_to_js/music-solid.json';

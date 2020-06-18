@@ -19,6 +19,6 @@ LogsSensors = new Mongo.Collection("logsSensors");          // Tracks any real t
 
 //** client accessable data
 Starter = new Mongo.Collection('starter');                  // sample starter coll; schema shows all field types
-Content = new Mongo.Collection('content');                  // extra content pages as part of a simple CMS
+Learn = new Mongo.Collection('learn');                      // extra content pages as part of a simple CMS
 BuildEmail = new Mongo.Collection('buildEmail');            // sweatcrew admin generated email templates
 Notifications = new Mongo.Collection('notifications');      // sweatcrew user generated activity that drives notifications (ie invites)

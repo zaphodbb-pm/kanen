@@ -117,12 +117,10 @@
 
                 <form class="card-content">
                     {#each formFields as field}
-                        <div class="mb-3" style="padding-top: 1rem;">
-                            <Field_Wrapper {field} {watchFields} on:field-changed="{fieldChanged}"/>
-                        </div>
+                        <Field_Wrapper class="my-4" {field} {watchFields} on:field-changed="{fieldChanged}"/>
                     {/each}
 
-                    <a class="button is-primary mt-5" on:click="{authPassword}">
+                    <a class="button is-primary mt-4" on:click="{authPassword}">
                         {text.btnSend}
                     </a>
 

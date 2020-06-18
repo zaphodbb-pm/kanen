@@ -35,6 +35,9 @@
     export let field = {};
     export let watchFields = {};
 
+    let className;
+    export { className as class };
+
     //* support functions
     import {getContext} from 'svelte'
     import {components} from './fields/func-registerField'
@@ -183,30 +186,32 @@
 
 
 {#if !fieldHide}
-    <div class="field" style="position: relative;">
-        <div class="control {fieldOpt}">
-            {#if label}
-                <label class="has-float-label {adjustLabel}">{label}</label>
-            {/if}
+    <div class="{className}">
+        <div class="field" style="position: relative;">
+            <div class="control {fieldOpt}">
+                {#if label}
+                    <label class="has-float-label {adjustLabel}">{label}</label>
+                {/if}
 
-            <svelte:component
-                    this="{components[field.fieldType]}"
-                    {field}
-                    on:on-inputentry="{fieldUpdate}"/>
+                <svelte:component
+                        this="{components[field.fieldType]}"
+                        {field}
+                        on:on-inputentry="{fieldUpdate}"/>
 
-        </div>
+            </div>
 
-        {#if helpText}
-            <span class="field-info has-text-primary add-cursor" on:click|stopPropagation="{toggleHelp}">
+            {#if helpText}
+                <span class="field-info has-text-primary add-cursor" on:click|stopPropagation="{toggleHelp}">
                 <Icon icon={getContext("iconHelp")} class="has-text-info"/>
             </span>
 
-            {#if fieldHelpShow}
-                <div class= "mt-2 mb-4" transition:slide="{{delay: 100, duration: 300, easing: quintOut }}">
-                    <p class="is-family-secondary">{@html helpText}</p>
-                </div>
+                {#if fieldHelpShow}
+                    <div class= "mt-2 mb-4" transition:slide="{{delay: 100, duration: 300, easing: quintOut }}">
+                        <p class="is-family-secondary">{@html helpText}</p>
+                    </div>
+                {/if}
             {/if}
-        {/if}
+        </div>
     </div>
 {/if}
 

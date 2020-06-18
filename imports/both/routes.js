@@ -33,6 +33,7 @@
 //* get page configuration information
 import Home from '/imports/both/Pages/Home/home_route'
 import Starter from '/imports/both/Pages/Starter/starter_page_route'
+import MiniWiki from '/imports/both/Pages/Learn/learn_route'
 import Template from '/imports/both/Pages/Template/template_route'
 
 import Icons from '/imports/both/Pages/Icons/icons_route'
@@ -59,6 +60,7 @@ import Documentation from '/imports/both/Pages/Documentation/documentation_route
 const allRoutes = [
     Home,
     Starter,
+    MiniWiki,
     Template,
 
     Icons,

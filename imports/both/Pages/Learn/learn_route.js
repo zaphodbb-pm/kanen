@@ -1,10 +1,10 @@
 /**
- * Route config information for Template page.
+ * Route config information for Learn page.
  *
- * @memberof Pages:Template
- * @function template_route
+ * @memberof Pages:Learn
+ * @function learn_route
  * @locus Client
- * @augments template
+ * @augments learn
  *
  * @returns {Object}
  *
@@ -15,23 +15,23 @@
 
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
-import {nav} from './template_text_nav'
+import {nav} from './learn_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
-import Page from './template_loader.svelte'
+import Page from './learn_loader.svelte'
 //import Page from './changePassword.svelte'
 
 
 let lang = getLang("en");
 
 export default {
-    name: "/template",                      // link that router will use
+    name: "/learn",                      // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconTemplate",                   // Navbar icon to show
+    icon: "iconLearn",                      // Navbar icon to show
     label: i18n(nav, "", lang),         // Navbar text to show
 
     roles: {                                // roles that can see this link in Navbar and be routed to

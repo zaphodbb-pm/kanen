@@ -1,10 +1,10 @@
 /**
- * Nav label for Template page.
+ * Nav label for Learn page.
  *
- * @memberof Pages:Template
- * @function template_text_nav
+ * @memberof Pages:Learn
+ * @function learn_text_nav
  * @locus Client
- * @augments template
+ * @augments learn
  *
  * @returns {Object} - {nav}
  *
@@ -13,4 +13,4 @@
  */
 
 
-export const nav = {en: "Template"};
+export const nav = {en: "Learn"};

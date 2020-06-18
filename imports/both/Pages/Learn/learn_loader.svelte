@@ -2,8 +2,8 @@
     /**
      * Generic loader as a shim to insert page controller.
      *
-     * @memberof Pages:Template
-     * @function template_loader
+     * @memberof Pages:Learn
+     * @function learn_loader
      * @locus Client
      *
      * @notes
@@ -27,4 +27,4 @@
 
 </script>
 
-<Loadable loader={() => import('./template.svelte')} {currentRoute} {params} />
+<Loadable loader={() => import('./learn.svelte')} {currentRoute} {params} />
