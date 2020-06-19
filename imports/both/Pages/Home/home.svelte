@@ -50,24 +50,41 @@
 
 <section class="page-body">
 
-    <div>lang: {$lang}</div>
+    <div class="level">
 
-    <div class="d-flex align-items-center" style="font-size: 3rem;">
-        <Icon icon={out}/>
-        <span>svelte-icons</span>
+        <div class="level-right">
+            main intro text
+        </div>
+
+        <div class="level-right">
+            <figure class="image is-128x128">
+                <img src="https://bulma.io/images/placeholders/256x256.png">
+            </figure>
+        </div>
+
     </div>
 
-    <div class="d-flex align-items-center has-text-blue-dark">
-        <Icon icon={getContext("iconNotify")} class="icon"/>
-        <span>Svelte-Icons</span>
-    </div>
 
-    <div class="d-flex align-items-center has-text-blue-dark">
-        <span class="icon">
-            <Icon icon={newIcon}/>
-        </span>
 
-        <span>Gotten svg</span>
+    <div class="columns mt-5">
+
+        <div class="column">
+            <div class="box">
+                philosophy
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="box">
+                features
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="box">
+                performance
+            </div>
+        </div>
     </div>
 
 </section>

@@ -15,7 +15,7 @@
 export const header = {
     title:  {en: "Home Page"},
     lead:   {en: "Welcome to Kanen - the seedling starter package"},
-    body:   {en: "Introduction to Kanen."},
+    body:   {en: ""},
 };
 
 

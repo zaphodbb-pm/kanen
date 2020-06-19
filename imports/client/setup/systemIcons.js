@@ -64,7 +64,11 @@ out.iconUsers = users;
 import sysLogs from '/public/svg_to_js/wave-square-solid.json';
 out.iconSysLogs = sysLogs;
 
+import exportImport from '/public/svg_to_js/cloud-download-alt-solid.json';
+out.iconExportImport = exportImport;
 
+import pubSub from '/public/svg_to_js/sync-alt-solid.json';
+out.iconPubSub = pubSub;
 
 
 //* Navbar Icons

@@ -36,6 +36,7 @@ import Starter from '/imports/both/Pages/Starter/starter_page_route'
 import MiniWiki from '/imports/both/Pages/Learn/learn_route'
 import Template from '/imports/both/Pages/Template/template_route'
 
+import PubSub from '/imports/both/Pages/PubSub/pubSub_route'
 import Icons from '/imports/both/Pages/Icons/icons_route'
 import Colours from '/imports/both/Pages/Colours/colours_route'
 import Cards from '/imports/both/Pages/Cards/cards_route'
@@ -51,6 +52,7 @@ import LogsSystem from '/imports/both/Pages/LogsSystem/logsSystem_route'
 import LogsUsers from '/imports/both/Pages/LogsUsers/logsUsers_route'
 import Users from '/imports/both/Pages/Users/users_route'
 import SysConfig from '/imports/both/Pages/SysConfig/sysConfig_route'
+import ExportImport from '/imports/both/Pages/ExportImport/exportImport_route'
 import Documentation from '/imports/both/Pages/Documentation/documentation_route'
 
 
@@ -63,6 +65,7 @@ const allRoutes = [
     MiniWiki,
     Template,
 
+    PubSub,
     Icons,
     Colours,
     Cards,
@@ -78,6 +81,7 @@ const allRoutes = [
     LogsUsers,
     Users,
     SysConfig,
+    ExportImport,
     Documentation,
 
 
