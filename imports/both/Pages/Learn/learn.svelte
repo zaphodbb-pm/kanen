@@ -43,12 +43,15 @@
     import {onMount} from 'svelte'
     import {getDocs} from '/imports/functions/getDocs'
     import {sortBy} from '/imports/functions/sortBy'
-    import {groupBy} from '/imports/functions/groupBy'
 
     import Wiki_Toc from './wiki_toc.svelte'
     import Wiki_Content from './wiki_content.svelte'
     import Search_Box from '/imports/components/listCollections/searchbox.svelte'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
+
+    let formText = i18n(page, "form", $lang);
+    setContext("formText", formText);
+    let toc = i18n(page, "components", $lang).toc;
 
 
     //* local reactive variables
@@ -61,7 +64,6 @@
         lang: "all",
         crew: "none",
 
-        tocHeader: "toc header", //text.tocHdr,
         tocTitles: [],
         pageid: "",
 
@@ -75,19 +77,6 @@
         ]
     }
 
-    let formText = i18n(page, "form", $lang);
-    setContext("formText", formText);
-
-    let langField = {
-        field: "getLang",
-        fieldType: "select",
-        optional: true,
-
-        css: "is-fullwidth",
-        attributes: {},
-        params: {type: "staticSelect"},
-        defaultValue: {_id: "all", name: "All Options"},
-    };
 
     onMount( () => {
         buildToC({});
@@ -109,13 +98,17 @@
     }
 
     function fieldChanged(msg){
+        let field = msg.detail;
 
-        console.log("fieldChanged", msg.detail);
+        if(field.field === "getLang"){
+            langComp = field.value._id;
+            buildToC();
+        }
     }
 
     async function findDocs(query) {
         const sort = {sort: {name: 1}, limit: 100};
-        let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": langComp};
+        let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": {$in: [langComp, "all"]} };
         let compound = Object.assign({}, query, lang);
 
         if (query && Object.keys(query).length > 0) {
@@ -144,17 +137,12 @@
         showModalUser = false;
     }
 
-    function adjustLanguage(msg){
-        langComp = msg.detail;
-        buildToC();
-    }
-
     async function buildToC() {
         const sort = {sort: {name: 1}};
-        let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": langComp};
+        let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": {$in: [langComp, "all"]} };
         let compound = Object.assign({}, lang);
-
         let pages = await getDocs("learn", "content", compound, sort);
+
         info.tocTitles = structureToc(pages);
 
         if (Array.isArray(info.tocTitles) && info.tocTitles.length > 0) {
@@ -163,29 +151,20 @@
     }
 
     function structureToc(pages) {
-        let adjPages = pages.map( (p) => {
-            p.parent =  p.parentPage.name === "_rootPage" ? "_rootPage" :  p.parentPage._id;
-            return p;
+        let adjPages = pages.map( (pg, idx) => {
+            let hasParent = pages.find( (p) => p._id === pg.parentPage._id);
+            pg.parent = hasParent ? pg.parentPage._id : "root";
+            let children = pages.filter( (p) => p.parentPage._id === pg._id);
+
+            if(children){
+                pg.children = children.length > 1 ? sortBy(children, 'contentWeight') : children;
+            }
+
+            return pg;
         })
 
-        let gb = groupBy(adjPages, "parent");
-        let rootTop = gb["_rootPage"];
+        let rootTop = adjPages.filter( (ap) => ap.parent === "root");
         rootTop = sortBy(rootTop, 'contentWeight');
-
-        rootTop.forEach(function (sec) {
-            if (sec) {
-                sec.child1 = gb[sec._id];
-
-                if (sec.child1 && sec.child1.length > 0) {
-                    sec.child1 = sortBy(sec.child1, 'contentWeight');
-
-                    sec.child1.forEach(function (third) {
-                        third.child2 = gb[third._id];
-                        third.child2 = sortBy(third.child2, 'contentWeight');
-                    });
-                }
-            }
-        });
 
         return rootTop;
     }
@@ -202,17 +181,26 @@
 
     <div class="columns">
         <div class="column is-one-fifth-fullhd is-one-quarter-desktop is-one-third-tablet">
-            <Search_Box fields="{info.fields}" on:search-changed="{newSearch}" />
 
             <Field_Wrapper
-                    class="mb-5 pt-3"
+                    class=""
                     field="{pageConfig.components.langField}"
                     watchFields="{ {} }"
                     on:field-changed="{fieldChanged}"/>
 
+        </div>
+
+        <div class="column">
+            <Search_Box fields="{info.fields}" on:search-changed="{newSearch}" />
+        </div>
+    </div>
+
+    <div class="columns mt-3">
+        <div class="column is-one-fifth-fullhd is-one-quarter-desktop is-one-third-tablet">
+
             <Wiki_Toc
                     pageid="{info.pageid}"
-                    tocHeader="{info.tocHeader}"
+                    tocHeader="{toc.title}"
                     tocTitles="{info.tocTitles}"
                     on:getpage="{selectPage}"/>
 

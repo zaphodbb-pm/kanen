@@ -60,14 +60,13 @@
         let item = source.find( (s) => s._id === selId );       // get text for _id values
         let colour = item && item.colour ? item.colour : null;
         let out = colour ? {_id: item._id, name: item.name, colour: colour} : {_id: item._id, name: item.name};
-
         activeColour = colour;
         dispatch('on-inputentry', {value: out, error: false}  );
     }
 
     //* functions that mutate local variables
     function setValue(val){
-        selValue = val._id;
+        selValue = val._id ? val._id : (selects[0] && selects[0]._id ? selects[0]._id : "" );
         activeColour = val && val.colour ? val.colour : "#dbdbdb";
     }
 

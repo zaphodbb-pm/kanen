@@ -70,7 +70,7 @@ export default [
         attributes: {},
         css: "is-fullwidth",
         params: {type: "staticSelect"},
-        defaultValue: {_id: "", name: ""},
+        defaultValue: {_id: "all", name: ""},
     },
 
     {

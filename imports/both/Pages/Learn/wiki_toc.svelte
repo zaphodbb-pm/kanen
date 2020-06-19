@@ -46,26 +46,26 @@
                         {title.name}
                     </a>
 
-                    {#if title.child1}
+                    {#if title.children}
 
                         <ul class="cleanList ml-2">
-                            {#each title.child1 as child1 (child1._id)}
+                            {#each title.children as children (children._id)}
                                 <li class="text-bold add-cursor">
 
-                                    <a id="{child1._id}"
-                                       class:active="{child1._id === pageid}"
-                                       on:click="{() => dispatch('getpage', child1._id) }">
-                                        {child1.name}
+                                    <a id="{children._id}"
+                                       class:active="{children._id === pageid}"
+                                       on:click="{() => dispatch('getpage', children._id) }">
+                                        {children.name}
                                     </a>
 
-                                    {#if child1.child2}
+                                    {#if children.children}
                                         <ul class="cleanList ml-2">
-                                            {#each child1.child2 as child2 (child2._id)}
+                                            {#each children.children as children (children._id)}
                                                 <li class=" text-bold add-cursor">
-                                                    <a id="{child2._id}"
-                                                       class:active="{child2._id === pageid}"
-                                                       on:click="{() => dispatch('getpage', child2._id) }">
-                                                        {child2.name}
+                                                    <a id="{children._id}"
+                                                       class:active="{children._id === pageid}"
+                                                       on:click="{() => dispatch('getpage', children._id) }">
+                                                        {children.name}
                                                     </a>
                                                 </li>
                                             {/each}
