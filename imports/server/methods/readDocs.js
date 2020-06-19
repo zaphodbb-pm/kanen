@@ -184,6 +184,7 @@ Meteor.methods({
                     fields:{
                         name: 1,
                         parentPage: 1,
+                        contentWeight: 1,
                     }
                 }
 

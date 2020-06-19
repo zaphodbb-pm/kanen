@@ -18,21 +18,13 @@ export const header = {
 
 
 export const page = {
-    page: {},
 
     components: {
-
-        box: {
-            en: "The <em>time</em> has come to <u>speak</u> of many things ..."
-        },
-
-        widget: {
-            title: {en: "Title"}
+        en: {
+            toc: {
+                title: "Table of Contents"
+            }
         }
-    },
-
-    list: {
-        name: {en: "Name"}
     },
 
     form: {
@@ -40,6 +32,7 @@ export const page = {
             getLang: {
                 label: "Select Content Language",
                 helpText: "Content can be tagged for different languages.",
+                tag: {_id: "all", name: "Select Language"},
                 selects: [
                     {_id: "all", name: "All Languages"},
                     {_id: "en",  name: "English"},
