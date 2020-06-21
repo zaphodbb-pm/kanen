@@ -105,7 +105,18 @@
     </div>
 
     {#each body() as tab}
-        <div class:is-hidden={!(tab.label === currTab)}>{@html tab.text}</div>
+        <div class:is-hidden={!(tab.label === currTab)}>
+            {#if Array.isArray(tab.text)}
+                <ul>
+                    {#each tab.text as item}
+                        <li class="mb-2">{@html item}</li>
+                    {/each}
+                </ul>
+
+            {:else}
+                {@html tab.text}
+            {/if}
+        </div>
     {/each}
 
 </div>

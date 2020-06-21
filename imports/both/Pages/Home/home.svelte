@@ -36,9 +36,8 @@
     //* page body support **************************
     import {i18n} from '/imports/functions/i18n'
     let pageText = i18n(page, "page", $lang);
-
+    import TabContent from '/imports/components/widgets/tabbedContent.svelte'
     import Icon from '/imports/components/elements/icon.svelte'
-    let out = getContext("iconMark");
 
 
 
@@ -71,7 +70,7 @@
 
         <div class="column">
             <div class="box content">
-                <h1 class="title has-text-centered">{pageText.philosophy.title}</h1>
+                <h1 class="title is-size-4 has-text-centered">{pageText.philosophy.title}</h1>
 
                 <ul>
                     {#each pageText.philosophy.body as item}
@@ -83,7 +82,7 @@
             </div>
 
             <div class="box content">
-                <h1 class="title has-text-centered">{pageText.packages.title}</h1>
+                <h1 class="title is-size-4 has-text-centered">{pageText.packages.title}</h1>
 
                 <ul>
                     {#each pageText.packages.body as item}
@@ -97,7 +96,7 @@
 
         <div class="column is-7">
             <div class="box content">
-                <h1 class="title has-text-centered">{pageText.features.title}</h1>
+                <h1 class="title is-size-4 has-text-centered">{pageText.features.title}</h1>
 
                 <ul>
                     {#each pageText.features.body as item}
@@ -108,6 +107,12 @@
                 </ul>
             </div>
         </div>
+    </div>
+
+
+    <div class="my-6">
+        <div class="title is-size-4">{pageText.explore}</div>
+        <TabContent text="tabbed" tabSettings="is-fullwidth" />
     </div>
 
 </section>

@@ -84,21 +84,71 @@ export const page = {
                     "Uses selected Lineawesome svg icons to minimize bundle size",
                     "Supports Fontawesome 5 formatted svg files."
                 ]
-            }
+            },
+
+            explore: "Explore Pages",
         }
     },
 
     components: {
-        list: {
-            name: {en: "Name"}
-        },
 
-        form: {
-            name: {en: "Name"}
-        },
+        tabbed: {
+            en: [
+                {
+                    icon: "",
+                    label: "General",
+                    dbContent: null,  //dbContent: { coll: "", name: ""}
+                    text: [
+                        "<a href='/home'>Home</a> - this page.",
 
-        widget: {
-            title: {en: "Title"}
+                        "<a href='/listForm'>Starter ListForm</a> - list display and form builder example. " +
+                        "Form includes all of the various field types and configurations.",
+
+                        "<a href='/learn'>Learn</a> - mini-wiki that provides content to help a client to use your application.",
+
+                        "<a href='/template'>Template</a> - very basic page to be copied and modified to its intended use.",
+                    ]
+                },
+
+                {
+                    icon: "",
+                    label: "Components",
+                    text: "some second tab text",
+                    dbContent: null
+                },
+
+                {
+                    icon: "",
+                    label: "User",
+                    text: "Some pithy content talking about pictures.",
+                    dbContent: null
+                },
+
+                {
+                    icon: "",
+                    label: "Content Control",
+                    dbContent: null,
+                    text: [
+                        "<a href='/documentation'>Jsdoc</a> - Jsdoc style documentation for all of the executable files in this application.  " +
+                        "This is for development purposes to aid a programmer in building more functionality.",
+                    ]
+
+                },
+
+                {
+                    icon: "",
+                    label: "Admin Only",
+                    dbContent: null,
+                    text: [
+                        "<a href='/users'>Home</a> - list and form to set-up user information and access.",
+
+                        "<a href='/sysConfig'>System Config</a> - list and form to control certain system wide configuration options.",
+
+                        "<a href='/exportImport'>Export Import</a> - administration to send a JSON formatted collection file to a user " +
+                        "computer.  User can also upload a JSON file to a collection.",
+                    ]
+                },
+            ]
         }
     }
 };
