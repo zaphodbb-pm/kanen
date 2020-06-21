@@ -87,7 +87,7 @@ function wrapCollection(ns, as) {
     let proto = as._CollectionPrototype;
 
     ns.Collection = function () {
-        var ret = constructor.apply(this, arguments);
+        let ret = constructor.apply(this, arguments);
         // This is where all the collection extensions get processed
         processCollectionExtensions(this, arguments);
         return ret;

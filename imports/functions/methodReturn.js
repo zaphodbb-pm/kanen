@@ -8,6 +8,7 @@
  * @param {String|Object} err - error code or message from method
  * @param {String|Object|Array|Number} res - result data from method call
  * @param {String} label - method name
+ *
  * @return {String|Object|Array|Number}
  *
  */

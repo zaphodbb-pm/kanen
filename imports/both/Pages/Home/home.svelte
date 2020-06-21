@@ -34,11 +34,12 @@
 
 
     //* page body support **************************
+    import {i18n} from '/imports/functions/i18n'
+    let pageText = i18n(page, "page", $lang);
+
     import Icon from '/imports/components/elements/icon.svelte'
     let out = getContext("iconMark");
 
-    import fiver from '/public/svg_to_js/biking-solid.json'
-    let newIcon = fiver;
 
 
 </script>
@@ -50,27 +51,35 @@
 
 <section class="page-body">
 
-    <div class="level">
+    <div class="d-flex justify-content-around align-items-center">
+        <p class="lead mr-5">{@html pageText.intro}</p>
 
-        <div class="level-right">
-            main intro text
-        </div>
-
-        <div class="level-right">
-            <figure class="image is-128x128">
-                <img src="https://bulma.io/images/placeholders/256x256.png">
-            </figure>
-        </div>
-
+        <figure class="ml-5">
+            <img src="/home-page.jpg" class="" style="max-width: 200rem;">
+        </figure>
     </div>
 
+
+    <article class="message mt-5 mb-5">
+        <div class="message-body">
+            {@html pageText.quote}
+        </div>
+    </article>
 
 
     <div class="columns mt-5">
 
         <div class="column">
             <div class="box">
-                philosophy
+                <h1 class="title has-text-centered">{pageText.philosophy.title}</h1>
+
+                <ul>
+                    {#each pageText.philosophy.body as item}
+                        <li class="mb-2">
+                            {item}
+                        </li>
+                    {/each}
+                </ul>
             </div>
         </div>
 

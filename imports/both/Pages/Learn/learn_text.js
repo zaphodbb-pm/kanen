@@ -29,7 +29,7 @@ export const page = {
 
     form: {
         en: {
-            getLang: {
+            collections: {
                 label: "Select Content Language",
                 helpText: "Content can be tagged for different languages.",
                 tag: {_id: "all", name: "Select Language"},
