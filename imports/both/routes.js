@@ -48,12 +48,14 @@ import Login from '/imports/both/Pages/Login/login_route'
 import ChangePassword from '/imports/both/Pages/ChangePassword/changePassword_route'
 
 import BuildContent from '/imports/both/Pages/BuildContent/buildContent_route'
+import Documentation from '/imports/both/Pages/Documentation/documentation_route'
 import LogsSystem from '/imports/both/Pages/LogsSystem/logsSystem_route'
 import LogsUsers from '/imports/both/Pages/LogsUsers/logsUsers_route'
+
 import Users from '/imports/both/Pages/Users/users_route'
 import SysConfig from '/imports/both/Pages/SysConfig/sysConfig_route'
 import ExportImport from '/imports/both/Pages/ExportImport/exportImport_route'
-import Documentation from '/imports/both/Pages/Documentation/documentation_route'
+
 
 
 
@@ -77,13 +79,13 @@ const allRoutes = [
     ChangePassword,
 
     BuildContent,
+    Documentation,
     LogsSystem,
     LogsUsers,
 
     Users,
     SysConfig,
     ExportImport,
-    Documentation,
 
 
     //* not found or 404 page is redirected to home page
