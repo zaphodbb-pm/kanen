@@ -19,7 +19,7 @@ import {nav} from './logsSystem_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
 import Page from './logsSystem_loader.svelte'
-//import Page from './logsUsers.svelte'
+//import Page from './logsSystem.svelte'
 
 
 let lang = getLang("en");

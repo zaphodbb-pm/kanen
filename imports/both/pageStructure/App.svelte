@@ -43,6 +43,7 @@
         setContext(key, mainIcons[key]);
     }
 
+
     //* set up user extra items
     import {buildNavLinks} from '/imports/functions/buildNavLinks'
     import {userPosition, userLoggedIn, userExtras} from '/imports/client/systemStores'

@@ -19,7 +19,7 @@ import {nav} from './login_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
 import Page from './login_loader.svelte'
-//import Page from './changePassword.svelte'
+//import Page from './login.svelte'
 
 
 let lang = getLang("en");
