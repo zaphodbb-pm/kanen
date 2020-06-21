@@ -1,8 +1,8 @@
-/*! bulma.io v0.8 | MIT License | github.com/jgthms/bulma */
+/*! bulma.io v0.9 | MIT License | github.com/jgthms/bulma */
 
 /* set key variables to override core Bulma */
 @import "../imports/client/css/bulma-scss-master/utilities/functions";
-@import "../imports/client/css/kanen-custom/kanen-custom-main";
+@import "../imports/client/css/starter-custom/starter-custom-main";
 
 /* load main utility files */
 @import "../imports/client/css/bulma-scss-master/utilities/initial-variables";
@@ -14,10 +14,20 @@
 /* load main base files */
 @import "../imports/client/css/bulma-scss-master/base/minireset";
 @import "../imports/client/css/bulma-scss-master/base/generic";
-@import "../imports/client/css/bulma-scss-master/base/helpers";
 
-/* kanen customizations */
-@import "../imports/client/css/kanen-custom/kanen-custom";
+/* starter customizations */
+@import "../imports/client/css/starter-custom/starter-custom";
+
+/* helper files */
+@import "../imports/client/css/bulma-scss-master/helpers/color";
+@import "../imports/client/css/bulma-scss-master/helpers/float";
+@import "../imports/client/css/bulma-scss-master/helpers/other";
+@import "../imports/client/css/bulma-scss-master/helpers/overflow";
+@import "../imports/client/css/bulma-scss-master/helpers/position";
+@import "../imports/client/css/bulma-scss-master/helpers/spacing";
+@import "../imports/client/css/bulma-scss-master/helpers/typography";
+@import "../imports/client/css/bulma-scss-master/helpers/visibility";
+
 
 /* load main element files */
 @import "../imports/client/css/bulma-scss-master/elements/box";
@@ -27,7 +37,7 @@
 @import "../imports/client/css/bulma-scss-master/elements/icon";
 @import "../imports/client/css/bulma-scss-master/elements/image";
 @import "../imports/client/css/bulma-scss-master/elements/notification";
-@import "../imports/client/css/bulma-scss-master/elements/_progress";
+@import "../imports/client/css/bulma-scss-master/elements/progress";
 @import "../imports/client/css/bulma-scss-master/elements/table";
 @import "../imports/client/css/bulma-scss-master/elements/tag";
 @import "../imports/client/css/bulma-scss-master/elements/title";
@@ -53,17 +63,21 @@
 @import "../imports/client/css/bulma-scss-master/components/pagination";
 //@import "../imports/client/css/bulma-scss-master/components/panel";
 @import "../imports/client/css/bulma-scss-master/components/tabs";
+
 /* load main grid files */
 @import "../imports/client/css/bulma-scss-master/grid/columns";
 //@import "../imports/client/css/bulma-scss-master/grid/tiles";
+
 /* load main layout files */
 //@import "../imports/client/css/bulma-scss-master/layout/hero";
 @import "../imports/client/css/bulma-scss-master/layout/section";
 @import "../imports/client/css/bulma-scss-master/layout/footer";
-/* kanen custom add-ons */
-@import "../imports/client/css/kanen-custom/kanen_element_addons";
-@import "../imports/client/css/kanen-custom/kanen_override";
-//@import "../imports/client/css/kanen-custom/kanban";
+
+/* starter custom add-ons */
+@import "../imports/client/css/starter-custom/starter_element_addons";
+@import "../imports/client/css/starter-custom/starter_override";
+//@import "../imports/client/css/starter-custom/kanban";
+
 /* additional elements */
 @import "../imports/client/css/optional-css/colours";
 @import "../imports/client/css/optional-css/borders";

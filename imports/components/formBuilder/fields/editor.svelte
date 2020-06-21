@@ -15,7 +15,7 @@
      *
      * @notes
      *      1. some css over-rides have been applied.
-     *         See '/imports/client/css/kanen-custom/kanen_override.scss'; line 36
+     *         See '/imports/client/css/starter-custom/starter_override.scss'; line 36
      *
      */
 
