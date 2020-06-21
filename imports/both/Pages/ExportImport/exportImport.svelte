@@ -40,136 +40,122 @@
 
 
     //* page-body support **************************
-    import {onMount, onDestroy} from 'svelte'
-
-    //* get application specific support libraries
+    import {methodReturn} from '/imports/functions/methodReturn'
     import {parseJSONString} from '/imports/functions/parseJSONString'
     import {fileName} from '/imports/functions/fileName'
     import {fileSaver} from '/imports/functions/fileSaver'
+    import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
 
-    let text = {};
+    let text = i18n(page, "components", $lang).card;
+    let formText = i18n(page, "form", $lang);
+    setContext("formText", formText);
 
 
-            //** define specific input fields
-    let info = {
-        collections: {
-            parms: {type: "staticSelect"},
+    //* local reactive variables
+    let messages = [];
+    let build = {coll: "", fname: "", infile: "", fsize: 0}
+    let documents = []
+    let disableImport = true;
+    let disableExport = true
 
-            value: {},
-            attributes: {},
-            selLabel: text.labelTarget,
-                    cmpSelects: text.targets,
-        },
 
-        fileInput: {
-            parms: {format: "text", type: ["json"]},
-            value: {},
-            attributes: {},
-            cmpLabel: text.labelInputFile,
-                    cmpSelects: text.targets,
-        },
-
-        build: {coll: "", fname: "", infile: "", fsize: 0},
-        documents: [],
-                messages: [],
-
-                disableReceive: true,
-                disableSend: true,
+    //* event handlers
+    function importFile() {
+        messages = [text.msgBuild];
+        actionImport(build);
     }
 
-
-    //** general button activation with specific actions
-    function buttonClickReceive() {
-        info.messages = [text.msgBuild];
-        cardActionReceive(info.build);
+    function exportFile() {
+        messages = [text.msgBuild];
+        actionExport(build.coll);
     }
 
-    function buttonClickSend() {
-        info.messages = [text.msgBuild];
-        cardActionSend(info.build.coll);
-    }
-
-
-    //** card specific field input data
     function updateCollection(msg) {
-        info.build.coll = msg._id;
-        info.disableSend = false;
-        info.messages = [];
+        let coll = msg.detail.value && msg.detail.value._id ? msg.detail.value._id : null;
+
+        if(coll && coll !== "none"){
+            build.coll = coll;
+            disableExport = false;
+            messages = [];
+        }else{
+            build.coll = null;
+            disableExport = true;
+            messages = [text.msgNoColl, coll];
+        }
     }
 
-    function updateFile(msg) {
+    function updateFile(inMsg) {
+        let msg = inMsg.detail.value;
+
         let test = parseJSONString(msg.src);
 
         if (test) {
-            info.build.infile = test;
-            info.build.fname = msg.name ? msg.name : "Unknown";
-            info.build.fsize = msg.src.length;
-            info.messages = [];
-            info.disableReceive = false;
+            build.infile = test;
+            build.fname = msg.name ? msg.name : "Unknown";
+            build.fsize = msg.src.length;
+            messages = [];
+            disableImport = false;
         } else {
             console.warn("Not a valid JSON file: ", msg.name);
-            info.disableReceive = true;
+            disableImport = true;
         }
     }
 
     //** card specific action execution
-    function cardActionSend(coll) {
-
-        if (info.disableSend) {
-            info.messages = [text.msgError];
+    function actionExport(coll) {
+        if (disableExport) {
+            messages = [text.msgError];
         } else {
             if (coll && coll !== "none") {
                 let fname = fileName(coll, "json");
 
                 Meteor.call('exportJSON', coll, {}, function (err, fileContent) {
-                    //methodReturn(err, fileContent, "exportJSON");
+                    methodReturn(err, fileContent, "exportJSON");
 
                     if (fileContent) {
                         let blob = new Blob([fileContent.data], {type: "text/plain;charset=utf-8"});
                         let size = ` (${(fileContent.size / 1000).toFixed(1)} KB)`;
 
-                        info.messages = [
+                        messages = [
                             "Export: " + fname,
                             "Records: " + fileContent.records + size
                         ];
 
                         fileSaver(blob, fname);
                     } else {
-                        info.messages = [text.msgExportFail, err];
+                        messages = [text.msgExportFail, err];
                     }
                 });
             } else {
-                info.messages = [text.msgError];
+                messages = [text.msgError];
             }
         }
     }
 
-    function cardActionReceive(params) {
-
-        if (info.disableReceive && info.disableSend) {
-            info.messages = [text.msgError];
+    function actionImport(params) {
+        if (disableImport && disableExport) {
+            messages = [text.msgError];
         } else {
 
             if (params.coll && params.coll !== "none" && params.infile && params.infile.length > 0) {
 
                 Meteor.call('importJSON', params.coll, params.infile, function (err, res) {
-                    //methodReturn(err, res, "importJSON");
+                    methodReturn(err, res, "importJSON");
 
                     if (res) {
-                        info.messages = [
+                        messages = [
                             `Import: ${params.fname}`,
                             `Records: ${params.infile.length} (${(params.fsize / 1024).toFixed(1)} KB)`
                         ];
                     } else {
-                        info.messages = [text.msgImportFail, err];
+                        messages = [text.msgImportFail, err];
                     }
                 });
             } else {
-                info.messages = [text.msgError];
+                messages = [text.msgError];
             }
         }
     }
-
 
 </script>
 
@@ -184,70 +170,65 @@
     <div class="columns">
         <div class="column is-6-tablet">
 
-            <div class="vue-general-purpose card">
+            <article class="import-export card">
 
-                <div class="card-header {text.bg}">
-                    <div class="card-header-title" style="color: inherit; font-size: inherit; font-weight: inherit;">
+                <div class="card-header has-background-info">
+                    <div class="card-header-title has-text-weight-semibold has-text-white" >
                         {text.title}
                     </div>
                 </div>
 
                 <div class="card-content">
 
-                    <!-- card specific fields and functionality -->
-                    <div class="columns">
+                    <div class="level pb-5">
+                        <div class="level-left w-75">
+                            <div class="control w-100">
 
-                        <div class="column is-three-quarters">
+                                <Field_Wrapper
+                                        class=""
+                                        field="{pageConfig.components.collections}"
+                                        watchFields="{ {} }"
+                                        on:field-changed="{updateCollection}"/>
 
-                            <div class="field">
-                                <div class="control is-expanded">
-                                    select
-                                    <!--
-                                    <vue-select class="is-fullwidth"
-                                                v-bind="info.collections"
-                                                v-on:on-select="updateCollection">
-                                    </vue-select>
-                                    -->
-                                </div>
                             </div>
-
-                            <div class="field">
-                                <div class="control is-expanded">
-                                    file browse
-
-                                    <!--
-                                    <vue-file-browse class="is-fullwidth"
-                                                     v-bind="info.fileInput"
-                                                     v-on:on-newfile="updateFile">
-                                    </vue-file-browse>
-                                    -->
-                                </div>
-                            </div>
-
-                            <div class="">
-                                <a class="button {text.btn}"
-                                   disabled="{info.disableReceive || info.disableSend}"
-                                   on:click="{buttonClickReceive}">
-                                    {text.btnReceive}
-                                </a>
-                            </div>
-
                         </div>
 
-                        <div class="column">
-                            <a class="button is-pulled-right {text.btn}"
-                               disabled="{info.disableSend}"
-                               on:click="{buttonClickSend}">
+                        <div class="level-right">
+                            <button class="button is-primary is-outlined"
+                                    disabled="{disableExport}"
+                                    on:click="{exportFile}">
+
                                 {text.btnSend}
-                            </a>
+                            </button>
                         </div>
-
                     </div>
 
-                    {#if info.messages.length > 0}
+                    <div class="level mt-5">
+                        <div class="level-left w-75">
+                            <div class="control w-100">
+
+                                <Field_Wrapper
+                                        class=""
+                                        field="{pageConfig.components.fileInput}"
+                                        watchFields="{ {} }"
+                                        on:field-changed="{updateFile}"/>
+
+                            </div>
+                        </div>
+
+                        <div class="level-right">
+                            <button class="button is-primary is-outlined"
+                               disabled="{disableImport || disableExport}"
+                               on:click="{importFile}">
+                                {text.btnReceive}
+                            </button>
+                        </div>
+                    </div>
+
+                    {#if messages.length > 0}
                         <article class="message is-warning">
                             <div class="message-body">
-                                {#each info.messages as message}
+                                {#each messages as message}
                                     <p>{message}</p>
                                 {/each}
                             </div>
@@ -256,7 +237,7 @@
 
                 </div>
 
-            </div>
+            </article>
 
         </div>
     </div>

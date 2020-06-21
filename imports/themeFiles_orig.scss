@@ -1,0 +1,99 @@
+/*! bulma.io v0.8 | MIT License | github.com/jgthms/bulma */
+
+/* set key variables to override core Bulma */
+@import "~bulma-scss/utilities/functions";
+
+
+/*@import "client/css/bulma-scss-master/utilities/functions";*/
+
+@import "client/css/kanen-custom/kanen-custom-main";
+
+/* load main utility files */
+@import "~bulma-scss/utilities/initial-variables";
+@import "~bulma-scss/utilities/derived-variables";
+@import "~bulma-scss/utilities/animations";
+@import "~bulma-scss/utilities/mixins";
+@import "~bulma-scss/utilities/controls";
+
+
+/*
+@import "client/css/bulma-scss-master/utilities/initial-variables";
+@import "client/css/bulma-scss-master/utilities/derived-variables";
+@import "client/css/bulma-scss-master/utilities/animations";
+@import "client/css/bulma-scss-master/utilities/mixins";
+@import "client/css/bulma-scss-master/utilities/controls";
+
+ */
+
+/* load main base files */
+@import "client/css/bulma-scss-master/base/minireset";
+@import "client/css/bulma-scss-master/base/generic";
+@import "client/css/bulma-scss-master/base/helpers";
+
+/* kanen customizations */
+@import "client/css/kanen-custom/kanen-custom";
+
+/* load main element files */
+@import "client/css/bulma-scss-master/elements/box";
+@import "client/css/bulma-scss-master/elements/button";
+@import "client/css/bulma-scss-master/elements/container";
+@import "client/css/bulma-scss-master/elements/content";
+@import "client/css/bulma-scss-master/elements/icon";
+@import "client/css/bulma-scss-master/elements/image";
+@import "client/css/bulma-scss-master/elements/notification";
+@import "client/css/bulma-scss-master/elements/progress";
+@import "client/css/bulma-scss-master/elements/table";
+@import "client/css/bulma-scss-master/elements/tag";
+@import "client/css/bulma-scss-master/elements/title";
+@import "client/css/bulma-scss-master/elements/other";
+/* load form items */
+@import "client/css/bulma-scss-master/form/shared";
+@import "client/css/bulma-scss-master/form/tools";
+@import "client/css/bulma-scss-master/form/checkbox-radio";
+@import "client/css/bulma-scss-master/form/file";
+@import "client/css/bulma-scss-master/form/input-textarea";
+@import "client/css/bulma-scss-master/form/select";
+/* load main components files */
+@import "client/css/bulma-scss-master/components/breadcrumb";
+@import "client/css/bulma-scss-master/components/card";
+@import "client/css/bulma-scss-master/components/dropdown";
+@import "client/css/bulma-scss-master/components/level";
+@import "client/css/bulma-scss-master/components/list";
+@import "client/css/bulma-scss-master/components/media";
+@import "client/css/bulma-scss-master/components/menu";
+@import "client/css/bulma-scss-master/components/message";
+@import "client/css/bulma-scss-master/components/modal";
+@import "client/css/bulma-scss-master/components/navbar";
+@import "client/css/bulma-scss-master/components/pagination";
+//@import "../imports/client/css/bulma-scss-master/components/panel";
+@import "client/css/bulma-scss-master/components/tabs";
+/* load main grid files */
+@import "client/css/bulma-scss-master/grid/columns";
+//@import "../imports/client/css/bulma-scss-master/grid/tiles";
+/* load main layout files */
+//@import "../imports/client/css/bulma-scss-master/layout/hero";
+@import "client/css/bulma-scss-master/layout/section";
+@import "client/css/bulma-scss-master/layout/footer";
+/* kanen custom add-ons */
+@import "client/css/kanen-custom/kanen_element_addons";
+@import "client/css/kanen-custom/kanen_override";
+//@import "../imports/client/css/kanen-custom/kanban";
+/* additional elements */
+@import "client/css/optional-css/colours";
+@import "client/css/optional-css/borders";
+@import "client/css/optional-css/buffer";
+@import "client/css/optional-css/shadow-depth";
+@import "client/css/optional-css/materialize-effects";
+//@import "../imports/client/css/optional-css/flipper";
+@import "client/css/optional-css/bootstrap-add-ons";
+
+
+/* load additional extension */
+@import "client/css/bulma-third-party/bulmaBadge";
+@import "client/css/bulma-third-party/bulmaDivider";
+//@import "../imports/client/css/bulma-third-party/pricingTable";
+@import "client/css/bulma-third-party/bulmaStepper";
+//@import "../imports/client/css/bulma-third-party/bulmaTimeline";
+@import "client/css/bulma-third-party/bulmaRibbon";
+@import "client/css/bulma-third-party/bulmaCheckRadio";
+@import "client/css/bulma-third-party/bulmaSwitch";

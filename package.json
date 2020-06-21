@@ -8,6 +8,7 @@
     "@babel/runtime": "^7.8.3",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "bcrypt": "^4.0.1",
+    "bulma-scss": "^0.9.0-1",
     "croppie": "^2.6.4",
     "date-fns": "^2.14.0",
     "flatpickr": "^4.6.3",

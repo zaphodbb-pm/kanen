@@ -18,66 +18,50 @@ export const header = {
 
 
 export const page = {
-    page: {},
 
     components: {
+        en: {
+            card: {
+                //* card general labels
+                title: "Export / Import Documents to a Collection",
+                btnSend: "Export",
+                btnReceive: "Import",
 
-        box: {
-            en: "The <em>time</em> has come to <u>speak</u> of many things ..."
-        },
-
-        widget: {
-            title: {en: "Title"}
+                msgFind: "Finding document ...",
+                msgBuild: "Building ... ",
+                msgDone: "Process finished",
+                msgNoColl: "No valid collection selected",
+                msgError: "Select collection or / and input file. ",
+                msgExportFail: "No content found to export.",
+                msgImportFail: "Server was unable to process import records.",
+            }
         }
-    },
-
-    list: {
-        name: {en: "Name"}
     },
 
     form: {
-        name: {en: "Name"}
-    },
-
-
-    config: {
         en: {
-            //* card constants
-            bg: kanen.constants.BG_CARD,
-            btn: kanen.constants.BG_BUTTON,
+            collections: {
+                label: "Select Collection",
+                helpText: "",
+                tag: {_id: "none", name: "Select Collection"},
+                selects: [
+                    {_id: 'none', name: "Select One ..."},
+                    {_id: 'learn', name: "Learn"},
+                    {_id: 'starter', name: "Starter"},
+                    {_id: 'notifications', name: "Notifications"},
 
-            //* card general labels
-            title: "Export / Import Documents to a Collection",
-            btnSend: "Export",
-            btnReceive: "Import",
+                    {_id: 'sysConfig', name: "System Config"},
+                    {_id: 'logsSystem', name: "System Logs"},
+                    {_id: 'LogsUsers', name: "User Logs"},
+                    {_id: 'users', name: "Users"},
+                ]
+            },
 
-            msgFind: "Finding document ...",
-            msgBuild: "Building ... ",
-            msgDone: "Process finished",
-            msgError: "Select collection or / and input file. ",
-            msgExportFail: "No content found to export.",
-            msgImportFail: "Server was unable to process import records.",
-
-            //* card field specific labels
-            labelTarget: "Select Collection",
-            labelInputFile: "Upload JSON File",
-
-            targets: [
-                {_id: 'none', name: "Select One ..."},
-                {_id: 'learn', name: "Learn"},
-                {_id: 'starter', name: "Starter"},
-                {_id: 'notifications', name: "Notifications"},
-
-
-                {_id: 'sysConfigs', name: "System Config"},
-                {_id: 'logsSystem', name: "System Logs"},
-                {_id: 'LogsUsers', name: "User Logs"},
-                {_id: 'users', name: "Users"},
-            ]
-
+            fileInput: {
+                label: "Upload JSON File",
+                helpText: "",
+            },
         }
-    }
-
-
+    },
 
 };

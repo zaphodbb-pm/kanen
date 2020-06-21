@@ -23,6 +23,7 @@ import _ from 'underscore'
 import '/imports/server/methods/system';
 import '/imports/server/methods/storeDoc';
 import '/imports/server/methods/readDocs';
+import '/imports/server/methods/exportImport';
 import '/imports/server/methods/userMgmt';
 import '/imports/server/methods/documentation'
 
@@ -252,11 +253,6 @@ function initializeAdmin(){
             groups: "administrator",
             groupMaster: false,
             credit: 0,
-            userYears: 0,
-
-            department: {_id: "", name: ""},
-            location: {_id: "", name: ""},
-            spendingAccount: {_id: "", name: ""},
         };
 
         Meteor.users.update(test, {$set: addins});
