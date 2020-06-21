@@ -52,25 +52,25 @@
 <section class="page-body">
 
     <div class="d-flex justify-content-around align-items-center">
-        <p class="lead mr-5">{@html pageText.intro}</p>
+        <div class="lead mr-5 content">{@html pageText.intro}</div>
 
-        <figure class="ml-5">
+        <figure class="ml-5 mb-3">
             <img src="/home-page.jpg" class="" style="max-width: 200rem;">
         </figure>
     </div>
 
 
-    <article class="message mt-5 mb-5">
+    <article class="message mt-6 mb-6">
         <div class="message-body">
             {@html pageText.quote}
         </div>
     </article>
 
 
-    <div class="columns mt-5">
+    <div class="columns mt-6">
 
         <div class="column">
-            <div class="box">
+            <div class="box content">
                 <h1 class="title has-text-centered">{pageText.philosophy.title}</h1>
 
                 <ul>
@@ -81,17 +81,31 @@
                     {/each}
                 </ul>
             </div>
-        </div>
 
-        <div class="column">
-            <div class="box">
-                features
+            <div class="box content">
+                <h1 class="title has-text-centered">{pageText.packages.title}</h1>
+
+                <ul>
+                    {#each pageText.packages.body as item}
+                        <li class="mb-2">
+                            {item}
+                        </li>
+                    {/each}
+                </ul>
             </div>
         </div>
 
-        <div class="column">
-            <div class="box">
-                performance
+        <div class="column is-7">
+            <div class="box content">
+                <h1 class="title has-text-centered">{pageText.features.title}</h1>
+
+                <ul>
+                    {#each pageText.features.body as item}
+                        <li class="mb-2">
+                            {item}
+                        </li>
+                    {/each}
+                </ul>
             </div>
         </div>
     </div>
