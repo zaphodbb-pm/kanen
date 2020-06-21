@@ -14,7 +14,8 @@
   @if $height != 0 {
     left: calc(50% - (#{$width} / 2));
     top: calc(50% - (#{$height} / 2));
-  } @else {
+  }
+  @else {
     left: calc(50% - (#{$width} / 2));
     top: calc(50% - (#{$width} / 2));
   }
@@ -63,7 +64,7 @@
   }
 
   &:hover {
-    background-color: rgba(black, 0.05);
+    background-color: bulmaRgba(black, 0.05);
   }
 
   // Modifers
@@ -190,6 +191,42 @@
   }
 }
 
+@mixin ltr {
+  @if not $rtl {
+    @content;
+  }
+}
+
+@mixin rtl {
+  @if $rtl {
+    @content;
+  }
+}
+
+@mixin ltr-property($property, $spacing, $right: true) {
+  $normal: if($right, "right", "left");
+  $opposite: if($right, "left", "right");
+
+  @if $rtl {
+    #{$property}-#{$opposite}: $spacing;
+  }
+  @else {
+    #{$property}-#{$normal}: $spacing;
+  }
+}
+
+@mixin ltr-position($spacing, $right: true) {
+  $normal: if($right, "right", "left");
+  $opposite: if($right, "left", "right");
+
+  @if $rtl {
+    #{$opposite}: $spacing;
+  }
+  @else {
+    #{$normal}: $spacing;
+  }
+}
+
 // Placeholders
 
 @mixin unselectable {
@@ -240,7 +277,7 @@
 
   -moz-appearance: none;
   -webkit-appearance: none;
-  background-color: rgba($scheme-invert, 0.2);
+  background-color: bulmaRgba($scheme-invert, 0.2);
   border: none;
   border-radius: $radius-rounded;
   cursor: pointer;
@@ -283,11 +320,11 @@
 
   &:hover,
   &:focus {
-    background-color: rgba($scheme-invert, 0.3);
+    background-color: bulmaRgba($scheme-invert, 0.3);
   }
 
   &:active {
-    background-color: rgba($scheme-invert, 0.4);
+    background-color: bulmaRgba($scheme-invert, 0.4);
   }
 
   // Sizes

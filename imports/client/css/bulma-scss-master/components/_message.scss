@@ -60,13 +60,15 @@ $message-colors: $colors !default;
 
       @if length($components) >= 4 {
         $color-dark: nth($components, 4);
-      } @else {
+      }
+      @else {
         $color-luminance: colorLuminance($color);
         $darken-percentage: $color-luminance * 70%;
         $desaturate-percentage: $color-luminance * 30%;
         $color-dark: desaturate(darken($color, $darken-percentage), $desaturate-percentage);
       }
-    } @else {
+    }
+    @else {
       $color-lightning: max(100% - lightness($color) - 2%, 0%);
       $color-light: lighten($color, $color-lightning);
     }
@@ -102,7 +104,8 @@ $message-colors: $colors !default;
   .delete {
     flex-grow: 0;
     flex-shrink: 0;
-    margin-left: 0.75em;
+
+    @include ltr-property("margin", 0.75em, false);
   }
 
   & + .message-body {

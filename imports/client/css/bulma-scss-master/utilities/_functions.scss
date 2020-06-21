@@ -22,7 +22,8 @@
           $color-invert: findColorInvert($color-base);
           $color-light: findLightColor($color-base);
           $color-dark: findDarkColor($color-base);
-        } @else if type-of($components) == "list" {
+        }
+        @else if type-of($components) == "list" {
           $color-base: nth($components, 1);
 
           // If Invert, Light and Dark are provided
@@ -32,13 +33,15 @@
             $color-dark: nth($components, 4);
 
             // If only Invert and Light are provided
-          } @else if length($components) > 2 {
+          }
+          @else if length($components) > 2 {
             $color-invert: nth($components, 2);
             $color-light: nth($components, 3);
             $color-dark: findDarkColor($color-base);
 
             // If only Invert is provided
-          } @else {
+          }
+          @else {
             $color-invert: nth($components, 2);
             $color-light: findLightColor($color-base);
             $color-dark: findDarkColor($color-base);
@@ -68,7 +71,8 @@
     @for $i from 1 through $exp {
       $value: $value * $number;
     }
-  } @else if $exp < 0 {
+  }
+  @else if $exp < 0 {
     @for $i from 1 through -$exp {
       $value: $value / $number;
     }
@@ -78,6 +82,10 @@
 }
 
 @function colorLuminance($color) {
+  @if type-of($color) != "color" {
+    @return 0.55;
+  }
+
   $color-rgb: ("red": red($color), "green": green($color), "blue": blue($color));
 
   @each $name, $value in $color-rgb {
@@ -86,7 +94,8 @@
 
     @if $value < 0.03928 {
       $value: $value / 12.92;
-    } @else {
+    }
+    @else {
       $value: ($value + 0.055) / 1.055;
       $value: powerNumber($value, 2);
     }
@@ -100,7 +109,8 @@
 @function findColorInvert($color) {
   @if colorLuminance($color) > 0.55 {
     @return rgba(#000, 0.7);
-  } @else {
+  }
+  @else {
     @return #fff;
   }
 }
@@ -130,4 +140,28 @@
   }
 
   @return $text-strong;
+}
+
+@function bulmaRgba($color, $alpha) {
+  @if type-of($color) != "color" {
+    @return $color;
+  }
+
+  @return rgba($color, $alpha);
+}
+
+@function bulmaDarken($color, $amount) {
+  @if type-of($color) != "color" {
+    @return $color;
+  }
+
+  @return darken($color, $amount);
+}
+
+@function bulmaLighten($color, $amount) {
+  @if type-of($color) != "color" {
+    @return $color;
+  }
+
+  @return lighten($color, $amount);
 }
