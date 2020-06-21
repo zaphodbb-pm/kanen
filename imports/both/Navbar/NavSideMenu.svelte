@@ -58,7 +58,7 @@
 {#each groups as group }
 
     {#if group}
-        <div class="nav-side-menu mb-4">
+        <div class="nav-side-menu mb-5">
             {#each group as links}
 
                 <a class="navbar-item navbar-hover "

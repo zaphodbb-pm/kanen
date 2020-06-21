@@ -18,17 +18,6 @@
 /* starter customizations */
 @import "../imports/client/css/starter-custom/starter-custom";
 
-/* helper files */
-@import "../imports/client/css/bulma-scss-master/helpers/color";
-@import "../imports/client/css/bulma-scss-master/helpers/float";
-@import "../imports/client/css/bulma-scss-master/helpers/other";
-@import "../imports/client/css/bulma-scss-master/helpers/overflow";
-@import "../imports/client/css/bulma-scss-master/helpers/position";
-@import "../imports/client/css/bulma-scss-master/helpers/spacing";
-@import "../imports/client/css/bulma-scss-master/helpers/typography";
-@import "../imports/client/css/bulma-scss-master/helpers/visibility";
-
-
 /* load main element files */
 @import "../imports/client/css/bulma-scss-master/elements/box";
 @import "../imports/client/css/bulma-scss-master/elements/button";
@@ -67,6 +56,16 @@
 /* load main grid files */
 @import "../imports/client/css/bulma-scss-master/grid/columns";
 //@import "../imports/client/css/bulma-scss-master/grid/tiles";
+
+/* helper files */
+@import "../imports/client/css/bulma-scss-master/helpers/color";
+@import "../imports/client/css/bulma-scss-master/helpers/float";
+@import "../imports/client/css/bulma-scss-master/helpers/other";
+@import "../imports/client/css/bulma-scss-master/helpers/overflow";
+@import "../imports/client/css/bulma-scss-master/helpers/position";
+@import "../imports/client/css/bulma-scss-master/helpers/spacing";
+@import "../imports/client/css/bulma-scss-master/helpers/typography";
+@import "../imports/client/css/bulma-scss-master/helpers/visibility";
 
 /* load main layout files */
 //@import "../imports/client/css/bulma-scss-master/layout/hero";
