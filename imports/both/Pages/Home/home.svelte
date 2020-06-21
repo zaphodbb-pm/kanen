@@ -50,69 +50,72 @@
 
 <section class="page-body">
 
-    <div class="d-flex justify-content-around align-items-center">
+    <section class="section d-flex justify-content-around align-items-center">
         <div class="lead mr-5 content">{@html pageText.intro}</div>
 
         <figure class="ml-5 mb-3">
             <img src="/home-page.jpg" class="" style="max-width: 200rem;">
         </figure>
-    </div>
+    </section>
 
 
-    <article class="message mt-6 mb-6">
-        <div class="message-body">
-            {@html pageText.quote}
-        </div>
-    </article>
+    <section class="section">
+        <article class="message">
+            <div class="message-body">
+                {@html pageText.quote}
+            </div>
+        </article>
+    </section>
 
 
-    <div class="columns mt-6">
+    <section class="section">
+        <div class="columns">
 
-        <div class="column">
-            <div class="box content">
-                <h1 class="title is-size-4 has-text-centered">{pageText.philosophy.title}</h1>
+            <div class="column">
+                <div class="box content">
+                    <h1 class="title is-size-4 has-text-centered">{pageText.philosophy.title}</h1>
 
-                <ul>
-                    {#each pageText.philosophy.body as item}
-                        <li class="mb-2">
-                            {item}
-                        </li>
-                    {/each}
-                </ul>
+                    <ul>
+                        {#each pageText.philosophy.body as item}
+                            <li class="mb-2">
+                                {item}
+                            </li>
+                        {/each}
+                    </ul>
+                </div>
+
+                <div class="box content">
+                    <h1 class="title is-size-4 has-text-centered">{pageText.packages.title}</h1>
+
+                    <ul>
+                        {#each pageText.packages.body as item}
+                            <li class="mb-2">
+                                {item}
+                            </li>
+                        {/each}
+                    </ul>
+                </div>
             </div>
 
-            <div class="box content">
-                <h1 class="title is-size-4 has-text-centered">{pageText.packages.title}</h1>
+            <div class="column is-7">
+                <div class="box content">
+                    <h1 class="title is-size-4 has-text-centered">{pageText.features.title}</h1>
 
-                <ul>
-                    {#each pageText.packages.body as item}
-                        <li class="mb-2">
-                            {item}
-                        </li>
-                    {/each}
-                </ul>
+                    <ul>
+                        {#each pageText.features.body as item}
+                            <li class="mb-2">
+                                {item}
+                            </li>
+                        {/each}
+                    </ul>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="column is-7">
-            <div class="box content">
-                <h1 class="title is-size-4 has-text-centered">{pageText.features.title}</h1>
-
-                <ul>
-                    {#each pageText.features.body as item}
-                        <li class="mb-2">
-                            {item}
-                        </li>
-                    {/each}
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="my-6">
+    <section class="section">
         <div class="title is-size-4">{pageText.explore}</div>
         <TabContent text="tabbed" tabSettings="is-fullwidth" />
-    </div>
+    </section>
 
 </section>
