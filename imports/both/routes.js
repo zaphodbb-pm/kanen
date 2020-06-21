@@ -58,7 +58,6 @@ import ExportImport from '/imports/both/Pages/ExportImport/exportImport_route'
 
 
 
-
 //* Load page route configurations into array for processing.
 //* Note that array order determines the displayed nav link order.
 const allRoutes = [
@@ -86,7 +85,6 @@ const allRoutes = [
     Users,
     SysConfig,
     ExportImport,
-
 
     //* not found or 404 page is redirected to home page
     {

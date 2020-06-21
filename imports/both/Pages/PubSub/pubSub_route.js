@@ -19,7 +19,7 @@ import {nav} from './pubSub_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
 import Page from './pubSub_loader.svelte'
-//import Page from './changePassword.svelte'
+//import Page from './pubSub.svelte'
 
 
 let lang = getLang("en");

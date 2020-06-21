@@ -1,5 +1,4 @@
 //** user accounts are implicit in Meteor and are handled differently than collections
-
 import {Meteor} from "meteor/meteor";
 import {Accounts} from 'meteor/accounts-base';
 import {check, Match} from 'meteor/check'

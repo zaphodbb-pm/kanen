@@ -18,8 +18,8 @@ import {i18n} from '/imports/functions/i18n'
 import {nav} from './users_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
-//import Page from './users_loader.svelte'
-import Page from './users.svelte'
+import Page from './users_loader.svelte'
+//import Page from './users.svelte'
 
 
 let lang = getLang("en");

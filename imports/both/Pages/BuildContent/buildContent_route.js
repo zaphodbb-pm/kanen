@@ -19,7 +19,7 @@ import {nav} from './buildContent_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
 import Page from './buildContent_loader.svelte'
-//import Page from './logsUsers.svelte'
+//import Page from './buildContent.svelte'
 
 
 let lang = getLang("en");

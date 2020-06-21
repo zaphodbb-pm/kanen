@@ -15,7 +15,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base'
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
-import { UserStatus } from 'meteor/mizzao:user-status';
+//import { UserStatus } from 'meteor/mizzao:user-status';
 import _ from 'underscore'
 
 
@@ -102,6 +102,8 @@ if (Meteor.isServer) {
 
 
 
+/*
+
 if (Meteor.isServer) {
     //** track user login / logouts
     UserStatus.events.on("connectionLogin", function(fields) {
@@ -126,6 +128,8 @@ if (Meteor.isServer) {
         }
     });
 }
+
+ */
 
 
 

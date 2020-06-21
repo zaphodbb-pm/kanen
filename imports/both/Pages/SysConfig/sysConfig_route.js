@@ -19,7 +19,7 @@ import {nav} from './sysConfig_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
 import Page from './sysConfig_loader.svelte'
-//import Page from './logsUsers.svelte'
+//import Page from './sysConfig.svelte'
 
 
 let lang = getLang("en");
