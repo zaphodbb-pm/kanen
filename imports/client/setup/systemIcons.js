@@ -193,6 +193,19 @@ import status from '/public/svg_to_js/dot-circle-solid.json';
 out.iconStatus = status;
 
 
+import general from '/public/svg_to_js/creative-commons-share.json';
+out.iconGeneral = general;
+
+import controlContent from '/public/svg_to_js/pen-nib-solid.json';
+out.iconControlContent = controlContent;
+
+import components from '/public/svg_to_js/plug-solid.json';
+out.iconComponents = components;
+
+import adminOnly from '/public/svg_to_js/user-lock-solid.json';
+out.iconAdminOnly = adminOnly;
+
+
 
 //* brand icons
 import google from '/public/svg_to_js/google.json';

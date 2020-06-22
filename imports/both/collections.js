@@ -21,3 +21,4 @@ LogsSensors = new Mongo.Collection("logsSensors");          // Tracks any real t
 Starter = new Mongo.Collection('starter');                  // sample starter coll; schema shows all field types
 Learn = new Mongo.Collection('learn');                      // extra content pages as part of a simple CMS
 Notifications = new Mongo.Collection('notifications');      // user generated activity that drives notifications (ie invites)
+RealTime = new Mongo.Collection('realTime');                // example of reactive collection tracking

@@ -39,8 +39,6 @@
 
     //* page-body support **************************
     import {lastRoute} from '/imports/client/systemStores'
-
-    import {logUser} from '/imports/functions/logUser'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Auth_Service from './authService.svelte'
     import { navigateTo } from 'svelte-router-spa/src/spa_router'
@@ -88,8 +86,6 @@
         if (err) {
             messages.push(err.message);
         } else {
-            logUser(Meteor.user(), "logIn");
-
             let penultimate = $lastRoute.length > 2 ? $lastRoute.slice(-2, -1)[0] : null;
             let target = penultimate && penultimate.name ? penultimate.name : "/myProfile";
             navigateTo(target);

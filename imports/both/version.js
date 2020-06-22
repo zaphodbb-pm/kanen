@@ -14,9 +14,9 @@
  */
 
 export default{
-    APP_NAME: "MSB-Starter",                    // application name
+    APP_NAME: "Kanen",                          // application name
     VERSION: "0.1.0",                           // current version number
-    LAST_UPDATE:  "June 7 / 2020",              // the most recent update date
+    LAST_UPDATE:  "June 22 / 2020",             // the most recent update date
     COPYRIGHT: "2020",                          // adjustable copyright notice
 }
 

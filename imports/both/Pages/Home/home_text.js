@@ -13,7 +13,7 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "MSB-Starter - A Seedling Starter Package"},
+    title:  {en: "Kanen - A Seedling Starter Package"},
     lead:   {en: ""},
     body:   {en: ""},
 };
@@ -23,7 +23,7 @@ export const page = {
 
     page: {
         en: {
-            intro: "<p>The <b>MSB-Starter Package</b> is built on the most current technologies as of 2020 using the latest releases of Meteor, MongoDb, Svelte and Bulma.  " +
+            intro: "<p><b>Kanen</b> is built on the most current technologies as of 2020 using the latest releases of Meteor, MongoDb, Svelte and Bulma.  " +
                 "It is also an opinionated view of the work that needs to get done.  </p>" +
                 "<p>This package is clearly not for everyone nor does it try to accommodate the latest new ideas.  " +
                 "This package is meant for business people / product managers that need to get outcomes quickly with applications " +
@@ -33,6 +33,15 @@ export const page = {
                 "and as few as possible without having to surrender the adequate representation of a single datum of experience. <br/> <br />" +
                 "<em>actual quote by Albert Einstein often rewritten as:</em> <br /> <br />" +
                 "“Everything should be as simple as it can be, but not simpler” ",
+
+            defTitle: "What's in a name?",
+
+            definition:
+                    "<p><b>Kanen</b> comes from the Mohawk language and means 'seed'.  " +
+                    "The Mohawk people are indigenous to the St. Lawrence River Valley from Quebec to upstate New York.  " +
+                    "The seed ceremony is very important in the Mohawk culture as it represents a renewal in spring " +
+                    "and prepares for growing food and nourishing the community.  </p>" +
+                    "<p>We believe that <b>Kanen</b> reflects what we are trying to accomplish with this package.</p>",
 
             philosophy: {
                 title: "Philosophy",
@@ -95,7 +104,7 @@ export const page = {
         tabbed: {
             en: [
                 {
-                    icon: "",
+                    icon: "iconGeneral",
                     label: "General",
                     dbContent: null,  //dbContent: { coll: "", name: ""}
                     lead: "Pages that are generally accessible by unlogged in users.",
@@ -114,7 +123,7 @@ export const page = {
                 },
 
                 {
-                    icon: "",
+                    icon: "iconComponents",
                     label: "Components",
                     dbContent: null,
                     lead: "Special purpose pages that typically are only available to valid and logged in users.",
@@ -135,7 +144,7 @@ export const page = {
                 },
 
                 {
-                    icon: "",
+                    icon: "iconUsers",
                     label: "User",
                     dbContent: null,
                     lead: "User pages for only logged in or logging in users.",
@@ -153,7 +162,7 @@ export const page = {
                 },
 
                 {
-                    icon: "",
+                    icon: "iconControlContent",
                     label: "Content Control",
                     dbContent: null,
                     lead: "Pages only available to system admin for general maintenance.",
@@ -171,7 +180,7 @@ export const page = {
                 },
 
                 {
-                    icon: "",
+                    icon: "iconAdminOnly",
                     label: "Admin Only",
                     dbContent: null,
                     lead: "Pages only available to system super admin role.",
