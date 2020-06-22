@@ -106,6 +106,10 @@
 
     {#each body() as tab}
         <div class:is-hidden={!(tab.label === currTab)}>
+            {#if tab.lead}
+                <p class="lead">{tab.lead}</p>
+            {/if}
+
             {#if Array.isArray(tab.text)}
                 <ul>
                     {#each tab.text as item}

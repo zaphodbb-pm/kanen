@@ -32,16 +32,16 @@
 
 //* get page configuration information
 import Home from '/imports/both/Pages/Home/home_route'
-import Starter from '/imports/both/Pages/Starter/starter_page_route'
-import MiniWiki from '/imports/both/Pages/Learn/learn_route'
 import Template from '/imports/both/Pages/Template/template_route'
-
-import PubSub from '/imports/both/Pages/PubSub/pubSub_route'
 import Icons from '/imports/both/Pages/Icons/icons_route'
 import Colours from '/imports/both/Pages/Colours/colours_route'
+import MiniWiki from '/imports/both/Pages/Learn/learn_route'
+
 import Cards from '/imports/both/Pages/Cards/cards_route'
 import Tabs from '/imports/both/Pages/WidgetsContent/widgetsContent_route'
 import Widgets from '/imports/both/Pages/Widgets/widgets_route'
+import Starter from '/imports/both/Pages/Starter/starter_page_route'
+import PubSub from '/imports/both/Pages/PubSub/pubSub_route'
 
 import MyProfile from '/imports/both/Pages/MyProfile/myProfile_route'
 import Login from '/imports/both/Pages/Login/login_route'
@@ -62,16 +62,16 @@ import ExportImport from '/imports/both/Pages/ExportImport/exportImport_route'
 //* Note that array order determines the displayed nav link order.
 const allRoutes = [
     Home,
-    Starter,
-    MiniWiki,
     Template,
-
-    PubSub,
     Icons,
     Colours,
+    MiniWiki,
+
     Cards,
     Tabs,
     Widgets,
+    Starter,
+    PubSub,
 
     MyProfile,
     Login,

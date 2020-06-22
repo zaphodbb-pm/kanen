@@ -61,7 +61,7 @@
 <section class="get-relative-dates">
 
     <div class="mb-5" style="padding-top: 1rem;">
-        <Field_Wrapper {field} {watchFields} on:field-changed="{fieldChanged}"/>
+        <Field_Wrapper class="" {field} {watchFields} on:field-changed="{fieldChanged}"/>
     </div>
 
 </section>

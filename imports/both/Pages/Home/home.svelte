@@ -50,16 +50,21 @@
 
 <section class="page-body">
 
-    <section class="section d-flex justify-content-around align-items-center">
-        <div class="lead mr-5 content">{@html pageText.intro}</div>
+    <section class="buffer-y-large">
+        <div class="columns is-vcentered">
+            <div class="column">
+                <div class="lead content">{@html pageText.intro}</div>
+            </div>
 
-        <figure class="ml-5 mb-3">
-            <img src="/home-page.jpg" class="" style="max-width: 200rem;">
-        </figure>
+            <div class="column">
+                <figure class="mb-3 has-text-right">
+                    <img src="/home-page.jpg" class="" style="max-width: 200rem;">
+                </figure>
+            </div>
+        </div>
     </section>
 
-
-    <section class="section">
+    <section class="buffer-y-large">
         <article class="message">
             <div class="message-body">
                 {@html pageText.quote}
@@ -67,8 +72,7 @@
         </article>
     </section>
 
-
-    <section class="section">
+    <section class="buffer-y-large">
         <div class="columns">
 
             <div class="column">
@@ -113,7 +117,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="buffer-y-large">
         <div class="title is-size-4">{pageText.explore}</div>
         <TabContent text="tabbed" tabSettings="is-fullwidth" />
     </section>

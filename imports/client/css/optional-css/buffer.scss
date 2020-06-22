@@ -1,45 +1,45 @@
 /** simple box around content to provide spacing */
 .buffer {
   display: block;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .buffer-small {
   display: block;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .buffer-large {
   display: block;
-  padding: 1.5rem;
+  padding: 3rem;
 }
 
 .buffer-x {
   display: block;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .buffer-x-small {
   display: block;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
 }
 
 .buffer-x-large {
   display: block;
-  padding: 0 1.5rem;
+  padding: 0 3rem;
 }
 
 .buffer-y {
   display: block;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 
 .buffer-y-small {
   display: block;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
 }
 
 .buffer-y-large {
   display: block;
-  padding: 1.5rem 0;
+  padding: 3rem 0;
 }
