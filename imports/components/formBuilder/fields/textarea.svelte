@@ -9,7 +9,7 @@
      *
      * @param {Object} field
      *
-     * @emits: 'on-inputentry' {value: value, error: errorVal} with string
+     * @emits 'on-inputentry' {value: value, error: errorVal} with string
      *
      */
 

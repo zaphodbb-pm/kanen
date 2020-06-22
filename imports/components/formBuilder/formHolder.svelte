@@ -14,10 +14,10 @@
      * @param {Object} directdoc - full doc object with values; bypasses collection fetch cycle by "editdoc"
      * @param {String} coll - valid collection name
      *
-     * @emits {Boolean} back-to-list - for overlayed list / form pairs
-     * @emits {Object} show-form-preview - current document object with newly entered values
-     * @emits {Boolean} doc-submitted - end of submit cycle; sent by function "submitForm"
-     * @emits {Object} current-editted-doc - after submit; current document object with newly entered values
+     * @emits  back-to-list - {Boolean} for overlayed list / form pairs
+     * @emits  show-form-preview - {Object}} current document object with newly entered values
+     * @emits  doc-submitted - {Boolean} end of submit cycle; sent by function "submitForm"
+     * @emits  current-editted-doc - {Object} after submit; current document object with newly entered values
      *
      * @example
      *      configuration object to set up form:

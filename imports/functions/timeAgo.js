@@ -1,7 +1,7 @@
 /**
  * Format time as 'ago' format from now; used by document listing table.
  *
- * @memberof Functions:Client
+ * @memberof Functions
  * @function timeAgo
  * @locus Anywhere
  *

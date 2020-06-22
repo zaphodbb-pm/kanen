@@ -35,7 +35,7 @@
     import {i18n} from '/imports/functions/i18n'
 
     //* get accessory components
-    //import {methodReturn} from "../../functions/func-methodReturn";
+    import {methodReturn} from '/imports/functions/methodReturn'
     import Icon from '/imports/components/elements/icon.svelte'
 
 

@@ -10,7 +10,7 @@
      * @param  {Object} config - decoration for row selector
      * @param  {String} label
      *
-     * @returns {Object} - emits 'row-changed'
+     * @emits 'row-changed' - {row: initval}
      *
      */
 

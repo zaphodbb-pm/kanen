@@ -14,9 +14,9 @@
      *
      * @return nothing
      *
-     * @emits {Object} send-doc message
-     * @emits {Object} modal-doc msg
-     * @emits {Array} list-docs-ready - array of document objects
+     * @emits send-doc {message}
+     * @emits modal-doc {msg}
+     * @emits list-docs-ready - array of document objects
      *
      * @example
      *      config options for controlling list layout

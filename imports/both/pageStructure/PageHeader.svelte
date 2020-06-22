@@ -3,7 +3,7 @@
     /**
      * Common page header for visible pages.
      *
-     * @memberof Structure
+     * @memberof Structure:Client
      * @function PageHeader
      * @locus Client
      *

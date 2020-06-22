@@ -8,7 +8,7 @@
      *
      * @param  {Object} field - field info that also configures the filter
      *
-     * @emits {Object} - filter-changed -> {outFilter: <fieldName>: {$gte: isodate, $lte: isodate } }
+     * @emits filter-changed -> {outFilter: <fieldName>: {$gte: isodate, $lte: isodate } }
      *
      */
 

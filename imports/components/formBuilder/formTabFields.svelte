@@ -12,7 +12,7 @@
      * @param {Boolean} hasTabs - signals the need to construct a tab header
      * @param {Boolean} hasGroups - signals the need to construct grouped fields
      *
-     * @emits field-changed
+     * @emits field-changed - {Object}
      */
 
     //* props from Form Holder

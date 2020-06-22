@@ -2,8 +2,8 @@
     /**
      * Layout for LogsSystem page.
      *
-     * @memberof Pages:logsSystem
-     * @function logsSystem_page
+     * @memberof Pages:LogsSystem
+     * @function logsSystem
      * @locus Client
      *
      */

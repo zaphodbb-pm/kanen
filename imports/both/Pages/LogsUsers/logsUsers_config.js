@@ -2,9 +2,9 @@
  * Configuration for LogsUsers page components.
  *
  * @memberof Pages:LogsUsers
- * @function logsUsers_page_config
+ * @function logsUsers_config
  * @locus Client
- * @augments logsUsers_page
+ * @augments logsUsers
  *
  * @returns {Object}
  */

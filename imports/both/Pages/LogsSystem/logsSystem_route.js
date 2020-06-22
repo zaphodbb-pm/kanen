@@ -2,9 +2,9 @@
  * Route config information for LogsSystem page.
  *
  * @memberof Pages:LogsSystem
- * @function logsSystem_page_route
+ * @function logsSystem_route
  * @locus Client
- * @augments logsSystem_page
+ * @augments logsSystem
  *
  * @returns {Object}
  *

@@ -8,14 +8,14 @@ Meteor.methods({
      * Meteor method to scan for svelte files and build documentation.
      *
      * @memberof Methods
-     * @function buildDSvelteJsdoc
+     * @function buildSvelteJsdoc
      * @isMethod true
      * @locus Server
      *
      * @returns nothing
      */
 
-    buildDSvelteJsdoc: function () {
+    buildSvelteJsdoc: function () {
         let fs = require('fs');
         const dirTop = "imports";
 
@@ -36,8 +36,40 @@ Meteor.methods({
             }
         })
 
-        console.log("buildDSvelteJsdoc finished");
+        console.log("buildSvelteJsdoc finished");
     },
+
+
+    /**
+     * Meteor method to scan for svelte generated jsdoc file and remove them.
+     *
+     * @memberof Methods
+     * @function removeSvelteJsdoc
+     * @isMethod true
+     * @locus Server
+     *
+     * @returns nothing
+     */
+
+    removeSvelteJsdoc: function () {
+        let fs = require('fs');
+        const dirTop = "imports";
+
+        //* get full path to active meteor directory
+        let rpath = fs.realpathSync("./");
+        rpath = rpath.split(".meteor")[0];
+
+        let svelte_jsdoc = walk(rpath + dirTop, "jsdoc");
+        console.log("svelte_jsdoc: found files = ", svelte_jsdoc.length);
+
+        svelte_jsdoc.forEach( (sv) => {
+            fs.unlinkSync(sv);
+        })
+
+        console.log("removeSvelteJsdoc finished");
+    },
+
+
 
     /**
      * @summary Uses Meteor-jsdoc data file to display project documentation in the project itself.
@@ -197,6 +229,7 @@ function formatDocumentation(documentationFile) {
 
         //** add in meta data
         temp.filename = item.meta && item.meta.filename ? item.meta.filename : "no filename";
+        temp.filename = temp.filename.replace(".jsdoc", ".svelte");
         temp.lineno = item.meta && item.meta.lineno ? item.meta.lineno : "no line number";
         temp.path = item.meta && item.meta.path ? item.meta.path.replace(path, "") : "";
 

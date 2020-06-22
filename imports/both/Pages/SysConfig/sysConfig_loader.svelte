@@ -2,8 +2,8 @@
     /**
      * Generic insert loader for pages.
      *
-     * @memberof Pages:SysConfig_page
-     * @function sysConfig_page_loader
+     * @memberof Pages:SysConfig
+     * @function sysConfig_loader
      * @locus Client
      *
      */

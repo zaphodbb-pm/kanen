@@ -1,7 +1,7 @@
 /**
  * @summary System wide version constants.
  *
- * @memberof Structure:Client
+ * @memberof Structure
  * @function version
  * @locus Client
  *
