@@ -10,7 +10,7 @@
      * @param  {Number} rows
      * @param  {Number} totalDocs
      *
-     * @emits {Object} 'page-changed'
+     * @emits 'page-changed' - {Object}
      *
      */
 

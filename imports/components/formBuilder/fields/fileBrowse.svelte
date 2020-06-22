@@ -13,7 +13,7 @@
      *                                            croppie: {viewport: {width: 450, height: 150, type: 'square'} }
      *                                          }
      *
-     * @emits: 'on-inputentry' {value: {src, name}, error: false}
+     * @emits 'on-inputentry' {value: {src, name}, error: false}
      *
      */
 

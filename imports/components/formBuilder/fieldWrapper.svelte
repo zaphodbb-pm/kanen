@@ -27,7 +27,7 @@
      *      tag - (optional) extra text for some components such as 'switch'
      *      selects - (optional) array of {_id, name} objects for 'select' component
      *
-     * @emits field-changed
+     * @emits field-changed - {Object}
      *
      */
 

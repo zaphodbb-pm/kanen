@@ -7,6 +7,7 @@
      * @function card
      * @locus Client
      *
+     * @emits 'footEvent' - {item: id, key: key, label: label}
      */
 
     //* setup props to receive component data

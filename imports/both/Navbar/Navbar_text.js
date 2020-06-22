@@ -4,6 +4,7 @@
  * @memberof Navbar
  * @function Navbar_text
  * @locus Client
+ * @augments Navbar
  *
  * @returns {Object}
  */

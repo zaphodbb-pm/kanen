@@ -4,7 +4,7 @@
  * @memberof Pages:LogsSystem
  * @function logsSystem_list
  * @locus Client
- * @augments logsSystem_page
+ * @augments logsSystem
  *
  * @returns {Object} - default = {sort: object, fields: array}
  *

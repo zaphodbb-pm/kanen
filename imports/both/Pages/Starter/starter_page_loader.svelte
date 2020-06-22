@@ -2,7 +2,7 @@
     /**
      * Generic insert loader for pages.
      *
-     * @memberof Pages:Starter_page
+     * @memberof Pages:Starter
      * @function starter_page_loader
      * @locus Client
      *

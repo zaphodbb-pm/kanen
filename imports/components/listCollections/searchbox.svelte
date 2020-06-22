@@ -2,7 +2,7 @@
     /**
      * Builds a string to be used by various search mechanisms.
      *
-     * @memberof Components_List
+     * @memberof Components:List
      * @function searchbox
      * @locus Client
      * @augments listHolder

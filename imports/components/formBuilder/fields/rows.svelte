@@ -9,7 +9,7 @@
      *
      * @param {Object} field
      *
-     * @emits: 'on-inputentry' {value: value, error: errorVal} - value {Object} of field values
+     * @emits 'on-inputentry' {value: value, error: errorVal} - value {Object} of field values
      *
      * @notes
      *   1. Any field types in FormHolder can used as sub-fields in this component.

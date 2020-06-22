@@ -10,7 +10,7 @@
      * @param {Object} field
      * @param {Object} field.params - {col: number}
      *
-     * @emits: 'on-inputentry' {value: value, error: false} with array of objects
+     * @emits 'on-inputentry' {value: value, error: false} with array of objects
      *
      */
 

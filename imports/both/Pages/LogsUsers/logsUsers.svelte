@@ -2,8 +2,8 @@
     /**
      * Layout for LogsUsers page.
      *
-     * @memberof Pages:logsUsers
-     * @function logsUsers_page
+     * @memberof Pages:LogsUsers
+     * @function logsUsers
      * @locus Client
      *
      */

@@ -2,9 +2,9 @@
  * Configuration for LogsSystem page components.
  *
  * @memberof Pages:LogsSystem
- * @function logsSystem_page_config
+ * @function logsSystem_config
  * @locus Client
- * @augments logsSystem_page
+ * @augments logsSystem
  *
  * @returns {Object}
  */

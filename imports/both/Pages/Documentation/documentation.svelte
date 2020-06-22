@@ -86,13 +86,17 @@
 
     function getSvelte(){
         console.log("getSvelte")
-        Meteor.call("buildDSvelteJsdoc");
+        Meteor.call("buildSvelteJsdoc");
     }
 
     function buildDocumentation(){
         console.log("buildDocumentation")
 
         Meteor.call("fetchDocumentation");
+
+        console.log("removeSvelteJsdoc")
+
+        Meteor.call("removeSvelteJsdoc");
     }
 
 </script>

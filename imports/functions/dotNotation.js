@@ -3,7 +3,7 @@
  * If not, then returns object value directly from object by key else takes a string representation
  * of an object and converts into an object reference and returns the object value.
  *
- * @memberof Functions:Client
+ * @memberof Functions
  * @function dotNotation
  * @locus Client
  *

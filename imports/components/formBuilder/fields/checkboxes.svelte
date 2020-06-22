@@ -10,7 +10,7 @@
      * @param {Object} field
      * @param {Object} field.params - {col: number, buttons: true} uses button layout instead of checkboxes
      *
-     * @emits: 'on-inputentry' {value: value, error: false} with array of objects
+     * @emits 'on-inputentry' {value: value, error: false} with array of objects
      *
      */
 

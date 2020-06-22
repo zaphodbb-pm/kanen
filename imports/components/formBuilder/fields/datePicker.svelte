@@ -9,7 +9,7 @@
      *
      * @param {Object} field
      *
-     * @emits: 'on-inputentry' {value: value, error: errorVal} with text date string
+     * @emits 'on-inputentry' {value: value, error: errorVal} with text date string
      *
      * @see Based on work {@link https://flatpickr.js.org/|Flatpickr}
      *

@@ -2,8 +2,8 @@
     /**
      * Generic insert loader for pages.
      *
-     * @memberof Pages:BuildContent_page
-     * @function buildContent_page_loader
+     * @memberof Pages:BuildContent
+     * @function buildContent_loader
      * @locus Client
      *
      */

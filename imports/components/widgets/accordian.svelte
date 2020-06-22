@@ -20,6 +20,9 @@
      *
      * @return nothing
      *
+     * @emit eventMain - {string}
+     * @emit eventSub - {string}
+     *
      * @notes
      * 1. Standalone component that gets a configuration object from its parent
      * 2. The content area can include html tags

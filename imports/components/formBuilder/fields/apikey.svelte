@@ -8,7 +8,7 @@
      * @isTemplate true
      * @augments formWrapper
      *
-     * @emits: {String} newApikey
+     * @emits 'on-inputentry', {value: keyValue, error: false}
      *
      * @notes
      * 1. Restrict use to administrator to set api keys for users

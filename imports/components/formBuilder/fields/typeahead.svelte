@@ -11,7 +11,7 @@
      * @param {Object} field.params (static) - {type: "staticSelect", rows: 10}
      * @param {Object} field.params (dynamic) - {type: "dynamicSelect", rows: 10, coll: "circuits", filter: {fields: {_id: 1, name: 1}}, options: {sort: {name: 1}}}
      *
-     * @emits: 'on-inputentry' {value: value, error: false} with array of objects
+     * @emits 'on-inputentry' {value: value, error: false} with array of objects
      *
      * @see Based on work by {@link https://github.com/mattrosendin/vue-bulma-typeahead|Matt Rosendin}
      *

@@ -2,9 +2,9 @@
  * Route config information for LogsUsers page.
  *
  * @memberof Pages:LogsUsers
- * @function logsUsers_page_route
+ * @function logsUsers_route
  * @locus Client
- * @augments logsUsers_page
+ * @augments logsUsers
  *
  * @returns {Object}
  *

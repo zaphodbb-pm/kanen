@@ -2,14 +2,14 @@
     /**
      * Time picker popup.
      *
-     * @memberof Components
+     * @memberof Components:Form
      * @function timePicker
      * @locus Client
      * @augments fieldWrapper
      *
      * @param {Object} field
      *
-     * @emits: 'on-inputentry' {value: value, error: errorVal} with text, number or other types
+     * @emits 'on-inputentry' {value: value, error: errorVal} with text, number or other types
      *
      */
 

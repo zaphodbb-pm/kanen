@@ -11,7 +11,7 @@
      * @param {Object} field.params1 - {type: "staticSelect", colours: true}
      * @param {Object} field.params2 - {type: "dynamicSelect", coll: "starter", filter: {fields: {name: 1}}, options: {sort: {name: 1}} }
      *
-     * @emits: 'on-inputentry' {value: value, error: false} with array of objects
+     * @emits 'on-inputentry' {value: value, error: false} with array of objects
      *
      * @notes
      *  params- {type, coll, field, filter} object provides behaviour information:

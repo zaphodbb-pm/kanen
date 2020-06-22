@@ -7,6 +7,7 @@
      * @function getRelativeDates
      * @locus Client
      *
+     * @emits 'new-range' - {$lt: now - ranges[radio] };
      */
 
     //* support files

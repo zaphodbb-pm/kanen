@@ -100,13 +100,17 @@
                                         <div class="mt-4 mb-1">
                                             <p class="text-1dot1em text-secondary">Event Activity</p>
 
-                                            {#each subtopic.fires as fires}
-                                                <div class="ml-3">Fires: {fires}</div>
-                                            {/each}
+                                            {#if subtopic.fires}
+                                                {#each subtopic.fires as fires}
+                                                    <div class="ml-3">Fires: {fires}</div>
+                                                {/each}
+                                            {/if}
 
-                                            {#each subtopic.listens as listens}
-                                                <div class="ml-3">Listens: {listens}</div>
-                                            {/each}
+                                            {#if subtopic.listens}
+                                                {#each subtopic.listens as listens}
+                                                    <div class="ml-3">Listens: {listens}</div>
+                                                {/each}
+                                            {/if}
                                         </div>
                                     {/if}
 
