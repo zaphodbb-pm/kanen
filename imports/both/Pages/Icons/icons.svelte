@@ -52,7 +52,7 @@
         {#each allIcons as icon}
 
             <div class="column is-half-mobile is-one-quarter-tablet is-narrow-desktop">
-                <div class="buffer-large">
+                <div class="buffer">
                     <div><b>{icon[0]}</b></div>
 
                     <div class="d-flex align-items-center">

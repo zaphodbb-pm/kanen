@@ -36,6 +36,6 @@ export default {
         write: ["none"]
     },
 
-    group: 1,                               // for side navigation; group routes into a block
+    group: 0,                               // for side navigation; group routes into a block
     isNavMobile: true,                      // (optional) show link in mobile nav block at bottom or top
 };

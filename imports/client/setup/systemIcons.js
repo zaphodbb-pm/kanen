@@ -31,9 +31,6 @@ out.iconWidget = widget;
 import learn from '/public/svg_to_js/graduation-cap-solid.json';
 out.iconLearn = learn;
 
-import miniWiki from '/public/svg_to_js/book-open-solid.json';
-out.iconMiniWiki = miniWiki;
-
 import content from '/public/svg_to_js/grip-horizontal-solid.json';
 out.iconContent = content;
 
@@ -177,8 +174,8 @@ out.iconEditDone = editDone;
 import cancel from '/public/svg_to_js/times-circle.json';
 out.iconCancel = cancel;
 
-import boxOpen from '/public/svg_to_js/box-open-solid.json';
-out.iconPayload = boxOpen;
+import dolly from '/public/svg_to_js/dolly-flatbed-solid.json';
+out.iconPayload = dolly;
 
 import cog from '/public/svg_to_js/cog-solid.json';
 out.iconConfig = cog;

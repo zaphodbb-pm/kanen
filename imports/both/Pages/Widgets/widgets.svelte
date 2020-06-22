@@ -88,7 +88,7 @@
 
 <section class="page-body">
 
-    <div class="columns mt-5">
+    <div class="columns is-desktop mt-5">
 
         <div class="column buffer-large">
             <div class="title is-4">{i18n(page.page, "col1", lng)}</div>
@@ -132,7 +132,7 @@
             </div>
         </div>
 
-        <div class="column  buffer-large">
+        <div class="column buffer-large">
             <div class="title is-4">{i18n(page.page, "col4", lng)}</div>
 
             <div class="columns">
@@ -179,8 +179,8 @@
     </div>
 
 
-    <div class="columns mt-5">
-        <div class="column  buffer-large">
+    <div class="columns is-desktop mt-5">
+        <div class="column buffer-large">
             <div class="title is-4">{i18n(page.page, "col3", lng)}</div>
 
             <div class="columns">

@@ -98,49 +98,85 @@ export const page = {
                     icon: "",
                     label: "General",
                     dbContent: null,  //dbContent: { coll: "", name: ""}
+                    lead: "Pages that are generally accessible by unlogged in users.",
                     text: [
                         "<a href='/home'>Home</a> - this page.",
 
-                        "<a href='/listForm'>Starter ListForm</a> - list display and form builder example. " +
-                        "Form includes all of the various field types and configurations.",
+                        "<a href='/template'>Template</a> - very basic page to be copied and modified to its intended use.",
+
+                        "<a href='/icons'>Icons</a> - list of all Lineawesome icons used in this application.  " +
+                        "Includes examples of various sizes and system colours.",
+
+                        "<a href='/colours'>Colours</a> - display of all system colour constants.",
 
                         "<a href='/learn'>Learn</a> - mini-wiki that provides content to help a client to use your application.",
-
-                        "<a href='/template'>Template</a> - very basic page to be copied and modified to its intended use.",
                     ]
                 },
 
                 {
                     icon: "",
                     label: "Components",
-                    text: "some second tab text",
-                    dbContent: null
-                },
-
-                {
-                    icon: "",
-                    label: "User",
-                    text: "Some pithy content talking about pictures.",
-                    dbContent: null
-                },
-
-                {
-                    icon: "",
-                    label: "Content Control",
                     dbContent: null,
+                    lead: "Special purpose pages that typically are only available to valid and logged in users.",
                     text: [
-                        "<a href='/documentation'>Jsdoc</a> - Jsdoc style documentation for all of the executable files in this application.  " +
-                        "This is for development purposes to aid a programmer in building more functionality.",
+                        "<a href='/cards'>Cards</a> - basic examples of card component.",
+
+                        "<a href='/content-widgets'>Tab Widgets</a> - example of tabbed and accordion components.",
+
+                        "<a href='/widgets'>Widgets</a> - a variety of dashboard like display widgets.",
+
+                        "<a href='/listForm'>Starter ListForm</a> - list display and form builder example. " +
+                        "Form includes all of the various field types and configurations.",
+
+                        "<a href='/pubSub'>Pub Sub</a> - example of connecting to MongoDB and using <em>Change Streams</em> " +
+                        "to reactively respond to chnages in a collection.",
                     ]
 
                 },
 
                 {
                     icon: "",
+                    label: "User",
+                    dbContent: null,
+                    lead: "User pages for only logged in or logging in users.",
+
+                    text: [
+                        "<a href='/my-profile'>My Profile</a> - only seen by a logged in user.  " +
+                        "Allows for the addition of extra user information into a 'profile' field.",
+
+                        "<a href='/login'>Login</a> - for a user that wants to login with an email / password or " +
+                        "any third party service.",
+
+                        "<a href='/changePassword'>Change Password</a> - only available to a logged in user. " +
+                        "Typical change password form",
+                    ]
+                },
+
+                {
+                    icon: "",
+                    label: "Content Control",
+                    dbContent: null,
+                    lead: "Pages only available to system admin for general maintenance.",
+                    text: [
+                        "<a href='/buildContent'>Build Content</a> - list / form to enter content into the mini-wiki.  " +
+                        "This privilege is reserved for system admins only.",
+
+                        "<a href='/documentation'>Jsdoc</a> - Jsdoc style documentation for all of the executable files in this application.  " +
+                        "This is for development purposes to aid a programmer in building more functionality.",
+
+                        "<a href='/logsSystem'>System Logs</a> - a variety of dashboard like display widgets.",
+
+                        "<a href='/logsUsers'>User Logs</a> - a variety of dashboard like display widgets.",
+                    ]
+                },
+
+                {
+                    icon: "",
                     label: "Admin Only",
                     dbContent: null,
+                    lead: "Pages only available to system super admin role.",
                     text: [
-                        "<a href='/users'>Home</a> - list and form to set-up user information and access.",
+                        "<a href='/users'>Users</a> - list and form to set up user information and role / group access.",
 
                         "<a href='/sysConfig'>System Config</a> - list and form to control certain system wide configuration options.",
 
