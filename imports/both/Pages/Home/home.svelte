@@ -77,7 +77,7 @@
 
             <div class="column">
                 <div class="box content">
-                    <h1 class="title is-size-4 has-text-centered">{pageText.philosophy.title}</h1>
+                    <h1 class="title is-size-4 has-text-centered has-text-info">{pageText.philosophy.title}</h1>
 
                     <ul>
                         {#each pageText.philosophy.body as item}
@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="box content">
-                    <h1 class="title is-size-4 has-text-centered">{pageText.packages.title}</h1>
+                    <h1 class="title is-size-4 has-text-centered has-text-info">{pageText.packages.title}</h1>
 
                     <ul>
                         {#each pageText.packages.body as item}
@@ -103,7 +103,7 @@
 
             <div class="column is-7">
                 <div class="box content">
-                    <h1 class="title is-size-4 has-text-centered">{pageText.features.title}</h1>
+                    <h1 class="title is-size-4 has-text-centered has-text-info">{pageText.features.title}</h1>
 
                     <ul>
                         {#each pageText.features.body as item}
@@ -118,8 +118,13 @@
     </section>
 
     <section class="buffer-y-large">
-        <div class="title is-size-4">{pageText.explore}</div>
+        <div class="title is-size-4 has-text-info">{pageText.explore}</div>
         <TabContent text="tabbed" tabSettings="is-fullwidth" />
+    </section>
+
+    <section class="buffer-y-large">
+        <div class="title is-size-4 has-text-info">{pageText.defTitle}</div>
+        <div class="content">{@html pageText.definition}</div>
     </section>
 
 </section>

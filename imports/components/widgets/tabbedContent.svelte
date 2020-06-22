@@ -92,7 +92,7 @@
 
                     <a>
                         {#if item.icon}
-                            <span class="icon">
+                            <span class="icon" title="{item.label}">
                                 <Icon icon={getContext(item.icon)} class="text-1dot2rem"/>
                             </span>
                         {/if}

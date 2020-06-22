@@ -15,7 +15,6 @@
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base'
 import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
-//import { UserStatus } from 'meteor/mizzao:user-status';
 import _ from 'underscore'
 
 
@@ -35,7 +34,7 @@ import Version from '/imports/both/version'
 
 //** main configuration set up
 import {writeLog} from '/imports/server/functions/writeLog'
-import '/imports/server/startup/indexing'
+import '/imports/server/indexing'
 
 
 Meteor.startup(() => {
@@ -43,10 +42,10 @@ Meteor.startup(() => {
 
     //* check to make sure we can access the system
     //* if no accounts are found, then create a default administrator / administrator account
-    //initializeAdmin();
+    initializeAdmin();
 
     //* set up user accounts and login capability
-    //configAccountsPackage();
+    configAccountsPackage();
     registerExternalLogin();
 
     const THROTTLE_METHODS = _.chain(Meteor.server.method_handlers)
@@ -64,31 +63,8 @@ Meteor.startup(() => {
 });
 
 
-
-
-/*
-//* set up server side debug console
-//import 'meteor/aldeed:console-me';
+//** track system restarts
 if (Meteor.isServer) {
-    //** Debug tool: allow server side console to send logs to client
-    //ConsoleMe.enabled = true;
-    //console.log("cm", ConsoleMe);
-
-    //Meteor.call("buildDSvelteJsdoc");
-    //Meteor.call("fetchDocumentation");
-
-
-    //* for dev work only
-    //Meteor.call("buildLineAwesomeIcons", "private/svg", "public/svg_to_js");
-    //Meteor.users.remove({}); // for dev work only
-    //resetDb();
-}
-*/
-
-
-
-if (Meteor.isServer) {
-    //** track system restarts
     let startData = {
         event: "startup",
         description: "Meteor startup sequence",
@@ -100,46 +76,34 @@ if (Meteor.isServer) {
     writeLog("LogsSystem", startData);
 }
 
-
-
-/*
-
+//** track user login / out activity
 if (Meteor.isServer) {
-    //** track user login / logouts
-    UserStatus.events.on("connectionLogin", function(fields) {
-        if(fields && fields.userId){
-            let user = Meteor.user();
+    Accounts.onLogin( (data) => {
+        let user = Meteor.user();
 
-            if(user){
-                let doc = buildUserDoc("login", fields, user);
-                LogsUsers.insert(doc);
-            }
+        if(user){
+            let doc = buildUserDoc("login", data, user);
+            LogsUsers.insert(doc);
         }
     });
 
-    UserStatus.events.on("connectionLogout", function(fields) {
-        if(fields && fields.userId){
-            let user = Meteor.users.findOne({_id: fields.userId});
+    Accounts.onLogout( (data) => {
+        let user = Meteor.users.findOne({_id: data.user._id});
 
-            if(user){
-                let doc = buildUserDoc("logout", fields, user);
-                LogsUsers.insert(doc);
-            }
+        if(user){
+            let doc = buildUserDoc("logout", data, user);
+            LogsUsers.insert(doc);
         }
     });
 }
 
- */
-
-
-
+//** When checking external services for account validation / login,
+//** the external services tries to CREATE a new user if no match exists
+//** We need to hijack this process and refuse new account creation but
+//** allow an existing user to be logged in
+//** see https://stackoverflow.com/questions/15592965/how-to-add-external-service-logins-to-an-already-existing-account-in-meteor
+//**
 if (Meteor.isServer) {
-    //** When checking external services for account validation / login,
-    //** the external services tries to CREATE a new user if no match exists
-    //** We need to hijack this process and refuse new account creation but
-    //** allow an existing user to be logged in
-    //** see https://stackoverflow.com/questions/15592965/how-to-add-external-service-logins-to-an-already-existing-account-in-meteor
-    //**
     let orig_updateOrCreateUserFromExternalService = Accounts.updateOrCreateUserFromExternalService;
     Accounts.updateOrCreateUserFromExternalService = function(serviceName, serviceData, options) {
         if(serviceData && serviceData.email){
@@ -176,13 +140,13 @@ function configAccountsPackage(){
     Accounts.config({forbidClientAccountCreation: true});
 
     //** customize Accounts email template
-    Accounts.emailTemplates.siteName = "SweatCrew";
-    Accounts.emailTemplates.from = "no-reply@sweatcrew.co";
+    Accounts.emailTemplates.siteName = "Kanen";
+    Accounts.emailTemplates.from = "no-reply@kanen.com";
     Accounts.emailTemplates.enrollAccount.text = (user, url) => {
         const adjUrl = url.replace("#/", "");
 
         return  "Hello, " +  user.username + "\n\n" +
-            "To start using the SweatCrew service, simply click the link below. \n"  +
+            "To start using the Kanen service, simply click the link below. \n"  +
             adjUrl + "\n\n" +
             "Thank you from Kanen Support"
     };
@@ -192,10 +156,11 @@ function configAccountsPackage(){
 
 function buildUserDoc(type, fields, user){
     let now = new Date();
+    let connect = fields.connection;
 
     return {
         tag: type,
-        author: fields.userId,
+        author: fields.user._id,
         username: user.username,
         tenantId: user.tenantId,
         role: user.role && user.role._id ? user.role._id : null,
@@ -203,10 +168,10 @@ function buildUserDoc(type, fields, user){
 
 
         connection: {
-            connectionId: fields.connectionId,
-            ipAddr: fields.ipAddr,
-            userAgent: fields.userAgent,
-            logTime: fields.loginTime ? fields.loginTime : (fields.logoutTime ? fields.logoutTime : now.toISOString ),
+            connectionId: connect.id,
+            ipAddr: fields.connection.clientAddress,
+            userAgent: connect.httpHeaders["user-agent"], //fields["connection"]["user-agent"],
+            logTime: now.toISOString(),
         },
 
         updatedAt: now.getTime()
@@ -232,14 +197,13 @@ function registerExternalLogin(){
 
 
 
-/*
 //** for initial system startup only;
 //** if no "administrator" exists, then creat one
 function initializeAdmin(){
     if( Meteor.users.find().count() === 0){
         let item = {
             username: "administrator",
-            email: "admin@example.com",
+            email: "superadmin@example.com",
             password: "administrator",
         };
 
@@ -262,18 +226,3 @@ function initializeAdmin(){
         Meteor.users.update(test, {$set: addins});
     }
 }
-
-
-
-
-
-
-//** for dev work only
-function resetDb() {
-    LogsSystem.remove({});
-    LogsUsers.remove({});
-
-}
-
-
- */

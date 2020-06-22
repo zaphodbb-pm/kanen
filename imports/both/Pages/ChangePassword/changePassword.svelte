@@ -38,7 +38,6 @@
 
 
     //* page-body support **************************
-    import {logUser} from '/imports/functions/logUser'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
 
 
@@ -84,7 +83,6 @@
                 }
             } else {
                 messages = [...messages, errMsg[200]];
-                logUser(Meteor.user(), "changePassword");
             }
         })
     }
