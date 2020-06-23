@@ -88,6 +88,7 @@ Meteor.methods({
         }
     },
 
+
     /**
      * General document remover from a collection.
      *
