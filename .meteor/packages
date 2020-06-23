@@ -24,3 +24,4 @@ mongo
 accounts-password
 accounts-google
 service-configuration
+kschingiz:publish-aggregations

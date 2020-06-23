@@ -12,6 +12,9 @@
  */
 
 
+//* load Meteor specific files
+import '/imports/both/collections'
+
 
 //* load svelte framework
 import App from '../imports/both/pageStructure/App.svelte'

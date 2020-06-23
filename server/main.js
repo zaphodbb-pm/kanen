@@ -18,6 +18,11 @@ import {DDPRateLimiter} from 'meteor/ddp-rate-limiter'
 import _ from 'underscore'
 
 
+//** isomorphic routines
+import '/imports/both/collections'
+import Version from '/imports/both/version'
+
+
 //** load method modules
 import '/imports/server/methods/system';
 import '/imports/server/methods/storeDoc';
@@ -25,11 +30,11 @@ import '/imports/server/methods/readDocs';
 import '/imports/server/methods/exportImport';
 import '/imports/server/methods/userMgmt';
 import '/imports/server/methods/documentation'
+import '/imports/server/methods/pubSubFixtures'
 
+//** special publish collections
+import '/imports/server/publish/realTime'
 
-//** isomorphic routines
-import '/imports/both/collections'
-import Version from '/imports/both/version'
 
 
 //** main configuration set up
