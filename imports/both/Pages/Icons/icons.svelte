@@ -8,26 +8,30 @@
      *
      */
 
-    //* setup props to receive route data
-    export let currentRoute;
-    export let params;
 
-    //* get the user language preference from store
-    import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/client/systemStores'
-    let lng = $lang;
+    //* page set-up boilerplate *************************************
 
-    //* app services
-    import { setContext } from 'svelte';
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    //* get page text information and set contexts for children components
-    import {header, page} from './icons_text'
+        //** get page text information and set contexts for children components
+        import {i18n} from '/imports/functions/i18n'
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './icons_text'
 
-    setContext("pageHdr", header);
-    setContext("pageText", page);
+        //** app services (getContext is often optional)
+        import { setContext, getContext, onMount, onDestroy } from 'svelte';
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    //* get the page header common component
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+        //** get the page header common component; component get gets its own translated text from "pageText" context
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+
+    //* end of page boilerplate *************************************
+
+
+
 
     //* page body support **************************
     import {mainIcons} from '/imports/client/setup/systemIcons'

@@ -62,20 +62,20 @@ export const page = {
                     "Minimal Meteor add-on packages to reduce bundle size.",
                     "Uses Meteor methods for database read / store for greater speed.",
                     "Leverages MongoDb Change Streams for real time tracking.",
-
+                    "",
                     "Each page is self contained. Can be removed or added by editing route table.",
                     "Leverages Svelte-loadable to minimize initial app load.",
                     "Uses Svelte stores for state management.",
                     "Uses Svelte context for text and other static information.",
                     "All text is abstracted on a per page basis to allow for internationalization and easy maintenance.",
-                    "Includes System Config file for dynamic application control and debug reporting.",
+                    "",
+                    "Includes a variety of widgets / components for content display or dashboard indicators.",
                     "Includes a mini-wiki to provide user learning resources.",
-
                     "Built-in form builder with 16 configurable field types. Supports tabbed sections and horizontal grouped fields.",
                     "Built-in document lister with filter plugins and compound search. Supports table or grid layouts.",
+                    "",
                     "Supports built-in user roles and groups for access control.",
-
-                    "Includes a variety of widgets / components for content display or dashboard indicators.",
+                    "Includes System Config file for dynamic application control and debug reporting.",
                     "Logs system and user activity.",
                 ]
             },

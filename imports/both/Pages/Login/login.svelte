@@ -11,29 +11,28 @@
 
     //* page set-up boilerplate *************************************
 
-    //** setup props to receive route data
-    export let currentRoute;
-    export let params;
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    //* support functions
-    import {createEventDispatcher, setContext} from 'svelte';
-    const dispatch = createEventDispatcher();
+        //** get page text information and set contexts for children components
+        import {i18n} from '/imports/functions/i18n'
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './login_text'
 
-    //** get the user language preference from store (optional)
-    import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/client/systemStores'
+        //** app services (getContext is often optional)
+        import { setContext, getContext, onMount, onDestroy } from 'svelte';
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    //** get page text information and set contexts for children components
-    import {header, page} from './login_text'
-    setContext("pageHdr", header);
+        //** (optional) get component configuration information and set contexts for children components
+        import pageConfig from './login_config'
+        setContext("pageConfig", pageConfig);
 
-    //** get component configuration information and set contexts for children components
-    import pageConfig from './login_config'
+        //** get the page header common component; component get gets its own translated text from "pageText" context
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
 
-    //** get the page header common component; component get gets its own translated text from "pageText" context
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
-
-    //****************************************************************
+    //* end of page boilerplate *************************************
 
 
 

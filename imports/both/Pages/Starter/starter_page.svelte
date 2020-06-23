@@ -11,31 +11,28 @@
 
     //* page set-up boilerplate *************************************
 
-    // setup props to receive route data
-    export let currentRoute;
-    export let params;
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    // app services (getContext is often optional)
-    import { onMount, onDestroy, setContext } from 'svelte';
-    //import { getContext } from 'svelte';
+        //** get page text information and set contexts for children components
+        import {i18n} from '/imports/functions/i18n'
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './starter_page_text'
 
-    // get the user language preference from store (optional)
-    import {lang} from '/imports/client/systemStores'
+        //** app services (getContext is often optional)
+        import { setContext, getContext, onMount, onDestroy } from 'svelte';
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    // get page text information and set contexts for children components
-    import {header, page} from './starter_page_text'
+        //** (optional) get component configuration information and set contexts for children components
+        import pageConfig from './starter_page_config'
+        setContext("pageConfig", pageConfig);
 
-    setContext("pageHdr", header);
-    setContext("pageText", page);
+        //** get the page header common component; component get gets its own translated text from "pageText" context
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
 
-    // get component configuration information and set contexts for children components
-    import pageConfig from './starter_page_config'
-    setContext("pageConfig", pageConfig);
-
-    // get the page header common component; component get gets its own translated text from "pageText" context
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
-
-    //****************************************************************
+    //* end of page boilerplate *************************************
 
 
 
@@ -47,7 +44,6 @@
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
     import listArray from './starter_list'
 
-    import {i18n} from '/imports/functions/i18n'
     let formText = i18n(page, "form", $lang);
     let listText = i18n(page, "list", $lang);
 

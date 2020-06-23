@@ -8,34 +8,37 @@
      *
      */
 
-    //* setup props to receive route data
-    export let currentRoute;
-    export let params;
 
-    //* get the user language preference from store
-    import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/client/systemStores'
-    let lng = $lang;
+    //* page set-up boilerplate *************************************
 
-    //* app services
-    import { setContext } from 'svelte';
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    //* get page text information and set contexts for children components
-    import {header, page} from './widgets_text'
+        //** get page text information and set contexts for children components
+        import {i18n} from '/imports/functions/i18n'
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './widgets_text'
 
-    setContext("pageHdr", header);
-    setContext("pageText", page);
+        //** app services (getContext is often optional)
+        import { setContext, getContext, onMount, onDestroy } from 'svelte';
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    //* get page text information and set contexts for children components
-    import pageConfig from './widgets_config'
-    setContext("pageConfig", pageConfig);
+        //** (optional) get component configuration information and set contexts for children components
+        import pageConfig from './widgets_config'
+        setContext("pageConfig", pageConfig);
 
-    //* get the page header common component and
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+        //** get the page header common component; component get gets its own translated text from "pageText" context
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+
+    //* end of page boilerplate *************************************
 
 
 
     //* page body support **************************
+    let lng = $lang;
+
     import Expander from '/imports/components/widgets/expanderSlot.svelte'
     let expander1Text =  i18n(page.components, "expander1", lng);
     let expander2Text =  i18n(page.components, "expander2", lng);
