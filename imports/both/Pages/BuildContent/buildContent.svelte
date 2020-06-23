@@ -11,31 +11,28 @@
 
     //* page set-up boilerplate *************************************
 
-    // setup props to receive route data
-    export let currentRoute;
-    export let params;
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    // app services (getContext is often optional)
-    import { onMount, onDestroy, setContext } from 'svelte';
-    //import { getContext } from 'svelte';
+        //** get page text information and set contexts for children components
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './buildContent_text'
 
-    // get the user language preference from store (optional)
-    import {lang} from '/imports/client/systemStores'
+        //** app services (getContext is often optional)
+        import { onMount, onDestroy, setContext } from 'svelte';
 
-    // get page text information and set contexts for children components
-    import {header, page} from './buildContent_text'
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    setContext("pageHdr", header);
-    setContext("pageText", page);
+        //** (optional) get component configuration information and set contexts for children components
+        import pageConfig from './buildContent_config'
+        setContext("pageConfig", pageConfig);
 
-    // get component configuration information and set contexts for children components
-    import pageConfig from './buildContent_config'
-    setContext("pageConfig", pageConfig);
+        //** get the page header common component; component get gets its own translated text from "pageText" context
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
 
-    // get the page header common component; component get gets its own translated text from "pageText" context
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
-
-    //****************************************************************
+    //* end of page boilerplate *************************************
 
 
 

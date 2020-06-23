@@ -9,36 +9,32 @@
      */
 
 
+
     //* page set-up boilerplate *************************************
 
-    // setup props to receive route data
-    export let currentRoute;
-    export let params;
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    // app services (getContext is often optional)
-    import { setContext, getContext } from 'svelte';
-    //import { getContext } from 'svelte';
+        //** get page text information and set contexts for children components
+        import {i18n} from '/imports/functions/i18n'
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './documentation_text'
 
-    // get the user language preference from store (optional)
-    import {lang} from '/imports/client/systemStores'
+        //** app services (getContext is often optional)
+        import { setContext, getContext, onMount, onDestroy } from 'svelte';
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    // get page text information and set contexts for children components
-    import {header, page} from './documentation_text'
+        //** get the page header common component; component get gets its own translated text from "pageText" context
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
 
-    setContext("pageHdr", header);
-    setContext("pageText", page);
+    //* end of page boilerplate *************************************
 
-
-    // get the page header common component; component get gets its own translated text from "pageText" context
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
-
-    //****************************************************************
 
 
 
     //* page-body support **************************
-    import {onMount, onDestroy} from 'svelte'
-    import {i18n} from '/imports/functions/i18n'
     import Accordian from '/imports/components/widgets/accordian.svelte'
     import Paged from '/imports/components/widgets/pagedContent.svelte'
 

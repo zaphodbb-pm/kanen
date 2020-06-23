@@ -8,28 +8,25 @@
      *
      */
 
+    //* page set-up boilerplate *************************************
 
-    //* setup props to receive route data
-    export let currentRoute;
-    export let params;
+        //** setup props to receive route data
+        export let currentRoute;
+        export let params;
 
-    //* app services
-    import { setContext } from 'svelte';
-    import { getContext } from 'svelte';
+        //** get page text information and set contexts for children components
+        import {lang} from '/imports/client/systemStores'
+        import {header, page} from './home_text'
 
-    //* get the user language preference from store
-    import {lang} from '/imports/client/systemStores'
+        //** app services
+        import { setContext, getContext } from 'svelte';
+        setContext("pageHdr", header);
+        setContext("pageText", page);
 
-    //* get page text information and set contexts for children components
-    import {header, page} from './home_text'
+        //** get the page header common component; component get gets its own translated text
+        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
 
-    setContext("pageHdr", header);
-    setContext("pageText", page);
-
-
-    //* get the page header common component; component get gets its own translated text
-    import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
-
+    //* end of page boilerplate *************************************
 
 
 
@@ -37,8 +34,6 @@
     import {i18n} from '/imports/functions/i18n'
     let pageText = i18n(page, "page", $lang);
     import TabContent from '/imports/components/widgets/tabbedContent.svelte'
-    import Icon from '/imports/components/elements/icon.svelte'
-
 
 
 </script>
@@ -107,7 +102,7 @@
 
                     <ul>
                         {#each pageText.features.body as item}
-                            <li class="mb-2">
+                            <li class="mb-2 {item ? '' : 'noDecoration'}" >
                                 {item}
                             </li>
                         {/each}
@@ -128,3 +123,11 @@
     </section>
 
 </section>
+
+
+<style>
+    .noDecoration {
+        list-style-type: none;
+        height: 1rem;
+    }
+</style>
