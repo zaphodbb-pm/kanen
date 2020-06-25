@@ -67,6 +67,8 @@
 
 
     //* page-body support **************************
+
+    let text = i18n(page, "page", $lang);
     let colours = ["is-primary", "is-info", "is-link", "is-success", "is-warning", "is-danger"]
     let values = new Array(len).fill({name: "init", value: 0});
 
@@ -87,13 +89,16 @@
 
         //** respond to db changes propagated in real time from server over Meteor Publish / Subscribe
         Tracker.autorun(function(){
-            let rt = RealTime.find({}, {limit: len}).fetch();
+            let allDocs = RealTime.find({}, {limit: len}).fetch();
 
-            currentItem = rt && rt[0] && rt[0].name ? rt[0].name: "init";
-            timeStart = rt && rt[0] && rt[0].updatedAt ? rt[0].updatedAt : Date.now();
-            timeEnd = Date.now();
+            allDocs = allDocs.map( (rt) => {
+                //let timeEnd = Date.now();
+                let timeStart = rt && rt.updatedAt ? rt.updatedAt : Date.now();
+                rt.delay = Date.now() - timeStart;
+                return rt;
+            })
 
-            values = rt;
+            values = allDocs;
         });
 
     });
@@ -114,18 +119,29 @@
 
 <section class="page-body">
 
-    <div class="buffer-small">
-        Time from inject to respond: {timeEnd - timeStart} milliseconds for {currentItem}
-    </div>
-
     <section class="section">
-        {#each values as item, idx (idx)}
-            <div class="d-flex justify-content-between mb-2">
-                <div>{item.name} - {item.value}</div>
+        <div class="w-25">
 
-                <div class="w-80">
-                    <progress class="progress {colours[idx % colours.length]}" value="{item.value}" max="100">{item.value}%</progress>
+            <div class="d-flex justify-content-between mb-2 mr-4 has-text-weight-semibold">
+                <p>{text.labels.name}</p>
+                <p>{text.labels.value}</p>
+                <p>{text.labels.delay}</p>
+            </div>
+
+        </div>
+
+        {#each values as item, idx (idx)}
+            <div class="mb-2 d-flex">
+
+                <div class="w-30 mr-4">
+                    <div class="d-flex justify-content-between">
+                        <div>{item.name}</div>
+                        <div>{item.value}</div>
+                        <div>{item.delay}</div>
+                    </div>
                 </div>
+
+                <progress class="progress {colours[idx % colours.length]}" value="{item.value}" max="100">{item.value}%</progress>
             </div>
         {/each}
     </section>
