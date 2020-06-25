@@ -1,57 +1,12 @@
+import {Meteor} from "meteor/meteor";
 import {check} from "meteor/check";
 import {verifyRole} from "../functions/verifyRole";
-import {Meteor} from "meteor/meteor";
+
 
 Meteor.methods({
-    /**
-     * Special Pub Sub fixtures.
-     *
-     * @memberof Methods
-     * @function upsertDoc
-     * @isMethod true
-     * @locus Server
-     *
-     * @param {String} coll
-     * @param {Object} doc
-     *
-     * @return {Object}
-     */
-
-
-    upsertDoc: function (coll, doc) {
-        check(coll, String);
-        check(doc, Object);
-        let id;
-
-        if( verifyRole(Meteor.userId(), "roles.write") ){      // check if user is logged in or system wants to write to a log
-            doc.tenantId = Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general";
-            doc.updatedAt = Date.now();
-
-
-            //* inject group name server side for security
-            if( Meteor.user() && Meteor.user().profile && Meteor.user().profile.group ){
-                doc["group"] = Meteor.user().profile.group;
-            }else{
-                doc["group"] = "";
-            }
-
-            id = Mongo.Collection.get(coll).upsert({name: doc.name}, doc);
-
-            if(id){
-                return {status: 200, _id: id, text: `${id} has been added on ${coll} by insertDoc`};
-            }else{
-                return {status: 500, _id: id, text: `insertDoc at Server did not get a returned id value.`};
-            }
-
-        }else{
-            return {status: 400, _id: "", text: "Invalid user"};
-        }
-    },
-
-
 
     /**
-     * Special Pub Sub fixture to upload an array of documents.
+     * Special Pub Sub fixture to upload an initial array of documents.
      *
      * @memberof Methods
      * @function bulkLoadDocs
@@ -61,7 +16,7 @@ Meteor.methods({
      * @param {String} coll
      * @param {Array} arr
      *
-     * @return {Object}
+     * @return {Object} - status
      */
 
 
@@ -69,18 +24,66 @@ Meteor.methods({
         check(coll, String);
         check(arr, Array);
 
-        let len = arr.length;
+        if( verifyRole(Meteor.userId(), "roles.write") ){      // check if user is logged in or system wants to write to a log
+            let len = arr.length;
+
+            if(len > 0){
+                Mongo.Collection.get(coll).remove({});      // flush existing records
+
+                arr.forEach( (doc) => {
+                    delete doc._id;
+                    doc.tenantId = Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general";
+                    doc.updatedAt = Date.now();
+
+                    Mongo.Collection.get(coll).insert(doc);
+                });
+
+                return {status: 200,  len: len, text: `${len} documents have been added on ${coll} by bulkLoadDocs`};
+
+            }else{
+                return {status: 404,  len: len, text: `Warning: ${len} documents have been added on ${coll} by bulkLoadDocs`};
+            }
+
+
+
+        }else{
+            return {status: 400, _id: "", text: "Invalid user"};
+        }
+    },
+
+    /**
+     * Special Pub Sub fixture to update an array of documents.
+     *
+     * @memberof Methods
+     * @function updateRealTimeDoc
+     * @isMethod true
+     * @locus Server
+     *
+     * @param {String} coll
+     * @param {Array} docs
+     *
+     * @return {Object} - status
+     */
+
+
+    updateRealTimeDoc: function (coll, docs) {
+        check(coll, String);
+        check(docs, Array);
 
         if( verifyRole(Meteor.userId(), "roles.write") ){      // check if user is logged in or system wants to write to a log
+            let len = docs.length;
 
-            arr.forEach( (doc) => {
-                doc.tenantId = Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general";
-                doc.updatedAt = Date.now();
+            docs.forEach( (doc) => {
+                let update = {
+                    tenantId: Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general",
+                    updatedAt: Date.now(),
+                    value: doc.value
+                }
 
-                Mongo.Collection.get(coll).upsert({name: doc.name}, doc);
+                Mongo.Collection.get(coll).update({name: doc.name}, {$set: update});
             });
 
-            return {status: 200,  len: len, text: `${len} documents have been added on ${coll} by insertDoc`};
+            return {status: 200,  len: len, text: `${len} documents have been updated on ${coll} by updateRealTimeDoc`};
 
         }else{
             return {status: 400, _id: "", text: "Invalid user"};

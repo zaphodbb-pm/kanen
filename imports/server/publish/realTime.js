@@ -1,22 +1,20 @@
 import {check} from "meteor/check";
-import PublishAggregations from '/imports/server/functions/PublishAggregations'
+import ChangeStreams from '/imports/server/functions/ChangeStreams'
 
-Meteor.publish("testRealTime", function (query, filter){
-    if (query) {
-        check(query, Object);
+Meteor.publish("testRealTime", function (pipeline, options){
+    if (pipeline) {
+        check(pipeline, Array);
     } else {
-        query = {};
+        pipeline = [];
     }
 
-    if (filter) {
-        check(filter, Object);
+    if (options) {
+        check(options, Object);
     } else {
-        filter = {limit: 1000};
+        options = {};
     }
 
-    //return RealTime.find(query, filter);
-
-    return new PublishAggregations(RealTime, []);
+    return new ChangeStreams(RealTime, pipeline, options);
 });
 
 
