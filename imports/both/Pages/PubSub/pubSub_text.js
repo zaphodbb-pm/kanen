@@ -27,24 +27,13 @@ export const header = {
 
 
 export const page = {
-    page: {},
-
-    components: {
-
-        box: {
-            en: "The <em>time</em> has come to <u>speak</u> of many things ..."
-        },
-
-        widget: {
-            title: {en: "Title"}
+    page: {
+        en: {
+            labels: {
+                name: "Name",
+                value: "Value",
+                delay: "Delay"
+            }
         }
-    },
-
-    list: {
-        name: {en: "Name"}
-    },
-
-    form: {
-        name: {en: "Name"}
-    },
+    }
 };
