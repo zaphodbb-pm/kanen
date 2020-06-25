@@ -26,6 +26,8 @@
     import {numString} from '/imports/functions/numString'
 
     //* local reactive variables
+    let wordPerMin = 225;
+    let wordsPerPage = 350;
     let document = "";
     let docList = [];
 
@@ -45,7 +47,7 @@
                 author: fd.author,
                 authorName: fd.authorName,
                 timeAgo: timeAgo(fd.updatedAt),
-                content: cleanString(fd.contentPage.slice(0, 1000)).slice(0, 180) + " ...",
+                content: cleanString( fd.contentPage.slice(0, 1000) ).slice(0, 180) + " ...",
                 length: docLength(fd.contentPage.length),
                 time: readingTime(fd.contentPage),
             }
@@ -81,10 +83,7 @@
 
     //** estimate reading time for content
     function readingTime(content){
-        //*** remove html then remove <lf> & <cr> then remove excess spaces
-        let cleanedContent = cleanString(content).replace(/\r?\n|\r/g, "").replace(/\s+/g,' ');
-        let wordCount = cleanedContent.split(" ").length;
-        return Math.round( wordCount / 225 );
+        return Math.round( cleanString(content).split(" ").length / wordPerMin );
     }
 
     //** remove html tags from content for search summary list
@@ -92,6 +91,25 @@
         let out = str.replace(/<\/?[^>]+(>|$)/g, "");
         out = out.replace('">','');
         out = out.replace('&nbsp;',' ');
+
+        //*** remove <lf> & <cr> then remove excess spaces
+        out = out.replace(/\r?\n|\r/g, "").replace(/\s+/g,' ');
+        return out;
+    }
+
+    function sliceContent(content){
+        let out = [];
+
+        if(content && typeof content === "string"){
+            //*** remove excess spaces
+            let str = content.replace(/\s+/g,' ');
+            let words = str.split(" ");
+
+            for(let i = 0, j = words.length; i < j; i += wordsPerPage){
+                out.push( words.slice(i, i + wordsPerPage).join(" ") );
+            }
+        }
+
         return out;
     }
 
@@ -169,7 +187,10 @@
 
             <p class="subtitle is-5 buffer-y" class:is-hidden={!document.contentSummary}>{document.contentSummary}</p>
 
-            <div>{@html document.contentPage}</div>
+            {#each sliceContent(document.contentPage) as page}
+                <div class="is-magazine-layout">{@html page}</div>
+                <hr class="my-5" />
+            {/each}
 
         {/if}
 

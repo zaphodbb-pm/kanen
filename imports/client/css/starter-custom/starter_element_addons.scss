@@ -25,6 +25,82 @@
 }
 
 
+/** overlay controls **/
+.add-cursor {
+  cursor: pointer;
+}
+
+.has-opacity {
+  opacity: 0.95 !important;
+}
+
+/** input field indicator */
+.field-error {
+  border: 1px solid $danger;
+  border-radius: $radius;
+  padding: 0.25px;
+}
+
+.field-input-error {
+  background-color: $danger-light;
+}
+
+/** alert box wrapper */
+.alert-box-wrapper {
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  width: 25rem;
+  height: 100%;
+}
+
+/** modal box extra **/
+.modal-card-narrow {
+  margin: 0 $modal-content-margin-mobile;
+  max-height: calc(100vh - #{$modal-content-spacing-mobile});
+  overflow: auto;
+  position: relative;
+  width: 100%;
+
+  // Responsiveness
+  @include tablet {
+    margin: 0 auto;
+    max-height: calc(100vh - #{$modal-content-spacing-tablet});
+    width: $modal-content-width * .75;
+  }
+}
+
+/** column flex order items **/
+@media screen and (max-width: $tablet) {
+  .is-ordered-mobile {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .is-ordered-mobile .is-order-off {
+    display: none;
+  }
+
+  @for $i from 1 through 12 {
+    .is-ordered-mobile > &.is-order-#{$i} {
+      order: $i;
+    }
+  }
+}
+
+
+/** large volume text layouts **/
+.is-magazine-layout {
+  column-width: 14rem;
+  column-gap: 2rem;
+  orphans: 3;
+}
+
+.is-no-orphan {
+  break-inside: avoid;
+}
+
+
 
 /** navbar extra element **/
 .has-navbar-widgets {
@@ -197,66 +273,3 @@
 }
 
 
-
-/** overlay controls **/
-.add-cursor {
-  cursor: pointer;
-}
-
-.has-opacity {
-  opacity: 0.95 !important;
-}
-
-/** input field indicator */
-.field-error {
-  border: 1px solid $danger;
-  border-radius: $radius;
-  padding: 0.25px;
-}
-
-.field-input-error {
-  background-color: $danger-light;
-}
-
-/** alert box wrapper */
-.alert-box-wrapper {
-  position: fixed;
-  top: 5rem;
-  right: 1rem;
-  width: 25rem;
-  height: 100%;
-}
-
-/** modal box extra **/
-.modal-card-narrow {
-  margin: 0 $modal-content-margin-mobile;
-  max-height: calc(100vh - #{$modal-content-spacing-mobile});
-  overflow: auto;
-  position: relative;
-  width: 100%;
-
-  // Responsiveness
-  @include tablet {
-    margin: 0 auto;
-    max-height: calc(100vh - #{$modal-content-spacing-tablet});
-    width: $modal-content-width * .75;
-  }
-}
-
-/** column flex order items **/
-@media screen and (max-width: $tablet) {
-  .is-ordered-mobile {
-    display: flex;
-    flex-flow: column;
-  }
-
-  .is-ordered-mobile .is-order-off {
-    display: none;
-  }
-
-  @for $i from 1 through 12 {
-    .is-ordered-mobile > &.is-order-#{$i} {
-      order: $i;
-    }
-  }
-}
