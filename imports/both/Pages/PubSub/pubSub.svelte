@@ -1,3 +1,33 @@
+<script context="module">
+    //** change source for values
+
+    //** can be any external source that creates values
+    //** set up initial docs and their values
+    let len = 15;
+    let interval = 3000;
+
+    let generateValues = function(len){
+        let newArray = [];
+        for( let i = 0; i < len; i++){
+            newArray[i] = {
+                name: "real_time_" + i,
+                value: Math.round( Math.random() * 100 )
+            };
+        }
+
+        return newArray;
+    }
+
+    let newArray = generateValues(len);
+
+    Meteor.call("bulkLoadDocs", "realTime", newArray, function(err, res){
+        if(err){ console.log("Bulk Upload Failed: ", err);}
+        if(res){ Meteor.subscribe("testRealTime", [], {}); }
+    });
+
+</script>
+
+
 <script>
     /**
      * Layout for PubSub page.
@@ -37,88 +67,38 @@
 
 
     //* page-body support **************************
-    let len = 10;
     let colours = ["is-primary", "is-info", "is-link", "is-success", "is-warning", "is-danger"]
-
     let values = new Array(len).fill({name: "init", value: 0});
-    let intervalId = null;
-    let singleId = null;
-    let singleUpdate = 0;
 
     let timeStart = Date.now();
     let timeEnd = Date.now();
-
-    let test = null;
-
-    $: {
-        test = Meteor.subscribe("testRealTime");
-
-        console.log("test", test);
-    }
-
-
+    let currentItem = "";
+    let intervalId = null;
 
     onMount( () => {
 
-        //** respond to db changes in real time
+        //** update all documents at once with random values with direct write method
+        intervalId = setInterval( function(){
+            Meteor.call("updateRealTimeDoc", "realTime", generateValues(len), function(err, res){
+                if(err){console.log("Update Real Time failed: ", err);}
+            });
+
+        }, interval);
+
+        //** respond to db changes propagated in real time from server over Meteor Publish / Subscribe
         Tracker.autorun(function(){
             let rt = RealTime.find({}, {limit: len}).fetch();
 
-            if(rt && rt[singleUpdate] && rt[singleUpdate].updatedAt){
-                timeEnd = Date.now();
-                timeStart = rt[singleUpdate].updatedAt;
-
-                console.log("rt", rt, timeEnd - timeStart);
-            }
+            currentItem = rt && rt[0] && rt[0].name ? rt[0].name: "init";
+            timeStart = rt && rt[0] && rt[0].updatedAt ? rt[0].updatedAt : Date.now();
+            timeEnd = Date.now();
 
             values = rt;
         });
 
-
-        //** change source for values
-        //** can be any external source that creates values
-        //intervalId = setInterval( function(){
-            let newArray = [];
-
-            for( let i = 0; i < len; i++){
-                newArray[i] = {
-                    name: "real_time_" + i,
-                    value: Math.round( Math.random() * 100 )
-                };
-            }
-
-            Meteor.call("bulkLoadDocs", "realTime", newArray, function(err, res){
-                //console.log("bulkLoadDocs", timeStart, err, res);
-            });
-
-        //}, 10000);
-
-
-        //** randomly update a single document
-        singleId = setInterval( function(){
-
-            let index = Math.round( Math.random() * len );
-
-            let doc = {
-                name: "real_time_" + index,
-                value: Math.round( Math.random() * 100 )
-            };
-
-            Meteor.call("bulkLoadDocs", "realTime", [doc], function(err, res){
-                //console.log("bulkLoadDocs", timeStart, err, res);
-                singleUpdate = index;
-            });
-
-
-        }, 1000);
-
-
-
     });
 
     onDestroy( () => {
-        console.log("pubSub page destroyed");
-
         if(intervalId){
             clearInterval(intervalId);
         }
@@ -135,7 +115,7 @@
 <section class="page-body">
 
     <div class="buffer-small">
-        Time from inject to respond: {timeEnd - timeStart} milliseconds
+        Time from inject to respond: {timeEnd - timeStart} milliseconds for {currentItem}
     </div>
 
     <section class="section">
