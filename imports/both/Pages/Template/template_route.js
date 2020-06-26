@@ -6,7 +6,7 @@
  * @locus Client
  * @augments template
  *
- * @returns {Object}
+ * @returns {Object} - {name, layout, component, icon, label, roles, group, isNavMobile}
  *
  * @notes
  *      1.  Remember to register this page at /imports/both/routes

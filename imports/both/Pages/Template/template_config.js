@@ -6,7 +6,7 @@
  * @locus Client
  * @augments template
  *
- * @returns {Object}
+ * @returns {Object} - {components, widgets}
  */
 
 export default {
