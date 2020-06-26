@@ -1,8 +1,8 @@
 /**
  * Provides the MongoDb projection objects for various read requests.
  *
- * @memberof Pages:Users
- * @function users_access_control
+ * @memberof Pages:SysConfig
+ * @function sysConfig_access_control
  * @locus Server
  *
  * @returns {Object} - access control parameters
@@ -27,16 +27,16 @@
  *
  */
 
-import schema from './users_form_schema';
-import list from './users_list'
-import {roles} from'./users_nav'
+import schema from './sysConfig_form_schema';
+import list from './sysConfig_list'
+import {roles} from'./sysConfig_nav'
 
 import {fieldAddons} from '/imports/server/fieldAddons'
 import {buildAllFields} from '/imports/functions/buildAllFields'
 
 export default {
-    users: {
-        coll: "users",
+    sysConfig: {
+        coll: "sysConfig",
         roles: roles,
 
         listShort: null,
@@ -49,9 +49,6 @@ export default {
         schemaLong: null,
         schemaForm: buildAllFields(schema, fieldAddons),
 
-        selects: {
-            _id: 1,
-            name: 1
-        }
+        selects: null
     }
 }
