@@ -12,9 +12,9 @@
 
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
-import {nav} from './widgets_text_nav'
 import MainPage from '/imports/both/pageStructure/MainPage.svelte'
 
+import {nav, link, icon, roles} from './widgets_nav'
 import Page from './widgets_loader.svelte'
 //import Page from './widgets.svelte'
 
@@ -22,19 +22,15 @@ import Page from './widgets_loader.svelte'
 let lang = getLang("en");
 
 export default {
-    name: "/widgets",                       // link that router will use
+    name: link,                             // link that router will use
     layout: MainPage,
     component: Page,
     //redirectTo: 'company',
     //onlyIf: { guard: userIsAdmin, redirect: '/login' },
 
-    icon: "iconWidget",                      // Navbar icon to show
+    icon: icon,                             // Navbar icon to show
     label: i18n(nav, "", lang),         // Navbar text to show
-
-    roles: {                                // roles that can see this link in Navbar and be routed to
-        read: ["all"],
-        write: ["none"]
-    },
+    roles: roles,
 
     group: 1,                               // for side navigation; group routes into a block
     isNavMobile: false,                     // (optional) show link in mobile nav block at bottom or top

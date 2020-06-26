@@ -28,8 +28,8 @@
 
 <div class="vue-wiki-toc card">
 
-    <div class="card-header has-background-info has-text-white">
-        <div class="card-header-title" style="color: inherit; font-size: inherit; font-weight: inherit;">
+    <div class="card-header has-background-info">
+        <div class="card-header-title has-text-white">
             {tocHeader}
         </div>
     </div>
