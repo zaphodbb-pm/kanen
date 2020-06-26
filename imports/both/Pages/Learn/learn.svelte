@@ -49,7 +49,6 @@
     setContext("formText", formText);
     let toc = i18n(page, "components", $lang).toc;
 
-
     //* local reactive variables
     let showModalUser = false
     let modalInfoUser = {};
@@ -108,7 +107,7 @@
         let compound = Object.assign({}, query, lang);
 
         if (query && Object.keys(query).length > 0) {
-            let found = await getDocs("learn", "allFields", compound, sort);
+            let found = await getDocs("learn", "schemaLong", compound, sort);
 
             if (found.length > 0) {
                 info.showList = true;
@@ -125,7 +124,7 @@
     }
 
     async function showAuthor(msg) {
-        modalInfoUser = await getDocs("employees", "oneList", {_id:  msg.detail._id}, {});
+        modalInfoUser = await getDocs("employees", "listList", {_id:  msg.detail._id}, {});
         showModalUser = true;
     }
 
@@ -137,7 +136,7 @@
         const sort = {sort: {name: 1}};
         let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": {$in: [langComp, "all"]} };
         let compound = Object.assign({}, lang);
-        let pages = await getDocs("learn", "content", compound, sort);
+        let pages = await getDocs("learn", "listShort", compound, sort);
 
         info.tocTitles = structureToc(pages);
 
@@ -180,7 +179,7 @@
 
             <Field_Wrapper
                     class=""
-                    field="{pageConfig.components.langField}"
+                    field="{pageConfig.components.getLang}"
                     watchFields="{ {} }"
                     on:field-changed="{fieldChanged}"/>
 

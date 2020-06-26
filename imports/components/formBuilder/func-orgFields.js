@@ -29,7 +29,6 @@ export function orgFields(org, fields, val, role) {
         if (showField) {
             let fld = f;
             fld.value = val && typeof val[fld.field] !== "undefined" ? val[fld.field] : fld.defaultValue;
-
             adjFields.push(fld);
         }
     });

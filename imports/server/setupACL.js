@@ -8,8 +8,23 @@
  *
  */
 
+
+let acl = {};
+
+//* load client accessable collections
+import starter from '/imports/both/Pages/Starter/starter_access_control'
+import content from '/imports/both/Pages/BuildContent/buildContent_access_control'
+import myProfile from '/imports/both/Pages/MyProfile/myProfile_access_control'
+
+acl = Object.assign(acl, starter, content,  myProfile);
+
+//* load sys admin accessable collections
 import users from '/imports/both/Pages/Users/users_access_control'
+import sysConfig from '/imports/both/Pages/SysConfig/sysConfig_access_control'
+import logsSystem from '/imports/both/Pages/LogsSystem/logsSystem_access_control'
+import logsUsers from '/imports/both/Pages/LogsUsers/logsUsers_access_control'
+
+acl = Object.assign(acl, users, sysConfig,  logsSystem, logsUsers);
 
 
-console.log("users", users);
-
+export const accessControl = acl;

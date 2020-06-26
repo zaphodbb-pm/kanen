@@ -185,7 +185,7 @@
                 break;
 
             case editdoc.type && editdoc.type === "edit":
-                currDoc = await getDocs(coll, "oneAllFields", {_id: editdoc.id}, {}, null);
+                currDoc = await getDocs(coll, "schemaForm", {_id: editdoc.id}, {}, null);
                 showClone = config.clone;
                 submit.btnBackShow = !!config.hasOverlay;
                 break;
@@ -201,6 +201,7 @@
         }
 
         let isEmpty = !currDoc || Object.keys(currDoc).length === 0;
+
         if (isEmpty) {
             //*** reset schema to default state
             submit.btnState = false;

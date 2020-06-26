@@ -12,7 +12,7 @@
 export default {
 
     components: {
-        langField: {
+        getLang: {
             field: "getLang",
             fieldType: "select",
             optional: true,
@@ -21,6 +21,6 @@ export default {
             attributes: {},
             params: {type: "staticSelect"},
             defaultValue: {_id: "all", name: "All Options"},
-        }
+        },
     }
 };

@@ -247,7 +247,7 @@
                 sort ? sort : {}
         );
 
-        documents = await getDocs(coll, "list", combineSearch, f.filterSearch);
+        documents = await getDocs(coll, "listList", combineSearch, f.filterSearch);
         docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${totalDocs})`;
 
         dispatch("list-docs-ready", documents);
