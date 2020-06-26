@@ -17,7 +17,6 @@ export function buildNavLinks(user, routes) {
 
     routes.forEach(function (route) {
         let roles = route && route.roles && route.roles.read ? route.roles.read : [];
-
         switch (true) {
             case user && user.admin:
                 out.push(route);

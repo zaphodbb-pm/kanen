@@ -28,6 +28,7 @@
     //* local reactive variables
     let wordPerMin = 225;
     let wordsPerPage = 350;
+    let charPerPage = 2000;
     let document = "";
     let docList = [];
 
@@ -97,16 +98,31 @@
         return out;
     }
 
-    function sliceContent(content){
+    function  sliceParagraphs(content){
         let out = [];
 
-        if(content && typeof content === "string"){
-            //*** remove excess spaces
-            let str = content.replace(/\s+/g,' ');
-            let words = str.split(" ");
+        if(content){
+            let temp = [];
+            let arr = content.split("</p>");
 
-            for(let i = 0, j = words.length; i < j; i += wordsPerPage){
-                out.push( words.slice(i, i + wordsPerPage).join(" ") );
+            arr.forEach( (a) => {
+                if(a.length > 0){
+                    temp.push( a + "</p>" );
+                }
+            });
+
+            let page = "";
+            temp.forEach( (t) => {
+                page = page + t;
+
+                if( page.length > charPerPage ){
+                    out.push(page);
+                    page = "";
+                }
+            });
+
+            if(page){
+                out.push(page);
             }
         }
 
@@ -187,8 +203,8 @@
 
             <p class="subtitle is-5 buffer-y" class:is-hidden={!document.contentSummary}>{document.contentSummary}</p>
 
-            {#each sliceContent(document.contentPage) as page}
-                <div class="is-magazine-layout">{@html page}</div>
+            {#each sliceParagraphs(document.contentPage) as page}
+                <div class="content is-magazine-layout">{@html page}</div>
                 <hr class="my-5" />
             {/each}
 
