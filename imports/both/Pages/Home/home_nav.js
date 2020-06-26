@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Home
  * @function home_nav
- * @locus Client
+ * @locus Anywhere
  * @augments home
  *
  * @returns {Object} - {nav}

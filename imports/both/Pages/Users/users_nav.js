@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Users
  * @function users_nav
- * @locus Client
+ * @locus Anywhere
  * @augments users
  *
  * @returns {Object} - {nav}

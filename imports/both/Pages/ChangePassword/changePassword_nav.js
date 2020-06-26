@@ -3,7 +3,7 @@
  *
  * @memberof Pages:ChangePassword
  * @function changePassword_nav
- * @locus Client
+ * @locus Anywhere
  * @augments changePassword
  *
  * @returns {Object} - {nav}

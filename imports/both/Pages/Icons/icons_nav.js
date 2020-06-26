@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Icons
  * @function icons_nav
- * @locus Client
+ * @locus Anywhere
  * @augments icons
  *
  * @returns {Object} - {nav}

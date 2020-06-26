@@ -3,7 +3,7 @@
  *
  * @memberof Pages:LogsUsers
  * @function logsUsers_nav
- * @locus Client
+ * @locus Anywhere
  * @augments logsUsers
  *
  * @returns {Object} - {nav}

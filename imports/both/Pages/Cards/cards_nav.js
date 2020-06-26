@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Cards
  * @function cards_nav
- * @locus Client
+ * @locus Anywhere
  * @augments cards
  *
  * @returns {Object} - {nav}

@@ -3,7 +3,7 @@
  *
  * @memberof Pages:LogsSystem
  * @function logsSystem_nav
- * @locus Client
+ * @locus Anywhere
  * @augments logsSystem
  *
  * @returns {Object} - {nav}

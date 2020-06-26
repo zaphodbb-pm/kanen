@@ -8,7 +8,7 @@
  * @param {Object} user - user extras object
  * @param {Object} routes - constructed router object
  *
- * @return {Object} - reformatted routes to links checked against user permissions
+ * @return {Object} - reduced set of routes to links checked against user permissions
  *
  */
 

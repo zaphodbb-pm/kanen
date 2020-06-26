@@ -40,6 +40,7 @@ import '/imports/server/publish/realTime'
 //** main configuration set up
 import {writeLog} from '/imports/server/functions/writeLog'
 import '/imports/server/indexing'
+import '/imports/server/setupACL'
 
 
 Meteor.startup(() => {
