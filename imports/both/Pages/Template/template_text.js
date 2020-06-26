@@ -6,7 +6,8 @@
  * @locus Client
  * @augments template
  *
- * @returns {Object}
+ * @returns {Object} - header: {title, lead, body}
+ * @returns {Object} - page: {page, components, list, form}
  */
 
 //** page header; set to null to not display header or a specific item
