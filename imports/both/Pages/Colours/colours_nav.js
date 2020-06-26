@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Colours
  * @function colours_nav
- * @locus Client
+ * @locus Anywhere
  * @augments colours
  *
  * @returns {Object} - {nav}

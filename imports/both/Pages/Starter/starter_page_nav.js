@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Starter
  * @function starter_nav
- * @locus Client
+ * @locus Anywhere
  * @augments starter
  *
  * @returns {Object} - {nav}

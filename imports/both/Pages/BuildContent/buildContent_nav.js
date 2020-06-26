@@ -3,7 +3,7 @@
  *
  * @memberof Pages:BuildContent
  * @function buildContent_nav
- * @locus Client
+ * @locus Anywhere
  * @augments buildContent
  *
  * @returns {Object} - {nav}

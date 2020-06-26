@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Template
  * @function template_nav
- * @locus Client
+ * @locus Anywhere
  * @augments template
  *
  * @returns {Object} - {nav}

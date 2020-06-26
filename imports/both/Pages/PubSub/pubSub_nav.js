@@ -3,7 +3,7 @@
  *
  * @memberof Pages:PubSub
  * @function pubSub_nav
- * @locus Client
+ * @locus Anywhere
  * @augments pubSub
  *
  * @returns {Object} - {nav}

@@ -3,7 +3,7 @@
  *
  * @memberof Pages:SysConfig
  * @function sysConfig_nav
- * @locus Client
+ * @locus Anywhere
  * @augments sysConfig
  *
  * @returns {Object} - {nav}

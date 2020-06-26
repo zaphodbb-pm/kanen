@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Documentation
  * @function documentation_nav
- * @locus Client
+ * @locus Anywhere
  * @augments documentation
  *
  * @returns {Object} - {nav}

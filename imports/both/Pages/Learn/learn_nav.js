@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Learn
  * @function learn_nav
- * @locus Client
+ * @locus Anywhere
  * @augments learn
  *
  * @returns {Object} - {nav}

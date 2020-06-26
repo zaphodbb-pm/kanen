@@ -3,7 +3,7 @@
  *
  * @memberof Pages:MyProfile
  * @function myProfile_nav
- * @locus Client
+ * @locus Anywhere
  * @augments myProfile
  *
  * @returns {Object} - {nav}

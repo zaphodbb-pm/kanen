@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Login
  * @function login_nav
- * @locus Client
+ * @locus Anywhere
  * @augments login
  *
  * @returns {Object} - {nav}

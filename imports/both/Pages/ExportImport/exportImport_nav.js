@@ -3,7 +3,7 @@
  *
  * @memberof Pages:ExportImport
  * @function exportImport_nav
- * @locus Client
+ * @locus Anywhere
  * @augments exportImport
  *
  * @returns {Object} - {nav}

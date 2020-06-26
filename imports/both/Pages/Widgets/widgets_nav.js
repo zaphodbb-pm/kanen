@@ -3,7 +3,7 @@
  *
  * @memberof Pages:Widgets
  * @function widgets_nav
- * @locus Client
+ * @locus Anywhere
  * @augments widgets
  *
  * @returns {Object} - {nav}
