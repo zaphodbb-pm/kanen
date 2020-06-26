@@ -42,3 +42,17 @@ input[type="number"] {
 .ql-picker-options {
   z-index: 11 !important;
 }
+
+
+// Block
+.ql-container p,
+.ql-container dl,
+.ql-container ol,
+.ql-container ul,
+.ql-container blockquote,
+.ql-container pre,
+.ql-container table {
+  &:not(:last-child) {
+    margin-bottom: 1em !important;
+  }
+}
