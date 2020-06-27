@@ -21,7 +21,7 @@ export const header = {
             "and standard collection options.  The 'ChangeStreams' function watches the collection and sends chanegs through the 'publish' channel " +
             "to the client side 'subscribe' end point.<br/><br/>" +
             "The page measures the time from server side document update to client side received change time in milliseconds.  " +
-            "In development mode, for 15 documents with a local Mongo database, the change propagation time is 70 to 90 milliseconds.  " +
+            "In development mode, for 15 documents with a local Mongo database, the change propagation time is 20 to 90 milliseconds.  " +
             "In production mode, expect to see a greater delay due to network latency and server load. "},
 };
 
@@ -29,6 +29,14 @@ export const header = {
 export const page = {
     page: {
         en: {
+            report: {
+                title: "Cumulative timing values",
+                min: "Min",
+                max: "Max",
+                avg: "Avg",
+                suffix: "milliseconds"
+            },
+
             labels: {
                 name: "Name",
                 value: "Value",

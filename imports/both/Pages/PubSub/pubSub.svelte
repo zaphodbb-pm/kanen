@@ -77,6 +77,8 @@
     let currentItem = "";
     let intervalId = null;
 
+    let timings = {min: 0, max: 0, avg: 0};
+
     onMount( () => {
 
         //** update all documents at once with random values with direct write method
@@ -92,13 +94,19 @@
             let allDocs = RealTime.find({}, {limit: len}).fetch();
 
             allDocs = allDocs.map( (rt) => {
-                //let timeEnd = Date.now();
                 let timeStart = rt && rt.updatedAt ? rt.updatedAt : Date.now();
                 rt.delay = Date.now() - timeStart;
                 return rt;
             })
 
             values = allDocs;
+
+            //*** extract values into an array and then find min, max and avg
+            let delays = allDocs.map(ad => ad.delay);
+
+            timings.min = Math.min(...delays);
+            timings.max = Math.max(...delays);
+            timings.avg = Math.round( delays.reduce((a, b) => a + b, 0) / delays.length );
         });
 
     });
@@ -118,6 +126,13 @@
 
 
 <section class="page-body">
+
+    <article class="section">
+        {text.report.title} ({text.report.suffix}) -
+        {text.report.min}: {timings.min};
+        {text.report.max}: {timings.max};
+        {text.report.avg}: {timings.avg}
+    </article>
 
     <section class="section">
         <div class="w-25">
