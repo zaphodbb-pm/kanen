@@ -14,7 +14,7 @@ import {components} from '/imports/client/setup/systemGlobals'
 export default {
 
     form: {
-        coll:       "learn",          // target collection to send submit to
+        coll:       "buildContent",     // target collection to send submit to
         showHdr:    true,               // show card header and title if true
         bgTitle:    components.BG_CARD_INFO, // colour header text and background
 
@@ -27,7 +27,7 @@ export default {
     },
 
     list: {
-        coll:       "learn",          // collection name to list
+        coll:       "buildContent",     // collection name to list
         showHdr:    true,               // show card header and title if true
         bgTitle:    components.BG_CARD_TEAL, // sets card title background and text color
 

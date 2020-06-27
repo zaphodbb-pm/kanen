@@ -7,6 +7,8 @@
  *
  * @returns {Object} - access control parameters
  *
+ * @notes
+ *  1. Register this access control at '/imports/server/setupACL.js'
  */
 
 

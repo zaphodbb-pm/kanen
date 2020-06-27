@@ -1,8 +1,8 @@
 /**
  * Provides the MongoDb projection objects for various read requests.
  *
- * @memberof Pages:LogsUsers
- * @function logsUsers_access_control
+ * @memberof Pages:Learn
+ * @function learn_access_control
  * @locus Server
  *
  * @returns {Object} - access control parameters
@@ -12,20 +12,21 @@
  */
 
 
-import list from './logsUsers_list'
-import {roles} from'./logsUsers_nav'
-
-import {buildAllFields} from '/imports/functions/buildAllFields'
+import {roles} from'./learn_nav'
 
 export default {
-    logsUsers: {
-        coll: "logsUsers",
+    learn: {
+        coll: "learn",
         roles: roles,
 
-        listShort: null,
+        listShort: {
+            name: 1,
+            parentPage: 1,
+            contentWeight: 1,
+        },
         listMedium: null,
         listLong: null,
-        listList: buildAllFields(list.fields, {}),
+        listList: null,
 
         schemaShort: null,
         schemaMedium: null,

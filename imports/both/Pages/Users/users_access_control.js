@@ -24,7 +24,8 @@
  *
  *      selects:        {Object} projections for a select input field
  *
- *
+ * @notes
+ *  1. Register this access control at '/imports/server/setupACL.js'
  */
 
 import schema from './users_form_schema';

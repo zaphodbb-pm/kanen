@@ -85,30 +85,32 @@ Meteor.methods({
         check(coll, String);
         check(query, Object);
 
+        let q = query || {};
         let out = 0;
 
-        //if (Meteor.userId()) {                            // check if user is logged in
-            let q = query || {};
-            //let out = 0;
+        if (Meteor.userId()) {                            // check if user is logged in
+            let acl = accessControl[coll];
 
+            if(acl){
+                switch (true) {
+                    case coll === 'users':
+                        out = Meteor.users.find(q).count();
+                        break;
 
-            switch (true) {
-                case coll === 'users':
-                    out = Meteor.users.find(q).count();
-                    break;
+                    default:
+                        //*** adjust certain mappings to real collection
+                        let access = myDocuments(q, Meteor.user(), acl.roles);
 
-                default:
-                    //*** adjust certain mappings to real collection
-                    //q = myDocuments(q, this.userId, kanen.schemaRoles[coll]);
-                    out = Mongo.Collection.get(coll).find(q).count();
+                        if(access){
+                            q = Object.assign( query, access );
+                            out = Mongo.Collection.get(acl.coll).find(q).count();
+                        }
+                }
             }
-
-            //return out;
-        //}
+        }
 
         return out;
     },
-
 
 
 
@@ -127,6 +129,9 @@ Meteor.methods({
      *
      * @returns {Array|Object} Obj - returns results of MongoDB read operation
      *
+     * @notes
+     *  1. Adding a suffix of "_one" to projection uses "findOne" mongo method
+     *
      */
 
     getCollData(coll, type, filter, options) {
@@ -135,41 +140,38 @@ Meteor.methods({
             return [];
         }
 
-        //* rest of parameters
+        //* check rest of parameters
         type = Match.test(type, String) ? type : "";
         filter = Match.test(filter, Object) ? filter : {};
         options = Match.test(options, Object) ? options : {limit: kanen.constants.LIMIT_MAX_SMALL};
 
         //* initialize working variables
-        const self = this;
         let docs = [];
         let query = {};
         let opts = {};
-        let acl = null;
 
-
-        //* build  query object
-
-        //let roles = kanen.schemaRoles[coll] ? kanen.schemaRoles[coll] : [];
-        let roles = "all";
-        let access = myDocuments(filter, self.userId, "author", roles);
-
-        //* if access is blocked, return empty set
-        if (!access) {
-            return [];
-        }
-
-        query = Object.assign( query, filter );
-
-        acl = accessControl[coll];
-        acl = acl ? acl[type] : null;
+        //* get access control and roles information
+        let acl = accessControl[coll];
 
         if(acl){
-            opts = Object.assign(options, {fields: acl});
-            if(type === "schemaForm"){
-                docs = Mongo.Collection.get(coll).findOne( query, opts );
+            let projection = type.replace("_one", "");
+            let fields = acl[projection] ? {fields: acl[projection] } : {};
+
+            //* build query object
+            let access = myDocuments(filter, Meteor.user(), acl.roles);
+
+            //* if access is blocked, return empty set
+            if (!access) {
+                return [];
+            }
+
+            query = Object.assign( query, access, filter );
+            opts = Object.assign(options, fields);
+
+            if( type.includes("_one") ){
+                docs = Mongo.Collection.get(acl.coll).findOne( query, opts );
             }else{
-                docs = Mongo.Collection.get(coll).find( query, opts ).fetch();
+                docs = Mongo.Collection.get(acl.coll).find( query, opts ).fetch();
             }
         }
 
