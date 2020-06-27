@@ -2,8 +2,6 @@
 import {Match} from 'meteor/check'
 import {check} from 'meteor/check'
 import {accessControl} from '/imports/server/setupACL'
-
-//import {timeAgo} from '/imports/both/functions/func-timeAgo'
 import {myDocuments} from '/imports/server/functions/myDocuments'
 
 
