@@ -17,76 +17,73 @@
 
 export function myDocuments(obj, user, rolesIn) {
 
-
-    return {};
-
-
-
-    let roles = rolesIn ? rolesIn : [];
-    if( !Array.isArray(roles) ){ roles = roles.read; }
-    let key = roles.includes("author") ? "author" : null;
-
-    //* if collection allows anyone to see the doc, then return doc
-    if (roles.includes("all")) {
-        return obj;
-    }
-
     //* ensure that not-logged-in users can not get at docs.
     if (!user) {
         return null;
     }
 
-    //* for logged in users, get their profile information
-    let mine = Meteor.user();
+    //* get roles information
+    let out = null;
+    let roles = rolesIn ? rolesIn : [];
+    if( !Array.isArray(roles) ){ roles = roles.read; }
 
-    //* system level administrators get to see all documents!
-    if (mine && mine.admin) {
-        return obj;
+    //* check user access
+    switch(true){
+        case roles.includes("all"):
+        case user.admin:
+        case user.role && (user.role._id === "administrator"):
+            out = obj;
+            break;
+
+        case user.role && roles.includes(user.role._id):
+            //** modify query to include only my documents
+            let addQuery = {};
+            let key = roles.includes("author") ? "author" : null;
+            if(key){ addQuery[key] = user.author; }
+
+            //** check if multi-tenancy is active and filter based on tenantId
+            if (Meteor.settings.multi_tenancy) {
+                addQuery.tenantId = user && user.tenantId ? user.tenantId : "general";
+            }
+
+            //** check if groups are active and modify query to include members docs
+            addQuery = checkGroups(user, key, addQuery);
+
+            out = Object.assign(obj, addQuery);
+            break;
+
+        default:
+            out = null;
     }
 
-    //* otherwise do a deeper access check
-    if (mine && mine.role) {
+    return out;
+}
 
-        //** ensure that this user has the correct role for these doc types
-        if (!roles.includes(mine.role._id)) {
-            return null;
-        }
 
-        //** "administrator" and "sweatcrew" roles are special cases and gets full access
-        if ( ["administrator", "sweatcrew"].includes(mine.role._id) ) {
-            return obj;
-        }
 
-        //** modify query to include only my documents
-        let addQuery = {};
-        if(key){ addQuery[key] = user; }
+function checkGroups(user, key, addIt){
+    let addQuery = addIt;
 
-        //** check if multi-tenancy is active and filter based on tenantId
-        if (Meteor.settings.multi_tenancy) {
-            addQuery.tenantId = mine && mine.tenantId ? mine.tenantId : "general";
-        }
+    //** modify query to include documents from my group members
+    let groupMaster = !!(user.groupMaster);
 
-        //** modify query to include include documents from my group members
-        let groupMaster = !!(mine.groupMaster);
+    if (groupMaster && user.groups && user.groups !== "") {
 
-        if (groupMaster && mine.groups && mine.groups !== "") {
+        let groups = user.groups;
+        groups = groups.replace(/\s/g,'').split(",");       // remove all whites spaces and then create item array
 
-            let groups = mine.groups;
-            groups = groups.replace(/\s/g,'').split(",");       // remove all whites spaces and then create item array
+        groups = groups.map( function(item){                // add regex strings to match on
+            return new RegExp(item, "i");
+        });
 
-            groups = groups.map( function(item){                // add regex strings to match on
-                return new RegExp(item, "i");
-            });
+        let members = Meteor.users.find({groups: {$in: groups}}, {fields: {_id: 1}}).fetch();
+        members = members.map( function(item){
+            return item._id;
+        });
 
-            let members = Meteor.users.find({groups: {$in: groups}}, {fields: {_id: 1}}).fetch();
-            members = members.map( function(item){
-                return item._id;
-            });
-
-            //*** extend the main query object with the id's of all group members
-            addQuery[key] = {$in: members};
-        }
-
-        return Object.assign(obj, addQuery);
+        //*** extend the main query object with the id's of all group members
+        addQuery[key] = {$in: members};
     }
+
+    return addQuery;
 }

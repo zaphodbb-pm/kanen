@@ -7,6 +7,8 @@
  *
  * @returns {Object} - access control parameters
  *
+ * @notes
+ *  1. Register this access control at '/imports/server/setupACL.js'
  */
 
 import schema from './buildContent_form_schema';
@@ -17,7 +19,7 @@ import {fieldAddons} from '/imports/server/fieldAddons'
 import {buildAllFields} from '/imports/functions/buildAllFields'
 
 export default {
-    learn: {
+    buildContent: {
         coll: "learn",
         roles: roles,
 

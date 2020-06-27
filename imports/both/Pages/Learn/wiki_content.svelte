@@ -57,7 +57,7 @@
 
     //** get one page of content from its _id
     async function findPage(query) {
-        let fp = await getDocs("learn", "schemaForm", query, {});
+        let fp = await getDocs("learn", "schemaForm_one", query, {});
         fp.timeAgo = timeAgo(fp.updatedAt);
         document = fp;
     }

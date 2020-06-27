@@ -185,7 +185,7 @@
                 break;
 
             case editdoc.type && editdoc.type === "edit":
-                currDoc = await getDocs(coll, "schemaForm", {_id: editdoc.id}, {}, null);
+                currDoc = await getDocs(coll, "schemaForm_one", {_id: editdoc.id}, {}, null);
                 showClone = config.clone;
                 submit.btnBackShow = !!config.hasOverlay;
                 break;
