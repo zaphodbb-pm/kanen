@@ -5,20 +5,21 @@
  * @function ownsDocument
  * @locus Server
  *
- * @param {String} user - logged in user id
+ * @param {Object} user - logged in user info
  * @param {Object} doc - check user against doc author
+ *
  * @return {Boolean}
  *
  */
 
 
-//** check that the userId specified owns the documents
+//** check that the user specified owns the documents
 export function ownsDocument(user, doc) {
+    let out = false;
 
-    return !!doc;
+    if(user){
+        out = !!(user.admin || user._id === doc.author);
+    }
 
-
-    let usr = Meteor.users.findOne( {_id: user} );
-    let admin = usr && usr.admin;
-    return (doc.author === user || admin);
+    return out;
 }
