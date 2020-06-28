@@ -3,12 +3,27 @@ import {Meteor} from "meteor/meteor";
 import {Accounts} from 'meteor/accounts-base';
 import {check, Match} from 'meteor/check'
 
-
 import {objectify} from '/imports/server/functions/objectify'
 import {verifyRole} from '/imports/server/functions/verifyRole'
 
 
 Meteor.methods({
+
+    /**
+     * External Login service support.
+     *
+     * @memberof Methods
+     * @function getServiceConfiguration
+     * @isMethod true
+     * @locus Server
+     *
+     * @return {Object}
+     */
+
+    getServiceConfiguration(service){
+        return ServiceConfiguration.configurations.findOne({service: service});
+    },
+
 
     /**
      * Insert a new user object.
@@ -25,8 +40,8 @@ Meteor.methods({
     userMgmtInsert: function (doc) {
         check(doc, Object);
 
-
-        //if (Meteor.userId() && verifyRole(Meteor.userId(), "administrator")) {      // check if updating user is administrator
+        //* updating user is administrator; then allow insert
+        if (Meteor.user() && verifyRole(Meteor.user(), ["administrator"] )) {
 
             let test = Accounts.createUser({
                 username: doc.username,
@@ -61,7 +76,7 @@ Meteor.methods({
             });
 
             return {status: 200, _id: test, text: `${doc.username} has been added to users`};
-       // }
+       }
     },
 
     /**
@@ -81,7 +96,8 @@ Meteor.methods({
         check(userId, String);
         check(doc, Object);
 
-        //if (Meteor.userId() && verifyRole(Meteor.userId(), "administrator")) {     // check if updating user is administrator
+        //* updating user is administrator; then allow update
+        if (Meteor.user() && verifyRole(Meteor.user(), ["administrator"])) {     // check if updating user is administrator
             let user = Meteor.users.findOne({_id: userId});
 
             Accounts.setUsername(userId, doc.username);
@@ -124,9 +140,9 @@ Meteor.methods({
 
             Meteor.users.update(userId, {$set: addins});
             return {status: 200, _id: user, text: `${doc.username} has been added to users`};
-        //} else {
-            //return {status: 500, _id: userId, text: `${doc.username} was not updated`};
-        //}
+        } else {
+            return {status: 500, _id: userId, text: `${doc.username} was not updated`};
+        }
     },
 
     /**
@@ -145,7 +161,7 @@ Meteor.methods({
         check(item, String);
         check(val, Match.OneOf(String, Object, Array) );
 
-        if( Meteor.userId() ) {     // check if user is logged in
+        if( Meteor.user() ) {     // check if user is logged in
             Meteor.users.update({_id: Meteor.user()._id}, {$set: objectify(item, val)});
             return {status: 200, _id: Meteor.user()._id, text: `${item} has been updated`};
         }else{
@@ -168,11 +184,11 @@ Meteor.methods({
     userMgmtRemove: function (docId) {
         check(docId, String);
 
-        //if (Meteor.userId() && verifyRole(Meteor.userId(), "administrator")) {    // check if updating user is administrator
+        if (Meteor.user() && verifyRole(Meteor.user(), ["administrator"])) {    // check if updating user is administrator
             let doc = Meteor.users.findOne({_id: docId});
             Meteor.users.remove(doc._id);
             return {status: 200, _id: docId, text: `${doc.username} has been removed`};
-        //}
+        }
     },
 
     /**
@@ -266,20 +282,5 @@ Meteor.methods({
         } else {
             return null;
         }
-    },
-
-    /**
-     * External Login service support.
-     *
-     * @memberof Methods
-     * @function getServiceConfiguration
-     * @isMethod true
-     * @locus Server
-     *
-     * @return {Object}
-     */
-
-    getServiceConfiguration(service){
-        return ServiceConfiguration.configurations.findOne({service: service});
     }
 });

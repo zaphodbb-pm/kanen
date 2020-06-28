@@ -5,33 +5,30 @@
  * @function verifyRole
  * @locus Server
  *
- * @param {String} id - logged in user id
- * @param {String} role - check against user role
+ * @param {Object} user - logged in user id
+ * @param {Object|Array} rolesIn - check against user role
+ *
  * @return {Boolean}
  *
  */
 
-export function verifyRole(id, role) {
-
-    return true;
-
-
-
+export function verifyRole(user, rolesIn) {
     let check = false;
 
-    if(id && typeof id === "string"){
-        let user = Meteor.users.findOne( {_id: id} );
+    //** verify that user has required role in order to store a document
+    if(user){
+        //*** get roles information
+        let roles = rolesIn ? rolesIn : [];
+        if( !Array.isArray(roles) ){ roles = roles.write; }
 
-        if (user && user.admin) {
-            check = true;
-        } else {
-            if(typeof role === "string"){
-                check = user && (user.role._id === role);
-            }
+        switch(true){
+            case !!user.admin:
+                check = true;
+                break;
 
-            if(Array.isArray(role)){
-                check = user && role.includes(user.role._id);
-            }
+            case !!(user.role && user.role._id):
+                check = roles.includes(user.role._id);
+                break;
         }
     }
 

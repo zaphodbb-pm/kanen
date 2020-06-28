@@ -7,6 +7,7 @@
  *
  * @param {String} field - name of object key
  * @param {String|Number|Object|Array} val
+ *
  * @return {Object} - {key: val}
  *
  */

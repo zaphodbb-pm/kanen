@@ -1,10 +1,11 @@
 import {Meteor} from "meteor/meteor";
 import {check} from 'meteor/check'
 
-import {objectify} from '/imports/server/functions/objectify'
-import {ownsDocument} from '/imports/server/functions/ownsDocument'
+import {accessControl} from '/imports/server/setupACL'
 import {verifyRole} from '/imports/server/functions/verifyRole'
-import {myDocuments} from '/imports/server/functions/myDocuments'
+import {ownsDocument} from '/imports/server/functions/ownsDocument'
+import {objectify} from '/imports/server/functions/objectify'
+
 
 
 Meteor.methods({
@@ -26,10 +27,11 @@ Meteor.methods({
         check(doc, Object);
         let id;
 
-        if( verifyRole(Meteor.userId(), "roles.write") || coll.includes("logs") ){      // check if user is logged in or system wants to write to a log
+        let acl = accessControl[coll];
+
+        if( verifyRole(Meteor.user(), acl.roles) ) {
             doc.tenantId = Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general";
             doc.updatedAt = Date.now();
-
 
             //* inject group name server side for security
             if( Meteor.user() && Meteor.user().profile && Meteor.user().profile.group ){
@@ -70,21 +72,18 @@ Meteor.methods({
         check(id, String);
         check(doc, Object);
 
-        if( verifyRole(Meteor.userId(), "roles.write") ) {
-            doc.updatedAt = Date.now();
+        let acl = accessControl[coll];
 
-            //* inject group name server side for security
-            if( Meteor.user() && Meteor.user().profile && Meteor.user().profile.group ){
-                doc["group"] = Meteor.user().profile.group;
-            }else{
-                doc["group"] = "";
+        if( verifyRole(Meteor.user(), acl.roles) ) {
+            if(ownsDocument(Meteor.user(), doc)){     // check if user is doc owner before update
+                doc.updatedAt = Date.now();
+                Mongo.Collection.get(coll).update({_id: id}, {$set: doc});
+                return {status: 200, text:  `${id} has been updated on ${coll} by updateDoc`};
             }
 
-            Mongo.Collection.get(coll).update({_id: id}, {$set: doc});
-
-            return {status: 200, _id: id, text:  `${id} has been updated on ${coll} by updateDoc`};
+            return {status: 404, text:  `Has not been updated on ${coll} by updateDoc.  User does not own document.`};
         }else{
-            return {status: 400, _id: "", text: "Invalid user"};
+            return {status: 400, text: "Invalid user"};
         }
     },
 
@@ -106,10 +105,12 @@ Meteor.methods({
         check(coll, String);
         check(docId, String);
 
-        if( verifyRole(Meteor.userId(), "roles.write" ) ) {
+        let acl = accessControl[coll];
+
+        if( verifyRole(Meteor.user(), acl.roles) ) {
             let doc = Mongo.Collection.get(coll).findOne({_id: docId});
 
-            if(ownsDocument(Meteor.userId(), doc)){     // check if user is doc owner before delete
+            if(ownsDocument(Meteor.user(), doc)){     // check if user is doc owner before delete
                 Mongo.Collection.get(coll).remove(doc._id);
                 return {status: 200, _id: docId, text:  `${docId} has been removed from ${coll} by removeDoc`};
             }
@@ -143,7 +144,10 @@ Meteor.methods({
         check(field, String);
         check(value, Match.OneOf(String, Number, Boolean, Object, Array) );
 
-        if( verifyRole(Meteor.userId(), "role.write") ) {
+        let acl = accessControl[coll];
+
+        if( verifyRole(Meteor.user(), acl.roles) ) {
+
             let updatedAt = Date.now();
             let setter = Object.assign({updatedAt: updatedAt}, objectify(field, value));
 
@@ -186,7 +190,9 @@ Meteor.methods({
         check(field, String);
         check(value, Match.OneOf(String, Array) );
 
-        if( verifyRole(Meteor.userId(), kanen.schemaRoles[coll].write) ) {                           // check if user is logged in
+        let acl = accessControl[coll];
+
+        if( verifyRole(Meteor.user(), acl.roles) ) {
             let updatedAt = Date.now();
             let ops = null;
 
