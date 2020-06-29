@@ -1,6 +1,9 @@
 import {Meteor} from "meteor/meteor";
 import {check} from "meteor/check";
-import {verifyRole} from "../functions/verifyRole";
+
+import {accessControl} from '/imports/server/setupACL'
+import {verifyRole} from '/imports/server/functions/verifyRole'
+import {ownsDocument} from '/imports/server/functions/ownsDocument'
 
 
 Meteor.methods({
@@ -24,24 +27,27 @@ Meteor.methods({
         check(coll, String);
         check(arr, Array);
 
-        if( verifyRole(Meteor.userId(), "roles.write") ){      // check if user is logged in or system wants to write to a log
+        let acl = accessControl[coll];
+
+        if( verifyRole(Meteor.user(), acl.roles) ) {
             let len = arr.length;
 
             if(len > 0){
-                Mongo.Collection.get(coll).remove({});      // flush existing records
+                Mongo.Collection.get(acl.coll).remove({author: Meteor.user()._id});      // flush existing records
 
                 arr.forEach( (doc) => {
                     delete doc._id;
+                    doc.author = Meteor.user()._id;
                     doc.tenantId = Meteor.user() && Meteor.user().tenantId ? Meteor.user().tenantId : "general";
                     doc.updatedAt = Date.now();
 
-                    Mongo.Collection.get(coll).insert(doc);
+                    Mongo.Collection.get(acl.coll).insert(doc);
                 });
 
                 return {status: 200,  len: len, text: `${len} documents have been added on ${coll} by bulkLoadDocs`};
 
             }else{
-                return {status: 404,  len: len, text: `Warning: ${len} documents have been added on ${coll} by bulkLoadDocs`};
+                return {status: 404,  len: len, text: `Warning:  NO documents have been added on ${coll} by bulkLoadDocs`};
             }
 
 
@@ -70,7 +76,9 @@ Meteor.methods({
         check(coll, String);
         check(docs, Array);
 
-        if( verifyRole(Meteor.userId(), "roles.write") ){      // check if user is logged in or system wants to write to a log
+        let acl = accessControl[coll];
+
+        if( verifyRole(Meteor.user(), acl.roles) ) {
             let len = docs.length;
 
             docs.forEach( (doc) => {
@@ -80,7 +88,7 @@ Meteor.methods({
                     value: doc.value
                 }
 
-                Mongo.Collection.get(coll).update({name: doc.name}, {$set: update});
+                Mongo.Collection.get(acl.coll).update({author: Meteor.user()._id, name: doc.name}, {$set: update});
             });
 
             return {status: 200,  len: len, text: `${len} documents have been updated on ${coll} by updateRealTimeDoc`};
@@ -90,4 +98,3 @@ Meteor.methods({
         }
     }
 });
-

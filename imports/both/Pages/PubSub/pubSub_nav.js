@@ -22,6 +22,6 @@ export const icon = "iconPubSub";
 // roles that can see this link in Navbar and be routed to
 // roles are also used by database write / read checking
 export const roles = {
-    read: ["all"],
-    write: ["none"]
+    read: ["basic", "standard", "pro", "siteAdmin"],
+    write: ["basic", "standard", "pro", "siteAdmin"]
 }
