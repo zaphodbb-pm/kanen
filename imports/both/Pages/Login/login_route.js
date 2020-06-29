@@ -35,6 +35,6 @@ export default {
     label: i18n(nav, "", lang),         // Navbar text to show
     roles: roles,
 
-    group: 2,                               // for side navigation; group routes into a block
+    group: 1,                               // for side navigation; group routes into a block
     isNavMobile: false,                     // (optional) show link in mobile nav block at bottom or top
 };

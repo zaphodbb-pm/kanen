@@ -20,7 +20,7 @@
 
     let newArray = generateValues(len);
 
-    Meteor.call("bulkLoadDocs", "realTime", newArray, function(err, res){
+    Meteor.call("bulkLoadDocs", "pubSub", newArray, function(err, res){
         if(err){ console.log("Bulk Upload Failed: ", err);}
         if(res){ Meteor.subscribe("testRealTime", [], {}); }
     });
@@ -83,7 +83,7 @@
 
         //** update all documents at once with random values with direct write method
         intervalId = setInterval( function(){
-            Meteor.call("updateRealTimeDoc", "realTime", generateValues(len), function(err, res){
+            Meteor.call("updateRealTimeDoc", "pubSub", generateValues(len), function(err, res){
                 if(err){console.log("Update Real Time failed: ", err);}
             });
 
@@ -91,7 +91,7 @@
 
         //** respond to db changes propagated in real time from server over Meteor Publish / Subscribe
         Tracker.autorun(function(){
-            let allDocs = RealTime.find({}, {limit: len}).fetch();
+            let allDocs = RealTime.find({author: Meteor.userId()}, {limit: len}).fetch();
 
             allDocs = allDocs.map( (rt) => {
                 let timeStart = rt && rt.updatedAt ? rt.updatedAt : Date.now();

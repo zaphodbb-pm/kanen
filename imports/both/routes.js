@@ -41,10 +41,10 @@ import Cards from '/imports/both/Pages/Cards/cards_route'
 import Tabs from '/imports/both/Pages/WidgetsContent/widgetsContent_route'
 import Widgets from '/imports/both/Pages/Widgets/widgets_route'
 import Starter from '/imports/both/Pages/Starter/starter_page_route'
-import PubSub from '/imports/both/Pages/PubSub/pubSub_route'
+import Login from '/imports/both/Pages/Login/login_route'
 
 import MyProfile from '/imports/both/Pages/MyProfile/myProfile_route'
-import Login from '/imports/both/Pages/Login/login_route'
+import PubSub from '/imports/both/Pages/PubSub/pubSub_route'
 import ChangePassword from '/imports/both/Pages/ChangePassword/changePassword_route'
 
 import BuildContent from '/imports/both/Pages/BuildContent/buildContent_route'
@@ -71,10 +71,10 @@ const allRoutes = [
     Tabs,
     Widgets,
     Starter,
-    PubSub,
+    Login,
 
     MyProfile,
-    Login,
+    PubSub,
     ChangePassword,
 
     BuildContent,

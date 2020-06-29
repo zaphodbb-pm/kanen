@@ -45,9 +45,7 @@ class ChangeStreams {
             const results = rawCollection.aggregate(this.pipeline, this.options);
 
             results.forEach((item) => {
-                const id = item._id;
-                this.sub.added(this.collection._name, id, item);
-
+                this.sub.added(this.collection._name, item._id, item);
             });
         } catch (e) {
             throw e;
@@ -72,7 +70,7 @@ class ChangeStreams {
 
                 let testHasDocs = this.sub._documents.get(this.collection._name);
 
-                if(testHasDocs.has(docKey._id)){
+                if(testHasDocs && testHasDocs.has(docKey._id)){
                     switch(doc.operationType){
                         case  "update":
                             let update = change && change.updatedFields ? change.updatedFields : null;
