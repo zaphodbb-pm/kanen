@@ -137,8 +137,8 @@ export const page = {
                         "<a href='/listForm'>Starter ListForm</a> - list display and form builder example. " +
                         "Form includes all of the various field types and configurations.",
 
-                        "<a href='/pubSub'>Pub Sub</a> - example of connecting to MongoDB and using <em>Change Streams</em> " +
-                        "to reactively respond to chnages in a collection.",
+                        "<a href='/login'>Login</a> - for a user that wants to login with an email / password or " +
+                        "any third party service.",
                     ]
 
                 },
@@ -153,11 +153,11 @@ export const page = {
                         "<a href='/my-profile'>My Profile</a> - only seen by a logged in user.  " +
                         "Allows for the addition of extra user information into a 'profile' field.",
 
-                        "<a href='/login'>Login</a> - for a user that wants to login with an email / password or " +
-                        "any third party service.",
-
                         "<a href='/changePassword'>Change Password</a> - only available to a logged in user. " +
                         "Typical change password form",
+
+                        "<a href='/pubSub'>Pub Sub</a> - example of connecting to MongoDB and using <em>Change Streams</em> " +
+                        "to reactively respond to chnages in a collection.",
                     ]
                 },
 
