@@ -15,6 +15,7 @@
 let out = {};
 
 
+
 //* project logo
 import logo from '/public/svg_to_js/seedling-solid.json';
 out.iconLogo = logo;
@@ -215,6 +216,5 @@ out.iconGoogle = google;
 //* other Icons
 import beer from '/public/svg_to_js/beer-solid.json';
 out.iconBeer = beer;
-
 
 export const mainIcons = out;
