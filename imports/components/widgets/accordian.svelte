@@ -187,7 +187,7 @@
 
     .accordion-content {
         padding: .75rem;
-        max-height: 30rem;
+        max-height: 70rem;
     }
 
     .accordion-content p {
@@ -204,7 +204,7 @@
 
     .open-body {
         overflow: hidden;
-        max-height: 50rem;
+        max-height: 70rem;
 
         transition-property: all;
         transition-duration: 2s;

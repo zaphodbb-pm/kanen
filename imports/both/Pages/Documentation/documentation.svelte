@@ -144,7 +144,6 @@
 
     <div id="documentation-list">
         <div class="columns">
-
             <div class="column is-3">
                 <Accordian {tabSettings} text="{content}" {eventMain} {eventSub}
                            on:doc-main-topic="{changeBody}" on:doc-subtopic="{changeSub}"/>
@@ -153,8 +152,6 @@
             <div class="column">
                 <Paged {content} {newCategory} {newTopic} />
             </div>
-
-
         </div>
     </div>
 

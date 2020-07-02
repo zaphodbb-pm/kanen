@@ -6,9 +6,9 @@
      * @function croppie
      * @locus Client
      *
-     * @params {Object} doc - document object that can be shown
+     * @param {Object} doc - document object that can be shown
      *
-     * @emit 'croppie-result' - {String}
+     * @emits 'croppie-result' - {String}
      *
      * @see https://github.com/foliotek/croppie
      *

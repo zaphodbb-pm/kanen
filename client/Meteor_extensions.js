@@ -61,7 +61,11 @@ let denodeify = function denodeify(nodeStyleFunction, filter) {
 };
 
 /**
- * @summary Gets a ES2015-compatible Promise for the result of a Meteor.promise
+ * @summary Meteor.callPromise and other functions
+ *
+ * @memberof Structure:Client
+ * @function Meteor_callPromise
+ * @locus Client
  *
  * @param {String} name Name of method to invoke
  * @param {EJSON} [arg1,arg2...] Optional method arguments
