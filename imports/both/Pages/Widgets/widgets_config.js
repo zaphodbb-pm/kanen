@@ -12,7 +12,7 @@
 
 import {colors, colorArrays} from '/imports/client/setup/systemGlobals'
 
-export default {
+export const pageConfig =  {
 
     components: {},
 

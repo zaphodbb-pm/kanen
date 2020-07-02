@@ -12,7 +12,7 @@
 import {components} from '/imports/client/setup/systemGlobals'
 import grid from './starter_grid.svelte'
 
-export default {
+export const pageConfig =  {
 
     form: {
         coll:       "starter",          // target collection to send submit to

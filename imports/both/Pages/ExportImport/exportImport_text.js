@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Export / Import Page"},
-    lead:   {en: "Admin controls exporting CSV files."},
-    body:   {en: ""},
+    en: {
+        title:  "Export / Import Page",
+        lead:   "Admin controls exporting CSV files.",
+        body:   "",
+    }
 };
 
 

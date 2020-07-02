@@ -109,20 +109,20 @@
         {#each fields as tab, index}
             {#if config.hasGroups}
                 {#each tab as groups, grp}
-                    <div class="columns" class:is-hidden={!(tabLabels[index] === currTab)}>
+                    <form class="columns" class:is-hidden={!(tabLabels[index] === currTab)}>
                         {#each groups as field}
                             <div class="column {field.group && field.group.class ? field.group.class : '' }">
                                 <Field_Wrapper class="" {field} {watchFields}  on:field-changed="{fieldChanged}"/>
                             </div>
                         {/each}
-                    </div>
+                    </form>
                 {/each}
             {:else}
-                <div class:is-hidden={!(tabLabels[index] === currTab)}>
+                <form class:is-hidden={!(tabLabels[index] === currTab)}>
                     {#each tab as field}
                         <Field_Wrapper class="mb-3 pt-3" {field} {watchFields}  on:field-changed="{fieldChanged}"/>
                     {/each}
-                </div>
+                </form>
             {/if}
         {/each}
 
@@ -130,18 +130,20 @@
 
         {#if config.hasGroups}
             {#each fields as groups, idg}
-                <div class="columns">
+                <form class="columns">
                     {#each groups as field}
                         <div class="column {field.group && field.group.class ? field.group.class : '' }">
                             <Field_Wrapper class="pt-3" {field} {watchFields}  on:field-changed="{fieldChanged}"/>
                         </div>
                     {/each}
-                </div>
+                </form>
             {/each}
         {:else}
-            {#each fields as field}
-                <Field_Wrapper class="mb-3 pt-3" {field} {watchFields} on:field-changed="{fieldChanged}"/>
-            {/each}
+            <form>
+                {#each fields as field}
+                    <Field_Wrapper class="mb-3 pt-3" {field} {watchFields} on:field-changed="{fieldChanged}"/>
+                {/each}
+            </form>
         {/if}
 
     {/if}

@@ -11,32 +11,25 @@
 
     //* page set-up boilerplate *************************************
 
-        //** setup props to receive route data
+        //** setup props to receive route data (optional)
         export let currentRoute;
         export let params;
 
-        //** get page text information and set contexts for children components
-        import {i18n} from '/imports/functions/i18n'
-        import {lang} from '/imports/client/systemStores'
+        //** page specific text and configuration
         import {header, page} from './learn_text'
+        import {pageConfig} from './learn_config'
 
-        //** app services (getContext is often optional)
-        import { setContext, getContext, onMount, onDestroy } from 'svelte';
-        setContext("pageHdr", header);
-        setContext("pageText", page);
-
-        //** (optional) get component configuration information and set contexts for children components
-        import pageConfig from './learn_config'
-        setContext("pageConfig", pageConfig);
-
-        //** get the page header common component; component get gets its own translated text from "pageText" context
-        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+        //** app support files
+        import { setContext, onMount } from 'svelte';
+        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
 
 
-
     //* page-body support **************************
+    import {i18n} from '/imports/functions/i18n'
+    import {lang} from '/imports/client/systemStores'
+
     import {getDocs} from '/imports/functions/getDocs'
     import {sortBy} from '/imports/functions/sortBy'
 
@@ -168,11 +161,7 @@
 
 
 
-<Hdr />
-
-
-
-<section id="wiki-display">
+<PageWrapper {header} >
 
     <div class="columns">
         <div class="column is-one-fifth-fullhd is-one-quarter-desktop is-one-third-tablet">
@@ -224,4 +213,5 @@
 
     </vue-modal-member>
     -->
-</section>
+
+</PageWrapper>

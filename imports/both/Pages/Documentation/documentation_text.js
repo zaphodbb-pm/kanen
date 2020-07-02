@@ -12,9 +12,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Software Documentation"},
-    lead:   {en: "List of all software pages, routines and components."},
-    body:   null //{en: ""},
+    en: {
+        title:  "Software Documentation",
+        lead:   "List of all software pages, routines and components.",
+        body:   null //"",
+    }
 };
 
 

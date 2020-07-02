@@ -12,31 +12,48 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Template Page"},
-    lead:   {en: "Stock Starter Page Template"},
-    body:   {en: "Add, subtract or change items to meet your needs."},
+    en: {
+        title:  "Template Page",
+        lead:   "Stock Starter Page Template",
+        body:   "Add, subtract or change items to meet your needs.",
+    }
 };
 
 
 export const page = {
-    page: {},
+    page: {
+        en: {
+            route: "currentRoute",
+            parms: "params",
+            config: "Config File"
+        }
+    },
 
     components: {
 
         box: {
-            en: "The <em>time</em> has come to <u>speak</u> of many things ..."
+            en: {
+                msg: "The <em>time</em> has come to <u>speak</u> of many things ..."
+            }
         },
 
         widget: {
-            title: {en: "Title"}
+            en: {
+                title: "Title"
+            }
         }
     },
 
+    //** example for list / form components
     list: {
-        name: {en: "Name"}
+        en: {
+            name: "Name"
+        }
     },
 
     form: {
-        name: {en: "Name"}
-    },
+        en: {
+            name: "Name"
+        }
+    }
 };

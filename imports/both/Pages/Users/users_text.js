@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Users Management Page"},
-    lead:   {en: ""},
-    body:   {en: ""},
+    en: {
+        title:  "Users Management Page",
+        lead:   "",
+        body:   "",
+    }
 };
 
 

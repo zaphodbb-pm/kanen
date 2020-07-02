@@ -11,7 +11,7 @@
 
 import {components} from '/imports/client/setup/systemGlobals'
 
-export default {
+export const pageConfig =  {
 
     list: {
         coll:       "logsUsers",        // collection name to list

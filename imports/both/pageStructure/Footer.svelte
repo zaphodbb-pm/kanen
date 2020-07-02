@@ -32,7 +32,7 @@
 
 </script>
 
-<footer class="mt-5 pt-2 has-border-top is-hidden-mobile">
+<footer class="mt-6 pt-2 has-border-top is-hidden-mobile">
 
     <div class="level text-0dot9em">
         <div class="level-left">

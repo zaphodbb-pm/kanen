@@ -12,34 +12,27 @@
      *
      */
 
-     //* page set-up boilerplate *************************************
 
-        //** setup props to receive route data
+    //* page set-up boilerplate *************************************
+
+        //** setup props to receive route data (optional)
         export let currentRoute;
         export let params;
 
-        //** get page text information and set contexts for children components
-        import {i18n} from '/imports/functions/i18n'
-        import {lang} from '/imports/client/systemStores'
+        //** page specific text and configuration
         import {header, page} from './cards_text'
+        import {pageConfig} from './cards_config'
 
-        //** app services (getContext is often optional)
-        import { setContext, getContext, onMount, onDestroy } from 'svelte';
-        setContext("pageHdr", header);
-        setContext("pageText", page);
+        //** app support files
+        import { setContext, getContext } from 'svelte';
+        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
 
-        //** (optional) get component configuration information and set contexts for children components
-        import pageConfig from './cards_config'
-        setContext("pageConfig", pageConfig);
-
-        //** get the page header common component; component get gets its own translated text from "pageText" context
-        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
-
-     //* end of page boilerplate *************************************
-
+    //* end of page boilerplate *************************************
 
 
     //* page body support **************************
+    setContext("pageText", page);
+
     import Icon from '/imports/components/elements/icon.svelte'
     import Card from '/imports/components/blocks/card.svelte';
 
@@ -53,27 +46,26 @@
 
 
 
-<Hdr />
+<PageWrapper {header} >
 
+    <div class="columns">
+        <article class="column is-6">
+            <Card text="cardOne" id="cardsOne">
+                <div class="d-flex align-items-center has-text-green-dark title is-3">
+                    <Icon icon={getContext("iconMark")} class="is-size-3"/>
+                    <span class="ml-3">Hello World</span>
+                </div>
+            </Card>
+        </article>
 
-<section class="page-body columns">
+        <article class="column is-6">
+            <Card text="cardTwo" id="cardsTwo" on:footEvent={cardsEvent}>
+                <div class="d-flex align-items-center has-text-green-dark title is-3">
+                    <Icon icon={getContext("iconPost")} class="is-size-2" />
+                    <span class="ml-3">Another View</span>
+                </div>
+            </Card>
+        </article>
+    </div>
 
-    <article class="column is-6">
-        <Card text="cardOne" id="cardsOne">
-            <div class="d-flex align-items-center has-text-green-dark title is-3">
-                <Icon icon={getContext("iconMark")} class="is-size-3"/>
-                <span class="ml-3">Hello World</span>
-            </div>
-        </Card>
-    </article>
-
-    <article class="column is-6">
-        <Card text="cardTwo" id="cardsTwo" on:footEvent={cardsEvent}>
-            <div class="d-flex align-items-center has-text-green-dark title is-3">
-                <Icon icon={getContext("iconPost")} class="is-size-2" />
-                <span class="ml-3">Another View</span>
-            </div>
-        </Card>
-    </article>
-
-</section>
+</PageWrapper>

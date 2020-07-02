@@ -8,42 +8,36 @@
      *
      */
 
+
     //* page set-up boilerplate *************************************
 
-        //** setup props to receive route data
+        //** setup props to receive route data (optional)
         export let currentRoute;
         export let params;
 
-        //** get page text information and set contexts for children components
-        import {lang} from '/imports/client/systemStores'
+        //** page specific text and configuration
         import {header, page} from './home_text'
 
-        //** app services
-        import { setContext, getContext } from 'svelte';
-        setContext("pageHdr", header);
-        setContext("pageText", page);
-
-        //** get the page header common component; component get gets its own translated text
-        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+        //** app support files
+        import { setContext } from 'svelte';
+        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
 
 
-
     //* page body support **************************
     import {i18n} from '/imports/functions/i18n'
+    import {lang} from '/imports/client/systemStores'
     let pageText = i18n(page, "page", $lang);
-    import TabContent from '/imports/components/widgets/tabbedContent.svelte'
 
+    setContext("pageText", page);
+    import TabContent from '/imports/components/widgets/tabbedContent.svelte'
 
 </script>
 
 
 
-<Hdr />
-
-
-<section class="page-body">
+<PageWrapper {header} >
 
     <section class="buffer-y-large">
         <div class="columns is-vcentered">
@@ -122,7 +116,8 @@
         <div class="content">{@html pageText.definition}</div>
     </section>
 
-</section>
+</PageWrapper>
+
 
 
 <style>
