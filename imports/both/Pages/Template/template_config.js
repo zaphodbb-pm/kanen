@@ -9,7 +9,7 @@
  * @returns {Object} - {components, widgets}
  */
 
-export default {
+export const pageConfig =  {
 
     components: {},
 

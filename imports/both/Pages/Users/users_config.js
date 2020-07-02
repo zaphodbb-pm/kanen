@@ -11,7 +11,7 @@
 
 import {components} from '/imports/client/setup/systemGlobals'
 
-export default {
+export const pageConfig =  {
 
     form: {
         coll:       "users",            // target collection to send submit to

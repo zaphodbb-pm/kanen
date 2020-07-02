@@ -13,13 +13,17 @@
 //** page header; set to null to not display header or a specific item
 export const header = null;
 
+
 /*
 export const header = {
-    title:  {en: "Home Page"},
-    lead:   {en: "Welcome to Kanen - the seedling starter package"},
-    body:   {en: "Introduction to Kanen."},
+    en: {
+        title:  "Home Page",
+        lead:   "Welcome to Kanen - the seedling starter package",
+        body:   "Introduction to Kanen.",
+    }
 };
  */
+
 
 
 export const page = {
@@ -35,18 +39,6 @@ export const page = {
             title: {en: "Card Title"},
             image: null,
             footer: {en: ["Saver", "Ed", "Del"]}
-        },
-
-        list: {
-            name: {en: "Name"}
-        },
-
-        form: {
-            name: {en: "Name"}
-        },
-
-        widget: {
-            title: {en: "Title"}
         }
     }
 };

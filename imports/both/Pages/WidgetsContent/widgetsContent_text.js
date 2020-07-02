@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Tab Widgets"},
-    lead:   {en: "A variety of tabbed content widgets"},
-    body:   {en: ""},
+    en: {
+        title:  "Tab Widgets",
+        lead:   "A variety of tabbed content widgets",
+        body:   "",
+    }
 };
 
 
@@ -50,7 +52,7 @@ export const page = {
                     icon: "iconDoc",
                     label: "Docs",
                     text: "<p>Third tab has extra long text.  This is formed into sentences and maybe also paragraphs.</p></br>" +
-                        "<p> Note that this area also supports html codes because we know the source is reliable.</p>",
+                        "<p> <b>Note</b> that this area also supports html codes because we know the source is reliable.</p>",
                     dbContent: null
                 },
             ]

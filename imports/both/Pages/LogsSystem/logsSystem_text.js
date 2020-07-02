@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "LogsSystem Page"},
-    lead:   {en: "Adjust certain system parameters on the fly."},
-    body:   {en: ""},
+    en: {
+        title:  "LogsSystem Page",
+        lead:   "Adjust certain system parameters on the fly.",
+        body:   "",
+    }
 };
 
 

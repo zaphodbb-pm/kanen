@@ -13,9 +13,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Kanen - A Seedling Starter Package"},
-    lead:   {en: ""},
-    body:   {en: ""},
+    en: {
+        title:  "Kanen - A Seedling Starter Package",
+        lead:   "",
+        body:   "",
+    }
 };
 
 

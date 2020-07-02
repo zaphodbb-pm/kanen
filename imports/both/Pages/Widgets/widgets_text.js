@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Widgets"},
-    lead:   {en: "A variety of widgets and their config objects."},
-    body:   null //{en: "Supporting text for header"},
+    en: {
+        title:  "Widgets",
+        lead:   "A variety of widgets and their config objects.",
+        body:   null //"Supporting text for header",
+    }
 };
 
 

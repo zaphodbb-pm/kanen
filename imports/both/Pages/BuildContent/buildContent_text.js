@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "BuildContent Page"},
-    lead:   {en: "Add Wiki like content for display"},
-    body:   {en: ""},
+    en: {
+        title:  "BuildContent Page",
+        lead:   "Add Wiki like content for display",
+        body:   "",
+    }
 };
 
 

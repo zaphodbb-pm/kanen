@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Learn Page"},
-    lead:   {en: "Set of learn pages"},
-    body:   {en: ""},
+    en: {
+        title:  "Learn Page",
+        lead:   "Set of learn pages",
+        body:   "",
+    }
 };
 
 

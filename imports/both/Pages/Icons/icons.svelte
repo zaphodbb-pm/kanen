@@ -11,29 +11,23 @@
 
     //* page set-up boilerplate *************************************
 
-        //** setup props to receive route data
+        //** setup props to receive route data (optional)
         export let currentRoute;
         export let params;
 
-        //** get page text information and set contexts for children components
-        import {i18n} from '/imports/functions/i18n'
-        import {lang} from '/imports/client/systemStores'
+        //** page specific text and configuration
         import {header, page} from './icons_text'
 
-        //** app services (getContext is often optional)
-        import { setContext, getContext, onMount, onDestroy } from 'svelte';
-        setContext("pageHdr", header);
-        setContext("pageText", page);
-
-        //** get the page header common component; component get gets its own translated text from "pageText" context
-        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+        //** app support files
+        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
 
 
-
-
     //* page body support **************************
+    import {i18n} from '/imports/functions/i18n'
+    import {lang} from '/imports/client/systemStores'
+
     import {mainIcons} from '/imports/client/setup/systemIcons'
     import Icon from '/imports/components/elements/icon.svelte'
 
@@ -45,10 +39,7 @@
 
 
 
-<Hdr />
-
-
-<section class="page-body">
+<PageWrapper {header} >
 
     <div class="content is-family-secondary">{i18n(page.page, "count", $lang) + allIcons.length}</div>
 
@@ -73,4 +64,4 @@
         {/each}
     </div>
 
-</section>
+</PageWrapper>

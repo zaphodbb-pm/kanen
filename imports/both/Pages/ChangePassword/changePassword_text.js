@@ -11,9 +11,11 @@
 
 //** page header; set to null to not display header or a specific item
 export const header = {
-    title:  {en: "Change Password Form"},
-    lead:   {en: "Start with your old password and then enter a new one."},
-    body:   {en: ""},
+    en: {
+        title:  "Change Password Form",
+        lead:   "Start with your old password and then enter a new one.",
+        body:   "",
+    }
 };
 
 

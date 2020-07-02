@@ -11,40 +11,33 @@
 
     //* page set-up boilerplate *************************************
 
-        //** setup props to receive route data
+        //** setup props to receive route data (optional)
         export let currentRoute;
         export let params;
 
-        //** get page text information and set contexts for children components
-        import {i18n} from '/imports/functions/i18n'
-        import {lang} from '/imports/client/systemStores'
+        //** page specific text and configuration
         import {header, page} from './myProfile_text'
+        import {pageConfig} from './myProfile_config'
 
-        //** app services (getContext is often optional)
-        import { setContext, getContext, onMount, onDestroy } from 'svelte';
-        setContext("pageHdr", header);
-        setContext("pageText", page);
-
-        //** (optional) get component configuration information and set contexts for children components
-        import pageConfig from './myProfile_config'
-        setContext("pageConfig", pageConfig);
-
-        //** get the page header common component; component get gets its own translated text from "pageText" context
-        import Hdr from '/imports/both/pageStructure/PageHeader.svelte'
+        //** app support files
+        import { onMount } from 'svelte';
+        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
 
 
 
     //* page-body support **************************
-    import config from './myProfile_config'
+    import {i18n} from '/imports/functions/i18n'
+    import {lang} from '/imports/client/systemStores'
+
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
     import schema from './myProfile_form_schema'
 
     let formText = i18n(page, "form", $lang);
 
     //* local reactive variables
-    let conf = config;
+    let conf = pageConfig;
     let role = "";
     let editdoc = {};
     let directdoc = {};
@@ -94,11 +87,9 @@
 
 
 
-<Hdr />
 
+<PageWrapper {header} >
 
-
-<div class="columns">
     <div id="my-profile-display" class="column">
 
         <Form_Holder
@@ -112,4 +103,5 @@
                 on:doc-submitted="{docSent}"/>
 
     </div>
-</div>
+
+</PageWrapper>
