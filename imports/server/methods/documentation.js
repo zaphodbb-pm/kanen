@@ -41,6 +41,35 @@ Meteor.methods({
 
 
     /**
+     * Meteor method to get formatted documentation.
+     *
+     * @memberof Methods
+     * @function fetchDocumentation
+     * @isMethod true
+     * @locus Server
+     *
+     * @returns []
+     */
+
+    fetchDocumentation: function () {
+        let documentation = [];
+
+        if (Meteor.settings.require_documentation) {
+
+            try {
+                documentation = Assets.getText("documentation.json");
+                documentation = JSON.parse(documentation);
+                documentation = reformatDoc(documentation);
+            } catch (err) {
+                console.log("err", err);
+            }
+        }
+
+        return documentation;
+    },
+
+
+    /**
      * Meteor method to scan for svelte generated jsdoc file and remove them.
      *
      * @memberof Methods
@@ -126,70 +155,49 @@ Meteor.methods({
      */
 
 
-    fetchDocumentation: function () {
+    buildDocumentation: function () {
         let documentation = [];
 
         if (Meteor.settings.require_documentation) {
-            let docCheck = false;
+            let rawDoc = Assets.getText("raw-documentation.json");
+            let getDoc = JSON.parse(rawDoc);
 
-            /*
-            //** check if the raw documentation has been processed
-            let docCheck = null;
+            let filteredDocs = getDoc.filter(function (rd) {
+                if (!rd["undocumented"]) {
+                    let temp = rd;
 
-            try {
-                docCheck = Assets.getText("documentation.json");
-            } catch (err) {
-                console.log("err", err);
-            }
-
-             */
-
-            //** if raw doc not processed, then read raw doc and prepare for display
-            if (!docCheck) {
-                let rawDoc = Assets.getText("raw-documentation.json");
-                let getDoc = JSON.parse(rawDoc);
-
-                let filteredDocs = getDoc.filter(function (rd) {
-                    if (!rd["undocumented"]) {
-                        let temp = rd;
-
-                        if (rd["tags"]) {
-                            rd["tags"].forEach(function (item) {
-                                temp[item.title] = item.value;
-                            });
-                        }
-
-                        delete temp.tags;
-                        delete temp.comment;
-
-                        return temp;
+                    if (rd["tags"]) {
+                        rd["tags"].forEach(function (item) {
+                            temp[item.title] = item.value;
+                        });
                     }
-                });
 
-                let setJson = JSON.stringify(filteredDocs);
+                    delete temp.tags;
+                    delete temp.comment;
 
-                documentation = formatDocumentation(setJson);
+                    return temp;
+                }
+            });
 
-                let fs = Npm.require('fs');
+            documentation = formatDocumentation(filteredDocs);
+            documentation = JSON.stringify(filteredDocs);
 
-                fs.writeFile(process.env["PWD"] + "/private/documentation.json", setJson, "utf8",
-                    function (err) {
-                        if (err) throw err;
-                        console.log('File write json done!');
-                    }
-                );
-            } else {
-                documentation = formatDocumentation(docCheck);
-            }
+            let fs = Npm.require('fs');
 
-            console.log("fetchDocumentation finished");
+            fs.writeFile(process.env["PWD"] + "/private/documentation.json", documentation, "utf8",
+                function (err) {
+                    if (err) throw err;
+                    console.log('File write json done!');
+                }
+            );
+
+        console.log("buildDocumentation finished");
         }
-
-        //return documentation;
-
-        return reformatDoc(documentation);
     }
 });
+
+
+
 
 
 function walk(dir, extension) {
@@ -215,7 +223,9 @@ function walk(dir, extension) {
 
 
 function formatDocumentation(documentationFile) {
-    let doc = JSON.parse(documentationFile);
+    //let doc = JSON.parse(documentationFile);
+
+    let doc = documentationFile;
     let out = [];
     let path = process.env["PWD"];
 

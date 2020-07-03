@@ -50,12 +50,10 @@
             location: "At a pub near you",
             msg: "Test Message",
             notifyId:  "abcdefg",
-            itemId: "itenid-12345",
+            itemId: "itemid-12345",
             timeAgo: timeAgo(Date.now() - 1000 * 3600 * 2 ),
             type: "INFO",
         }
-
-
 
         let unread = {};
         unread[me._id] = true;
@@ -71,8 +69,8 @@
             limit: itemsToShow
         };
 
-        let notifications = await getDocs("notifications", "allFields", query, options);
-        itemsLen = await getDocs("notifications", "count", query, {});
+        let notifications = await getDocs("notifications", "schemaLong", query, options);
+        itemsLen = await getDocs("notifications", "schemaLong_count", query, {});
 
         items = notifications.map( (int) => {
             let out = int.msg;
