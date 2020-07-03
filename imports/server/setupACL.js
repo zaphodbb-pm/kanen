@@ -5,15 +5,16 @@
  * @function setupACL
  * @locus Server
  *
- * @param {Object} - starter_access_control
- * @param {Object} - buildContent_access_control
- * @param {Object} - learn_access_control
- * @param {Object} - pubSub_access_control
- * @param {Object} - users_access_control
- * @param {Object} - logsSystem_access_control
- * @param {Object} - logsUsers_access_control
+ * @param {Object} starter_access_control
+ * @param {Object} buildContent_access_control
+ * @param {Object} learn_access_control
+ * @param {Object} pubSub_access_control
+ * @param {Object} users_access_control
+ * @param {Object} logsSystem_access_control
+ * @param {Object} logsUsers_access_control
+ * @param {Object} notifications_acl
  *
- * @returns {Object} - accessControl
+ * @returns {Object} accessControl
  */
 
 let acl = {};

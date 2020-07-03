@@ -1,13 +1,13 @@
 <script>
     /**
-     * @summary Vue checkbox with switch css.
+     * @summary Checkbox with switch css.
      *
      * @memberof Components:Form
      * @function switch
      * @locus Client
      * @augments fieldWrapper
      *
-     * @param {Object} - isCheck ? true = checkbox : else = toggle
+     * @param {Object} field with field.params.isCheck ? true = checkbox : else = toggle
      *
      * @emits 'on-inputentry' {value: value, error: errorVal} with boolean
      *

@@ -16,7 +16,7 @@
      *
      * @return nothing
      *
-     * @see bulma.io documentation for {https://bulma.io/documentation/components/tabs/|tabs}
+     * @see bulma.io documentation for {@link https://bulma.io/documentation/components/tabs/|tabs}
      *
      * @notes
      * 1. Standalone component that gets a configuration object from its parent

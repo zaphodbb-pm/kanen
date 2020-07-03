@@ -48,7 +48,7 @@ Meteor.methods({
      * @isMethod true
      * @locus Server
      *
-     * @returns []
+     * @returns {Array} of objects {label, list}
      */
 
     fetchDocumentation: function () {
@@ -104,7 +104,7 @@ Meteor.methods({
      * @summary Uses Meteor-jsdoc data file to display project documentation in the project itself.
      *
      * @memberof Methods
-     * @function fetchDocumentation
+     * @function buildDocumentation
      * @isMethod true
      * @locus Server
      *
@@ -223,8 +223,6 @@ function walk(dir, extension) {
 
 
 function formatDocumentation(documentationFile) {
-    //let doc = JSON.parse(documentationFile);
-
     let doc = documentationFile;
     let out = [];
     let path = process.env["PWD"];

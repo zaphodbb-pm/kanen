@@ -10,7 +10,7 @@
      * @param {String}  tocHeader - header text for ToC box
      * @param {String}  pageid - page id
      *
-     * @returns nothing - emits "getpage" with string = id of page to fetch
+     * @emits 'getpage' with string = id of page to fetch
      *
      */
 

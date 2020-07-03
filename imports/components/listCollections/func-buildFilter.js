@@ -1,10 +1,10 @@
 /**
- * @summary  Common routine to calculate MongoDb filters to streamline search.
+ * @summary  Common routine to calculate MongoDB filters to streamline search.
  *
  * @memberof Components:List
  * @function buildFilter
  * @locus Client
- * @augments vue-listHolder
+ * @augments listHolder
  *
  * @param {Number} numItems - Integer: from rows/page selector to set number documents to fetch
  * @param {Number} start - Integer: the pointer to where to start getting numItems
@@ -13,7 +13,7 @@
  * @return {{start: number, end: number, filterSubscribe: {sort: {}, limit: number}, filterSearch: {sort: {}, skip: number, limit: number}}}
  *
  * @example
- *  Output =            Object
+ *  Output =            Object:
  *      start =         Integer: calulated positin in document list
  *      end =           Integer: number documents to display
  *      filterSubscribe = Object: used to limit the subscription size

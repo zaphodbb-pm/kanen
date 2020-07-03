@@ -1,6 +1,6 @@
 <script>
     /**
-     * @summary Vue based accordion content add in structured for displaying jsdoc information.
+     * @summary Accordion content add-in structured for displaying jsdoc information.
      *
      * @memberof Components:Widgets
      * @function pagedContent

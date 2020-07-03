@@ -2,7 +2,7 @@
  * @summary Text for complex fieldset rows on the Starter page.
  *
  * @memberof Pages:Starter
- * @function companies_form_text_rows
+ * @function starter_form_text_rows
  * @locus Client
  * @augments starter_form
  *
@@ -10,12 +10,10 @@
  *
  * @notes
  *    Field types set:
- *      td0 = input field - name of spending account
- *      td1 = input field - number: allotment ($/year)
- *      td2 = input field - number: percent matching
- *      td3 = switch - amortize
- *      td4 = static select - not used
- *      td5 = dynamic typeahead -  not used
+ *      field1 = input field text
+ *      field2 = input field number
+ *      field3 = input field select
+ *      field4 = switch
  */
 
 
@@ -65,51 +63,3 @@ export default {
         defaultValue: true,
     }
 };
-
-
-
-
-
-/*
-export default [
-        {
-            field: "td0",
-            fieldType: "input",
-
-            attributes: {type: "text"},
-            params: {},
-            optional: true,
-            defaultValue: "",
-        },
-
-        {
-            field: "td1",
-            fieldType: "input",
-
-            attributes: {type: "number", min: 0, step: 1},
-            params: {},
-            optional: true,
-            defaultValue: "",
-        },
-
-        {
-            field: "td2",
-            fieldType: "input",
-
-            attributes: {type: "number", min: 0, max: 100, step: 1},
-            params: {},
-            optional: true,
-            defaultValue: "",
-        },
-
-        {
-            field: "td3",
-            fieldType: "switch",
-
-            attributes: {},
-            params: {},
-            optional: true,
-            defaultValue: "",
-        }
-    ];
-*/

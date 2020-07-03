@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * Svelte info block.
+     * Info box with optional progress bar.
      *
      * @memberof Components:Widgets
      * @function infobox
