@@ -16,7 +16,6 @@
  * @returns {Object} - accessControl
  */
 
-
 let acl = {};
 
 //* load client accessable collections
@@ -35,6 +34,12 @@ import logsSystem from '/imports/both/Pages/LogsSystem/logsSystem_access_control
 import logsUsers from '/imports/both/Pages/LogsUsers/logsUsers_access_control'
 
 acl = Object.assign(acl, users, sysConfig,  logsSystem, logsUsers);
+
+
+//* load special collections
+import {notifications_acl} from './specialACL'
+
+acl = Object.assign(acl, notifications_acl);
 
 
 export const accessControl = acl;

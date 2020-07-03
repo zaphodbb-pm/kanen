@@ -153,6 +153,7 @@ Meteor.methods({
 
         if(acl){
             let projection = type.replace("_one", "");
+            projection = type.replace("_count", "");
             let fields = acl[projection] ? {fields: acl[projection] } : {};
 
             //* build query object
@@ -166,10 +167,17 @@ Meteor.methods({
             query = Object.assign( query, access, filter );
             opts = Object.assign(options, fields);
 
-            if( type.includes("_one") ){
-                docs = Mongo.Collection.get(acl.coll).findOne( query, opts );
-            }else{
-                docs = Mongo.Collection.get(acl.coll).find( query, opts ).fetch();
+            switch(true){
+                case type.includes("_one"):
+                    docs = Mongo.Collection.get(acl.coll).findOne( query, opts );
+                    break;
+
+                case type.includes("_count"):
+                    docs = Mongo.Collection.get(acl.coll).find( query, opts ).count();
+                    break;
+
+                default:
+                    docs = Mongo.Collection.get(acl.coll).find( query, opts ).fetch();
             }
         }
 
