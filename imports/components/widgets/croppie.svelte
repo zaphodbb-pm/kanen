@@ -10,7 +10,7 @@
      *
      * @emits 'croppie-result' - {String}
      *
-     * @see https://github.com/foliotek/croppie
+     * @see {@link https://github.com/foliotek/croppie}
      *
      */
 

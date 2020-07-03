@@ -8,7 +8,8 @@
      * @function PageWrapper
      * @locus Client
      *
-     * @param {Object} - header
+     * @param {Object} header
+     *
      */
 
     //* props

@@ -9,7 +9,7 @@
  * @param {Number} wait - timeout in ms (default "100")
  * @param {Boolean} immediate - whether to execute at the beginning (default "false")
  *
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @see {@link http://unscriptable.com/2009/03/20/debouncing-javascript-methods/|debounce}
  *
  * @notes
  * The function will be called after it stops being called for N milliseconds.
