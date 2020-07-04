@@ -37,16 +37,19 @@
     import Wiki_Content from './wiki_content.svelte'
     import Search_Box from '/imports/components/listCollections/searchbox.svelte'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
+    import Modal_User from '/imports/components/blocks/modalUser.svelte'
 
     let formText = i18n(page, "form", $lang);
     setContext("formText", formText);
+    setContext("pageText", page);
+
     let toc = i18n(page, "components", $lang).toc;
 
     //* local reactive variables
-    let showModalUser = false
-    let modalInfoUser = {};
-    let modalTitleUser = "title"; //text.modalTitleUser,
+    let showModal = false;
+    let modalInfo = {profile: {}};
     let langComp = "all";
+    let mode = true;
 
     let info = {
         lang: "all",
@@ -71,7 +74,7 @@
     });
 
     function checkStateUser(msg) {
-        showModalUser = msg.detail;
+        showModal = msg.detail;
     }
 
     function selectPage(msg) {
@@ -92,6 +95,10 @@
             langComp = field.value._id;
             buildToC();
         }
+    }
+
+    function readMode(msg){
+        mode = msg.detail.value;
     }
 
     async function findDocs(query) {
@@ -117,12 +124,12 @@
     }
 
     async function showAuthor(msg) {
-        modalInfoUser = await getDocs("employees", "listList", {_id:  msg.detail._id}, {});
-        showModalUser = true;
+        modalInfo = await getDocs("authors", "listLong_one", {_id:  msg.detail._id}, {});
+        showModal = true;
     }
 
     function closeModal() {
-        showModalUser = false;
+        showModal = false;
     }
 
     async function buildToC() {
@@ -165,7 +172,6 @@
 
     <div class="columns">
         <div class="column is-one-fifth-fullhd is-one-quarter-desktop is-one-third-tablet">
-
             <Field_Wrapper
                     class=""
                     field="{pageConfig.components.getLang}"
@@ -176,6 +182,14 @@
 
         <div class="column">
             <Search_Box fields="{info.fields}" on:search-changed="{newSearch}" />
+        </div>
+
+        <div class="column is-one-quarter">
+            <Field_Wrapper
+                    class=""
+                    field="{pageConfig.components.readMode}"
+                    watchFields="{ {} }"
+                    on:field-changed="{readMode}"/>
         </div>
     </div>
 
@@ -196,6 +210,7 @@
                     pageid="{info.pageid}"
                     showList="{info.showList}"
                     list="{info.list}"
+                    {mode}
                     on:push-author="{showAuthor}"
                     on:getpage="{selectPage}" />
 
@@ -203,15 +218,6 @@
 
     </div>
 
-
-    <!--
-    <vue-modal-member
-            v-bind:show-modal="showModalUser"
-            v-bind:document="modalInfoUser"
-            v-bind:type="'user'"
-            v-on:modalState="checkStateUser">
-
-    </vue-modal-member>
-    -->
+    <Modal_User text="modal" {showModal} {modalInfo} on:modalState={checkStateUser}/>
 
 </PageWrapper>

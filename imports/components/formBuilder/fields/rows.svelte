@@ -38,7 +38,7 @@
     import {generateId} from '/imports/functions/generateId'
     import Icon from '/imports/components/elements/icon.svelte'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
-    import Sortable from '/imports/components/blocks/rowDragDrop.svelte'
+    import Sortable from '/imports/components/elements/rowDragDrop.svelte'
     import {getContext,  setContext, createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 

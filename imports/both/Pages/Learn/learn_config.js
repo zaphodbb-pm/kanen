@@ -22,5 +22,16 @@ export const pageConfig =  {
             params: {type: "staticSelect"},
             defaultValue: {_id: "all", name: "All Options"},
         },
+
+        readMode: {
+            field: "readMode",
+            fieldType: "switch",
+            optional: true,
+
+            css: "is-fullwidth",
+            attributes: {},
+            params: {},
+            defaultValue: true,
+        },
     }
 };

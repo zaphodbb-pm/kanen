@@ -38,9 +38,9 @@ acl = Object.assign(acl, users, sysConfig,  logsSystem, logsUsers);
 
 
 //* load special collections
-import {notifications_acl} from './specialACL'
+import {notifications_acl, authors_acl} from './specialACL'
 
-acl = Object.assign(acl, notifications_acl);
+acl = Object.assign(acl, notifications_acl, authors_acl);
 
 
 export const accessControl = acl;
