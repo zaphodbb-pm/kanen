@@ -29,9 +29,11 @@
     //* page-body support **************************
     import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/client/systemStores'
+    import {messages} from '/imports/client/systemStores'
 
     import {getDocs} from '/imports/functions/getDocs'
     import {sortBy} from '/imports/functions/sortBy'
+    import {generateId} from '/imports/functions/generateId'
 
     import Wiki_Toc from './wiki_toc.svelte'
     import Wiki_Content from './wiki_content.svelte'
@@ -44,18 +46,16 @@
     setContext("pageText", page);
 
     let toc = i18n(page, "components", $lang).toc;
+    let msgText = i18n(page, "components", $lang).messages;
 
     //* local reactive variables
     let showModal = false;
-    let modalInfo = {profile: {}};
     let langComp = "all";
     let mode = true;
     let docId = "";
 
     let info = {
         lang: "all",
-        crew: "none",
-
         tocTitles: [],
         pageid: "",
 
@@ -80,11 +80,29 @@
     }
 
     function addEvent(msg){
-        console.log("addEvent", msg.detail);
+        let newMsg = {
+            color: "is-primary is-light",
+            closable: true,
+            duration: 5000,
+            hasIcon: "iconBeer",
+            text: msgText.msgAddEvent,
+            id: generateId(6)
+        }
+
+        $messages = [... $messages, newMsg];
     }
 
     function removeEvent(msg){
-        console.log("removeEvent", msg.detail);
+        let newMsg = {
+            color: "is-danger is-light",
+            closable: true,
+            duration: 0,
+            hasIcon: "iconStatus",
+            text: msgText.msgRemoveEvent,
+            id: generateId(6)
+        }
+
+        $messages = [... $messages, newMsg];
     }
 
     function selectPage(msg) {
