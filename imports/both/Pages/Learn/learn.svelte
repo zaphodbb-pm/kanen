@@ -50,6 +50,7 @@
     let modalInfo = {profile: {}};
     let langComp = "all";
     let mode = true;
+    let docId = "";
 
     let info = {
         lang: "all",
@@ -73,8 +74,17 @@
         buildToC({});
     });
 
+    //* event handlers
     function checkStateUser(msg) {
         showModal = msg.detail;
+    }
+
+    function addEvent(msg){
+        console.log("addEvent", msg.detail);
+    }
+
+    function removeEvent(msg){
+        console.log("removeEvent", msg.detail);
     }
 
     function selectPage(msg) {
@@ -101,6 +111,16 @@
         mode = msg.detail.value;
     }
 
+    async function showAuthor(msg) {
+        docId = msg.detail._id;
+        showModal = true;
+    }
+
+    function closeModal() {
+        showModal = false;
+    }
+
+    //* support functions
     async function findDocs(query) {
         const sort = {sort: {name: 1}, limit: 100};
         let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": {$in: [langComp, "all"]} };
@@ -121,15 +141,6 @@
             info.list = null;
             info.showList = false;
         }
-    }
-
-    async function showAuthor(msg) {
-        modalInfo = await getDocs("authors", "listLong_one", {_id:  msg.detail._id}, {});
-        showModal = true;
-    }
-
-    function closeModal() {
-        showModal = false;
     }
 
     async function buildToC() {
@@ -218,6 +229,12 @@
 
     </div>
 
-    <Modal_User text="modal" {showModal} {modalInfo} on:modalState={checkStateUser}/>
+    <Modal_User
+            text="modal"
+            {showModal}
+            {docId}
+            on:modal-addEvent={addEvent}
+            on:modal-removeEvent={removeEvent}
+            on:modalState={checkStateUser}/>
 
 </PageWrapper>
