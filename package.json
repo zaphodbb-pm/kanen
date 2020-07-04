@@ -21,6 +21,7 @@
     "svelte-loadable": "^1.5.0",
     "svelte-router-spa": "^5.6.0",
     "sveltedoc-parser": "^2.3.4",
+    "tiny-cookie": "^2.3.2",
     "underscore": "^1.10.2"
   }
 }

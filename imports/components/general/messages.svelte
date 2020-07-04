@@ -1,10 +1,10 @@
 <script>
 
     /**
-     * @summary Vue notifications widgets.
+     * @summary Messages component to handle system wide notifications.
      *
-     * @memberof Components_Vue
-     * @function vue-notification
+     * @memberof Components:General
+     * @function messages
      * @locus Client
      * @isTemplate true
      *

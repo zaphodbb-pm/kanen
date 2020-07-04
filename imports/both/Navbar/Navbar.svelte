@@ -22,8 +22,9 @@
     import {lang} from '/imports/client/systemStores'
 
     //* get page text information and set contexts for children components
-    import {navbar} from './Navbar_text'
+    import {navbar, gdpr} from './Navbar_text'
     setContext("navbar", i18n(navbar, "", $lang) );
+    setContext("gdprNotice", i18n(gdpr, "", $lang) );
 
     //* components
     import Navbar_Brand from './Navbar_Brand.svelte'
@@ -32,6 +33,7 @@
     import SideNav from './NavSideMenu.svelte'
     import AsideNav from './asideNavWrapper.svelte'
     import Messages from '/imports/components/general/messages.svelte'
+    import GDPR from '/imports/components/general/gdprNotice.svelte'
 
     import Notifications from '/imports/components/elements/notifications.svelte'
     import UserProfile from '/imports/components/elements/userProfile.svelte'
@@ -117,4 +119,9 @@
             </div>
         {/each}
     </div>
+</aside>
+
+
+<aside>
+    <GDPR />
 </aside>
