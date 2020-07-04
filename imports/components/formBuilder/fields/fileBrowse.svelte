@@ -21,7 +21,7 @@
     export let field = {};
 
     //* support functions
-    import {documents} from '/imports/client/setup/systemGlobals'
+    import {documents} from '/imports/both/systemGlobals'
     import {fileReader} from '/imports/client/setup/textCommon'
     import Icon from '/imports/components/elements/icon.svelte'
     import Crop_Image from '/imports/components/widgets/croppie.svelte'

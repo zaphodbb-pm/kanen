@@ -10,7 +10,7 @@
  */
 
 
-import {colors, colorArrays} from '/imports/client/setup/systemGlobals'
+import {colors, colorArrays} from '/imports/both/systemGlobals'
 
 export const pageConfig =  {
 

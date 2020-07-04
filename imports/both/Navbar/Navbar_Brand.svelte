@@ -10,7 +10,7 @@
      *
      */
 
-    import {layout} from '/imports/client/setup/systemGlobals'
+    import {layout} from '/imports/both/systemGlobals'
 
     import Icon from '/imports/components/elements/icon.svelte'
     import { getContext } from 'svelte';

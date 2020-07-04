@@ -23,7 +23,7 @@
     const dispatch = createEventDispatcher();
 
     //* support files
-    import {elements} from '/imports/client/setup/systemGlobals'
+    import {elements} from '/imports/both/systemGlobals'
 
     //* props
     export let btnEdit;

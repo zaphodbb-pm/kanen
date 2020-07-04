@@ -9,7 +9,7 @@
  * @returns {Object}
  */
 
-import {components} from '/imports/client/setup/systemGlobals'
+import {components} from '/imports/both/systemGlobals'
 
 export const pageConfig =  {
 

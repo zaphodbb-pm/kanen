@@ -1,4 +1,4 @@
-import {components} from "../../../client/setup/systemGlobals";
+import {components} from "../../systemGlobals";
 
 /**
  * Configuration for MyProfile components (optional).

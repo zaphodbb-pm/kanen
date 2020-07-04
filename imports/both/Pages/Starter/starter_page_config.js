@@ -9,7 +9,7 @@
  * @returns {Object}
  */
 
-import {components} from '/imports/client/setup/systemGlobals'
+import {components} from '/imports/both/systemGlobals'
 import grid from './starter_grid.svelte'
 
 export const pageConfig =  {
