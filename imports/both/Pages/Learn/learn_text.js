@@ -44,10 +44,12 @@ export const page = {
                 addEvent: "Add",
                 removeEvent: "Remove",
 
-                sendAddEvent: "Add Event clicked",
-                sendRemoveEvent: "Remove Event clicked",
-
                 noAccess: "You do not have the privileges to access to this information."
+            },
+
+            messages: {
+                msgAddEvent: "Add event button clicked",
+                msgRemoveEvent: "Remove event button clicked",
             }
         }
     },

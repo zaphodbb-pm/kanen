@@ -42,3 +42,7 @@ export let userLoggedIn = writable( null);
 //* set extra route information
 export let showRoutes = writable( [] );
 export let lastRoute = writable( [] );
+
+
+//* build communication channels
+export let messages = writable( [] );       // general messages to display

@@ -51,7 +51,8 @@
   top: 5rem;
   right: 1rem;
   width: 25rem;
-  height: 100%;
+  max-height: 100%;
+  z-index: 40;
 }
 
 /** modal box extra **/

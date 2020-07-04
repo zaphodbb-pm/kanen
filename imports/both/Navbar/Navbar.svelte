@@ -12,6 +12,7 @@
     export let currentRoute;
 
     //* support files
+    import {messages} from '/imports/client/systemStores'
     import {layout} from '/imports/both/systemGlobals'
     import {createEventDispatcher, setContext, getContext} from 'svelte'
     const dispatch = createEventDispatcher();
@@ -30,6 +31,7 @@
     import NavShortcuts from './NavCondensedMenu.svelte'
     import SideNav from './NavSideMenu.svelte'
     import AsideNav from './asideNavWrapper.svelte'
+    import Messages from '/imports/components/general/messages.svelte'
 
     import Notifications from '/imports/components/elements/notifications.svelte'
     import UserProfile from '/imports/components/elements/userProfile.svelte'
@@ -39,6 +41,12 @@
     let theme = "light";        // "light" or "dark" background
     let side = "left";          // "left" or "right" entry
     let open = false;           // hamburger state true = "open"; false = "closed"
+
+    //** event handlers
+    function messageEnd(msg){
+        let removeMsg = $messages;
+        $messages = removeMsg.filter( (m) => m.id !== msg.detail);
+    }
 
 </script>
 
@@ -99,3 +107,14 @@
 <AsideNav bind:open {theme} {side} >
     <SideNav {currentRoute} {theme} on:side-link-selected={() => open = false} />
 </AsideNav>
+
+
+<aside id="notification-display" class="mt-4">
+    <div class="alert-box-wrapper">
+        {#each $messages as message (message.id)}
+            <div class="my-2">
+                <Messages msg="{message}" on:message-close={messageEnd}/>
+            </div>
+        {/each}
+    </div>
+</aside>
