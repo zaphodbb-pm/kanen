@@ -16,7 +16,7 @@
 
 
     //* support files
-    import {colors} from '/imports/client/setup/systemGlobals'
+    import {colors} from '/imports/both/systemGlobals'
     import Icon from '/imports/components/elements/icon.svelte'
     import {getDocs} from '/imports/functions/getDocs'
     import {timeAgo} from '/imports/functions/timeAgo'

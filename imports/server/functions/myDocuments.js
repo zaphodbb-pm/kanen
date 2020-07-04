@@ -16,12 +16,6 @@
 
 
 export function myDocuments(obj, user, rolesIn) {
-
-    //* ensure that not-logged-in users can not get at docs.
-    if (!user) {
-        return null;
-    }
-
     //* get roles information
     let out = null;
     let roles = rolesIn ? rolesIn : [];
@@ -30,12 +24,12 @@ export function myDocuments(obj, user, rolesIn) {
     //* check user access
     switch(true){
         case roles.includes("all"):
-        case user.admin:
-        case user.role && (user.role._id === "administrator"):
+        case user && user.admin:
+        case user && user.role && (user.role._id === "administrator"):
             out = obj;
             break;
 
-        case user.role && roles.includes(user.role._id):
+        case user && user.role && roles.includes(user.role._id):
             //** modify query to include only my documents
             let addQuery = {};
             let key = roles.includes("author") ? "author" : null;

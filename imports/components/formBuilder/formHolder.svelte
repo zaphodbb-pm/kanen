@@ -73,7 +73,7 @@
     setContext("formConfig", config);
 
     //* get application specific support libraries
-    import {elements} from '/imports/client/setup/systemGlobals'
+    import {elements} from '/imports/both/systemGlobals'
     import {getDocs} from '/imports/functions/getDocs'
     import {submitForm} from './func-submitForm'
     import {orgFields} from "./func-orgFields";

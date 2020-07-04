@@ -12,7 +12,7 @@
     export let currentRoute;
 
     //* support files
-    import {layout} from '/imports/client/setup/systemGlobals'
+    import {layout} from '/imports/both/systemGlobals'
     import {createEventDispatcher, setContext, getContext} from 'svelte'
     const dispatch = createEventDispatcher();
 

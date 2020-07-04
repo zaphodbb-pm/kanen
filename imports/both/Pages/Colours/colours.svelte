@@ -28,7 +28,7 @@
     import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/client/systemStores'
 
-    import { colors, components, theme } from '/imports/client/setup/systemGlobals'
+    import { colors, components, theme } from '/imports/both/systemGlobals'
 
     let swatches = Object.entries(colors);
     let boxes = Object.entries(components);

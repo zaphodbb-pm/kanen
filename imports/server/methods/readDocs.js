@@ -3,68 +3,10 @@ import {Match} from 'meteor/check'
 import {check} from 'meteor/check'
 import {accessControl} from '/imports/server/setupACL'
 import {myDocuments} from '/imports/server/functions/myDocuments'
+import {documents} from  '/imports/both/systemGlobals'
 
 
 Meteor.methods({
-
-    /**
-     * Meteor method to query server directly for documents from LogsSystem and map to a return object.
-     *
-     * @memberof Methods
-     * @function navbarMessages
-     * @isMethod true
-     * @locus Server
-     *
-     * @returns {Object} Obj - transforms database data into a displayable message object
-     * @returns {String} Obj:title - message event name
-     * @returns {String} Obj:name - label
-     * @returns {String} Obj:desc - more detailed description
-     * @returns {String} Obj:timeAgo - relative time from now
-     * @returns {String} Obj:icon - name of icon to show; ie "USER" or "GEARS"
-     *
-     */
-
-    /*
-    navbarMessages: function () {
-
-        const query = LogsSystem.createQuery({
-
-            $options: {
-                sort: {timeStamp: -1},
-                limit: 5,
-            },
-
-            timeStamp: 1,
-
-            data: {
-                event: 1,
-                user: 1,
-                app: 1,
-                description: 1,
-            }
-
-        });
-
-        let messages = query.fetch();
-
-        //** map database fields into an array of displayable objects at the client
-        let out = [];
-
-        if (Array.isArray(messages) && messages.length > 0) {
-            out = messages.map(function (item) {
-                return {
-                    title: item.data.event,
-                    name: item.data.user ? item.data.user : (item.data.app ? item.data.app : "empty"),
-                    desc: item.data.description,
-                    timeAgo: item.timeStamp ? timeAgo(item.timeStamp) : "a while ago",
-                    icon: item.data.user ? kanen.icons.USER : (item.data.app ? kanen.icons.GEARS : ""),
-                }
-            });
-        }
-
-        return out;
-    },
-*/
 
     /**
      * For list search bar, gets count of total number of user documents.
@@ -128,20 +70,20 @@ Meteor.methods({
      * @returns {Array|Object} Obj - returns results of MongoDB read operation
      *
      * @notes
-     *  1. Adding a suffix of "_one" to projection uses "findOne" mongo method
+     *  1. Adding a suffix of "_one" to type name uses "findOne" mongo method
+     *  2. Adding a suffix of "_count" to type name uses "count" mongo method
      *
      */
 
     getCollData(coll, type, filter, options) {
         //* perform basic argument tests
-        if (!(coll && Match.test(coll, String))) {
-            return [];
-        }
-
-        //* check rest of parameters
         type = Match.test(type, String) ? type : "";
         filter = Match.test(filter, Object) ? filter : {};
-        options = Match.test(options, Object) ? options : {limit: kanen.constants.LIMIT_MAX_SMALL};
+        options = Match.test(options, Object) ? options : {limit: documents.LIMIT_MAX_SMALL};
+
+        if (!(coll && Match.test(coll, String))) {
+            return returnEmpty(type);
+        }
 
         //* initialize working variables
         let docs = [];
@@ -160,13 +102,7 @@ Meteor.methods({
             let access = myDocuments(filter, Meteor.user(), acl.roles);
 
             //* if access is blocked, return empty set
-            if (!access) {
-                let out = [];
-                if( type.includes("_one") ){ out = {}; }
-                if( type.includes("_count") ){ out = 0; }
-
-                return out;
-            }
+            if (!access) { return returnEmpty(type); }
 
             query = Object.assign( query, access, filter );
             opts = Object.assign(options, fields);
@@ -188,3 +124,13 @@ Meteor.methods({
         return docs;
     }
 });
+
+
+//* if access fails then return an empty result based on request type
+function returnEmpty(type){
+    let out = [];
+    if( type.includes("_one") ){ out = {}; }
+    if( type.includes("_count") ){ out = 0; }
+
+    return out;
+}
