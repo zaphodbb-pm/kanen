@@ -42,7 +42,12 @@ export const page = {
                 updatedAt: "Updated",
 
                 addEvent: "Add",
-                removeEvent: "Remove"
+                removeEvent: "Remove",
+
+                sendAddEvent: "Add Event clicked",
+                sendRemoveEvent: "Remove Event clicked",
+
+                noAccess: "You do not have the privileges to access to this information."
             }
         }
     },

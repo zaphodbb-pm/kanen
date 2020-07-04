@@ -20,39 +20,39 @@
 
     //* setup props to receive component data
     export let showModal = false;
+    export let docId = "";
     export let text;
-    export let modalInfo = {profile: {}};
 
-    //* get the user language preference from store and text from context
+    //* get the user language preference from store; text from context and support functions
     import { getContext } from 'svelte';
     import {lang} from '/imports/client/systemStores'
     import {i18n} from '/imports/functions/i18n'
+    import {getDocs} from '/imports/functions/getDocs'
     import {timeAgo} from '/imports/functions/timeAgo'
     import {formatPhoneNumber} from '/imports/functions/formatPhoneNumber'
 
+    //* get components
     import Icon from '/imports/components/elements/icon.svelte'
 
 
+    //* local reactive variable
     let modalText = i18n(getContext("pageText"), "components", $lang).modal;
     let openModal = false;
-    let info = {profile: {}};
+    let info = null;
 
-    $: openModal = showModal;
+    //* respond to changes in props
+    $: {
+        openModal = showModal;
 
-    $: info = modalInfo && modalInfo.profile ? modalInfo : {profile:{}};
+        if(showModal && docId){
+            loadInfo(docId);
+        }
+    }
+
 
     //** event handlers
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
-
-    function footEvent(id, key, label){
-        dispatch("footEvent", {item: id, key: key, label: label} );
-    }
-
-    //** pure functions
-    function relativeTime(time) {
-        return timeAgo(time);
-    }
 
     function btnClose() {
         openModal = false;
@@ -67,6 +67,19 @@
     function sendRemoveEvent() {
         dispatch('modal-removeEvent', info._id);
         btnClose();
+    }
+
+
+    //** load key information based on props change
+    async function loadInfo(id){
+        let testInfo = await getDocs("authors", "listLong_one", {_id:  id}, {});
+        info = Object.keys(testInfo).length > 0 ? testInfo : null;
+    }
+
+
+    //** pure functions
+    function relativeTime(time) {
+        return timeAgo(time);
     }
 
     function formatPhone(){
@@ -96,63 +109,70 @@
         </header>
 
         <section class="modal-card-body">
+            {#if docId && info}
 
-            <table>
-                <tbody>
+                <table>
+                    <tbody>
 
-                <tr>
-                    <td rowspan="10">
-                        {#if !!(info && info.profile && info.profile.image && info.profile.image.src)}
-                            <img src="{info.profile.image.src}" class="user-image" alt="user image">
-                        {:else}
-                            <Icon icon={getContext("iconDefaultUser")} class="ml-3 mr-2 text-4dot0rem"/>
-                        {/if}
-                    </td>
-                    <td class="is-modal-label has-text-right">{modalText.username}</td>
-                    <td class="is-modal-value">{info.username}</td>
-                </tr>
+                    <tr>
+                        <td rowspan="10">
+                            {#if !!(info.profile && info.profile.image && info.profile.image.src)}
+                                <img src="{info.profile.image.src}" class="user-image" alt="user image">
+                            {:else}
+                                <Icon icon={getContext("iconDefaultUser")} class="ml-3 mr-2 text-4dot0rem"/>
+                            {/if}
+                        </td>
+                        <td class="is-modal-label has-text-right">{modalText.username}</td>
+                        <td class="is-modal-value">{info.username}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.name}</td>
-                    <td class="is-modal-value">{info.profile && info.profile.name ? info.profile.name : ""}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.name}</td>
+                        <td class="is-modal-value">{info.profile && info.profile.name ? info.profile.name : ""}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.role}</td>
-                    <td class="is-modal-value">{info.role && info.role.name ? info.role.name : ""}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.role}</td>
+                        <td class="is-modal-value">{info.role && info.role.name ? info.role.name : ""}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.mainEmail}</td>
-                    <td class="is-modal-value">{info.emails && info.emails[0] && info.emails[0].address ? info.emails[0].address : ""}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.mainEmail}</td>
+                        <td class="is-modal-value">{info.emails && info.emails[0] && info.emails[0].address ? info.emails[0].address : ""}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.secondaryEmail}</td>
-                    <td class="is-modal-value">{info.profile && info.profile.email ? info.profile.email : ""}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.secondaryEmail}</td>
+                        <td class="is-modal-value">{info.profile && info.profile.email ? info.profile.email : ""}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.phone}</td>
-                    <td class="is-modal-value">{info.profile && info.profile.phone ? formatPhone(info.profile.phone) : ""}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.phone}</td>
+                        <td class="is-modal-value">{info.profile && info.profile.phone ? formatPhone(info.profile.phone) : ""}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.active}</td>
-                    <td class="is-modal-value">{info.active}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.active}</td>
+                        <td class="is-modal-value">{info.active}</td>
+                    </tr>
 
-                <tr>
-                    <td class="is-modal-label has-text-right">{modalText.updatedAt}</td>
-                    <td class="is-modal-value">{relativeTime(info.updatedAt)}</td>
-                </tr>
+                    <tr>
+                        <td class="is-modal-label has-text-right">{modalText.updatedAt}</td>
+                        <td class="is-modal-value">{relativeTime(info.updatedAt)}</td>
+                    </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+
+            {:else}
+
+                <p>{modalText.noAccess}</p>
+
+            {/if}
         </section>
 
-        {#if modalText.addEvent || modalText.removeEvent}
+        {#if info && (modalText.addEvent || modalText.removeEvent) }
             <footer class="modal-card-foot">
                 {#if modalText.addEvent}
                     <button class="button is-primary" on:click="{sendAddEvent}">
