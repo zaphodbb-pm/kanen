@@ -1,0 +1,193 @@
+<script>
+
+    /**
+     * @summary Modal display for user schema information information from a list item.
+     *
+     * @memberof Components:Blocks
+     * @function modalUser
+     * @locus Client
+     *
+     * @param {Boolean} showModal - turns modal on or off
+     * @param {String} text - target for text package
+     * @param {Object} modalInfo - {user info}
+     *
+     * @emits modal-addEvent - doc id
+     * @emits modal-removeEvent - doc id
+     *
+     * @return nothing
+     *
+     */
+
+    //* setup props to receive component data
+    export let showModal = false;
+    export let text;
+    export let modalInfo = {profile: {}};
+
+    //* get the user language preference from store and text from context
+    import { getContext } from 'svelte';
+    import {lang} from '/imports/client/systemStores'
+    import {i18n} from '/imports/functions/i18n'
+    import {timeAgo} from '/imports/functions/timeAgo'
+    import {formatPhoneNumber} from '/imports/functions/formatPhoneNumber'
+
+    import Icon from '/imports/components/elements/icon.svelte'
+
+
+    let modalText = i18n(getContext("pageText"), "components", $lang).modal;
+    let openModal = false;
+    let info = {profile: {}};
+
+    $: openModal = showModal;
+
+    $: info = modalInfo && modalInfo.profile ? modalInfo : {profile:{}};
+
+    //** event handlers
+    import {createEventDispatcher} from 'svelte';
+    const dispatch = createEventDispatcher();
+
+    function footEvent(id, key, label){
+        dispatch("footEvent", {item: id, key: key, label: label} );
+    }
+
+    //** pure functions
+    function relativeTime(time) {
+        return timeAgo(time);
+    }
+
+    function btnClose() {
+        openModal = false;
+        dispatch('modalState', openModal);
+    }
+
+    function sendAddEvent() {
+        dispatch('modal-addEvent', info._id);
+        btnClose();
+    }
+
+    function sendRemoveEvent() {
+        dispatch('modal-removeEvent', info._id);
+        btnClose();
+    }
+
+    function formatPhone(){
+        let phone = info && info.profile && info.profile.phone ? info.profile.phone : null;
+
+        console.log("formatPhone", phone);
+
+        if(phone){
+            return formatPhoneNumber(phone);
+        }else{
+            return "";
+        }
+    }
+
+</script>
+
+
+
+
+<div class="modal modal-user" class:is-active="{openModal}" class:is-clipped="{openModal}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+
+        <header class="modal-card-head">
+            <p class="modal-card-title">{modalText.title}</p>
+            <button on:click="{btnClose}" class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+
+            <table>
+                <tbody>
+
+                <tr>
+                    <td rowspan="10">
+                        {#if !!(info && info.profile && info.profile.image && info.profile.image.src)}
+                            <img src="{info.profile.image.src}" class="user-image" alt="user image">
+                        {:else}
+                            <Icon icon={getContext("iconDefaultUser")} class="ml-3 mr-2 text-4dot0rem"/>
+                        {/if}
+                    </td>
+                    <td class="is-modal-label has-text-right">{modalText.username}</td>
+                    <td class="is-modal-value">{info.username}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.name}</td>
+                    <td class="is-modal-value">{info.profile && info.profile.name ? info.profile.name : ""}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.role}</td>
+                    <td class="is-modal-value">{info.role && info.role.name ? info.role.name : ""}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.mainEmail}</td>
+                    <td class="is-modal-value">{info.emails && info.emails[0] && info.emails[0].address ? info.emails[0].address : ""}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.secondaryEmail}</td>
+                    <td class="is-modal-value">{info.profile && info.profile.email ? info.profile.email : ""}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.phone}</td>
+                    <td class="is-modal-value">{info.profile && info.profile.phone ? formatPhone(info.profile.phone) : ""}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.active}</td>
+                    <td class="is-modal-value">{info.active}</td>
+                </tr>
+
+                <tr>
+                    <td class="is-modal-label has-text-right">{modalText.updatedAt}</td>
+                    <td class="is-modal-value">{relativeTime(info.updatedAt)}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </section>
+
+        {#if modalText.addEvent || modalText.removeEvent}
+            <footer class="modal-card-foot">
+                {#if modalText.addEvent}
+                    <button class="button is-primary" on:click="{sendAddEvent}">
+                        {modalText.addEvent}
+                    </button>
+                {/if}
+
+                {#if modalText.removeEvent}
+                    <button class="button is-danger" on:click="{sendRemoveEvent}">
+                        {modalText.removeEvent}
+                    </button>
+                {/if}
+            </footer>
+        {/if}
+
+    </div>
+</div>
+
+
+
+<style>
+    .is-modal-label {
+        padding: 0 0.5rem;
+    }
+
+    .is-modal-value {
+        padding: 0 0.5rem;
+        font-weight: bold;
+    }
+
+    .user-image {
+        height: 4rem;
+        width: 4rem;
+        margin-right: 2rem;
+        border-radius: 50%;
+    }
+
+</style>

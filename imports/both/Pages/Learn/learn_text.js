@@ -25,6 +25,24 @@ export const page = {
         en: {
             toc: {
                 title: "Table of Contents"
+            },
+
+            modal: {
+                title: "Author Detail",
+
+                username: "System User Name",
+                name: "Full Name",
+
+                image: "Photo",
+                role: "Role",
+                mainEmail: "Main Email",
+                secondaryEmail: "Secondary Email",
+                phone: "Phone",
+                active: "Active",
+                updatedAt: "Updated",
+
+                addEvent: "Add",
+                removeEvent: "Remove"
             }
         }
     },
@@ -42,6 +60,12 @@ export const page = {
                     {_id: "es",  name: "Espaniol"},
                 ]
             },
+
+            readMode: {
+                label: "Read  Mode",
+                helpText: "Magazine mode formats the text layout into columns and page breaks.",
+                tag: "Magazine",
+            }
         }
     },
 };

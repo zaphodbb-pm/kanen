@@ -161,7 +161,11 @@ Meteor.methods({
 
             //* if access is blocked, return empty set
             if (!access) {
-                return [];
+                let out = [];
+                if( type.includes("_one") ){ out = {}; }
+                if( type.includes("_count") ){ out = 0; }
+
+                return out;
             }
 
             query = Object.assign( query, access, filter );

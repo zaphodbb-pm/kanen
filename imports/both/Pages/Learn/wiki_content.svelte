@@ -16,6 +16,7 @@
     export let pageid = "";
     export let showList = false;
     export let list = [];
+    export let mode = true;
 
     //* support files
     import { createEventDispatcher, getContext, setContext } from 'svelte';
@@ -98,7 +99,7 @@
         return out;
     }
 
-    function  sliceParagraphs(content){
+    function sliceParagraphs(content){
         let out = [];
 
         if(content){
@@ -203,10 +204,16 @@
 
             <p class="subtitle is-5 buffer-y" class:is-hidden={!document.contentSummary}>{document.contentSummary}</p>
 
-            {#each sliceParagraphs(document.contentPage) as page}
-                <div class="content is-magazine-layout">{@html page}</div>
-                <hr class="my-5" />
-            {/each}
+            {#if mode}
+                {#each sliceParagraphs(document.contentPage) as page}
+                    <div class="content is-magazine-layout">{@html page}</div>
+                    <hr class="my-5" />
+                {/each}
+            {:else}
+                <div class="content">
+                    {@html document.contentPage}
+                </div>
+            {/if}
 
         {/if}
 

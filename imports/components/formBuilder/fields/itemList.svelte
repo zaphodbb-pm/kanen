@@ -18,7 +18,7 @@
 
     //* support functions
     import Icon from '/imports/components/elements/icon.svelte'
-    import Sortable from '/imports/components/blocks/rowDragDrop.svelte'
+    import Sortable from '/imports/components/elements/rowDragDrop.svelte'
     import {getContext, createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 

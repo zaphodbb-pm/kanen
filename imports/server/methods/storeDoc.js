@@ -40,7 +40,7 @@ Meteor.methods({
                 doc["group"] = "";
             }
 
-            id = Mongo.Collection.get(coll).insert(doc);
+            id = Mongo.Collection.get(acl.coll).insert(doc);
 
             if(id){
                 return {status: 200, _id: id, text: `${id} has been added on ${coll} by insertDoc`};
@@ -77,7 +77,7 @@ Meteor.methods({
         if( verifyRole(Meteor.user(), acl.roles) ) {
             if(ownsDocument(Meteor.user(), doc)){     // check if user is doc owner before update
                 doc.updatedAt = Date.now();
-                Mongo.Collection.get(coll).update({_id: id}, {$set: doc});
+                Mongo.Collection.get(acl.coll).update({_id: id}, {$set: doc});
                 return {status: 200, text:  `${id} has been updated on ${coll} by updateDoc`};
             }
 
@@ -108,10 +108,10 @@ Meteor.methods({
         let acl = accessControl[coll];
 
         if( verifyRole(Meteor.user(), acl.roles) ) {
-            let doc = Mongo.Collection.get(coll).findOne({_id: docId});
+            let doc = Mongo.Collection.get(acl.coll).findOne({_id: docId});
 
             if(ownsDocument(Meteor.user(), doc)){     // check if user is doc owner before delete
-                Mongo.Collection.get(coll).remove(doc._id);
+                Mongo.Collection.get(acl.coll).remove(doc._id);
                 return {status: 200, _id: docId, text:  `${docId} has been removed from ${coll} by removeDoc`};
             }
             return {status: 404, _id: docId, text:  `User does not have permission to remove document.`};
@@ -151,7 +151,7 @@ Meteor.methods({
             let updatedAt = Date.now();
             let setter = Object.assign({updatedAt: updatedAt}, objectify(field, value));
 
-            Mongo.Collection.get(coll).update({_id: docId}, {$set: setter });
+            Mongo.Collection.get(acl.coll).update({_id: docId}, {$set: setter });
             return {status: 200, _id: docId, text: `${docId} has been updated on ${coll} by updateDocField`};
         }else{
             return {status: 400, _id: "", text: "Invalid user"};
@@ -258,7 +258,7 @@ Meteor.methods({
             }
 
             if(ops){
-                let test = Mongo.Collection.get(coll).update({_id: docId}, ops);
+                let test = Mongo.Collection.get(acl.coll).update({_id: docId}, ops);
 
                 if(test){
                     return {
