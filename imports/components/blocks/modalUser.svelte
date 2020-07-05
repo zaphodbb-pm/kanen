@@ -36,7 +36,7 @@
 
 
     //* local reactive variable
-    let modalText = i18n(getContext("pageText"), "components", $lang).modal;
+    let modalText = i18n(getContext("pageText"), "components", $lang)[text];
     let openModal = false;
     let info = null;
 
@@ -76,24 +76,6 @@
         info = Object.keys(testInfo).length > 0 ? testInfo : null;
     }
 
-
-    //** pure functions
-    function relativeTime(time) {
-        return timeAgo(time);
-    }
-
-    function formatPhone(){
-        let phone = info && info.profile && info.profile.phone ? info.profile.phone : null;
-
-        console.log("formatPhone", phone);
-
-        if(phone){
-            return formatPhoneNumber(phone);
-        }else{
-            return "";
-        }
-    }
-
 </script>
 
 
@@ -114,56 +96,55 @@
                 <table>
                     <tbody>
 
-                    <tr>
-                        <td rowspan="10">
-                            {#if !!(info.profile && info.profile.image && info.profile.image.src)}
-                                <img src="{info.profile.image.src}" class="user-image" alt="user image">
-                            {:else}
-                                <Icon icon={getContext("iconDefaultUser")} class="ml-3 mr-2 text-4dot0rem"/>
-                            {/if}
-                        </td>
-                        <td class="is-modal-label has-text-right">{modalText.username}</td>
-                        <td class="is-modal-value">{info.username}</td>
-                    </tr>
+                        <tr>
+                            <td rowspan="10">
+                                {#if !!(info.profile && info.profile.image && info.profile.image.src)}
+                                    <img src="{info.profile.image.src}" class="user-image" alt="user image">
+                                {:else}
+                                    <Icon icon={getContext("iconDefaultUser")} class="ml-3 mr-2 text-4dot0rem"/>
+                                {/if}
+                            </td>
+                            <td class="is-modal-label has-text-right">{modalText.username}</td>
+                            <td class="is-modal-value">{info.username}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.name}</td>
-                        <td class="is-modal-value">{info.profile && info.profile.name ? info.profile.name : ""}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.name}</td>
+                            <td class="is-modal-value">{info.profile && info.profile.name ? info.profile.name : ""}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.role}</td>
-                        <td class="is-modal-value">{info.role && info.role.name ? info.role.name : ""}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.role}</td>
+                            <td class="is-modal-value">{info.role && info.role.name ? info.role.name : ""}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.mainEmail}</td>
-                        <td class="is-modal-value">{info.emails && info.emails[0] && info.emails[0].address ? info.emails[0].address : ""}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.mainEmail}</td>
+                            <td class="is-modal-value">{info.emails && info.emails[0] && info.emails[0].address ? info.emails[0].address : ""}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.secondaryEmail}</td>
-                        <td class="is-modal-value">{info.profile && info.profile.email ? info.profile.email : ""}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.secondaryEmail}</td>
+                            <td class="is-modal-value">{info.profile && info.profile.email ? info.profile.email : ""}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.phone}</td>
-                        <td class="is-modal-value">{info.profile && info.profile.phone ? formatPhone(info.profile.phone) : ""}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.phone}</td>
+                            <td class="is-modal-value">{info.profile && info.profile.phone ? formatPhoneNumber(info.profile.phone) : ""}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.active}</td>
-                        <td class="is-modal-value">{info.active}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.active}</td>
+                            <td class="is-modal-value">{info.active}</td>
+                        </tr>
 
-                    <tr>
-                        <td class="is-modal-label has-text-right">{modalText.updatedAt}</td>
-                        <td class="is-modal-value">{relativeTime(info.updatedAt)}</td>
-                    </tr>
+                        <tr>
+                            <td class="is-modal-label has-text-right">{modalText.updatedAt}</td>
+                            <td class="is-modal-value">{info.updatedAt ? timeAgo(info.updatedAt) : ""}</td>
+                        </tr>
 
                     </tbody>
                 </table>
-
 
             {:else}
 
