@@ -14,7 +14,7 @@
     //* support files
     import {messages} from '/imports/client/systemStores'
     import {layout} from '/imports/both/systemGlobals'
-    import {createEventDispatcher, setContext, getContext} from 'svelte'
+    import {createEventDispatcher, setContext} from 'svelte'
     const dispatch = createEventDispatcher();
 
     //* get the user language preference from store
@@ -43,12 +43,6 @@
     let theme = "light";        // "light" or "dark" background
     let side = "left";          // "left" or "right" entry
     let open = false;           // hamburger state true = "open"; false = "closed"
-
-    //** event handlers
-    function messageEnd(msg){
-        let removeMsg = $messages;
-        $messages = removeMsg.filter( (m) => m.id !== msg.detail);
-    }
 
 </script>
 
@@ -111,14 +105,8 @@
 </AsideNav>
 
 
-<aside id="notification-display" class="mt-4">
-    <div class="alert-box-wrapper">
-        {#each $messages as message (message.id)}
-            <div class="my-2">
-                <Messages msg="{message}" on:message-close={messageEnd}/>
-            </div>
-        {/each}
-    </div>
+<aside>
+    <Messages />
 </aside>
 
 

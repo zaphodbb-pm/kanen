@@ -96,7 +96,7 @@
         let newMsg = {
             color: "is-danger is-light",
             closable: true,
-            duration: 0,
+            duration: 3000,
             hasIcon: "iconStatus",
             text: msgText.msgRemoveEvent,
             id: generateId(6)
