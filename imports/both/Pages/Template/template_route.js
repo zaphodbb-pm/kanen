@@ -9,9 +9,9 @@
  * @returns {Object} - {name, layout, component, icon, label, roles, group, isNavMobile}
  *
  * @notes
- *      1. Client side: Remember to register template_route.js at /imports/both/routes
- *      2. Server side: if this page needs access to collections,
- *                      then register template_access_control at /imports/ server/setupACL.js
+ *  1. Client side: Remember to register template_route.js at /imports/both/routes
+ *  2. Server side: if this page needs access to collections,
+ *                  then register template_access_control at /imports/ server/setupACL.js
  */
 
 
