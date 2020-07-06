@@ -81,12 +81,9 @@
 
     function addEvent(msg){
         let newMsg = {
-            color: "is-primary is-light",
-            closable: true,
-            duration: 5000,
-            hasIcon: "iconBeer",
-            text: msgText.msgAddEvent,
-            id: generateId(6)
+            id: generateId(8),
+            state: "add",
+            text: msgText.msgAddEvent
         }
 
         $messages = [... $messages, newMsg];
@@ -94,12 +91,9 @@
 
     function removeEvent(msg){
         let newMsg = {
-            color: "is-danger is-light",
-            closable: true,
-            duration: 3000,
-            hasIcon: "iconStatus",
+            id: generateId(8),
+            state: "remove",
             text: msgText.msgRemoveEvent,
-            id: generateId(6)
         }
 
         $messages = [... $messages, newMsg];
