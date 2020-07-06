@@ -10,18 +10,22 @@
      *
      * @see Based on work by {@link https://buefy.org/documentation/notification|Buefy}
      *
+     * @param {Boolean} closable - adds an 'X' button that closes the notification (default true)
+     * @param {Number} duration - if null or 0, stays open; else will close after x  milliseconds (default 5000)
+     *
+     * @emits 'message-end' with string = id of message removed from queue
+     *
      * @notes
      *  1. typical message object format:
      *          id =        {String} unique id for this element
-     *          color =     {String} css string to set element color (default "")
-     *          closable =  {Boolean} adds an 'X' button that closes the notification    (default true)
-     *          duration =  {Number} if null or 0, stays open; else will close after x  milliseconds (default 5000)
-     *          hasIcon =   {String} if null or "", no icon will be shown; else is a valid icon class for Icon tag (default "")
+     *          state =     {String} one of: "success", "warning", "fail", "add", "remove" or "uncertain"
      *          text =      {String} body text with optional html tags
-     *
      *
      */
 
+    //* props
+    export let closable = true;
+    export let duration = 5000;
 
     //* support functions
     import {messages} from '/imports/client/systemStores'
@@ -33,20 +37,23 @@
     //* get components
     import Icon from '/imports/components/elements/icon.svelte'
 
+    //* local reactive variables
+    let msg = [];
 
-    //* on start up "use" function
+    $: msg = $messages.map( (m) => Object.assign(m, msgDecoration(m.state) ) );
+
+
+    //* on start-up this is the "use" function
     function setAutoClose(node, msg) {
         let timer = null;
 
-        return {
-            update() {
-             if (msg.duration) {
-                    timer = setTimeout(() => {
-                        messageEnd(msg);
-                    }, msg.duration);
-                }
-            },
+        if (msg.duration) {
+            timer = setTimeout(() => {
+                messageEnd(msg);
+            }, msg.duration);
+        }
 
+        return {
             destroy() {
                 clearTimeout(timer);
             }
@@ -56,6 +63,49 @@
     function messageEnd(msg){
         let removeMsg = $messages;
         $messages = removeMsg.filter( (m) => m.id !== msg.id);
+
+        dispatch('message-end', msg.id);
+    }
+
+    function msgDecoration(state){
+        let common = {
+            closable: closable,
+            duration: duration
+        }
+
+        let states = {
+            success: {
+                colour: "is-success is-light",
+                hasIcon: "iconMsgSuccess",
+            },
+
+            warning: {
+                colour: "is-warning is-light",
+                hasIcon: "iconMsgWarning",
+            },
+
+            fail: {
+                colour: "is-danger is-light",
+                hasIcon: "iconMsgFail",
+            },
+
+            add: {
+                colour: "is-info is-light",
+                hasIcon: "iconMsgAdd",
+            },
+
+            remove: {
+                colour: "is-link is-light",
+                hasIcon: "iconMsgRemove",
+            },
+
+            uncertain: {
+                colour: "",
+                hasIcon: "iconMsgUncertain",
+            }
+        };
+
+        return Object.assign({}, states[state], common);
     }
 
 </script>
@@ -64,12 +114,12 @@
 
 
 <aside class="alert-box-wrapper">
-    {#each $messages as message (message.id)}
+    {#each msg as message (message.id)}
 
         <div class="my-2" use:setAutoClose={message}>
             <div transition:slide="{{delay: 100, duration: 300, easing: quintOut }}">
 
-                <article class="notification {message.color}">
+                <article class="notification {message.colour}">
 
                     {#if message.closable}
                         <button class="delete" type="button" on:click="{() => messageEnd(message) }"></button>

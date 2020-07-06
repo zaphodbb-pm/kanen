@@ -9,6 +9,9 @@
      * @param {String}  pageid - page id to fetch page to display
      * @param {Boolean} showList - display single page content or a summary list of pages from search box
      * @param {Array}   list - page id to fetch page to display
+     *
+     * @emits 'getpage' with string = id of page to fetch
+     * @emits 'push-author' with object = {_id: doc.author, name: doc.authorName}
      */
 
 

@@ -26,13 +26,13 @@ out.iconLogo = logo;
 import home from '/public/svg_to_js/home-solid.json';
 out.iconHome = home;
 
-import widget from '/public/svg_to_js/puzzle-piece-solid.json';
+import widget from '/public/svg_to_js/shapes-solid.json';
 out.iconWidget = widget;
 
 import learn from '/public/svg_to_js/graduation-cap-solid.json';
 out.iconLearn = learn;
 
-import content from '/public/svg_to_js/grip-horizontal-solid.json';
+import content from '/public/svg_to_js/puzzle-piece-solid.json';
 out.iconContent = content;
 
 import buildContent from '/public/svg_to_js/university-solid.json';
@@ -206,6 +206,25 @@ out.iconComponents = components;
 import adminOnly from '/public/svg_to_js/user-lock-solid.json';
 out.iconAdminOnly = adminOnly;
 
+
+//* message icons
+import msgSuccess from '/public/svg_to_js/check-circle-solid.json';
+out.iconMsgSuccess = msgSuccess;
+
+import msgWarning from '/public/svg_to_js/exclamation-circle-solid.json';
+out.iconMsgWarning = msgWarning;
+
+import msgFail from '/public/svg_to_js/times-circle-solid.json';
+out.iconMsgFail = msgFail;
+
+import msgAdd from '/public/svg_to_js/plus-circle-solid.json';
+out.iconMsgAdd = msgAdd;
+
+import msgRemove from '/public/svg_to_js/minus-circle-solid.json';
+out.iconMsgRemove = msgRemove;
+
+import msgUncertain from '/public/svg_to_js/question-circle-solid.json';
+out.iconMsgUncertain = msgUncertain;
 
 
 //* brand icons
