@@ -7,12 +7,12 @@
      * @locus Client
      *
      * @notes
-     *      1. Main code for page control: page boilerplate and page body sections.
-     *      2. Common page boilerplate has two props: currentRoute and params from spa-router for rendering.
-     *      3. Common page boilerplate imports common page header component used by PageWrapper.
-     *      4. Common page boilerplate injects language responsive text into "pageHdr" and "pageText" contexts by PageWrapper.
-     *      5. Common page boilerplate injects page component configs into "pageConfig" context by PageWrapper.
-     *      6. Page-body contains specific code and html for this page's functionality.
+     *  1. Main code for page control: page boilerplate and page body sections.
+     *  2. Common page boilerplate has two props: currentRoute and params from spa-router for rendering.
+     *  3. Common page boilerplate imports common page header component used by PageWrapper.
+     *  4. Common page boilerplate injects language responsive text into "pageHdr" and "pageText" contexts by PageWrapper.
+     *  5. Common page boilerplate injects page component configs into "pageConfig" context by PageWrapper.
+     *  6. Page-body contains specific code and html for this page's functionality.
      */
 
 
