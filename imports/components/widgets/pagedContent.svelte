@@ -102,7 +102,7 @@
 
                                             {#if subtopic.fires}
                                                 {#each subtopic.fires as fires}
-                                                    <div class="ml-3">Fires: {fires}</div>
+                                                    <div class="ml-3">Emits: {fires.replace('event:', '')}</div>
                                                 {/each}
                                             {/if}
 
