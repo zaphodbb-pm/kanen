@@ -176,7 +176,7 @@
         let labels = [];
 
         start.forEach(function (el) {
-            if (el.label) {
+            if (el.label &&  !el.label.toLowerCase().includes("geo")) {
                 let css = el.type && el.type === "del" ? "has-text-centered" : (el.css ? el.css : "");
                 labels.push({label: el.label, css: css});
             }

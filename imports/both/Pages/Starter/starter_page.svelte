@@ -18,9 +18,9 @@
         //** page specific text and configuration
         import {header, page} from './starter_page_text'
         import {pageConfig} from './starter_page_config'
-    
+
         //** app support files
-        import { onMount } from 'svelte';
+        import { setContext, onMount } from 'svelte';
         import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
@@ -30,14 +30,17 @@
     import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/client/systemStores'
 
+    import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
     import schema from './starter_form_schema'
 
     import List_Holder from '/imports/components/listCollections/listHolder.svelte'
     import listArray from './starter_list'
 
+    let mode = false;
     let formText = i18n(page, "form", $lang);
     let listText = i18n(page, "list", $lang);
+    setContext("formText", formText);
 
     let conf = pageConfig;
     let role = "";
@@ -51,7 +54,6 @@
     let showList = false;
     let showForm = false;
     let releaseEdit = false;
-
 
     //* lifecycle controls
     onMount( () => {
@@ -85,16 +87,45 @@
         releaseEdit = true;
     }
 
+    function gridMode(msg){
+        mode = msg.detail.value;
+
+        if(mode) {
+            showList = true;
+            showForm = false;
+
+            conf.list.display = "grid";
+
+
+            releaseEdit = true;
+        }else{
+            conf.list.display = "list";
+            checkOverlay();
+
+            releaseEdit = false;
+        }
+    }
+
 </script>
 
 
 
 
 <PageWrapper {header} >
+    <div class="columns">
+
+        <div class="column is-one-quarter is-offset-three-quarters">
+            <Field_Wrapper
+                    class=""
+                    field="{pageConfig.components.gridMode}"
+                    watchFields="{ {} }"
+                    on:field-changed="{gridMode}"/>
+        </div>
+    </div>
 
     <div class="columns">
 
-        <article class="column is-5" class:is-hidden={!showList}>
+        <article class="column {mode ? 'is-12' : 'is-5'}" class:is-hidden={!showList}>
             <List_Holder
                     config="{conf.list}"
                     {listText}

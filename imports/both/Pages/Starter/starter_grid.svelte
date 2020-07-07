@@ -24,6 +24,9 @@
     export let collection = "";
     export let submitted = false
 
+    // get the user language preference from store
+    import {lang} from '/imports/client/systemStores'
+
     //* support functions
     import {onMount, onDestroy, getContext} from 'svelte'
     import Icon from '/imports/components/elements/icon.svelte'
@@ -31,12 +34,14 @@
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
+    import {i18n} from '/imports/functions/i18n'
     import {dotNotation} from '/imports/functions/dotNotation'
     import {timeAgo} from '/imports/functions/timeAgo'
 
 
     //* local reactive variables
-    let width =  "is-6";
+    let calendar = i18n( getContext("commonText"), "calendar", $lang);
+    let width =  "is-6-tablet is-4-desktop is-3-widescreen";
     let notice = "starter grid"
 
     let inEdit = false;
@@ -45,6 +50,9 @@
     let actRow = "";
     let submit = submitted;
 
+    let items = [];
+
+    $: items = tableItems(collection, labels, documents);
 
     //* event handlers
     function deleteDoc(id) {
@@ -78,13 +86,23 @@
         window.open(page);
     }
 
+    function formatDate(isoDate ,cal) {
+        let date = new Date();
+        if (isoDate) {
+            date = new Date(isoDate);
+        }
+
+        //** get common calendar text and adjust for language preference
+        return `${cal.months[date.getMonth()].name} ${date.getDate()}, ${date.getFullYear()}`;
+    }
+
     //* build array of array of display objects
     function tableItems(coll, fields, docs) {
         let out = [];
 
         //** prepare document for display listing and get info for each field to display
         docs.forEach(function (els) {
-            let tr = [];
+            let tr = {};
             let values = els;
             values.updatedAt = els.updatedAt;
 
@@ -99,35 +117,30 @@
                 }
 
                 //*** convert timestamps to relative time string
-                if (el.key === "updatedAt") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "createdAt") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "data.time") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "timeStamp") {
-                    val = timeAgo(val);
-                }
-                if (el.key === "tag") {
-                    val = values.data && values.data.event ? values.data.event : val;
-                }
-                if (el.type === "object") {
-                    val = JSON.stringify(val).replace(/,/g, ", ");
+                switch(el.key){
+                    case "updatedAt":
+                    case "createdAt":
+                    case "data.time":
+                    case "timeStamp":
+                        val = timeAgo(val);
+                        break;
+
+                    case "tag":
+                        val = values.data && values.data.event ? values.data.event : val;
+                        break;
+
+                    case "object":
+                        val = JSON.stringify(val).replace(/,/g, ", ");
+                        break;
+
                 }
 
-                let base = el.base ? el.base : "";
-
-                tr.push({
+                tr[el.key] = {
                     id: values._id,
                     type: el.type,
                     value: val,
-                    base: base,
-                    url: base + val,
                     keyName: el.label,
-                });
+                };
             });
 
             out.push(tr);
@@ -141,24 +154,29 @@
 
 <div>
     <div class="columns is-multiline">
-        {#each tableItems(collection, labels, documents) as row, idx}
+
+        {#each items as row, idx}
             <div class="column {width}">
 
-                <div class="card">
-                    <div class="card-content">
+                <div class="card" style="overflow: hidden;">
+
+                    {#if row.startImage &&  row.startImage.value && row.startImage.value.src}
+                        <div class="card-image" >
+                            <figure class="image is-3by1">
+                                <img src="{row.startImage.value.src}"  alt="image">
+                            </figure>
+                        </div>
+
+                    {:else}
                         {#if notice}
-                            <div class="p-1 has-background-white-ter">{notice}</div>
+                            <div class="mb-3 pl-2 has-background-white-ter">{notice}</div>
                         {/if}
+                    {/if}
 
-                        {#each row as cell, idx}
-                            {#if cell.type === 'pict'}
-                                <div class="card-image" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem">
-                                    <figure class="image is-2by1">
-                                        <img src="{cell.url}"  alt="image">
-                                    </figure>
-                                </div>
+                    <div class="card-content">
+                        {#each  Object.values(row) as cell, idx}
 
-                            {:else if cell.type === 'edit'}
+                            {#if cell.type === 'edit'}
                                 <div on:click="{ () => editDoc(cell.id) }"
                                      style="word-wrap: break-word; word-break: break-all;"
                                      class="add-cursor has-text-info has-text-weight-semibold text-left">
@@ -174,30 +192,44 @@
                                     {cell.value}
                                 </div>
 
-                            {:else if cell.type === 'text'}
-                                <div class="has-text-left is-size-7">
-                                    <strong>{cell.keyName}:</strong> {cell.value}
+                            {:else if cell.type === 'text' || cell.type === 'select' || cell.type === 'timeStamp'}
+                                <div class="has-text-left">
+                                    {cell.prefix ? cell.prefix : ""}{cell.value}{cell.suffix ? cell.suffix : ""}
                                 </div>
 
-                            {:else if cell.type === 'object'}
-                                <div>{cell.value}</div>
+                            {:else if cell.type === 'date' }
+                                <div class="has-text-left list-date">
+                                    {formatDate(cell.value, calendar)}
+                                </div>
+
+
+                            {:else if cell.type === 'address'}
+                                <div class="d-flex">
+                                    {#if typeof cell.value === "string"}
+                                        <strong>{cell.keyName}:</strong> {cell.value}
+                                    {:else}
+
+                                        {#if cell.value && cell.value.coordinates}
+                                            <strong>{cell.keyName}:</strong>
+                                            <div>
+                                                <div>{cell.value.coordinates[0]}, </div>
+                                                <div>{cell.value.coordinates[1]}</div>
+                                            </div>
+                                        {/if}
+                                    {/if}
+                                </div>
 
                             {:else if cell.type === 'boolean'}
                                 <div class="text-green text-center">
-                                    <span>{cell.value ? "&#10004;" : ""}</span>
+                                    <strong>{cell.keyName}:</strong> <span>{cell.value ? "&#10004;" : ""}</span>
                                 </div>
 
-                            {:else if cell.type === 'del'}
-                                <div on:click="{ () => deleteDoc(cell.value)}"
-                                     class="add-cursor has-text-right" style="max-width: 100%;">
+                            {:else if cell.type === 'del' }
 
-                                    <span>
-                                        <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
-                                    </span>
-                                </div>
+                            {:else if cell.type === 'cardImage' }
 
                             {:else}
-                                <div>n/a</div>
+                                <strong>{cell.keyName}:</strong> <span>n/a</span>
                             {/if}
 
                         {/each}

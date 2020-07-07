@@ -35,6 +35,15 @@ export default {
         },
 
         {
+            field:  "startImage",
+            key:    "startImage",
+            type:   "cardImage",
+            label:  "tbd",
+            sort:   1,
+            search: true,
+        },
+
+        {
             field:  "startStaticSelect",
             key:    "startStaticSelect.name",
             type:   "select",

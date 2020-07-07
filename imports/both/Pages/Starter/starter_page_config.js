@@ -14,6 +14,20 @@ import grid from './starter_grid.svelte'
 
 export const pageConfig =  {
 
+    components: {
+
+        gridMode: {
+            field: "gridMode",
+            fieldType: "switch",
+            optional: true,
+
+            css: "is-fullwidth",
+            attributes: {},
+            params: {},
+            defaultValue: false,
+        },
+    },
+
     form: {
         coll:       "starter",          // target collection to send submit to
         showHdr:    true,               // show card header and title if true
