@@ -29,6 +29,7 @@
     //* page-body support **************************
     import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/client/systemStores'
+    import {deepClone} from '/imports/functions/deepClone'
 
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
@@ -42,7 +43,8 @@
     let listText = i18n(page, "list", $lang);
     setContext("formText", formText);
 
-    let conf = pageConfig;
+
+    let conf = deepClone(pageConfig);
     let role = "";
     let editdoc = {};
     let directdoc = {};
@@ -95,8 +97,6 @@
             showForm = false;
 
             conf.list.display = "grid";
-
-
             releaseEdit = true;
         }else{
             conf.list.display = "list";
