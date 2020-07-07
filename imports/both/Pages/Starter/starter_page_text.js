@@ -21,6 +21,17 @@ export const header = {
 
 export const page = {
 
+    components: {
+        en: {
+
+            gridMode: {
+                label: "",
+                helpText: "Show list items in a grid instead of a table.",
+                tag: "Grid Mode",
+            }
+        }
+    },
+
     form: {
         en: {
             labels: {
@@ -41,6 +52,14 @@ export const page = {
             },
 
             formTabs: ["Basic", "Complex", "Advanced", "Modules"],
+
+            //** special form components outside of input form
+            gridMode: {
+                label: "",
+                helpText: "Show list items in a grid instead of a table.",
+                tag: "Grid Mode",
+            },
+
 
             //** Form field text ********************************************
             name: {
@@ -310,7 +329,7 @@ export const page = {
                 },
             },
 
-            address: {
+            geoLocation: {
                 label: "Geo",
                 filter: [
                     {_id: "none", name: "World Wide"},

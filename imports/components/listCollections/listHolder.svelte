@@ -101,8 +101,13 @@
 
     //* check for imported grid layouts by page
     let ListGrid;
-    if (config && (config.display === "grid") && config.displayGrid ) {
-        ListGrid = config.displayGrid;
+
+    $: {
+        if (config && (config.display === "grid") && config.displayGrid ) {
+            ListGrid = config.displayGrid;
+        }else{
+            ListGrid = null;
+        }
     }
 
     $: docRelease(submitted);
@@ -378,6 +383,7 @@
                     <Pagination rows="{docRows}" totalDocs="{docCounts}" on:page-changed="{newPage}"/>
                 </div>
             {/if}
+
 
             {#if config.display === 'grid'}
 
