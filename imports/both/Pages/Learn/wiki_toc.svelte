@@ -50,7 +50,7 @@
 
                         <ul class="cleanList ml-2">
                             {#each title.children as children (children._id)}
-                                <li class="text-bold add-cursor">
+                                <li class="mb-2 text-bold add-cursor" style="line-height: 1.2;">
 
                                     <a id="{children._id}"
                                        class:active="{children._id === pageid}"
@@ -58,8 +58,8 @@
                                         {children.name}
                                     </a>
 
-                                    {#if children.children}
-                                        <ul class="cleanList ml-2">
+                                    {#if children.children && children.children.length > 0}
+                                        <ul class="cleanList ml-2" style="line-height: 1;">
                                             {#each children.children as children (children._id)}
                                                 <li class=" text-bold add-cursor">
                                                     <a id="{children._id}"
