@@ -28,12 +28,12 @@
     const dispatch = createEventDispatcher();
     let formText = getContext("formText");
 
-
     //* local reactive variable
     let inValue = "";
 
     let editor;
     let quill;
+    let table;
 
     $: setValue(field.value);
 
@@ -57,6 +57,84 @@
     ];
 
 
+    //* event handlers
+
+
+    /*
+    var bubble = new Quill('#bubble-container', {
+        theme: 'bubble',
+        modules: {
+            table: true,
+        }
+    });
+    var snow = new Quill('#snow-container', {
+        theme: 'snow',
+        modules: {
+            table: true,
+        }
+    });
+    var output = new Quill('#output-container', {
+        theme: 'bubble',
+        modules: { table: true },
+        readOnly: true,
+    })
+    bubble.on('text-change', function(delta, old, source) {
+        if (source === 'user') {
+            snow.updateContents(delta, 'api');
+            updateOutput();
+        }
+    });
+
+     */
+
+    /*
+    snow.on('text-change', function(delta, old, source) {
+        if (source === 'user') {
+            bubble.updateContents(delta, 'api');
+            updateOutput();
+        }
+    });
+    */
+
+    /*
+    function updateOutput() {
+        const bubbleContent = bubble.getContents();
+        const snowContent = snow.getContents();
+        // TODO compare
+        output.setContents(bubbleContent);
+        const outputContent = output.getContents();
+        // TODO compare outputContent
+    }
+    */
+
+
+    /*
+    document.querySelector('#insert-table').addEventListener('click', function() {
+        table.insertTable(2, 2);
+    });
+    document.querySelector('#insert-row-above').addEventListener('click', function() {
+        table.insertRowAbove();
+    });
+    document.querySelector('#insert-row-below').addEventListener('click', function() {
+        table.insertRowBelow();
+    });
+    document.querySelector('#insert-column-left').addEventListener('click', function() {
+        table.insertColumnLeft();
+    });
+    document.querySelector('#insert-column-right').addEventListener('click', function() {
+        table.insertColumnRight();
+    });
+    document.querySelector('#delete-row').addEventListener('click', function() {
+        table.deleteRow();
+    });
+    document.querySelector('#delete-column').addEventListener('click', function() {
+        table.deleteColumn();
+    });
+    document.querySelector('#delete-table').addEventListener('click', function() {
+        table.deleteTable();
+    });
+*/
+
     //* functions that mutate local variables
     function setValue(val){
         inValue = val;
@@ -73,19 +151,65 @@
     }
 
 
+    function actionTable(type){
+
+        switch(type){
+            case "insert-table":
+                table.insertTable(3, 3);
+                break;
+
+            case "delete-table":
+                table.deleteTable();
+                break;
+
+            case "insert-row-above":
+                table.insertRowAbove();
+                break;
+
+            case "insert-row-below":
+                table.insertRowBelow();
+                break;
+
+            case "delete-row":
+                table.deleteRow();
+                break;
+
+            case "insert-column-left":
+                table.insertColumnLeft();
+                break;
+
+            case "insert-column-right":
+                table.insertColumnRight();
+                break;
+
+            case "delete-column":
+                table.deleteColumn();
+                break;
+
+
+
+        }
+
+        console.log("actionTable", type);
+    }
+
+
     //* lifecycle states
     onMount(async () => {
         //** load big modules dynamically only when needed
-        const { default: Quill } = await import("quill");
-        await import('quill/dist/quill.snow.css');
+        const { default: Quill } = await import("./editor");
+        await import('./editor.css');
 
         quill = new Quill(editor, {
-            modules: {
-                toolbar: toolbarOptions
-            },
             theme: "snow",
+            modules: {
+                toolbar: toolbarOptions,
+                table: true,
+            },
             placeholder: formText[field.field].tag
         });
+
+        table = quill.getModule('table');
 
         quill.on('editor-change', function(eventName, ...args) {
             checkInput();
@@ -101,4 +225,25 @@
 
 <div class="editor-wrapper">
     <div bind:this={editor}></div>
+
+    <div class="quill-table-buttons">
+        <div class="buttons are-small my-2">
+            <button class="button" on:click|preventDefault={() => actionTable("insert-table")}>Insert Table</button>
+            <button class="button is-danger" on:click|preventDefault={() => actionTable("delete-table")}>Delete Table</button>
+        </div>
+
+        <div class="buttons are-small mb-2">
+            <button class="button" on:click|preventDefault={() => actionTable("insert-row-above")}>Insert Row Above</button>
+            <button class="button" on:click|preventDefault={() => actionTable("insert-row-below")}>Insert Row Below</button>
+            <button class="button is-danger" on:click|preventDefault={() => actionTable("delete-row")}>Delete Row</button>
+
+        </div>
+
+        <div class="buttons are-small">
+            <button class="button" on:click|preventDefault={() => actionTable("insert-column-left")}>Insert Column Left</button>
+            <button class="button" on:click|preventDefault={() => actionTable("insert-column-right")}>Insert Column Right</button>
+            <button class="button is-danger" on:click|preventDefault={() => actionTable("delete-column")}>Delete Column</button>
+        </div>
+
+    </div>
 </div>

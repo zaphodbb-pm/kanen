@@ -71,7 +71,7 @@
 
 
     onMount( () => {
-        buildToC({});
+        buildToC(currentRoute);
     });
 
     //* event handlers
@@ -104,6 +104,8 @@
         info.showList = false;
         info.pageid = msg.detail;
         info.clearSearch = !info.clearSearch;
+
+        console.log("selectPage", msg, msg.detail, info.pageid, info);
     }
 
     function newSearch(msg) {
@@ -155,7 +157,7 @@
         }
     }
 
-    async function buildToC() {
+    async function buildToC(item) {
         const sort = {sort: {name: 1}};
         let lang = langComp && (langComp === "all") ? {} : {"contentLang._id": {$in: [langComp, "all"]} };
         let compound = Object.assign({}, lang);
@@ -163,8 +165,15 @@
 
         info.tocTitles = structureToc(pages);
 
+        //** check if a page of content is targeted from url parameter
+        let target = item && item.queryParams && item.queryParams.item ? item.queryParams.item : null;
+
         if (Array.isArray(info.tocTitles) && info.tocTitles.length > 0) {
-            info.pageid = info.tocTitles[0]._id;
+            if(target){
+                info.pageid = target;
+            }else{
+                info.pageid = info.tocTitles[0]._id;
+            }
         }
     }
 
