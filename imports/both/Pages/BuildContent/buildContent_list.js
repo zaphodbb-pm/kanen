@@ -22,7 +22,7 @@
 
 
 export default {
-    sort: {"sortName": 1, "name": 1},
+    sort: {"parentPage._id": 1, "contentWeight": 1},
 
     fields: [
         {

@@ -23,8 +23,8 @@ import {nav, link, icon, roles} from './template_nav'
 import Page from './template_loader.svelte'
 //import Page from './template.svelte'
 
-
 let lang = getLang("en");
+
 
 export default {
     name: link,                             // link that router will use

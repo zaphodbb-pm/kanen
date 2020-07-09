@@ -10,9 +10,11 @@ $custom_link-invert: findColorInvert($custom_link);
 
 $primary: $custom_primary;
 $primary-invert: $custom-primary-invert;
+$primary-light: findLightColor($primary);
 
 $info: $custom_secondary;
 $info-invert: $custom_secondary-invert;
+$info-light: findLightColor($info);
 
 $link: $custom_link;
 $link-invert: $custom_link-invert;

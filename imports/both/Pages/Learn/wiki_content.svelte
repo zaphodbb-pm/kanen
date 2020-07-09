@@ -32,7 +32,7 @@
     //* local reactive variables
     let wordPerMin = 225;
     let wordsPerPage = 350;
-    let charPerPage = 2000;
+    let charPerPage = 2100;
     let document = "";
     let docList = [];
 
@@ -116,12 +116,17 @@
             });
 
             let page = "";
+            let length = 0;
             temp.forEach( (t) => {
                 page = page + t;
 
-                if( page.length > charPerPage ){
+                let removedItems = t.replace(/<img .*?>/g,"");
+                length = length + removedItems.length;
+
+                if( length > charPerPage ){
                     out.push(page);
                     page = "";
+                    length = 0;
                 }
             });
 
@@ -188,21 +193,25 @@
                 <div class="subtitle is-4"  class:is-hidden={!document.contentLead}>{document.contentLead}</div>
             </div>
 
-            <div class="subtitle text-0dot8rem d-flex justify-content-flex-end align-items-center">
-
-                <Icon icon={getContext("iconDefaultUser")} class="mr-1"/>
-
-                <a id="{document.author}"
-                   on:click="{() => dispatch('push-author', {_id: document.author, name: document.authorName})}">
-                    {document.authorName}
-                </a>
-
-                <Icon icon={getContext("iconClock")} class="ml-3 mr-1"/>
-
+            <div class="subtitle text-0dot8rem d-flex justify-content-between align-items-center">
                 <div>
-                    {document.timeAgo}
+                    id: {document._id}
                 </div>
 
+                <div class="d-flex justify-content-flex-end align-items-center">
+                    <Icon icon={getContext("iconDefaultUser")} class="mr-1"/>
+
+                    <a id="{document.author}"
+                       on:click="{() => dispatch('push-author', {_id: document.author, name: document.authorName})}">
+                        {document.authorName}
+                    </a>
+
+                    <Icon icon={getContext("iconClock")} class="ml-3 mr-1"/>
+
+                    <div>
+                        {document.timeAgo}
+                    </div>
+                </div>
             </div>
 
             <p class="subtitle is-5 buffer-y" class:is-hidden={!document.contentSummary}>{document.contentSummary}</p>

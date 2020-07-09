@@ -27,6 +27,7 @@ export default {
             name: 1,
             parentPage: 1,
             contentWeight: 1,
+            updatedAt: 1
         },
         listMedium: null,
         listLong: null,

@@ -85,9 +85,9 @@ export default [
             type: "dynamicSelect",
             coll: "learn",
             filter: {sort: {name: 1}, fields: {name: 1}},
-            prepend: {_id: "root", name: "_rootPage"}       // for buildContent; add a root choice for table of contents building
+            prepend: {_id: "aaaRootDocument", name: "_rootPage"}       // for buildContent; add a root choice for table of contents building
         },
-        defaultValue: {_id: "root", name: "_rootPage"},
+        defaultValue: {_id: "aaaRootDocument", name: "_rootPage"},
     },
 
     {

@@ -49,7 +49,7 @@ input[type="number"] {
 .ql-container dl,
 .ql-container ol,
 .ql-container ul,
-.ql-container blockquote,
+/*.ql-container blockquote,*/
 .ql-container pre,
 .ql-container table {
   &:not(:last-child) {
@@ -109,4 +109,25 @@ input[type="number"] {
 .ql-container h6 {
   font-size: 1em;
   margin-bottom: 1em;
+}
+
+.ql-editor table,
+.kanen-custom-table {
+  background-color: white;
+  color: #363636;
+  column-span: all;
+  margin-top: 1.5rem;
+}
+
+.kanen-custom-table tbody tr:first-child {
+  font-weight: bold;
+  background-color: $info-light;
+  color: findDarkColor($info);
+}
+
+.ql-editor table td,
+.kanen-custom-table td{
+  border: 1px solid #dbdbdb;
+  padding: .5em .75em;
+  vertical-align: top;
 }

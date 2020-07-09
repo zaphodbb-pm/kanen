@@ -104,7 +104,7 @@ export const page = {
                 label: "Updated At",
             },
 
-            del: {
+            _id: {
                 label: "Del",
             }
         }

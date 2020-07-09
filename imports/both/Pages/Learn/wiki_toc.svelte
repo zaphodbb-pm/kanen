@@ -40,6 +40,7 @@
             {#each tocTitles as title (title._id) }
                 <li>
                     <a id="{title._id}"
+                       class="has-text-weight-semibold"
                        class:active={title._id === pageid}
                        on:click="{() => dispatch('getpage', title._id)}">
 
@@ -77,6 +78,9 @@
                         </ul>
 
                     {/if}
+
+                    <hr class="mt-2 mb-4" />
+
                 </li>
             {/each}
         </ul>
