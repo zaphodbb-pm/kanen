@@ -104,8 +104,6 @@
         info.showList = false;
         info.pageid = msg.detail;
         info.clearSearch = !info.clearSearch;
-
-        console.log("selectPage", msg, msg.detail, info.pageid, info);
     }
 
     function newSearch(msg) {
