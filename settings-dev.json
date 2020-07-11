@@ -7,6 +7,8 @@
   "service_google_secret": "Yooox-SYHHNkJSkHj4uD8x1W",
 
   "public": {
+    "google_maps_api_key": "AIzaSyDoziWW6Caoegh1jM5cWebp3uwchAdND-8",
+    "google_maps_base_uri": "https://maps.googleapis.com/maps/api/geocode/json?address"
   }
 }
 
