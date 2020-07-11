@@ -252,13 +252,8 @@
                 sort ? sort : {}
         );
 
-        //listList
-
-        documents = await getDocs(coll, "listShort", combineSearch, f.filterSearch);
+        documents = await getDocs(coll, "listList", combineSearch, f.filterSearch);
         docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${totalDocs})`;
-
-
-        console.log("documents", documents);
 
         dispatch("list-docs-ready", documents);
     }
