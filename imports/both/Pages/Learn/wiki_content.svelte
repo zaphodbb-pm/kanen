@@ -195,7 +195,7 @@
 
             <div class="subtitle text-0dot8rem d-flex justify-content-between align-items-center">
                 <div>
-                    id: {document._id}
+                    <span class="is-hidden-touch">id: {document._id}</span>
                 </div>
 
                 <div class="d-flex justify-content-flex-end align-items-center">

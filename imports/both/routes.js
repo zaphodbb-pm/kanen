@@ -30,6 +30,8 @@
  */
 
 
+
+
 //* get page configuration information
 import Home from '/imports/both/Pages/Home/home_route'
 import Template from '/imports/both/Pages/Template/template_route'
