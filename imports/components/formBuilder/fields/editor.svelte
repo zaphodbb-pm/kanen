@@ -70,8 +70,12 @@
 
                 //** add class for system css
                 let doc = document.querySelector(".ql-editor");
-                let elTable = doc.getElementsByTagName("table")[0];
-                elTable.className = "kanen-custom-table"
+                let elTable = doc.getElementsByTagName("table");
+
+                Object.values(elTable).forEach( (et) => {
+                    et.className = "kanen-custom-table"
+                })
+
                 break;
 
             case "delete-table":

@@ -49,7 +49,7 @@
 
                     {#if title.children}
 
-                        <ul class="cleanList ml-2">
+                        <ul class="cleanList ml-2 mt-2">
                             {#each title.children as children (children._id)}
                                 <li class="mb-2 text-bold add-cursor" style="line-height: 1.2;">
 

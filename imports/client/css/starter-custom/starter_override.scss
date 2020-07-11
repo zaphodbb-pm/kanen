@@ -34,10 +34,18 @@ input[type="number"] {
 
 
 /** quill editor */
+.content blockquote {
+  margin: 0 !important;
+}
+
+.content blockquote:not(:first-of-type) {
+  padding-top: 0 !important;
+}
+
+
 .ql-container {
   font-size: 1rem !important;
 }
-
 
 .ql-picker-options {
   z-index: 11 !important;
@@ -130,4 +138,5 @@ input[type="number"] {
   border: 1px solid #dbdbdb;
   padding: .5em .75em;
   vertical-align: top;
+  word-wrap: break-word;
 }
