@@ -95,6 +95,8 @@ function generalSubmit(coll, doc, emit) {
 
             if (res) {
                 emit("doc-submitted", true);
+
+                emit("method-return", res);
             }
         });
     } else {
@@ -104,6 +106,8 @@ function generalSubmit(coll, doc, emit) {
 
             if (res) {
                 emit("doc-submitted", true);
+
+                emit("method-return", res);
             }
         });
     }

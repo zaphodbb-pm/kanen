@@ -23,6 +23,6 @@ export const icon = "iconListForm";
 // roles are also used by database write / read checking
 // adding "author" to roles further filters docs to include only those authored by current user
 export const roles = {
-    read: ["pro", "siteAdmin", "author"],
+    read: ["pro", "siteAdmin"],
     write: ["siteAdmin"]
 }

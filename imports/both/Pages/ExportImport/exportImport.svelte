@@ -128,7 +128,6 @@
         } else {
 
             if (params.coll && params.coll !== "none" && params.infile && params.infile.length > 0) {
-
                 Meteor.call('importJSON', params.coll, params.infile, function (err, res) {
                     methodReturn(err, res, "importJSON");
 

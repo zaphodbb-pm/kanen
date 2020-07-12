@@ -28,8 +28,9 @@
 
     //* page-body support **************************
     import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/client/systemStores'
+    import {lang, messages} from '/imports/client/systemStores'
     import {deepClone} from '/imports/functions/deepClone'
+    import {generateId} from '/imports/functions/generateId'
 
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
@@ -89,6 +90,27 @@
         releaseEdit = true;
     }
 
+    //** for demonstration only; can be removed ***
+    function methodMessage(msg){
+        let status = msg.detail && msg.detail.status ? msg.detail.status : 500;
+
+        let state = {
+            200: "success",
+            400: "fail",
+            404: "warning",
+            500: "uncertain",
+        }
+
+        let newMsg = {
+            id: generateId(8),
+            state: state[status],
+            text: msg.detail && msg.detail.text ? msg.detail.text : "n/a"
+        }
+
+        $messages = [... $messages, newMsg];
+    }
+    //** end of demonstration ***
+
     function gridMode(msg){
         mode = msg.detail.value;
 
@@ -145,7 +167,8 @@
                     {editdoc}
                     {directdoc}
                     on:back-to-list="{checkOverlay}"
-                    on:doc-submitted="{docSent}"/>
+                    on:doc-submitted="{docSent}"
+                    on:method-return={methodMessage}/>
 
         </article>
 
