@@ -63,14 +63,15 @@
     export let directdoc;
 
     //** svelte handlers
-    import {userExtras} from '/imports/client/systemStores'
-    import {onMount, setContext} from 'svelte';
+    import {userExtras, sysConfig} from '/imports/client/systemStores'
+    import {onMount, setContext, getContext} from 'svelte';
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
 
     //* make form text available to all children components
     setContext("formText", formText);
     setContext("formConfig", config);
+    setContext("debugOptions", $sysConfig.sysDebug);
 
     //* get application specific support libraries
     import {elements} from '/imports/both/systemGlobals'

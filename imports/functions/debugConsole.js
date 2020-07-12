@@ -9,7 +9,7 @@
  * @param {String} name - label to help identify / tag the console message
  * @param {Array} vrbl - list of in program variable to report on
  * @param {Array} label - labels to prefix variables for identification
- * @param {String} debugOptions - a string of options that have been turned by system
+ * @param {String} debugOptions - a string of options that have been turned on by system
  * @return nothing - outputs message to console
  *
  * @example
@@ -30,9 +30,13 @@
  *
  */
 
-export function debugConsole(level, name, vrbl, label, debugOptions) {
-    if(!debugOptions || !Array.isArray(vrbl) ){ return null; }
 
+
+import { getContext } from 'svelte';
+
+export function debugConsole(level, name, vrbl, label) {
+    let debugOptions = getContext("debugOptions");
+    if(!debugOptions || !Array.isArray(vrbl) ){ return null; }
 
     //** if the debug level is set in SysConfigs.debugLevel, then output message
     if( debugOptions.includes(level)  ){

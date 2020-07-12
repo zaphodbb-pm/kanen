@@ -49,10 +49,12 @@ export async function submitForm(doc, coll, clone, test, emit, extras) {
 
         case coll === "myProfile":
             Meteor.call('userMgmtUpdateItem', "profile", doc, function (err, res) {
+                methodReturn(err, res, "submit myProfile");
+
                 if (res) {
                     emit("doc-submitted", true);
+                    emit("method-return", res);
                 }
-                methodReturn(err, res);
             });
             break;
 
@@ -146,7 +148,8 @@ function buildRequestUrl(address, type) {
     let url = null;
 
     if (type === "array") {
-        let addr = _.compact(address).join(", ").trim().replace(/\s+/g, "+");
+        let addr = address.filter(Boolean);     // remove all falsey values from array
+        addr = addr.join(", ").trim().replace(/\s+/g, "+");
         url = `${baseUrl}=${addr}&key=${key}`;
     }
 

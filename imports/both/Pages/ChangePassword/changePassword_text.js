@@ -59,9 +59,11 @@ export const page = {
 
             400: "Password fields may not be empty.",
             401: "You must be logged in to change your password.",
-            403: "Incorrect Old Password",
+            403: "Incorrect Old Password.",
 
-            500: "System problem"
+            404: "You do not have store privileges.",
+
+            500: "System problem."
         }
     }
 };

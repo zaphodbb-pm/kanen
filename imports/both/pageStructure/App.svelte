@@ -26,7 +26,7 @@
 
 
     //* set up system wide text context
-    import { setContext } from 'svelte';
+    import { setContext, getContext } from 'svelte';
 
     import version from '/imports/both/version'
     setContext("Version", version);             //setup system wide version info

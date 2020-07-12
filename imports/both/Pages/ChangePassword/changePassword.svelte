@@ -28,7 +28,8 @@
 
     //* page-body support **************************
     import {i18n} from '/imports/functions/i18n'
-    import {lang} from '/imports/client/systemStores'
+    import {lang, userExtras} from '/imports/client/systemStores'
+    import {roles} from './changePassword_nav'
 
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
 
@@ -65,18 +66,25 @@
     function changePassword(msg){
         messages = [];
 
-        Accounts.changePassword(formOldPassword, formNewPassword, function (err) {
-            if (err) {
-                let msg = errMsg[err.error];
-                if(typeof err === "object" && !msg){
-                    messages = [...messages, errMsg[401]];
-                }else{
-                    messages = [...messages, msg];
+        let userRole = $userExtras && $userExtras.role && $userExtras.role._id ? $userExtras.role._id : "n/a";
+        let verify = roles.write.includes(userRole);
+
+        if(verify){
+            Accounts.changePassword(formOldPassword, formNewPassword, function (err) {
+                if (err) {
+                    let msg = errMsg[err.error];
+                    if(typeof err === "object" && !msg){
+                        messages = [...messages, errMsg[401]];
+                    }else{
+                        messages = [...messages, msg];
+                    }
+                } else {
+                    messages = [...messages, errMsg[200]];
                 }
-            } else {
-                messages = [...messages, errMsg[200]];
-            }
-        })
+            })
+        }else{
+            messages = [...messages, errMsg[404]];
+        }
     }
 
 </script>
