@@ -149,7 +149,8 @@ export const page = {
                     icon: "iconUsers",
                     label: "User",
                     dbContent: null,
-                    lead: "User pages for only logged in or logging in users.",
+                    lead: "User pages for only logged in or logging in users.  " +
+                        "Use email: 'test-user@example.com' with password: 'test-user-kanen' to see these pages. ",
 
                     text: [
                         "<a href='/my-profile'>My Profile</a> - only seen by a logged in user.  " +

@@ -22,7 +22,16 @@ export const icon = "iconChangePwd";
 
 // roles that can see this link in Navbar and be routed to
 // roles are also used by database write / read checking
-export const roles = {
+let demoMode = Meteor.settings.public.demo_mode;
+
+const normal = {
+    read: ["basic", "standard", "pro", "siteAdmin"],
+    write: ["basic", "standard", "pro", "siteAdmin"]
+}
+
+const demo = {
     read: ["basic", "standard", "pro", "siteAdmin"],
     write: ["siteAdmin"]
 }
+
+export const roles = demoMode ? demo : normal;
