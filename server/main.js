@@ -93,11 +93,13 @@ if (Meteor.isServer) {
     });
 
     Accounts.onLogout( (data) => {
-        let user = Meteor.users.findOne({_id: data.user._id});
+        if(data && data.user && data.user._id){
+            let user = Meteor.users.findOne({_id: data.user._id});
 
-        if(user){
-            let doc = buildUserDoc("logout", data, user);
-            LogsUsers.insert(doc);
+            if(user){
+                let doc = buildUserDoc("logout", data, user);
+                LogsUsers.insert(doc);
+            }
         }
     });
 }

@@ -5,6 +5,7 @@ import {check, Match} from 'meteor/check'
 
 import {objectify} from '/imports/server/functions/objectify'
 import {verifyRole} from '/imports/server/functions/verifyRole'
+import {accessControl} from '/imports/server/setupACL'
 
 
 Meteor.methods({
@@ -161,7 +162,9 @@ Meteor.methods({
         check(item, String);
         check(val, Match.OneOf(String, Object, Array) );
 
-        if( Meteor.user() ) {     // check if user is logged in
+        let acl = accessControl["users"];
+
+        if( Meteor.user() && verifyRole(Meteor.user(), acl.roles) ) {     // check if user is logged in
             Meteor.users.update({_id: Meteor.user()._id}, {$set: objectify(item, val)});
             return {status: 200, _id: Meteor.user()._id, text: `${item} has been updated`};
         }else{

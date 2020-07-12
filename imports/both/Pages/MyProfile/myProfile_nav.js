@@ -23,5 +23,5 @@ export const icon = "iconMyProfile";
 // roles are also used by database write / read checking
 export const roles = {
     read: ["basic", "standard", "pro", "siteAdmin"],
-    write: ["basic", "standard", "pro", "siteAdmin"]
+    write: ["siteAdmin"]
 }

@@ -49,7 +49,7 @@ Meteor.methods({
             }
 
         }else{
-            return {status: 400, _id: "", text: "Invalid user"};
+            return {status: 400, _id: "", text: "Invalid user; does not have store privileges."};
         }
     },
 

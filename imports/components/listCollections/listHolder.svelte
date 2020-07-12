@@ -58,6 +58,7 @@
     export let submitted = false;
 
     //* support functions
+    import {sysConfig} from '/imports/client/systemStores'
     import {onMount, setContext, getContext} from 'svelte'
     import Icon from '/imports/components/elements/icon.svelte'
     import {createEventDispatcher} from 'svelte';
@@ -69,6 +70,7 @@
 
     //* make form text available to all children components
     setContext("listText", listText);
+    setContext("debugOptions", $sysConfig.sysDebug);
 
     fields = loadText( fields, listText);   // insert text into fields object
 
@@ -253,6 +255,7 @@
         );
 
         documents = await getDocs(coll, "listList", combineSearch, f.filterSearch);
+        methodReturn(null, documents, "submit insertDoc");
         docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${totalDocs})`;
 
         dispatch("list-docs-ready", documents);
