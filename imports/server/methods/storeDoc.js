@@ -83,7 +83,7 @@ Meteor.methods({
 
             return {status: 404, text:  `Has not been updated on ${coll} by updateDoc.  User does not own document.`};
         }else{
-            return {status: 400, text: "Invalid user"};
+            return {status: 400, text: "Invalid user; does not have store privileges."};
         }
     },
 
@@ -116,7 +116,7 @@ Meteor.methods({
             }
             return {status: 404, _id: docId, text:  `User does not have permission to remove document.`};
         }else{
-            return {status: 400, _id: "", text: "Invalid user"};
+            return {status: 400, _id: "", text: "Invalid user; does not have store privileges."};
         }
     },
 
@@ -154,7 +154,7 @@ Meteor.methods({
             Mongo.Collection.get(acl.coll).update({_id: docId}, {$set: setter });
             return {status: 200, _id: docId, text: `${docId} has been updated on ${coll} by updateDocField`};
         }else{
-            return {status: 400, _id: "", text: "Invalid user"};
+            return {status: 400, _id: "", text: "Invalid user; does not have store privileges."};
         }
     },
 

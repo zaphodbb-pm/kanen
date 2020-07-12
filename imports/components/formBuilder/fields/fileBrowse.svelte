@@ -20,6 +20,9 @@
     //* common props from parent
     export let field = {};
 
+    //* special case for importing large json files
+    import {userLoggedIn, userExtras} from '/imports/client/systemStores'
+
     //* support functions
     import {documents} from '/imports/both/systemGlobals'
     import {fileReader} from '/imports/client/setup/textCommon'
@@ -87,7 +90,11 @@
                 return;
             }
 
-            if (file.size > documents.MAX_IMAGE_SIZE) {
+            //* JSON files are a special case
+            let processJson = file.type.includes("json") && file.size < 512 * 1024 * 1024;
+            processJson = processJson && $userExtras && ($userExtras.admin || $userExtras.role._id === "administrator");
+
+            if (!processJson && file.size > documents.MAX_IMAGE_SIZE) {
                 format = "none";
                 messages = errmsg.file_too_long + Math.round(file.size / 1024) + "KB";
                 return;
