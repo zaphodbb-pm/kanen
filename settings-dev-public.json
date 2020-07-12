@@ -1,12 +1,13 @@
 {
-  "require_documentation": "true",
-  "multi_tenancy": "true",
+  "require_documentation": true,
+  "multi_tenancy": true,
   "mongodb": "4.2.1",
 
   "service_google_clientId": "",
   "service_google_secret": "",
 
   "public": {
+    "demo_mode": true,
     "google_maps_api_key": "",
     "google_maps_base_uri": ""
   }
