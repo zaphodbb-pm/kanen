@@ -1,0 +1,18 @@
+{
+  "short_name": "Kanen",
+  "name": "Meteor-Svelte Starter",
+  "start_url": "/home",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/pwa-image-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/pwa-image-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

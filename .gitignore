@@ -1,3 +1,4 @@
 node_modules/
 /.deploy/mup.js
 /.deploy/settings.json
+/settings-dev.json
