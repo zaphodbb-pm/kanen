@@ -12,6 +12,19 @@
  */
 
 
+
+import { Meteor } from 'meteor/meteor'
+//* prepare to add PWA through service worker
+Meteor.startup(() => {
+    navigator.serviceWorker
+        .register('/sw.js')
+        .then(() => console.info('service worker registered'))
+        .catch(error => {
+            console.log('ServiceWorker registration failed: ', error)
+        })
+})
+
+
 //* load Meteor specific files
 import '/imports/both/collections'
 
