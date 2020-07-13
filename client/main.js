@@ -12,7 +12,7 @@
  */
 
 
-
+/*
 import { Meteor } from 'meteor/meteor'
 //* prepare to add PWA through service worker
 Meteor.startup(() => {
@@ -23,6 +23,7 @@ Meteor.startup(() => {
             console.log('ServiceWorker registration failed: ', error)
         })
 })
+*/
 
 
 //* load Meteor specific files
