@@ -75,18 +75,32 @@
 
 
     //* get user position from browser
-    navigator.geolocation.getCurrentPosition(function (position) {
+    if(Meteor.settings.public.demo_mode){
         $userPosition = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
+            lat: 45.4,
+            lng: -75.7,
 
-            accuracy: position.coords.accuracy,
-            altitude: position.coords.altitude,
-            altitudeAccuracy: position.coords.altitudeAccuracy,
-            heading: position.coords.heading,
-            speed: position.coords.speed,
+            accuracy: 1369,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
         };
-    });
+    }else{
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $userPosition = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+
+                accuracy: position.coords.accuracy,
+                altitude: position.coords.altitude,
+                altitudeAccuracy: position.coords.altitudeAccuracy,
+                heading: position.coords.heading,
+                speed: position.coords.speed,
+            };
+        });
+    }
+
 
 
     //* respond to user login / logout / page refresh actions from parent Meteor instance
@@ -99,6 +113,21 @@
                 if(err){ console.log("loadExtraFields error", err); }
 
                 if(res){
+
+
+                    /*
+                    setTimeout(function(){
+                        let result = res ? res : null;
+                        let navs = buildNavLinks(result, allRoutes);
+                        routes = navs
+                        $showRoutes = navs;
+                        $userExtras = result;
+                        routesLoggedOut = null;
+                    }, 1000);
+                    */
+
+
+
                     let result = res ? res : null;
                     let navs = buildNavLinks(result, allRoutes);
                     routes = navs

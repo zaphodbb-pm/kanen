@@ -19,11 +19,15 @@
     let text = getContext("navbar").userCredit;
 
     //* local reactive variables
-    let credit = "";
+    let credit = 0;
 
     $: {
-        let credits = $userExtras && $userExtras.credits ? $userExtras.credits : 0;
-        credit = credits.toFixed(0);
+        if($userExtras){
+            let credits = $userExtras.credits ? $userExtras.credits : 0;
+            credit = credits.toFixed(0);
+        }else{
+            credit = 0;
+        }
     }
 
 </script>
