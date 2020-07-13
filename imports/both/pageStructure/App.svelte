@@ -113,21 +113,6 @@
                 if(err){ console.log("loadExtraFields error", err); }
 
                 if(res){
-
-
-                    /*
-                    setTimeout(function(){
-                        let result = res ? res : null;
-                        let navs = buildNavLinks(result, allRoutes);
-                        routes = navs
-                        $showRoutes = navs;
-                        $userExtras = result;
-                        routesLoggedOut = null;
-                    }, 1000);
-                    */
-
-
-
                     let result = res ? res : null;
                     let navs = buildNavLinks(result, allRoutes);
                     routes = navs
