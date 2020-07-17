@@ -102,6 +102,14 @@ export const athDefaults = {
         "iphone": {
             targetUrl: "guideance/iphone/",
             showClasses: [ "iphone-wrapper", "animated", "fadeIn", "d-block" ],
+
+            imgs: [
+                {
+                    src: "/pwa/MakeSafariBookmark.jpg",
+                    alt: "Tap the Share Icon"
+                }]
+
+            /*
             imgs: [
                 {
                     src: "/pwa/ios-safari-share-button-highlight.jpg",
@@ -122,6 +130,8 @@ export const athDefaults = {
                     alt: "Tap the Add to Homescreen Icon"
                 }
             ]
+
+             */
         },
         "ipad": {
             targetUrl: undefined,

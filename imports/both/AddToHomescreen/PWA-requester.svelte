@@ -13,8 +13,8 @@
     import {getPlatform} from "./func-getPlatform";
     import {checkPlatform} from "./func-checkPlatform";
     import {nextPrime} from "./func-nextPrime";
-    //import {buildGuidance} from "./func-buildGuidance";
     import {showPlatformGuidance} from "./func-showPlatformGuidance";
+    import {athMainClass} from "./func-class_athMain";
 
     const text = {
         title: "Install this application to your home screen?",
@@ -22,7 +22,24 @@
         notNow: "Not Now"
     }
 
+
+    //* prepare common variables
     let modalOpen = false;
+    let instructions = null;
+
+    let appID = athDefaults.appID;
+    let nativePrompt = false;
+    let platform = {};
+    let _beforeInstallPrompt;
+
+    //* load session
+    let session = localStorage.getItem( appID );
+
+    if ( session && session.added ) {
+        console.log("session exists", session);
+    }
+
+    session = session ? JSON.parse( session ) : defaultSession;
 
     //* initialize component
     let initOpts = {
@@ -51,405 +68,21 @@
 
 
 
-
     //* event handlers
-    function btnInstall(){
-        console.log("btnInstall");
-    }
-
-    function btnNotNow(){
-        console.log("btnNotNow");
-    }
-
     function btnClose(){
         modalOpen = false;
     }
 
+    function btnNotNow(){
+        console.log("btnNotNow");
 
-
-
-
-
-    //* prepare common variables
-    let appID = athDefaults.appID;
-    let nativePrompt = false;
-    let platform = {};
-    let _beforeInstallPrompt;
-
-    //* load session
-    let session = localStorage.getItem( appID );
-
-    if ( session && session.added ) {
-        console.log("session exists", session);
-    }
-
-    session = session ? JSON.parse( session ) : defaultSession;
-
-    class athMain {
-        constructor(opts, platform){
-            // merge default options with user config
-            this.options = Object.assign( {}, athDefaults, opts );
-            this._canPrompt = undefined;
-            this.platform = platform;
-
-            if ( "serviceWorker" in navigator ) {
-                let manifestEle = document.querySelector( "[rel='manifest']" );
-                if ( !manifestEle ) {
-                    console.log( "no manifest file" );
-                    platform.isCompatible = false;
-                }
-
-                navigator.serviceWorker.getRegistration().then( afterSWCheck );
-            } else {
-                afterSWCheck( {} );
-            }
-        }
-
-        //** methods
-        doLog( logStr ) {
-            if ( this.options.logging ) {
-                console.log( logStr );
-            }
-        };
-
-        removeSession( appID ) {
-            localStorage.removeItem( appID || athDefaults.appID );
-        };
-
-
-        //performs various checks to see if we are cleared for prompting
-        canPrompt() {
-            //already evaluated the situation, so don't do it again
-            if ( this._canPrompt !== undefined ) {
-                return this._canPrompt;
-            }
-
-            this._canPrompt = false;
-
-            if ( this.options.customCriteria ) {
-                let passCustom = false;
-
-                if ( typeof this.options.customCriteria === "function" ) {
-                    passCustom = this.options.customCriteria();
-                } else {
-                    passCustom = !!this.options.customCriteria;
-                }
-
-                if ( !passCustom ) {
-                    this.doLog( "Add to homescreen: not displaying callout because a custom criteria was not met." );
-                    return false;
-                }
-            }
-
-            //using a double negative here to detect if service workers are not supported
-            //if not then don't bother asking to add to install the PWA
-            if ( !( "serviceWorker" in navigator ) ) {
-                this.doLog( "Add to homescreen: not displaying callout because service workers are not supported" );
-                return false;
-            }
-
-            // the device is not supported
-            if ( !platform.isCompatible ) {
-                this.doLog( "Add to homescreen: not displaying callout because device not supported" );
-                return false;
-            }
-
-            let now = Date.now(),
-                    lastDisplayTime = session.lastDisplayTime;
-
-            // we obey the display pace (prevent the message to popup too often)
-            if ( now - lastDisplayTime < this.options.displayPace * 60000 ) {
-                this.doLog( "Add to homescreen: not displaying callout because displayed recently" );
-                return false;
-            }
-
-            // obey the maximum number of display count
-            if ( this.options.maxDisplayCount && session.displayCount >= this.options.maxDisplayCount ) {
-                this.doLog( "Add to homescreen: not displaying callout because displayed too many times already" );
-                return false;
-            }
-
-            let isValidLocation = !this.options.validLocation.length;
-
-            for ( let i = this.options.validLocation.length; i--; ) {
-                if ( this.options.validLocation[ i ].test( document.location.href ) ) {
-                    isValidLocation = true;
-                    break;
-                }
-            }
-
-            if ( !isValidLocation ) {
-                this.doLog( "Add to homescreen: not displaying callout because not a valid location" );
-                return false;
-            }
-
-
-            /*
-            let isGuidanceURL = false;
-
-            for ( let i = guidanceTargetURLs.length; i--; ) {
-                if ( document.location.href.indexOf( guidanceTargetURLs[ i ] ) > -1 ) {
-                    isGuidanceURL = true;
-                    break;
-                }
-            }
-
-            if ( isGuidanceURL ) {
-                this.doLog( "Add to homescreen: not displaying callout because this is a guidance URL" );
-                return false;
-            }
-            */
-
-            if ( session.sessions < this.options.minSessions ) {
-                this.doLog( "Add to homescreen: not displaying callout because not enough visits" );
-                return false;
-            }
-
-            if ( ( this.options.nextSession && this.options.nextSession > 0 ) &&
-                    session.sessions >= this.options.nextSession ) {
-                this.doLog( "Add to homescreen: not displaying callout because waiting on session " + this.options.nextSession );
-                return false;
-            }
-
-            // critical errors:
-            if ( session.optedout ) {
-                this.doLog( "Add to homescreen: not displaying callout because user opted out" );
-                return false;
-            }
-
-            if ( session.added ) {
-                this.doLog( "Add to homescreen: not displaying callout because already added to the homescreen" );
-                return false;
-            }
-
-            // check if the app is in stand alone mode
-            //this applies to iOS
-            if ( platform.isStandalone ) {
-
-                // execute the onAdd event if we haven't already
-                if ( !session.added ) {
-                    session.added = true;
-                    this.updateSession();
-
-                    if ( this.options.onAdd ) {
-                        this.options.onAdd.call( this );
-                    }
-                }
-
-                this.doLog( "Add to homescreen: not displaying callout because in standalone mode" );
-                return false;
-            }
-
-            // check if this is a returning visitor
-            if ( !session.returningVisitor ) {
-
-                session.returningVisitor = true;
-                this.updateSession();
-
-                // we do not show the message if this is your first visit
-                if ( this.options.skipFirstVisit ) {
-                    this.doLog( "Add to homescreen: not displaying callout because skipping first visit" );
-                    return false;
-                }
-            }
-
-            this._canPrompt = true;
-
-            return true;
-        };
-
-        show( force ) {
-            // message already on screen
-            if ( this.shown ) {
-                this.doLog( "Add to homescreen: not displaying callout because already shown on screen" );
-                return;
-            }
-
-            this.shown = true;
-
-            if ( document.readyState === "interactive" || document.readyState === "complete" ) {
-                this._delayedShow();
-            } else {
-                document.onreadystatechange = function () {
-                    if ( document.readyState === 'complete' ) {
-                        ath._delayedShow();
-                    }
-                };
-            }
-        };
-
-        _delayedShow( e ) {
-            setTimeout( this._show(), this.options.startDelay * 1000 + 500 );
-        };
-
-        _show() {
-            if ( this.canPrompt() ) {
-                if ( _beforeInstallPrompt && !this.options.mustShowCustomPrompt ) {
-                    triggerNativePrompt();
-
-                } else {
-                    let target = getPlatform(platform, this.options.debug);
-                    let ath_wrapper = document.querySelector( this.options.athWrapper );
-
-                    if ( ath_wrapper && !session.optedout ) {
-                        ath_wrapper.classList.remove( this.options.hideClass );
-                        let promptTarget = Object.assign( {}, defaultPrompt, this.options.customPrompt, this.options.prompt[ target ] );
-
-                        if ( promptTarget.showClasses ) {
-                            promptTarget.showClasses = promptTarget.showClasses.concat( this.options.showClasses );
-                        } else {
-                            promptTarget.showClasses = this.options.showClasses;
-                        }
-
-                        for ( let index = 0; index < promptTarget.showClasses.length; index++ ) {
-                            ath_wrapper.classList.add( promptTarget.showClasses[ index ] );
-                        }
-
-                        //ath_wrapper.classList.add( ...promptTarget.showClasses );
-
-
-
-
-                        let ath_title = ath_wrapper.querySelector( this.options.promptDlg.title ),
-                                ath_logo = ath_wrapper.querySelector( this.options.promptDlg.logo ),
-                                ath_cancel = ath_wrapper.querySelector( this.options.promptDlg.cancel ),
-                                ath_install = ath_wrapper.querySelector( this.options.promptDlg.install );
-
-
-                        if ( ath_title && promptTarget.title ) {
-                            ath_title.innerText = promptTarget.title;
-                        }
-
-                        if ( ath_logo && promptTarget.src ) {
-                            ath_logo.src = promptTarget.src;
-                            ath_logo.alt = promptTarget.title || "Install PWA";
-                        }
-
-                        if ( ath_install ) {
-                            ath_install.addEventListener( "click", platform.handleInstall );
-                            //ath_install.classList.remove( ath.options.hideClass );
-                            /*
-							ath_install.innerText = promptTarget.installMsg ? promptTarget.installMsg :
-								( ( promptTarget.action && promptTarget.action.ok ) ? promptTarget.action.ok : ath.options.promptDlg.action.ok );
-
-                             */
-                        }
-
-                        if ( ath_cancel ) {
-                            ath_cancel.addEventListener( "click", platform.cancelPrompt );
-                            ath_cancel.classList.remove( this.options.hideClass );
-                            ath_cancel.innerText = promptTarget.cancelMsg ? promptTarget.cancelMsg :
-                                    ( ( promptTarget.action && promptTarget.action.cancel ) ? promptTarget.action.cancel : this.options.promptDlg.action.cancel );
-                        }
-                    }
-
-                    if ( this.options.lifespan && this.options.lifespan > 0 ) {
-                        this.autoHideTimer = setTimeout( autoHide, this.options.lifespan * 1000 );
-                    }
-                }
-
-                // fire the custom onShow event
-                if ( this.options.onShow ) {
-                    this.options.onShow.call( this );
-                }
-
-                // increment the display count
-                session.lastDisplayTime = Date.now();
-                session.displayCount++;
-
-                if ( this.options.displayNextPrime ) {
-                    session.nextSession = nextPrime( session.sessions );
-                }
-
-                this.updateSession();
-
-            }
-        };
-
-        trigger() {
-            this._show();
-        };
-
-        updateSession() {
-            localStorage.setItem( this.options.appID, JSON.stringify( session ) );
-        };
-
-        clearSession() {
-            session = defaultSession;
-            this.updateSession();
-        }
-
-        optOut() {
-            session.optedout = true;
-            this.updateSession();
-        };
-
-        optIn() {
-            session.optedout = false;
-            this.updateSession();
-        }
-
-        clearDisplayCount() {
-            session.displayCount = 0;
-            this.updateSession();
-        };
-    }
-
-    //let ath = ath ? ath : new athMain( initOpts);
-
-    //* setup browser platform object
-    platform = checkPlatform(window.navigator.userAgent);
-
-    let ath =  new athMain( initOpts, platform);
-
-
-    console.log("ath", ath);
-
-
-
-    //* event handlers
-    if ( "onbeforeinstallprompt" in window ) {
-        window.addEventListener( "beforeinstallprompt", beforeInstallPrompt );
-        nativePrompt = true;
-    }
-
-    if ( "onappinstalled" in window ) {
-        window.addEventListener( "appinstalled", function ( evt ) {
-            ath.doLog( "a2hs", "installed" );
-            session.added = true;
-            ath.updateSession();
-
-            if ( ath.options.onInstall ) {
-                ath.options.onInstall.call( this );
-            }
-        } );
-    }
-
-
-
-    platform.cancelPrompt = function ( evt ) {
-        evt.preventDefault();
         if ( ath.options.onCancel ) {
             ath.options.onCancel();
         }
-        platform.closePrompt();
-        return false;
-    };
+        btnClose();
+    }
 
-    platform.closePrompt = function () {
-
-        console.log("platform.closePrompt");
-
-        /*
-        let ath_wrapper = document.querySelector( ath.options.athWrapper );
-        if ( ath_wrapper ) {
-            ath_wrapper.classList.remove( ...ath.options.showClasses );
-        }
-
-         */
-    };
-
-    platform.handleInstall = function ( evt ) {
+    function btnInstall(){
         if ( ath.options.onInstall ) {
             ath.options.onInstall();
         }
@@ -460,8 +93,6 @@
             platform.closePrompt();
             triggerNativePrompt();
 
-            console.log("_beforeInstallPrompt", getPlatform(platform,  ath.options.debug) === "native" );
-
         } else {
 
             if ( ath.autoHideTimer ) {
@@ -469,24 +100,70 @@
             }
 
             let promptTarget = Object.assign({}, defaultPrompt, ath.options.customPrompt, ath.options.prompt[checkPlatform]);
-            let showImages = showPlatformGuidance( promptTarget );
+            instructions = showPlatformGuidance( promptTarget );
+        }
+    }
 
-            console.log("showImages", checkPlatform, showImages);
+
+    //* setup browser platform object
+    platform = checkPlatform(window.navigator.userAgent);
+
+    //* service worker check
+    if ( "serviceWorker" in navigator ) {
+        let manifestEle = document.querySelector( "[rel='manifest']" );
+        if ( !manifestEle ) {
+            console.log( "no manifest file" );
+            platform.isCompatible = false;
         }
 
-        return false;
-    };
+        navigator.serviceWorker.getRegistration().then( afterSWCheck );
+    } else {
+        afterSWCheck( {} );
+    }
+
+
+    let ath =  new athMainClass( initOpts, platform, session, );
+    console.log("ath", ath);
 
     function autoHide() {
         let target = getPlatform(platform, ath.options.debug);
-        let ath_wrapper = document.querySelector( ath.options.athWrapper );
+        //let ath_wrapper = document.querySelector( ath.options.athWrapper );
 
-        if ( ath_wrapper ) {
-            let promptTarget = ath.options.prompt[ target ];
-            promptTarget.showClasses = promptTarget.showClasses.concat( ath.options.showClasses );
+        console.log("ah", target);
 
-            ath_wrapper.classList.remove( ...promptTarget.showClasses );
-            ath_wrapper.classList.add( ath.options.hideClass );
+        btnNotNow();
+    }
+
+    function _delayedShow(ath) {
+        setTimeout( _show(ath, platform, _beforeInstallPrompt), ath.options.startDelay * 1000 + 500 );
+    }
+
+
+    function _show(ath, platform, _beforeInstallPrompt){
+        if ( ath.canPrompt() ) {
+            if ( _beforeInstallPrompt && !ath.options.mustShowCustomPrompt ) {
+                triggerNativePrompt();
+
+            } else {
+                if ( ath.options.lifespan && ath.options.lifespan > 0 ) {
+                    ath.autoHideTimer = setTimeout( autoHide, ath.options.lifespan * 1000 );
+                }
+            }
+
+            // fire the custom onShow event
+            if ( ath.options.onShow ) {
+                ath.options.onShow.call( this );
+            }
+
+            // increment the display count
+            session.lastDisplayTime = Date.now();
+            session.displayCount++;
+
+            if ( ath.options.displayNextPrime ) {
+                session.nextSession = nextPrime( session.sessions );
+            }
+
+            ath.updateSession();
         }
     }
 
@@ -527,7 +204,7 @@
 
                     if ( err.message.indexOf( "user gesture" ) > -1 ) {
                         ath.options.mustShowCustomPrompt = true;
-                        ath._delayedShow();
+                        _delayedShow(ath);
                     } else if ( err.message.indexOf( "The app is already installed" ) > -1 ) {
 
                         console.log( err.message );
@@ -540,16 +217,6 @@
                     }
                 } );
     }
-
-
-    function beforeInstallPrompt( evt ) {
-        evt.preventDefault();
-        console.log( "capturing the native A2HS prompt", ath );
-        _beforeInstallPrompt = evt;
-        ath._delayedShow();
-    }
-
-
 
     function afterSWCheck( sw ) {
         ath.sw = sw;
@@ -598,6 +265,45 @@
         }
     }
 
+
+    function beforeInstallPrompt( evt ) {
+        evt.preventDefault();
+        console.log( "capturing the native A2HS prompt", ath );
+        _beforeInstallPrompt = evt;
+        _delayedShow(ath);
+    }
+
+
+    //* event handlers
+    if ( "onbeforeinstallprompt" in window ) {
+        window.addEventListener( "beforeinstallprompt", beforeInstallPrompt );
+        nativePrompt = true;
+    }
+
+    if ( "onappinstalled" in window ) {
+        window.addEventListener( "appinstalled", function ( evt ) {
+            ath.doLog( "a2hs", "installed" );
+            session.added = true;
+            ath.updateSession();
+
+            if ( ath.options.onInstall ) {
+                ath.options.onInstall.call( this );
+            }
+        } );
+    }
+
+    if ( document.readyState === "interactive" || document.readyState === "complete" ) {
+        //ath._delayedShow();
+        _delayedShow(ath);
+    } else {
+        //const self = this;
+        document.onreadystatechange = function () {
+            if ( document.readyState === 'complete' ) {
+                _delayedShow(ath);
+            }
+        };
+    }
+
 </script>
 
 
@@ -615,13 +321,21 @@
                     </div>
 
                     <div class="d-flex justify-content-around">
-                        <button class="button is-success btn-install-ath">{text.install}</button>
-                        <button class="button is-outlined is-link btn-cancel-ath">{text.notNow}</button>
+                        <button class="button is-success" on:click={btnInstall}>{text.install}</button>
+                        <button class="button is-outlined is-link" on:click={btnNotNow}>{text.notNow}</button>
                     </div>
 
                     <div class="has-text-center">
                         <img src="pwa/pwa-logo-50x50.png" alt="PWA" class="ath-prompt-logo">
                     </div>
+
+                    {#if instructions}
+                        {#each instructions as instruction}
+                            <div class="has-text-center">
+                                <img src="{instruction.src}" alt="{instruction.alt}" class="ath-prompt-logo">
+                            </div>
+                        {/each}
+                    {/if}
 
                 </div>
             </div>
