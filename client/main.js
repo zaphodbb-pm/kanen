@@ -12,22 +12,31 @@
  */
 
 
-/*
-import { Meteor } from 'meteor/meteor'
-//* prepare to add PWA through service worker
-Meteor.startup(() => {
-    navigator.serviceWorker
-        .register('/sw.js')
-        .then(() => console.info('service worker registered'))
-        .catch(error => {
-            console.log('ServiceWorker registration failed: ', error)
-        })
-})
-*/
-
-
 //* load Meteor specific files
 import '/imports/both/collections'
+
+
+//* prepare to add PWA through service worker
+import { Meteor } from 'meteor/meteor'
+
+Meteor.startup(() => {
+
+    if('serviceWorker' in navigator){
+        if(!navigator.serviceWorker.controller){
+
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then(() => {
+                    console.info('service worker registered');
+                })
+                .catch(error => {
+                    console.log('ServiceWorker registration failed: ', error)
+                })
+        }
+    }else{
+        console.log("Service Worker is not supported in this browser");
+    }
+});
 
 
 //* load svelte framework

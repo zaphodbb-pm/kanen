@@ -11,6 +11,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
   caches.keys().then(cacheNames => Promise.all(cacheNames.map((cacheName) => {
     if (version !== cacheName) return caches.delete(cacheName);
+
   }))).then(self.clients.claim())
   );
 });
@@ -53,7 +54,11 @@ self.addEventListener('fetch', (event) => {
           })));
         }
 
-        caches.open(version).then(cache => cache.put(event.request, clonedResponse));
+        if(event.request && event.request && event.request.method !== "POST"){ // ignore POST methods
+            caches.open(version).then(cache => {
+                cache.put(event.request, clonedResponse)
+            });
+        }
       }
       return response;
     }).catch(() => {
@@ -87,3 +92,6 @@ function hasSameHash(firstUrl, secondUrl) {
 
 // Service worker created by Ilan Schemoul alias NitroBAY as a specific Service Worker for Meteor
 // Please see https://github.com/NitroBAY/meteor-service-worker for the official project source
+//
+// Note: Original file is modified to deal with dynamic imports
+//       POST method is not supported and so must be ignored

@@ -34,6 +34,7 @@
     import AsideNav from './asideNavWrapper.svelte'
     import Messages from '/imports/components/general/messages.svelte'
     import GDPR from '/imports/components/general/gdprNotice.svelte'
+    import PWA from '../AddToHomescreen/PWA-requester.svelte'
 
     import Notifications from '/imports/components/elements/notifications.svelte'
     import UserProfile from '/imports/components/elements/userProfile.svelte'
@@ -113,3 +114,6 @@
 <aside>
     <GDPR />
 </aside>
+
+
+<PWA />

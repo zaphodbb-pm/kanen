@@ -42,7 +42,7 @@
         </div>
 
         <div class="level-right">
-            <div><b>{version.APP_NAME}: </b>{version.VERSION}</div>
+            <div><b>{version.APP_NAME}: </b>{version.VERSION} ({version.LAST_UPDATE})</div>
         </div>
     </div>
 
