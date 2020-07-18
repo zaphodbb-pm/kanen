@@ -19,14 +19,13 @@ export function nextPrime( value ) {
             value = 0;
         }
 
-        //increment the number by 1 each time
+        //** increment the number by 1 each time
         value += 1;
 
         let squaredNumber = Math.sqrt( value );
 
-        //start at 2 and increment by 1 until it gets to the squared number
+        //** start at 2 and increment by 1 until it gets to the squared number
         for ( let i = 2; i <= squaredNumber; i++ ) {
-            //how do I check all i's?
             if ( value % i === 0 ) {
                 isPrime = false;
                 break;

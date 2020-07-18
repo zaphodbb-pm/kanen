@@ -51,3 +51,15 @@ export const gdpr = {
         debug: true
     }
 }
+
+export const pwa = {
+    en: {
+        title: "Install this application to your home screen?",
+
+        install: "Install",
+
+        notNow: "Not Now",
+
+        instructions: "Follow the guide below:"
+    }
+}

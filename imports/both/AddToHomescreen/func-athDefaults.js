@@ -11,13 +11,6 @@
  *
  */
 
-export const defaultPrompt = {
-    title: "Install this PWA?",
-    src: "/pwa/pwa-logo-50x50.png",
-    cancelMsg: "Not Now",
-    installMsg: "Install"
-};
-
 export const defaultSession = {
     lastDisplayTime: 0, // last time we displayed the message
     returningVisitor: false, // is this the first time you visit
@@ -72,37 +65,24 @@ export const athDefaults = {
     },
     prompt: {
         "native": {
-            targetUrl: undefined,
-            showClasses: [ "fadeInUp", "right-banner" ],
             action: {
                 "ok": "Install",
                 "cancel": "Not Now"
             }
         },
         "edge": {
-            targetUrl: undefined,
-            showClasses: [ "edge-wrapper",
-                "animated", "fadeIn", "d-block", "right-banner"
-            ],
             imgs: [ {
                 src: "/pwa/edge-a2hs-icon.png",
                 alt: "Tap the Add to Homescreen Icon"
             } ]
         },
         "chromium": {
-            targetUrl: "guideance/chrome/android/",
-            showClasses: [ "chromium-wrapper",
-                "animated", "fadeIn", "d-block", "right-banner"
-            ],
             imgs: [ {
                 src: "/pwa/chromium-guidance.png",
                 alt: "Tap the Add to Homescreen Icon"
             } ]
         },
         "iphone": {
-            targetUrl: "guideance/iphone/",
-            showClasses: [ "iphone-wrapper", "animated", "fadeIn", "d-block" ],
-
             imgs: [
                 {
                     src: "/pwa/MakeSafariBookmark.jpg",
@@ -130,42 +110,27 @@ export const athDefaults = {
                     alt: "Tap the Add to Homescreen Icon"
                 }
             ]
-
              */
         },
         "ipad": {
-            targetUrl: undefined,
-            showClasses: [ "ipad-wrapper", "animated", "fadeInUp", "d-block" ],
             imgs: [ {
                 src: "/pwa/safari-ipad-share-a2hs-right.jpg",
                 alt: "Tap the Add to Homescreen Icon"
             } ]
         },
         "firefox": {
-            targetUrl: undefined,
-            showClasses: [ "firefox-wrapper",
-                "animated", "fadeIn", "d-block"
-            ],
             imgs: [ {
                 src: "/pwa/firefox-a2hs-icon.png",
                 alt: "Tap the Add to Homescreen Icon"
             } ]
         },
         "samsung": {
-            targetUrl: undefined,
-            showClasses: [ "samsung-wrapper",
-                "animated", "fadeIn", "d-block"
-            ],
             imgs: [ {
                 src: "/pwa/samsung-internet-a2hs-icon.png",
                 alt: "Tap the Add to Homescreen Icon"
             } ]
         },
         "opera": {
-            targetUrl: undefined,
-            showClasses: [ "opera-home-screen-wrapper",
-                "animated", "fadeIn", "d-block"
-            ],
             imgs: [ {
                 src: "/pwa/opera-add-to-homescreen.png",
                 alt: "Tap the Add to Homescreen Icon"

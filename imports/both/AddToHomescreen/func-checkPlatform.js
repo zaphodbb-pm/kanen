@@ -44,6 +44,8 @@ export function checkPlatform(_ua) {
     platform.isCompatible = ( platform.isChromium || platform.isMobileSafari ||
         platform.isSamsung || platform.isFireFox || platform.isOpera );
 
+    platform.isChromium = !platform.isMobileSafari;
+
     // console.log( "platform.isiPhone: " + platform.isiPhone );
     // console.log( "platform.isMobileSafari: " + platform.isMobileSafari );
     // console.log( "platform.isInWebAppiOS: " + platform.isInWebAppiOS );
