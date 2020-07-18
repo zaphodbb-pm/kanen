@@ -53,7 +53,7 @@
             console.log( "Cancelling" );
         },
 
-        displayPace: 0,
+        //displayPace: 0,
         //debug: "iphone",
         logging: true
     };
