@@ -5,14 +5,17 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "/pwa-image-192.png",
+      "src": "/pwa/pwa-image-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/pwa-image-512.png",
+      "src": "/pwa/pwa-image-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+
+  "background_color": "#0a941a",
+  "theme_color": "#0a941a"
 }

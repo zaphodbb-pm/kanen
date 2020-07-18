@@ -22,9 +22,10 @@
     import {lang} from '/imports/client/systemStores'
 
     //* get page text information and set contexts for children components
-    import {navbar, gdpr} from './Navbar_text'
+    import {navbar, gdpr, pwa} from './Navbar_text'
     setContext("navbar", i18n(navbar, "", $lang) );
     setContext("gdprNotice", i18n(gdpr, "", $lang) );
+    setContext("pwaText", i18n(pwa, "", $lang) );
 
     //* components
     import Navbar_Brand from './Navbar_Brand.svelte'
