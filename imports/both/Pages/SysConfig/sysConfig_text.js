@@ -61,6 +61,12 @@ export const page = {
                     "emails to.  This forms part of the monitoringh escalation process. ",
             },
 
+            confirmDelete: {
+                label: "Confirm Delete",
+                tag: "Confirm delete before proceeding",
+                helpText: "",
+            },
+
             logInterval: {
                 label: "Log Interval",
                 helpText: "Set time (in milliseconds) to sample sensor and then report log.  Default is 2000",

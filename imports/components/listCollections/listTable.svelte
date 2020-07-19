@@ -49,6 +49,7 @@
     import {lang} from '/imports/client/systemStores'
 
     //** support functions
+    import {sysConfig, sysDebug} from '/imports/client/systemStores'
     import {getContext} from 'svelte';
     import Icon from '/imports/components/elements/icon.svelte'
     import {elements} from '/imports/both/systemGlobals'
@@ -62,6 +63,7 @@
 
     //* local reactive variables
     let calendar = i18n( getContext("commonText"), "calendar", $lang);
+    let deleteText = i18n( getContext("commonText"), "confirmDelete", $lang);
 
     let EDIT_COLOR = elements.EDIT_COLOR;
     let tagColour = "is-info";                          // default tag colour
@@ -70,6 +72,9 @@
     let currRow = "";
     let actRow = "";
     let submit = submitted;
+
+    let confirmDelete = !!$sysConfig.confirmDelete;
+    let confirm = null;
 
     let TAGS = {
         // sets background label colour for "tag" cell
@@ -97,6 +102,10 @@
     function launchPage(msg) {
         let page = window.location.origin + config.target + "?q=" + msg.detail;
         window.open(page);
+    }
+
+    function confirmDel(msg) {
+        confirm = msg;
     }
 
     function deleteDoc(msg) {
@@ -260,7 +269,7 @@
 
         <tbody>
             {#each tableItems(collection, labels, documents) as row, idx}
-                <tr  class="{row[0] && row[0].id && (currRow === row[0].id) ? 'EDIT_COLOR' : ''}">
+                <tr  class="{row[0] && row[0].id && (currRow === row[0].id) ? 'EDIT_COLOR' : ''}" style="position: relative;">
 
                     {#each row as cell}
 
@@ -381,14 +390,38 @@
                             </td>
 
                         {:else if cell.type === 'del' }
-                            <td on:click="{() => deleteDoc(cell.value)}"
-                                class="add-cursor has-text-centered"
-                                style="max-width: 10%;">
 
-                                <span>
-                                    <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
-                                </span>
-                            </td>
+                            {#if confirmDelete}
+                                <td on:click="{() => confirmDel(cell.value)}"
+                                    class="add-cursor has-text-centered"
+                                    style="max-width: 10%;">
+
+                                    {#if confirm === cell.value}
+                                        <div class="confirm-delete d-flex justify-content-between has-text-left align-items-center">
+                                            <p>{deleteText.msg}</p>
+                                            <button class="button is-danger ml-2" on:click|stopPropagation="{() => deleteDoc(cell.value)}">
+                                                {deleteText.btn}
+                                            </button>
+                                        </div>
+
+                                    {:else}
+
+                                        <span>
+                                            <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
+                                        </span>
+                                    {/if}
+                                </td>
+
+                            {:else}
+                                <td on:click="{() => deleteDoc(cell.value)}"
+                                    class="add-cursor has-text-centered"
+                                    style="max-width: 10%;">
+
+                                    <span>
+                                        <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
+                                    </span>
+                                </td>
+                            {/if}
 
                         {/if}
 
@@ -430,6 +463,19 @@
         width: 3rem;
         border-radius: 50%;
         background-color: #eee;
+    }
+
+    .confirm-delete {
+        position: absolute;
+        right: 1.5rem;
+
+        margin-top: -1.5rem;
+        min-height: 3rem;
+        width: 90%;
+        padding: 0.5rem;
+        background-color: whitesmoke;
+        border: solid 1px #c0c0c0;
+
     }
 
 </style>
