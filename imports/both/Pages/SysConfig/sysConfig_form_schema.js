@@ -67,6 +67,15 @@ export default [
     },
 
     {
+        field: "confirmDelete",
+        fieldType: "switch",
+        tab: 0,
+        params: {isCheck: true},
+        optional: true,
+        defaultValue: false,
+    },
+
+    {
         field: "logInterval",
         fieldType: "input",
         optional: true,
@@ -145,7 +154,7 @@ export default [
         field: "logEventsOff",
         fieldType: "switch",
         tab: 1,
-        params: {},
+        params: {isCheck: true},
         optional: true,
         defaultValue: true,
     },
@@ -164,7 +173,7 @@ export default [
         field: "showWidgets",
         fieldType: "switch",
         tab: 1,
-        params: {},
+        params: {isCheck: true},
         optional: true,
         defaultValue: false,
     },

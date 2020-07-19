@@ -33,13 +33,16 @@ Meteor.methods({
         let sysConfig = SysConfig.findOne({});
         let sysDebug = null;
         let showWidgets = false;
+        let confirmDelete = false;
 
         if(sysConfig){
             sysDebug = sysConfig.debugLevel && (sysConfig.debugLevel !== "") ? sysConfig.debugLevel : null;
             showWidgets = !!sysConfig.showWidgets;
+            confirmDelete = !!sysConfig.confirmDelete;
         }
 
         return {
+            confirmDelete: confirmDelete,
             sysDebug: sysDebug,
             showWidgets: showWidgets,
         };
