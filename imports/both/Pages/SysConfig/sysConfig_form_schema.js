@@ -13,6 +13,7 @@
  *          name =          String: name of this document
  *          postMaster =    String: "from" part of system sent email
  *          escalate =      Array: strings of email addresses
+ *          confirmDelete = Boolean: forces a confirmation step before deleting a record
  *
  *          logInterval =   Number: for real-time sensors, sets the polling rate
  *          maxLogRecords = Number: set maximum log records to retrieve for export to file

@@ -475,7 +475,6 @@
         padding: 0.5rem;
         background-color: whitesmoke;
         border: solid 1px #c0c0c0;
-
     }
 
 </style>
