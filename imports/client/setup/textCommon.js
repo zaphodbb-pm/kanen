@@ -36,8 +36,9 @@ export default{
 
     confirmDelete: {
         en: {
-            msg: "Deleting this record will remove it permanently.  Are you sure you want to delete it?",
-            btn: "Remove"
+            msg: "Are you sure you want to delete?",
+            btnRemove: "Remove",
+            btnCancel: "Not now!"
         }
     },
 
