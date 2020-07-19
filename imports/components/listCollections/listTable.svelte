@@ -108,6 +108,10 @@
         confirm = msg;
     }
 
+    function cancelDelete(){
+        confirm = null;
+    }
+
     function deleteDoc(msg) {
         dispatch('item-delete', {id: msg});
     }
@@ -397,10 +401,15 @@
                                     style="max-width: 10%;">
 
                                     {#if confirm === cell.value}
-                                        <div class="confirm-delete d-flex justify-content-between has-text-left align-items-center">
-                                            <p>{deleteText.msg}</p>
-                                            <button class="button is-danger ml-2" on:click|stopPropagation="{() => deleteDoc(cell.value)}">
-                                                {deleteText.btn}
+                                        <div class="confirm-delete depth-1 d-flex justify-content-between has-text-left align-items-center">
+                                            <button class="button is-small is-danger" on:click|stopPropagation="{() => deleteDoc(cell.value)}">
+                                                {deleteText.btnRemove}
+                                            </button>
+
+                                            <p class="mx-3 has-text-centered text-0dot8rem">{deleteText.msg}</p>
+
+                                            <button class="button is-small is-primary is-outlined" on:click|stopPropagation="{cancelDelete}">
+                                                {deleteText.btnCancel}
                                             </button>
                                         </div>
 

@@ -106,10 +106,4 @@
         transition-duration: 0.5s;
     }
 
-
-    .checkbox-button input[type="checkbox"] {
-        opacity: 0;
-        cursor: none;
-    }
-
 </style>
