@@ -97,11 +97,6 @@ export const page = {
                 helpText: "Expandable text area.",
             },
 
-            address: {
-                label: "Address",
-                helpText: "This address will generate a geolocation object on submit.",
-            },
-
             hr1: {
                 label: "",
                 tag: "Form Spacer"
@@ -199,6 +194,11 @@ export const page = {
                         "characters typed into input box.",
             },
 
+            startGeoAddress: {
+                label: "Geo Address",
+                helpText: "Interrogates Google Places api for address predictions. ",
+            },
+
             startApiKey: {
                 label: "API Key",
                 helpText: "Generate api key to allow user programs to access select collections via REST.",
@@ -258,21 +258,6 @@ export const page = {
                 }
             },
 
-            startFieldset: {
-                label: "Fieldset of Inputs",
-                helpText: "This is a fieldset that contains a variety of input fields and returns an object of values",
-            },
-
-            startKanban: {
-                label: "Kanban Plan",
-                helpText: "",
-                selects: [
-                    {_id: "todo", name: "To Do"},
-                    {_id: "doing", name: "Doing"},
-                    {_id: "done", name: "Done"},
-                    {_id: "waiting", name: "Waiting"},
-                ]
-            }
         }
     },
 
@@ -329,7 +314,7 @@ export const page = {
                 },
             },
 
-            geoLocation: {
+            startGeoAddress: {
                 label: "Geo",
                 filter: [
                     {_id: "none", name: "World Wide"},

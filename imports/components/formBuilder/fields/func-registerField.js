@@ -29,6 +29,7 @@ import Selects from './selects.svelte'
 import TypeAhead from './typeahead.svelte'
 import TimePicker from './timePicker.svelte'
 import DatePicker from './datePicker.svelte'
+import GeoAddress from './geoAddress.svelte'
 
 import ApiKey from './apikey.svelte'
 import FileBrowse from './fileBrowse.svelte'
@@ -50,6 +51,7 @@ export const components = {
     hr: HR,
     select: Selects,
     typeahead: TypeAhead,
+    address: GeoAddress,
     apiKey: ApiKey,
     fileInput: FileBrowse,
     timePicker: TimePicker,

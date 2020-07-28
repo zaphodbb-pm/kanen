@@ -17,7 +17,6 @@
  *          startPhone =            String: tel entry with validation
  *          startPassword =         String: password entry with validation
  *          startTextArea =         String: text area characters
- *          address =               String: use to generate a geolocation object for mongo
  *          hr1 =                   None: divider for fields in a tab
  *          startSwitch =           Boolean: checkbox as switch
  *          startCheckbox =         Array: list of selected checkboxes
@@ -28,16 +27,16 @@
  *          startDynamicSelect =    Object: select option list derived from a collection
  *          startStaticTypeahead =  Object: similar to select but for long lists
  *          startDynamicTypeahead = Object: similar to dynamic select but for long lists
- *          startColours =          String: group of colour radio buttons set by select array
+ *          startGeoAddress =       Object: user entered address fragment is autocompleted by Google maps
  *
- *          startEditor =           String: JSON stringified html input
  *          startApiKey =           String: calculates a 32 symbol key
  *          startFile =             Object: encoded file data
  *          startImage =            Object: encoded image data
+ *          startColours =          String: group of colour radio buttons set by select array
  *
- *          startRows =             Array: of objects that define a row of inputs
  *          startList =             Array: of text strings
- *          startFieldset =         Array: of objects of input fields
+ *          startRows =             Array: of objects that define a row of inputs
+ *          startEditor =           String: JSON stringified html input
  *
  * Config Object:
  *              field: "startDynamicSelect",        String: field name in database
@@ -163,18 +162,6 @@ export default [
     },
 
     {
-        field: "address",
-        fieldType: "input",
-        optional: true,
-
-        tab: 0,
-        attributes: {type: "text", maxlength: 128},
-        params: {},
-        defaultValue: "",
-    },
-
-
-    {
         field: "hr1",
         fieldType: "hr",
         optional: true,
@@ -289,6 +276,17 @@ export default [
     },
 
     {
+        field: "startGeoAddress",
+        fieldType: "address",
+        optional: true,
+
+        tab: 1,
+        attributes: {maxlength: 128},
+        params: {},
+        defaultValue: {address: "", geoLocation: {type: {}, coordinates: []}},
+    },
+
+    {
         field: "startTimePicker",
         fieldType: "timePicker",
         optional: true,
@@ -381,17 +379,6 @@ export default [
 
     //** fourth tabbed set of fields
     {
-        field: "startEditor",
-        fieldType: "editor",
-        tab: 3,
-        attributes: {maxlength: 50000},
-        params: {},
-
-        optional: true,
-        defaultValue: "",
-    },
-
-    {
         field: "startList",
         fieldType: "itemList",
         tab: 3,
@@ -417,5 +404,16 @@ export default [
 
         optional: true,
         defaultValue: [],
-    }
+    },
+
+    {
+        field: "startEditor",
+        fieldType: "editor",
+        tab: 3,
+        attributes: {maxlength: 50000},
+        params: {},
+
+        optional: true,
+        defaultValue: "",
+    },
 ];

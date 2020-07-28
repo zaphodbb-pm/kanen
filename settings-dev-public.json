@@ -6,10 +6,11 @@
   "service_google_clientId": "",
   "service_google_secret": "",
 
+  "google_maps_api_key":  "<your key here>",
+  "google_maps_base_uri": "https://maps.googleapis.com/maps/api",
+
   "public": {
-    "demo_mode": true,
-    "google_maps_api_key": "",
-    "google_maps_base_uri": ""
+    "demo_mode": true
   }
 }
 

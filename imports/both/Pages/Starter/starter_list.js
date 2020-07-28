@@ -67,8 +67,8 @@ export default {
         },
 
         {
-            field:  "geoLocation",
-            key:    "geoLocation",
+            field:  "startGeoAddress",
+            key:    "startGeoAddress",
             type:   "address",
             label:  "tbd",
             sort:   false,

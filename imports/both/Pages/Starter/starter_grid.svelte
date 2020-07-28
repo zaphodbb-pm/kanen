@@ -202,22 +202,20 @@
                                     {formatDate(cell.value, calendar)}
                                 </div>
 
-
                             {:else if cell.type === 'address'}
-                                <div class="d-flex">
-                                    {#if typeof cell.value === "string"}
-                                        <strong>{cell.keyName}:</strong> {cell.value}
-                                    {:else}
+                                {#if cell.value && cell.value.address}
+                                    <div>
+                                        <strong>{cell.keyName}:</strong> {cell.value.address}
+                                    </div>
+                                {/if}
 
-                                        {#if cell.value && cell.value.coordinates}
-                                            <strong>{cell.keyName}:</strong>
-                                            <div>
-                                                <div>{cell.value.coordinates[0]}, </div>
-                                                <div>{cell.value.coordinates[1]}</div>
-                                            </div>
-                                        {/if}
-                                    {/if}
-                                </div>
+                                {#if cell.value && cell.value.geoLocation}
+                                    <strong>{cell.keyName} co-ords:</strong>
+                                    <div>
+                                        <div>{cell.value.geoLocation.coordinates[0]}, </div>
+                                        <div>{cell.value.geoLocation.coordinates[1]}</div>
+                                    </div>
+                                {/if}
 
                             {:else if cell.type === 'boolean'}
                                 <div class="text-green text-center">

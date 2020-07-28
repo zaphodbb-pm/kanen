@@ -77,12 +77,6 @@ export async function submitForm(doc, coll, clone, test, emit, extras) {
             break;
 
         default:
-            //** check if this document includes a reference to an address; get geo location if true
-            if(doc.address){
-                let HTTPresult = await HTTP.getPromise(buildRequestUrl(doc.address, "string"));
-                doc = getGeoLocation(doc, HTTPresult);
-            }
-
             generalSubmit(coll, doc, emit);
     }
     return true;
@@ -113,50 +107,4 @@ function generalSubmit(coll, doc, emit) {
             }
         });
     }
-}
-
-
-
-
-function getGeoLocation(doc, info) {
-    //** converts the result from google geocoder into an object that MongoDb can use and adds to field "geoLocation"
-    let out = doc;
-
-    if (info && info.statusCode === 200) {
-        if (info && info.data && info.data.results[0] && info.data.results[0].geometry && info.data.results[0].geometry.location) {
-            let latLng = info.data.results[0].geometry.location;
-
-            if (latLng && typeof latLng === "object") {
-                out.geoLocation = {
-                    type: "Point",
-                    coordinates: [latLng.lng, latLng.lat]
-                };
-            }
-        }
-    } else {
-        console.warn("http-result-error", info);
-    }
-
-    return out;
-}
-
-
-function buildRequestUrl(address, type) {
-    //** uses Google maps api to geocode an address string
-    let key = Meteor.settings.public.google_maps_api_key;
-    let baseUrl = Meteor.settings.public.google_maps_base_uri;
-    let url = null;
-
-    if (type === "array") {
-        let addr = address.filter(Boolean);     // remove all falsey values from array
-        addr = addr.join(", ").trim().replace(/\s+/g, "+");
-        url = `${baseUrl}=${addr}&key=${key}`;
-    }
-
-    if (type === "string") {
-        let addr = address.replace(/\s+/g, " ").trim().replace(/\s+/g, "+");
-        url = `${baseUrl}=${addr}&key=${key}`;
-    }
-
-    return url;
 }

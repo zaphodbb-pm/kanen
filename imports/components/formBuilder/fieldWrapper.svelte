@@ -93,7 +93,7 @@
     function fieldUpdate(inMsg){
         fieldOpt = testValid(inMsg.detail.value, field.optional);
 
-        //*** flow input fields changes up to holder
+        //*** flow input field changes up to formholder
         dispatch('field-changed', {
             field: field.field,
             fieldType: field.fieldType,

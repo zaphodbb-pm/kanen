@@ -25,6 +25,7 @@ import Version from '/imports/both/version'
 
 //** load method modules
 import '/imports/server/methods/system';
+import '/imports/server/methods/google';
 import '/imports/server/methods/storeDoc';
 import '/imports/server/methods/readDocs';
 import '/imports/server/methods/exportImport';
