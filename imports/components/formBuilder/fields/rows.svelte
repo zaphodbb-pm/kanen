@@ -67,7 +67,12 @@
     }
 
     //** reset input row section to default
-    resetRow(fieldsArray);
+    //resetRow(fieldsArray);
+
+    list[0] = initialRow(fieldsArray);
+
+
+    console.log("initial list", list);
 
     //** when editing a form document, load value from document
     $: setValue(field.value);
@@ -79,32 +84,68 @@
     }
 
     function sortList(ev){
-        list = ev.detail;
-        updateList(list);
+        let newList = ev.detail;
+        updateList(newList)
     }
 
     function updateList(newList){
+
         let updated = newList.map( (nl, idx) =>  {
             nl.id = idx + 1;
             return nl;
         });
 
-        dispatch('on-inputentry', {value: updated, error: false});
+        list = updated;
+
+        console.log("updateList", newList, list);
+
+        //dispatch('on-inputentry', {value: list, error: false});
     }
 
-    function fieldsUpdate(msg) {
-        let change = msg.detail;
-        rowValues[change.field] = change.value;
+
+
+    function fieldsUpdate(row, msg) {
+        //let change = msg.detail;
+
+        console.log("fieldsUpdate", row, msg);
+
+        rowValues[msg.field] = msg.value;
+
+        list[row] =  rowValues;
+
+        console.log("rowValues", rowValues, list);
+
     }
+
 
     function addRow() {
         let idx = list && list.length ? list.length + 1 : 1;     // default "id" value
         list = [...list, {id: idx, info: rowValues}];
 
         updateList(list);
-        resetRow(fieldsArray);
+        //resetRow(fieldsArray);
     }
 
+
+
+    /*
+    function addRow(){
+        let newList = list;
+        let addItem = {
+            id: list.length + 1,
+            check: "",
+            text: "",
+        };
+
+        newList.push(addItem);
+        updateList(newList)
+    }
+    */
+
+
+
+
+    /*
     function editRow(msg) {
         editing = true;
         let test = list.find(row => row.id === msg);
@@ -117,7 +158,10 @@
             rowValues = test.info;
         }
     }
+    */
 
+
+    /*
     function returnRow(msg) {
         let test = list.find(row => row.id === rowInEdit);
         let idx = list.findIndex(row => row.id === rowInEdit);
@@ -130,7 +174,10 @@
         resetRow(fieldsArray);
         editing = false;
     }
+    */
 
+
+/*
     function deleteRow(rowid) {
         let temp = list
         temp = temp.filter(row => row.id !== rowid);
@@ -138,6 +185,16 @@
 
         updateList(list);
     }
+
+ */
+
+
+    function deleteRow(rowid) {
+        let newList = list;
+        newList = newList.filter(row => row.id !== rowid);
+        updateList(newList)
+    }
+
 
     function resetRow(fieldArray){
         let fa = deepClone(fieldArray);
@@ -150,19 +207,58 @@
         rowDefault = Object.values(fa);
     }
 
+
+
+    function initialRow(fieldArray){
+        let fa = deepClone(fieldArray);
+
+        let rowVal = {};
+
+        Object.entries(fa).forEach( (fa, idf) => {
+            //rowVal[ fa[0] ] = fa[1].defaultValue;
+
+            rowVal[ fa[0] ] = fa[1];
+            rowVal[ fa[0] ].id = idf;
+
+        });
+
+        return rowVal;
+    }
+
+
+
+
+
+
+
+
+    //* event handlers
+
+
+
+
+
+    /*
+    function updateElement(item, prop, value) {
+        item[prop] = value;
+        updateList(list);
+    }
+*/
+
+
+
+
+
+
 </script>
 
 
 
 <fieldset class="box field-rows">
 
-    <div class="d-flex" style="margin-left: 10%; margin-right: 5%;">
-        {#each Object.values(rowText) as row}
-            <div class="has-text-weight-bold has-text-right" style="width: {100 / rowTextLabels.length}%;">
-                {row.tag && (typeof row.tag === "string") ? row.tag : row.label}
-            </div>
-        {/each}
-    </div>
+    <button class="button btn-rounded is-primary mb-3" on:click|preventDefault="{addRow}">
+        <Icon icon='{getContext("iconRowAdd")}' class="text-1dot5rem"/>
+    </button>
 
 
     <Sortable
@@ -171,64 +267,45 @@
             on:sort={sortList}
             let:item={item}>
 
-        <div class="d-flex">
-            <div class="add-cursor has-text-info" style="width: 5%;">
-                <Icon icon='{getContext("iconDrag")}' class="text-1dot5rem"/>
+        <div class="d-flex justify-content-between align-items-center my-4">
+
+            <div class="row-id">
+                {item.id}
             </div>
 
-            <div class="cadd-cursor" style="width: 5%;" on:click="{() => editRow(item.id)}">
-                <Icon icon='{getContext("iconEdit")}' class="text-1dot5rem"/>
-            </div>
-
-            <div class="d-flex" style="width: 85%;">
-                {#each Object.values(item.info) as field}
-                    <div class="has-text-right" style="width: {100 / rowTextLabels.length}%;">
-
-                        {#if typeof field === 'boolean'}
-                            {#if field}
-                                <Icon icon='{getContext("iconStatus")}' class="text-1dot5rem has-text-success"/>
-                            {/if}
-                        {:else if typeof field === 'object'}
-                            {field.name}
-                        {:else}
-                            {field}
-                        {/if}
-
-                    </div>
+            <div class="d-flex justify-content-between align-items-center">
+                {#each item as field, idf (field.field)}
+                    <Field_Wrapper class="mx-1" field="{field}" on:field-changed="{e => fieldsUpdate(item.id, e.detail) }"/>
                 {/each}
             </div>
 
-            <div class="add-cursor has-text-right" style="width: 5%;" on:click="{() => deleteRow(item.id)}">
+            <div class="add-cursor" on:click="{() => deleteRow(item.id)}">
                 <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
             </div>
         </div>
 
     </Sortable>
 
-
-
-    <div class="has-border-top pt-3 mt-5">
-        <div class="columns is-vcentered">
-
-            <div class="column">
-                <div class="columns">
-                    {#each rowDefault as field, idf (field.field)}
-                        <div class="column">
-                            <Field_Wrapper class="" field="{field}" on:field-changed="{fieldsUpdate}"/>
-                        </div>
-                    {/each}
-                </div>
-            </div>
-
-            <div class="column is-1 add-cursor has-text-info align-items-center" class:is-hidden={editing} on:click="{addRow}">
-                <Icon icon='{getContext("iconRowAdd")}' class="is-size-3"/>
-            </div>
-
-            <div class="column is-1 add-cursor has-text-success align-items-center" class:is-hidden={!editing} on:click="{returnRow}">
-                <Icon icon='{getContext("iconEditDone")}' class="is-size-3"/>
-            </div>
-
-        </div>
-    </div>
-
 </fieldset>
+
+
+<style>
+
+    .row-id {
+        display: inline-flex;
+        padding: 0.25rem;
+        background-color: #EEE;
+        border-radius: 50%;
+        min-width: 2rem;
+        margin-right: 0.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-rounded {
+        border-radius: 50%;
+        padding: 0.25rem;
+        width: 2.5rem;
+    }
+
+</style>

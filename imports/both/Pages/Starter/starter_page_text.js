@@ -238,8 +238,8 @@ export const page = {
                         "array of arrays of objects",
 
                 rowText: {
-                    field1: {label: "Test"},
-                    field2: {label: "Number One"},
+                    field1: {label: "Text"},
+                    field2: {label: "Number"},
                     field3: {
                         label: "Select Two",
                         tag: {_id: "all", name: "All Options", colour: "#000000"},
