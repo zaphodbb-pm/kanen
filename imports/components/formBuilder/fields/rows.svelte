@@ -16,7 +16,7 @@
      *      Common types are "input", "select", "typeahead" and "switch".
      *      Other types are not practical in this type of arrangement.
      *
-     *   2. Returned value is {Array} of objects:
+     *   2. Returned value is [Array] of {objects}:
      *      {
      *          row: 2,
      *          fields: {
@@ -67,7 +67,7 @@
     //* functions that mutate local variables
     function setValue(val){
         if(val && Array.isArray(val) && val.length > 0){
-            list = val.map( (v, idx) =>  initialRow(v.row, fieldsArray, v.fields)[0] );
+            list = val.map( (v) =>  initialRow(v.row, fieldsArray, v.fields)[0] );
         }else{
             list = initialRow(1, fieldsArray, null);
         }
@@ -165,7 +165,7 @@
             </div>
 
             <div class="d-flex justify-content-between align-items-center">
-                {#each Object.values((item.fields)) as field, idf (field.field + item.row)}
+                {#each Object.values(item.fields) as field, idf (field.field + item.row)}
                     <Field_Wrapper class="mx-1" field="{field}" on:field-changed="{e => fieldsUpdate(item.row, e.detail) }"/>
                 {/each}
             </div>
