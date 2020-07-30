@@ -411,7 +411,7 @@ export default [
         tab: 3,
         attributes: {},
         params: {
-            key: "id",
+            key: "row",
             config: fieldsetRows,
         },
 

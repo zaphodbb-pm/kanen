@@ -17,6 +17,7 @@
     export let field = {};
 
     //* support functions
+    import {generateId} from '/imports/functions/generateId';
     import {createEventDispatcher} from 'svelte';
     const dispatch = createEventDispatcher();
     import {getContext} from 'svelte'
@@ -27,6 +28,7 @@
     const tag = formText[field.field] && formText[field.field].tag ? formText[field.field].tag : "";
     const label = formText[field.field] && formText[field.field].label ? formText[field.field].label : "";
     const isCheck = !!(field.params && field.params.isCheck);
+    const uniqueId = generateId(6);
 
     $: setValue(field.value);
 
@@ -50,14 +52,14 @@
 
         <div>
             <input type="checkbox"
-                   id="{field.field + '_checkbox'}"
+                   id="{field.field + '_checkbox_' + uniqueId}"
                    class="is-checkradio is-primary has-background-color"
                    title=""
                    {...field.attributes}
                    bind:checked={inValue}
                    on:click|stopPropagation="{clickSwitch}">
 
-            <label for="{field.field + '_checkbox'}">{tag}</label>
+            <label for="{field.field + '_checkbox_' + uniqueId}">{tag}</label>
         </div>
 
     {:else}

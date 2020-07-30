@@ -18,8 +18,8 @@
      *
      *   2. Returned value is {Array} of objects:
      *      {
-     *          id: 2,
-     *          info: {
+     *          row: 2,
+     *          fields: {
      *              field1: "try two",
      *              field2: 0,
      *              field3: 1,
@@ -35,7 +35,6 @@
 
     //* support functions
     import {deepClone} from '/imports/functions/deepClone'
-    import {generateId} from '/imports/functions/generateId'
     import Icon from '/imports/components/elements/icon.svelte'
     import Field_Wrapper from '/imports/components/formBuilder/fieldWrapper.svelte'
     import Sortable from '/imports/components/elements/rowDragDrop.svelte'
@@ -45,34 +44,21 @@
 
     //* local reactive variable
     let list = [];
-    let key = field.params.key;
-
-    const rowUniq = generateId(8);
-    let editing = false;
-    let rowInEdit = null;
+    const key = field.params.key;
 
     //** get field set-up and prepare out going object that contains first default values and user entry values
     const fieldsArray = field.params && field.params.config ? field.params.config : {};
-    let rowDefault ={};
-    let rowValues = {};
 
     //** set new formText context for embedded formWrapper
     let formText = getContext("formText");
     let rowText = formText[field.field] && formText[field.field].rowText ? formText[field.field].rowText : null;
-    let rowTextLabels = Object.values(rowText);
-
 
     if(rowText){
         setContext("formText", rowText);
     }
 
     //** reset input row section to default
-    //resetRow(fieldsArray);
-
-    list[0] = initialRow(fieldsArray);
-
-
-    console.log("initial list", list);
+    list = initialRow(1, fieldsArray);
 
     //** when editing a form document, load value from document
     $: setValue(field.value);
@@ -80,175 +66,81 @@
 
     //* functions that mutate local variables
     function setValue(val){
-        list = val ? val : [];
-    }
-
-    function sortList(ev){
-        let newList = ev.detail;
-        updateList(newList)
+        if(val && Array.isArray(val) && val.length > 0){
+            list = val.map( (v, idx) =>  initialRow(v.row, fieldsArray, v.fields)[0] );
+        }else{
+            list = initialRow(1, fieldsArray, null);
+        }
     }
 
     function updateList(newList){
-
         let updated = newList.map( (nl, idx) =>  {
-            nl.id = idx + 1;
+            nl.row = idx + 1;
             return nl;
         });
 
         list = updated;
 
-        console.log("updateList", newList, list);
+        let out = newList.map( (nl) => {
+            let values = {};
+            let fld = nl.fields;
 
-        //dispatch('on-inputentry', {value: list, error: false});
+            for(let field in fld){
+                if( fld.hasOwnProperty(field) ){
+                    values[field] = fld[field] ? fld[field].value : fld[field].defaultValue;
+                }
+            }
+
+            return {
+                row: nl.row,
+                fields: values
+            }
+        } )
+
+        dispatch('on-inputentry', {value: out, error: false});
     }
-
-
-
-    function fieldsUpdate(row, msg) {
-        //let change = msg.detail;
-
-        console.log("fieldsUpdate", row, msg);
-
-        rowValues[msg.field] = msg.value;
-
-        list[row] =  rowValues;
-
-        console.log("rowValues", rowValues, list);
-
-    }
-
-
-    function addRow() {
-        let idx = list && list.length ? list.length + 1 : 1;     // default "id" value
-        list = [...list, {id: idx, info: rowValues}];
-
-        updateList(list);
-        //resetRow(fieldsArray);
-    }
-
-
-
-    /*
-    function addRow(){
-        let newList = list;
-        let addItem = {
-            id: list.length + 1,
-            check: "",
-            text: "",
-        };
-
-        newList.push(addItem);
-        updateList(newList)
-    }
-    */
-
-
-
-
-    /*
-    function editRow(msg) {
-        editing = true;
-        let test = list.find(row => row.id === msg);
-        rowInEdit = msg;
-
-        if(test){
-            let temp = rowDefault;
-            temp.forEach(row => row.value = test.info[row.field] );
-            rowDefault = temp;
-            rowValues = test.info;
-        }
-    }
-    */
-
-
-    /*
-    function returnRow(msg) {
-        let test = list.find(row => row.id === rowInEdit);
-        let idx = list.findIndex(row => row.id === rowInEdit);
-
-        if(test){
-            list[idx].info = rowValues;
-        }
-
-        updateList(list);
-        resetRow(fieldsArray);
-        editing = false;
-    }
-    */
-
-
-/*
-    function deleteRow(rowid) {
-        let temp = list
-        temp = temp.filter(row => row.id !== rowid);
-        list = temp;
-
-        updateList(list);
-    }
-
- */
-
-
-    function deleteRow(rowid) {
-        let newList = list;
-        newList = newList.filter(row => row.id !== rowid);
-        updateList(newList)
-    }
-
-
-    function resetRow(fieldArray){
-        let fa = deepClone(fieldArray);
-
-        rowValues = {};
-        Object.entries(fa).forEach( (fa) => {
-            rowValues[ fa[0] ] = fa[1].defaultValue;
-        });
-
-        rowDefault = Object.values(fa);
-    }
-
-
-
-    function initialRow(fieldArray){
-        let fa = deepClone(fieldArray);
-
-        let rowVal = {};
-
-        Object.entries(fa).forEach( (fa, idf) => {
-            //rowVal[ fa[0] ] = fa[1].defaultValue;
-
-            rowVal[ fa[0] ] = fa[1];
-            rowVal[ fa[0] ].id = idf;
-
-        });
-
-        return rowVal;
-    }
-
-
-
-
-
-
 
 
     //* event handlers
+    function fieldsUpdate(row, msg) {
+        let newList = list;
+        let updateIdx = newList.findIndex( (item) => item.row === row);
+        newList[updateIdx].fields[msg.field] = msg;
 
-
-
-
-
-    /*
-    function updateElement(item, prop, value) {
-        item[prop] = value;
-        updateList(list);
+        updateList(newList);
     }
-*/
+
+    function addRow() {
+        let row = list && list.length ? list.length + 1 : 1;     // default "row" value
+        let newList = [...list, initialRow(row, fieldsArray, null)[0] ];
+
+        updateList(newList);
+    }
+
+    function deleteRow(rowid) {
+        let newList = list;
+        newList = newList.filter(row => row.row !== rowid);
+
+        updateList(newList);
+    }
+
+    function sortList(ev){
+        updateList(ev.detail);
+    }
 
 
+    //* support functions
+    function initialRow(idx, fieldArray, value){
+        let fa = deepClone(fieldArray);
 
+        for(let field in fa){
+            if( fa.hasOwnProperty(field) ){
+                fa[field].value = value && ( value[field] || typeof value[field] === "boolean") ? value[field] : fa[field].defaultValue;
+            }
+        }
 
-
+        return [{row: idx, fields: fa}];
+    }
 
 </script>
 
@@ -263,23 +155,22 @@
 
     <Sortable
             bind:list={list}
-            key={field.params.key}
+            {key}
             on:sort={sortList}
             let:item={item}>
 
         <div class="d-flex justify-content-between align-items-center my-4">
-
             <div class="row-id">
-                {item.id}
+                {item.row}
             </div>
 
             <div class="d-flex justify-content-between align-items-center">
-                {#each item as field, idf (field.field)}
-                    <Field_Wrapper class="mx-1" field="{field}" on:field-changed="{e => fieldsUpdate(item.id, e.detail) }"/>
+                {#each Object.values((item.fields)) as field, idf (field.field + item.row)}
+                    <Field_Wrapper class="mx-1" field="{field}" on:field-changed="{e => fieldsUpdate(item.row, e.detail) }"/>
                 {/each}
             </div>
 
-            <div class="add-cursor" on:click="{() => deleteRow(item.id)}">
+            <div class="add-cursor" on:click="{() => deleteRow(item.row)}">
                 <Icon icon='{getContext("iconDelete")}' class="text-1dot5rem has-text-danger"/>
             </div>
         </div>
