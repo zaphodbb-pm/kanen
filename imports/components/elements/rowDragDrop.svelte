@@ -84,8 +84,6 @@
 
 
 
-
-
 {#if list && list.length}
     <ul>
         {#each list as item, index (getKey(item))}
@@ -109,40 +107,6 @@
         {/each}
     </ul>
 {/if}
-
-
-
-
-
-<!--
-{#if list && list.length}
-    <ul>
-        {#each list as item, index (getKey(item))}
-
-            <li
-                    data-index={index}
-                    data-id={JSON.stringify(getKey(item))}
-                    draggable="true"
-                    on:dragstart={start}
-                    on:dragover={over}
-                    on:dragleave={leave}
-                    on:drop={drop}
-                    in:receive={{ key: getKey(item) }}
-                    out:send={{ key: getKey(item) }}
-                    animate:flip={{ duration: 300 }}
-                    class:over={getKey(item) === isOver}>
-
-                <slot {item} {index}>
-                    <p>{getKey(item)}</p>
-                </slot>
-
-            </li>
-
-        {/each}
-    </ul>
-{/if}
--->
-
 
 
 <style>
