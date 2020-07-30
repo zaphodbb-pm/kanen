@@ -80,7 +80,7 @@
 
 <div class="box">
 
-    <button class="button btn-rounded is-primary mb-3" on:click="{addRow}">
+    <button class="button btn-rounded is-primary mb-3" on:click|preventDefault="{addRow}">
         <Icon icon='{getContext("iconRowAdd")}' class="text-1dot5rem"/>
     </button>
 
