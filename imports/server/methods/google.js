@@ -30,15 +30,40 @@ Meteor.methods({
 
                 let result = HTTP.call("GET", url);
 
-                let geocode = result && result.data && result.data.results ? result.data.results[0] : null;
+                let data = result && result.data && result.data.results ? result.data.results[0] : null;
+                let geocode = {};
+                let addressComponents = {};
 
-                if(geocode){
+                //** convert google labels into our own needs
+                let label = new Map();
+                label.set("street_number", "number");
+                label.set("route", "street");
+                label.set("locality", "city");
+                label.set("administrative_area_level_1", "region");
+                label.set("administrative_area_level_2", "division");
+                label.set("country", "country");
+                label.set("postal_code", "postCode");
+
+                //** build a "parts" field with the address components
+                if(data.address_components && data.address_components.length > 0){
+                    data.address_components.forEach( (ac) => {
+                        let field =  ac.types[0] ? label.get(ac.types[0]) : null;
+
+                        if(field){
+                            addressComponents[field] = ac.long_name;
+                        }
+                    })
+                }
+
+                if(data){
+                    let loc = data.geometry.location;
                     geocode = {
-                        address: geocode.formatted_address,
-                        geometry: geocode.geometry.location,
+                        address: data.formatted_address,
+                        parts: addressComponents,
+                        geometry: loc,
                         geoLocation: {
                             type: "Point",
-                            coordinates: [geocode.geometry.location.lng, geocode.geometry.location.lat]
+                            coordinates: [loc.lng, loc.lat]
                         }
                     }
                 }
