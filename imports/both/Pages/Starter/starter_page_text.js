@@ -46,8 +46,8 @@ export const page = {
 
                 invalidInput:  {
                     prefix: "Can't submit: ",
-                    suffix1: " item needs entered value.",
-                    suffixn: " items need entered values."
+                    suffix1: " item needs your attention: ",
+                    suffixn: " items need your attention: "
                 }
             },
 
