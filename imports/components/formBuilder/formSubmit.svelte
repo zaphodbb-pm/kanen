@@ -35,6 +35,7 @@
     export let btnState;
     export let btnInvalid;
     export let btnCount;
+    export let invalidFields = [];
 
 
     //* reactive variables
@@ -42,8 +43,11 @@
     let formBtnColor =  elements.BG_BUTTON;
     let formBtnColorAlt =  elements.BG_BUTTON_ALT;
     let btnColor =  elements.BG_BUTTON;
+    let errFields = [];
 
     $:  setBtnState(btnState);
+
+    $: errFields = invalidFields;
 
 
     function submit() {
@@ -82,7 +86,12 @@
     </div>
 
     {#if btnInvalid}
-        <p class="has-text-danger">{btnInvText.prefix} {btnCount} {invalidMsg() }</p>
+        <p class="has-text-danger">
+            {btnInvText.prefix} {btnCount} {invalidMsg() }
+            <span class="has-text-weight-semibold">
+                {errFields.join(", ")}.
+            </span>
+        </p>
     {/if}
 </div>
 

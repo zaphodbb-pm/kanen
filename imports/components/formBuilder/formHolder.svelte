@@ -96,7 +96,8 @@
         btnBackShow: false,
         btnState: false,
         btnInvalid: false,
-        btnCount: 0
+        btnCount: 0,
+        invalidFields: []
     };
 
     //** this component's working variables
@@ -232,6 +233,7 @@
 
         //** check for invalid / data not entered fields; create an independent object first
         let invalids = schema.map((fld) => fld);
+        let invalidFields = [];
 
         let valid = invalids.reduce(function (tot, check) {
             const checkVal = newValues[check.field];
@@ -249,6 +251,10 @@
                 isOptional = false;
             }
 
+            if(!isOptional && !test){
+                invalidFields.push( formText[check.field].label);
+            }
+
             return tot + (!isOptional && !test ? 1 : 0);
         }, 0);
 
@@ -256,6 +262,7 @@
         if (valid > 0) {
             submit.btnInvalid = true;
             submit.btnCount = valid;
+            submit.invalidFields = invalidFields;
         } else {
             if (config.preSubmit) {
                 newValues = await config.preSubmit(newValues);
@@ -267,6 +274,7 @@
             submit.btnState = false;
             submit.btnInvalid = false;
             submit.btnCount = 0;
+            submit.invalidFields = [];
 
             //** send completed doc to server insert / update methods
             tabFields.fields = adjFields;

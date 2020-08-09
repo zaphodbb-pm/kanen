@@ -63,7 +63,8 @@
         let addr = await Meteor.callPromise("geoAddress", encodeURIComponent(sel.description) );
 
         if(addr.status === 200 && addr.infoStatus === 200){
-            let out = {address: addr.info.address, geoLocation: addr.info.geoLocation};
+            let info = addr.info;
+            let out = {address: info.address, geoLocation: info.geoLocation, parts: info.parts};
             dispatch('on-inputentry', {value: out, error: false}  );
         }else{
             console.log("getGeocode error", addr);
