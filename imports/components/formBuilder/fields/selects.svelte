@@ -5,7 +5,7 @@
      * @memberof Components:Form
      * @function selects
      * @locus Client
-     * @augments formWrapper
+     * @augments fieldWrapper
      *
      * @param {Object} field
      * @param {Object} field.params1 - {type: "staticSelect", colours: true}

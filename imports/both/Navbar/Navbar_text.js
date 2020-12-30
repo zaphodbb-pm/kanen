@@ -27,7 +27,7 @@ export const navbar = {
         },
 
         notifications: {
-            read: "Read"
+            read: "Dismiss"
         }
     }
 };

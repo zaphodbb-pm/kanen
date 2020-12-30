@@ -5,7 +5,7 @@
      * @memberof Components:Form
      * @function checkboxes
      * @locus Client
-     * @augments formWrapper
+     * @augments fieldWrapper
      *
      * @param {Object} field
      * @param {Object} field.params - {col: number, buttons: true} uses button layout instead of checkboxes
@@ -69,7 +69,7 @@
                            id="{cb.field + '_checkbox_' + cb._id}"
                            class="{inputClass}"
                            title=""
-                           {...field.attributes}
+
                            bind:group={checkedNames}
                            value={cb._id}
                            on:change|stopPropagation="{emitCheckedNames}">

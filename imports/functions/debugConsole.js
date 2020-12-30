@@ -32,10 +32,8 @@
 
 
 
-import { getContext } from 'svelte';
 
-export function debugConsole(level, name, vrbl, label) {
-    let debugOptions = getContext("debugOptions");
+export function debugConsole(level, name, vrbl, label, debugOptions) {
     if(!debugOptions || !Array.isArray(vrbl) ){ return null; }
 
     //** if the debug level is set in SysConfigs.debugLevel, then output message

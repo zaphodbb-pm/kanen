@@ -4,7 +4,7 @@
  * @memberof Components:Form
  * @function registerForm
  * @locus Client
- * @augments formWrapper
+ * @augments fieldWrapper
  *
  * @returns {Object} - Svelte components
  *

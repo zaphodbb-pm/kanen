@@ -134,7 +134,7 @@
         switch (true) {
             case coll === "users":
                 Meteor.call('userMgmtRemove', msg.detail.id, function (err, res) {
-                    methodReturn(err, res, "listHolder userMgmtRemove");
+                    methodReturn(err, res, "listHolder userMgmtRemove", getContext("debugOptions"));
 
                     if (res) {
                         dispatch("delete-doc", msg.detail);
@@ -145,7 +145,7 @@
 
             default:
                 Meteor.call('removeDoc', coll, msg.detail.id, function (err, res) {
-                    methodReturn(err, res, "listHolder removeDoc");
+                    methodReturn(err, res, "listHolder removeDoc", getContext("debugOptions"));
 
                     if (res) {
                         dispatch("delete-doc", msg.detail);
@@ -255,7 +255,7 @@
         );
 
         documents = await getDocs(coll, "listList", combineSearch, f.filterSearch);
-        methodReturn(null, documents, "submit insertDoc");
+        methodReturn(null, documents, "submit insertDoc", getContext("debugOptions") );
         docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${totalDocs})`;
 
         dispatch("list-docs-ready", documents);

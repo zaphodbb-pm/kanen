@@ -5,7 +5,7 @@
      * @memberof Components:Form
      * @function radios
      * @locus Client
-     * @augments formWrapper
+     * @augments fieldWrapper
      *
      * @param {Object} field
      * @param {Object} field.params - {col: number}

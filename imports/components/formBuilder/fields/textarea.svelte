@@ -5,7 +5,7 @@
      * @memberof Components:Form
      * @function textarea
      * @locus Client
-     * @augments formWrapper
+     * @augments fieldWrapper
      *
      * @param {Object} field
      *

@@ -5,7 +5,7 @@
      * @memberof Components:Form
      * @function typeahead
      * @locus Client
-     * @augments formWrapper
+     * @augments fieldWrapper
      *
      * @param {Object} field
      * @param {Object} field.params (static) - {type: "staticSelect", rows: 10}

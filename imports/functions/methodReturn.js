@@ -17,12 +17,12 @@ import {debugConsole} from './debugConsole'
 
 
 //** deals with return values from a server method call
-export function methodReturn(err, res, label) {
+export function methodReturn(err, res, label, options) {
     if (err) {
-        debugConsole("s", `method_${label}`, [ err ], [ "Error" ] );
+        debugConsole("s", `method_${label}`, [ err ], [ "Error" ], options );
     }
     if (res) {
-        debugConsole("s", `method_${label}`, [ res ], [ "Return" ] );
+        debugConsole("s", `method_${label}`, [ res ], [ "Return" ], options );
     }
 }
 

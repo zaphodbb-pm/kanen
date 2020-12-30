@@ -6,7 +6,7 @@
      * @function apikey
      * @locus Client
      * @isTemplate true
-     * @augments formWrapper
+     * @augments fieldWrapper
      *
      * @emits 'on-inputentry', {value: keyValue, error: false}
      *
