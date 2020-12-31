@@ -101,6 +101,8 @@
     let labels = fields;
     let documents = [];
 
+    let debugOptions = $sysConfig.sysDebug;
+
     //* check for imported grid layouts by page
     let ListGrid;
 
@@ -134,7 +136,7 @@
         switch (true) {
             case coll === "users":
                 Meteor.call('userMgmtRemove', msg.detail.id, function (err, res) {
-                    methodReturn(err, res, "listHolder userMgmtRemove", getContext("debugOptions"));
+                    methodReturn(err, res, "listHolder userMgmtRemove", debugOptions);
 
                     if (res) {
                         dispatch("delete-doc", msg.detail);
@@ -145,7 +147,7 @@
 
             default:
                 Meteor.call('removeDoc', coll, msg.detail.id, function (err, res) {
-                    methodReturn(err, res, "listHolder removeDoc", getContext("debugOptions"));
+                    methodReturn(err, res, "listHolder removeDoc", debugOptions);
 
                     if (res) {
                         dispatch("delete-doc", msg.detail);
@@ -255,7 +257,7 @@
         );
 
         documents = await getDocs(coll, "listList", combineSearch, f.filterSearch);
-        methodReturn(null, documents, "submit insertDoc", getContext("debugOptions") );
+        methodReturn(null, documents, "submit insertDoc", debugOptions );
         docCountLabel = `${f.start} - ${f.end} / ${docCounts} (${totalDocs})`;
 
         dispatch("list-docs-ready", documents);

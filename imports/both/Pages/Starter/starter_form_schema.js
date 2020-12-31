@@ -212,7 +212,7 @@ export default [
 
         tab: 0,
         attributes: {},
-        params: {cols: 2, buttons: false},
+        params: {cols: 2, buttons: true},
         defaultValue: [],
     },
 
@@ -236,8 +236,8 @@ export default [
         fieldType: "select",
         optional: true,
 
-        css: "is-fullwidth",
         tab: 1,
+        css: "is-fullwidth",
         attributes: {},
         params: {type: "staticSelect", colours: true},
         defaultValue: {_id: "all", name: "All Options"},
@@ -266,6 +266,7 @@ export default [
         optional: true,
 
         tab: 1,
+        css: "is-fullwidth",
         attributes: {},
         params: {type: "staticSelect", rows: 10},
         defaultValue: {_id: "", name: ""},
@@ -275,8 +276,9 @@ export default [
         field: "startDynamicTypeahead",
         fieldType: "typeahead",
         optional: true,
-
         tab: 1,
+
+        css: "is-fullwidth",
         attributes: {},
         params: {
             type: "dynamicSelect",

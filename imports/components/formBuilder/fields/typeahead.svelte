@@ -17,7 +17,7 @@
      *
      */
 
-            //* common props from parent
+    //* common props from parent
     export let field = {};
 
     //* support functions
@@ -26,6 +26,31 @@
     const dispatch = createEventDispatcher();
     let formText = getContext("formText");
     let source = formText[field.field] && formText[field.field].selects ? formText[field.field].selects : [];
+
+    let rows = field?.params?.rows ?? 5;
+    let selValue = typeof field.value !== "string" ? field.value : {_id: "none", name: "None"};
+
+
+    console.log("typeahead", field, rows, selValue);
+
+
+    /*
+    query: '',
+
+
+                setList: this.setSelects(),
+                searchField: this.parms && this.parms.search ? this.parms.search : false,
+                searchType: this.parms && this.parms.type ? this.parms.type : false,
+                rows: this.parms && this.parms.rows ? this.parms.rows : 5,
+                selValue: typeof this.value !== "string" ? this.value : {_id: "none", name: "None"},
+
+                newSource: []
+
+     */
+
+
+
+
 
     //* local reactive variable
     let query = '';
@@ -54,7 +79,6 @@
         }
     }
 
-
     function emitSelect(sel) {
         let pos = matches.indexOf(sel);
 
@@ -66,6 +90,18 @@
         hint = sel;
 
         dispatch('on-inputentry', {value: out, error: false}  );
+    }
+
+    //* if length of items is less than parms.rows, use a select dropdown style
+    function emitDropdown(selId) {
+        let item = selId ? setList.find( sl => sl._id === selId) : null;
+
+        console.log("emitDropdown", selId, item);
+
+        if(item){
+            let out = {_id: item._id, name: item.name};
+            dispatch('on-inputentry', {value: out, error: false}  );
+        }
     }
 
     //* functions that mutate local variables
@@ -110,6 +146,22 @@
             });
         }
     }
+
+
+
+    /*
+
+    //* event handlers
+    function emitSelect(selId) {
+        let item = source.find( (s) => s._id === selId );       // get text for _id values
+        let out =  {_id: item._id, name: item.name};
+
+        dispatch('on-inputentry', {value: out, error: false}  );
+    }
+
+     */
+
+
 
 
     function getMatches(query) {
@@ -187,23 +239,42 @@
 
 
 <div class="vbta">
-    <input type="text" readonly
-           class="input vbta-hint {matches.length > 0 ? 'visible' : '' }"
-           bind:value="{hint}">
 
-    <input type="text" class="input vbta-input"
-           bind:value="{query}"
-           on:keyup="{checkQuery}">
+    {#if setList && setList.length <= rows}
+        <div class="select {field.css}">
+            <select {...field.attributes}
+                    bind:value="{selValue}"
+                    on:change="{() => emitDropdown(selValue) }">
 
-    <div class="vbta-menu {matches.length && !selected ? 'visible' : ''}">
-        <ul>
-            {#each matches as match}
-                <li class="vbta-suggestion" on:click="{ () => emitSelect(match)}">
-                    <span>{@html match}</span>
-                </li>
-            {/each}
-        </ul>
-    </div>
+                {#each setList as optSelect}
+                    <option value="{optSelect._id}">
+                        {optSelect.name}
+                    </option>
+                {/each}
+
+            </select>
+        </div>
+
+    {:else}
+        <input type="text" readonly
+               class="input vbta-hint {matches.length > 0 ? 'visible' : '' }"
+               bind:value="{hint}">
+
+        <input type="text" class="input vbta-input"
+               bind:value="{query}"
+               on:keyup="{checkQuery}">
+
+        <div class="vbta-menu {matches.length && !selected ? 'visible' : ''}">
+            <ul>
+                {#each matches as match}
+                    <li class="vbta-suggestion" on:click="{ () => emitSelect(match)}">
+                        <span>{@html match}</span>
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    {/if}
+
 </div>
 
 
