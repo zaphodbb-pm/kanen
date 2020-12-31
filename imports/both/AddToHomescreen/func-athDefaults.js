@@ -35,6 +35,7 @@ export const athDefaults = {
     startDelay: 1, // display the message after that many seconds from page load
     lifespan: 15, // life of the message in seconds
     displayPace: 1440, // minutes before the message is shown again (0: display every time, default 24 hours)
+    //displayPace: 0,
     displayNextPrime: false,
     mustShowCustomPrompt: false,
     maxDisplayCount: 0, // absolute maximum number of times the message will be shown to the user (0: no limit)

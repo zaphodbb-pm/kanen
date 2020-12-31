@@ -19,7 +19,7 @@
 export const layout = {
     TOP_NAV: false,                                 // turns off top nav bar links; side nav only
     SECONDARY_LOGO: false,                          // secondary logo support (optional)
-    SHORTCUTS: true                                 // builds  short cut menu that is in navbar; mobile has shortcuts at bottom
+    SHORTCUTS: true                                 // builds  short cut menu that is in Navbar; mobile has shortcuts at bottom
 }
 
 export const documents = {

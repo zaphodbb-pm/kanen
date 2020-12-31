@@ -20,7 +20,7 @@
 
         //** app support files
         import { setContext } from 'svelte';
-        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
+        import PageWrapper from '/imports/both/PageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
 

@@ -31,7 +31,7 @@
     session = session ? JSON.parse( session ) : defaultSession;
 
     if ( session && session.added ) {
-        console.log("session exists", session);
+        console.log("ath: session exists", session);
     }
 
 
@@ -41,16 +41,16 @@
             modalOpen = true;
         },
         onInit: function (ath) {
-            console.log( "initializing");
+            console.log( "ath: initializing");
         },
         onAdd: function () {
-            console.log( "adding" );
+            console.log( "ath: adding" );
         },
         onInstall: function () {
-            console.log( "Installing" );
+            console.log( "ath: installing" );
         },
         onCancel: function () {
-            console.log( "Cancelling" );
+            console.log( "ath: cancelling" );
         },
 
         //displayPace: 0,
@@ -101,7 +101,7 @@
     if ( "serviceWorker" in navigator ) {
         let manifestEle = document.querySelector( "[rel='manifest']" );
         if ( !manifestEle ) {
-            console.log( "no manifest file" );
+            console.log( "pwa: no manifest file" );
             platform.isCompatible = false;
         }
 
@@ -171,7 +171,7 @@
                     session.added = ( choiceResult.outcome === "accepted" );
 
                     if ( session.added ) {
-                        ath.doLog( "User accepted the A2HS prompt" );
+                        ath.doLog( "ath: User accepted the A2HS prompt" );
 
                         if ( ath.options.onAdd ) {
                             ath.options.onAdd();
@@ -183,7 +183,7 @@
                         }
 
                         session.optedout = true;
-                        ath.doLog( "User dismissed the A2HS prompt" );
+                        ath.doLog( "ath: User dismissed the A2HS prompt" );
                     }
 
                     ath.updateSession();
@@ -195,7 +195,7 @@
                     if ( err.message.indexOf( "user gesture" ) > -1 ) {
                         ath.options.mustShowCustomPrompt = true;
                         _delayedShow(ath);
-                    } else if ( err.message.indexOf( "The app is already installed" ) > -1 ) {
+                    } else if ( err.message.indexOf( "ath: The app is already installed" ) > -1 ) {
 
                         console.log( err.message );
                         session.added = true;
@@ -212,7 +212,7 @@
         ath.sw = sw;
 
         if ( !ath.sw ) {
-            console.log( "no service worker" );
+            console.log( "pwa: no service worker" );
             platform.isCompatible = false;
         }
 
@@ -247,7 +247,7 @@
         }
 
         if ( ath.options.autostart ) {
-            ath.doLog( "Add to homescreen: autostart displaying callout" );
+            ath.doLog( "ath: autostart displaying callout" );
             ath.show();
 
         } else if ( !nativePrompt ) {
@@ -256,7 +256,7 @@
     }
 
     function beforeInstallPrompt( evt ) {
-        console.log( "capturing the native A2HS prompt");
+        console.log( "ath: capturing the native A2HS prompt");
 
         evt.preventDefault();
         _beforeInstallPrompt = evt;

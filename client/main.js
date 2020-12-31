@@ -40,7 +40,7 @@ Meteor.startup(() => {
 
 
 //* load svelte framework
-import App from '../imports/both/pageStructure/App.svelte'
+import App from '/imports/both/PageStructure/App.svelte'
 
 const app = new App({
     target: document.getElementById("svelte-app-top"),

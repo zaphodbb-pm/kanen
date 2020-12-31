@@ -12,7 +12,7 @@
 
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
-import MainPage from '/imports/both/pageStructure/MainPage.svelte'
+import MainPage from '/imports/both/PageStructure/MainPage.svelte'
 
 import {nav, link, icon, roles} from './cards_nav'
 import Page from './cards_loader.svelte';

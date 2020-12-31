@@ -41,6 +41,7 @@ import MiniWiki from '/imports/both/Pages/Learn/learn_route'
 
 import Cards from '/imports/both/Pages/Cards/cards_route'
 import Tabs from '/imports/both/Pages/WidgetsContent/widgetsContent_route'
+
 import Widgets from '/imports/both/Pages/Widgets/widgets_route'
 import Starter from '/imports/both/Pages/Starter/starter_page_route'
 import Login from '/imports/both/Pages/Login/login_route'

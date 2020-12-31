@@ -21,7 +21,7 @@
 
         //** app support files
         import { setContext, getContext, onMount, onDestroy } from 'svelte';
-        import PageWrapper from '/imports/both/pageStructure/PageWrapper.svelte'
+        import PageWrapper from '/imports/both/PageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
 

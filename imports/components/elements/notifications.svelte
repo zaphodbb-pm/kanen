@@ -1,6 +1,6 @@
 <script>
     /**
-     * Notifications widget for navbar.
+     * Notifications widget for Navbar.
      *
      * @memberof Components:Elements
      * @function interest

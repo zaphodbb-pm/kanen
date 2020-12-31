@@ -15,7 +15,7 @@
 
 import {getLang} from '/imports/functions/getLang'
 import {i18n} from '/imports/functions/i18n'
-import MainPage from '/imports/both/pageStructure/MainPage.svelte'
+import MainPage from '/imports/both/PageStructure/MainPage.svelte'
 
 import {nav, link, icon, roles} from './starter_page_nav'
 import Page from './starter_page_loader.svelte'

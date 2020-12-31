@@ -1,7 +1,7 @@
 <script>
 
     /**
-     * MainPage creates the page pageStructure
+     * MainPage creates the page PageStructure
      *
      * @memberof Structure:Client
      * @function MainPage
