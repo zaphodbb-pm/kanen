@@ -16,8 +16,6 @@
 import '/imports/both/collections'
 
 
-
-
 //* prepare to add PWA through service worker
 import { Meteor } from 'meteor/meteor'
 
