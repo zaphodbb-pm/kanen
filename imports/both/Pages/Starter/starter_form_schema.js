@@ -39,6 +39,14 @@
  *          startList =             Array: of text strings
  *          startFieldset =         Array: of objects of input fields
  *
+ *      Automatically added by system during submit phase:
+ *          author =                String: unique user id
+ *          authorName =            String: author name or username
+ *          authorFullName =        String: First Name + Last Name from user profile
+ *          sortName =              String: document name in lower case to make sorting case independent
+ *          tenantId =              String: user tenantId when in multi-tenant mode
+ *          updatedAt =             Number: epoch timestamp
+ *
  * Config Object:
  *              field: "startDynamicSelect",        String: field name in database
  *              fieldType: "select",                String: see fieldWrapper notes
@@ -282,7 +290,7 @@ export default [
         attributes: {},
         params: {
             type: "dynamicSelect",
-            rows: 10,
+            rows: 3,
             coll: "starter",
             filter: {fields: {_id: 1, name: 1}},
             options: {sort: {name: 1}}

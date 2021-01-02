@@ -15,6 +15,10 @@
      *
      * @see Based on work by {@link https://github.com/mattrosendin/vue-bulma-typeahead|Matt Rosendin}
      *
+     * @notes
+     *      1. If the number of items is less than the "field.params.rows" value,
+     *         this component will display a select box
+     *
      */
 
     //* common props from parent
@@ -28,29 +32,7 @@
     let source = formText[field.field] && formText[field.field].selects ? formText[field.field].selects : [];
 
     let rows = field?.params?.rows ?? 5;
-    let selValue = typeof field.value !== "string" ? field.value : {_id: "none", name: "None"};
-
-
-    console.log("typeahead", field, rows, selValue);
-
-
-    /*
-    query: '',
-
-
-                setList: this.setSelects(),
-                searchField: this.parms && this.parms.search ? this.parms.search : false,
-                searchType: this.parms && this.parms.type ? this.parms.type : false,
-                rows: this.parms && this.parms.rows ? this.parms.rows : 5,
-                selValue: typeof this.value !== "string" ? this.value : {_id: "none", name: "None"},
-
-                newSource: []
-
-     */
-
-
-
-
+    let selValue = typeof field.value === "object" ? field.value : {_id: "", name: ""};
 
     //* local reactive variable
     let query = '';
@@ -96,8 +78,6 @@
     function emitDropdown(selId) {
         let item = selId ? setList.find( sl => sl._id === selId) : null;
 
-        console.log("emitDropdown", selId, item);
-
         if(item){
             let out = {_id: item._id, name: item.name};
             dispatch('on-inputentry', {value: out, error: false}  );
@@ -112,10 +92,12 @@
             ids = [];
             hint = "";
             selected = false;
+            selValue = {_id: "", name: ""};
         } else {
             hint = val.name;
             query = val.name;
             selected = true;
+            selValue = typeof val === "object" ? val : {_id: "", name: ""};
         }
     }
 
@@ -123,18 +105,19 @@
         let type = field.params && field.params.type ? field.params.type : false;
 
         if (type && type === "dynamicSelect") {
-            let query = field.params && field.params.query ? field.params.query : {};
+            let queryDynamic = field.params && field.params.query ? field.params.query : {};
             let filter = field.params.filter ? field.params.filter : {};
+            filter = Object.assign(filter, {sort: {sortName: 1} });
 
             //** a database dip has a long latency; use promises / await to synchronize updates
-            getSelects(field.params.coll, query, filter);
+            getSelects(field.params.coll, queryDynamic, filter);
         } else {
             setList = source ? source : [];
         }
     }
 
-    async function getSelects(coll, query, filter) {
-        setList = await getDocs(coll, "select", query, filter);
+    async function getSelects(coll, q, filter) {
+        setList = await getDocs(coll, "select", q, filter);
 
         if (setList) {
             setList = setList.map(function (s) {
@@ -146,23 +129,6 @@
             });
         }
     }
-
-
-
-    /*
-
-    //* event handlers
-    function emitSelect(selId) {
-        let item = source.find( (s) => s._id === selId );       // get text for _id values
-        let out =  {_id: item._id, name: item.name};
-
-        dispatch('on-inputentry', {value: out, error: false}  );
-    }
-
-     */
-
-
-
 
     function getMatches(query) {
         if (query) {
@@ -241,10 +207,12 @@
 <div class="vbta">
 
     {#if setList && setList.length <= rows}
-        <div class="select {field.css}">
+        <label class="select {field.css}">
             <select {...field.attributes}
-                    bind:value="{selValue}"
-                    on:change="{() => emitDropdown(selValue) }">
+                    bind:value="{selValue._id}"
+                    on:change="{() => emitDropdown(selValue._id) }">
+
+                <option value=""></option>
 
                 {#each setList as optSelect}
                     <option value="{optSelect._id}">
@@ -253,16 +221,18 @@
                 {/each}
 
             </select>
-        </div>
+        </label>
 
     {:else}
-        <input type="text" readonly
-               class="input vbta-hint {matches.length > 0 ? 'visible' : '' }"
-               bind:value="{hint}">
+        <label>
+            <input type="text" readonly
+                   class="input vbta-hint {matches.length > 0 ? 'visible' : '' }"
+                   bind:value="{hint}">
 
-        <input type="text" class="input vbta-input"
-               bind:value="{query}"
-               on:keyup="{checkQuery}">
+            <input type="text" class="input vbta-input"
+                   bind:value="{query}"
+                   on:keyup="{checkQuery}">
+        </label>
 
         <div class="vbta-menu {matches.length && !selected ? 'visible' : ''}">
             <ul>
