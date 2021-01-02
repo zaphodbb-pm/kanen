@@ -53,7 +53,7 @@ self.addEventListener('fetch', (event) => {
           })));
         }
 
-        caches.open(version).then(cache => cache.put(event.request, clonedResponse));
+        //caches.open(version).then(cache => cache.put(event.request, clonedResponse));
       }
       return response;
     }).catch(() => {

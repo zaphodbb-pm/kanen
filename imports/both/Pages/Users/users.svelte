@@ -20,7 +20,6 @@
         import {pageConfig} from './users_config'
 
         //** app support files
-        import { onMount} from 'svelte';
         import PageWrapper from '/imports/both/PageStructure/PageWrapper.svelte'
 
     //* end of page boilerplate *************************************
@@ -29,61 +28,15 @@
     //* page-body support **************************
     import {i18n} from '/imports/functions/i18n'
     import {lang} from '/imports/client/systemStores'
+    import {deepClone} from '/imports/functions/deepClone'
 
     import schema from './users_form_schema'
-    import Form_Holder from '/imports/components/formBuilder/formHolder.svelte'
-
     import listArray from './users_list'
-    import List_Holder from '/imports/components/listCollections/listHolder.svelte'
+    import List_Form from '/imports/components/listForm/listForm.svelte'
 
     let formText = i18n(page, "form", $lang);
     let listText = i18n(page, "list", $lang);
-
-    let conf = pageConfig;
-    let role = "";
-    let editdoc = {};
-    let directdoc = {};
-
-    let sort = listArray.sort;
-    let fields = listArray.fields;
-    let submitted = false;
-    let currentDoc = {};
-    let showList = false;
-    let showForm = false;
-    let releaseEdit = false;
-
-
-    //* lifecycle controls
-    onMount( () => {
-        showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
-        showForm = !conf.form.hasOverlay;
-    });
-
-
-    //* functions that mutate reactive variables
-    function checkOverlay() {
-        showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
-        showForm = !conf.form.hasOverlay;
-        releaseEdit = true;
-    }
-
-    function docToEdit(msg) {
-        currentDoc = msg.detail;
-        editdoc = msg.detail;
-
-        if(!releaseEdit){
-            showList = !conf.list.hasOverlay;
-            showForm = !conf.list.hasOverlay || !!conf.form.hasOverlay;
-        }
-
-        releaseEdit = false;
-    }
-
-    function docSent(){
-        showList = !!conf.list.hasOverlay || !conf.form.hasOverlay;
-        showForm = !conf.form.hasOverlay;
-        releaseEdit = true;
-    }
+    let conf = deepClone(pageConfig);
 
 </script>
 
@@ -92,30 +45,13 @@
 
 <PageWrapper {header} >
 
-    <div class="columns">
-        <article class="column is-6" class:is-hidden={!showList}>
-            <List_Holder
-                    config="{conf.list}"
-                    {listText}
-                    {fields}
-                    {sort}
-                    submitted="{releaseEdit}"
-                    on:send-doc="{docToEdit}"/>
-
-        </article>
-
-        <article class="column is-6" class:is-hidden={!showForm}>
-            <Form_Holder
-                    config="{conf.form}"
-                    {formText}
-                    {schema}
-                    {role}
-                    {editdoc}
-                    {directdoc}
-                    on:back-to-list="{checkOverlay}"
-                    on:doc-submitted="{docSent}"/>
-
-        </article>
-    </div>
+    <List_Form
+            confList="{conf.list}"
+            listArray="{listArray}"
+            listText="{listText}"
+            confForm="{conf.form}"
+            schema="{schema}"
+            formText="{formText}"
+    />
 
 </PageWrapper>

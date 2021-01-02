@@ -4,7 +4,7 @@
  * @memberof Pages:Users
  * @function users_form_schema
  * @locus Anywhere
- * @augments users_page
+ * @augments users
  *
  * @returns {Array} - array of field configuration objects
  *
@@ -56,7 +56,7 @@ export default [
         tab: 0,
         group: null,
 
-        attributes: {type: "text", maxlength: 128},
+        attributes: {type: "password", maxlength: 128, autocomplete: "password-main"},
         params: {},
         optional: true,
         defaultValue: "",

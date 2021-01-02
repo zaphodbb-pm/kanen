@@ -25,3 +25,4 @@ accounts-password@1.6.3
 accounts-google@1.3.3
 service-configuration@1.0.11
 kschingiz:publish-aggregations
+mdg:meteor-apm-agent

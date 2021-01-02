@@ -155,7 +155,7 @@ export default [
         optional: true,
         tab: 0,
 
-        attributes: {type: "password"},
+        attributes: {type: "password", autocomplete: "password-main"},
         params: {},
         defaultValue: "",
     },
