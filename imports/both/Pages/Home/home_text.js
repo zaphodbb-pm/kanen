@@ -86,10 +86,10 @@ export const page = {
                 title: "Main Packages",
 
                 body: [
-                    "Meteor 1.10.2",
-                    "MongoDB 4.2.5",
-                    "Bulma 0.9.0 imported as separate files to allow for customization",
-                    "Svelte 3.21",
+                    "Meteor 1.12",
+                    "MongoDB 4.2.1",
+                    "Bulma 0.9.1 imported as separate files to allow for customization",
+                    "Svelte 3.27",
                     "Svelte-router-spa",
                     "Svelte-loadable to reduce initial bundle size.",
                     "Uses selected Lineawesome svg icons to minimize bundle size",

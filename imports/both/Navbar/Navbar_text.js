@@ -42,7 +42,7 @@ export const gdpr = {
             "how you interact with our website and allow us to remember you. We use this information in order to improve and " +
             "customize your browsing experience.  " +
             "If you decline, your information won’t be tracked when you visit this website.  " +
-            "Learn more about how to <a href='https://cookiesandyou.com/' target='_blank'>manage</a> your cookies.",
+            'Learn more about how to <a href="https://cookiesandyou.com/" target="_blank" rel="noopener">manage</a> your cookies.',
 
         btnAccept: "Accept",
 

@@ -3,7 +3,7 @@
      * @summary Layout insert for Home page.
      *
      * @memberof Pages:Home
-     * @function home_insert
+     * @function home
      * @locus Client
      *
      */
@@ -47,7 +47,7 @@
 
             <div class="column">
                 <figure class="mb-3 has-text-right">
-                    <img src="/home-page.jpg" class="" style="max-width: 200rem;">
+                    <img src="/home-page.jpg" class="" style="max-width: 200rem;" alt="home-image">
                 </figure>
             </div>
         </div>

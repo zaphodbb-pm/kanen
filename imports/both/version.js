@@ -15,8 +15,8 @@
 
 export default{
     APP_NAME: "Kanen",                          // application name
-    VERSION: "0.2.3",                           // current version number
-    LAST_UPDATE:  "Dec 30 / 2020",              // the most recent update date
+    VERSION: "0.2.4",                           // current version number
+    LAST_UPDATE:  "Jan 2 / 2020",               // the most recent update date
     COPYRIGHT: "2021",                          // adjustable copyright notice
 }
 
