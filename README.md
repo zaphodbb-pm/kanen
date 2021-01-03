@@ -10,7 +10,7 @@ It is also an opinionated view of the work that needs to get done.  This package
 We hope you find this package useful to jump start your exploration of Svelte running on Meteor.
 
 # Demo Site
-The demo site is located at a [DigitalOcean](http://159.203.26.214/home) data centre.  Sign-in with email: ‘test-user@example.com'  password:  ‘test-user-kanen’.
+The demo site is located at a [Galaxy/Atlas](https://kanen.meteorapp.com/home) data centre.  Sign-in with email: ‘test-user@example.com'  password:  ‘test-user-kanen’.
 
 # Main Features
 This application is a Meteor distribution built with a minimal number of Atmosphere packages and npm distributions.  The key major frameworks are Meteor, Svelte and Bulma for CSS.  The application has also been structured to provide a fast load time.
